@@ -1,0 +1,2239 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="Android Resources">
+      
+      
+        <link rel="canonical" href="https://guides.peruzal.com/xamarin-forms-guide/android-resources/">
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.0">
+    
+    
+      
+        <title>Understanding App Resources - Android Mobile App Development Guide</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.0284f74d.css">
+      
+        <link rel="stylesheet" href="../assets/stylesheets/application-palette.01803549.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#ffa000">
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.74668098.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../assets/fonts/material-icons.css">
+    
+    
+    
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="amber" data-md-color-accent="deep-orange">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#android-resources" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://guides.peruzal.com/xamarin-forms-guide" title="Android Mobile App Development Guide" class="md-header-nav__button md-logo">
+          
+            <img src="../images/logo-lines.png" width="24" height="24">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              Android Mobile App Development Guide
+            </span>
+            <span class="md-header-nav__topic">
+              
+                Understanding App Resources
+              
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/Peruzal/xamarin-forms-guide/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    Github
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://guides.peruzal.com/xamarin-forms-guide" title="Android Mobile App Development Guide" class="md-nav__button md-logo">
+      
+        <img src="../images/logo-lines.png" width="48" height="48">
+      
+    </a>
+    Android Mobile App Development Guide
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/Peruzal/xamarin-forms-guide/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    Github
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Getting Started" class="md-nav__link">
+      Getting Started
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../project-structure/" title="Android Project Structure" class="md-nav__link">
+      Android Project Structure
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Understanding App Resources
+      </label>
+    
+    <a href="./" title="Understanding App Resources" class="md-nav__link md-nav__link--active">
+      Understanding App Resources
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#understanding-app-resources" title="Understanding App Resources" class="md-nav__link">
+    Understanding App Resources
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#types-of-resources" title="Types of Resources" class="md-nav__link">
+    Types of Resources
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#organizing-resources" title="Organizing Resources" class="md-nav__link">
+    Organizing Resources
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#providing-app-resources" title="Providing App Resources" class="md-nav__link">
+    Providing App Resources
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#defining-a-string-resource" title="Defining a String Resource" class="md-nav__link">
+    Defining a String Resource
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#referencing-an-app-resource" title="Referencing an App Resource" class="md-nav__link">
+    Referencing an App Resource
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#defining-color-resources" title="Defining Color Resources" class="md-nav__link">
+    Defining Color Resources
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#defining-dimension-resources" title="Defining Dimension Resources" class="md-nav__link">
+    Defining Dimension Resources
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dynamic-resource-retrieval" title="Dynamic Resource Retrieval" class="md-nav__link">
+    Dynamic Resource Retrieval
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#more-resource-types" title="More Resource Types" class="md-nav__link">
+    More Resource Types
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bool" title="Bool" class="md-nav__link">
+    Bool
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file-location" title="File Location" class="md-nav__link">
+    File Location
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resource-reference" title="Resource Reference" class="md-nav__link">
+    Resource Reference
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#syntax" title="Syntax" class="md-nav__link">
+    Syntax
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example" title="Example" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#color" title="Color" class="md-nav__link">
+    Color
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resource-reference_1" title="Resource Reference" class="md-nav__link">
+    Resource Reference
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#syntax_1" title="Syntax" class="md-nav__link">
+    Syntax
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_1" title="Example" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dimension" title="Dimension" class="md-nav__link">
+    Dimension
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resource-reference_2" title="Resource Reference" class="md-nav__link">
+    Resource Reference
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#syntax_2" title="Syntax" class="md-nav__link">
+    Syntax
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_2" title="Example" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#id" title="ID" class="md-nav__link">
+    ID
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_3" title="Example" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integer" title="Integer" class="md-nav__link">
+    Integer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integer-array" title="Integer Array" class="md-nav__link">
+    Integer Array
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#typed-array" title="Typed Array" class="md-nav__link">
+    Typed Array
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#providing-alternate-resources" title="Providing Alternate Resources" class="md-nav__link">
+    Providing Alternate Resources
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#responsive-design" title="Responsive Design" class="md-nav__link">
+    Responsive Design
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#introducing-alternate-resources" title="Introducing Alternate Resources" class="md-nav__link">
+    Introducing Alternate Resources
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#understanding-qualifiers" title="Understanding Qualifiers" class="md-nav__link">
+    Understanding Qualifiers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-alternate-resources" title="Creating Alternate Resources" class="md-nav__link">
+    Creating Alternate Resources
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#determining-configuration-at-runtime" title="Determining Configuration at Runtime" class="md-nav__link">
+    Determining Configuration at Runtime
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alternate-layout-files" title="Alternate Layout Files" class="md-nav__link">
+    Alternate Layout Files
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#layout-best-practices" title="Layout Best Practices" class="md-nav__link">
+    Layout Best Practices
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alias-resources" title="Alias Resources" class="md-nav__link">
+    Alias Resources
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#best-resource-match" title="Best Resource Match" class="md-nav__link">
+    Best Resource Match
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Android Common View
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        Android Common View
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/view-attributes/" title="View Attributes" class="md-nav__link">
+      View Attributes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/textview/" title="TextView" class="md-nav__link">
+      TextView
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/button/" title="Button" class="md-nav__link">
+      Button
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/edittext/" title="EditText" class="md-nav__link">
+      EditText
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/image-view/" title="ImageView" class="md-nav__link">
+      ImageView
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/image-button/" title="ImageButton" class="md-nav__link">
+      ImageButton
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/radio-button/" title="RadioButton" class="md-nav__link">
+      RadioButton
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/view/" title="View" class="md-nav__link">
+      View
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/spinner/" title="Spinner" class="md-nav__link">
+      Spinner
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/checkbox/" title="CheckBox" class="md-nav__link">
+      CheckBox
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/switch/" title="Switch" class="md-nav__link">
+      Switch
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/seek-bar/" title="SeekBar" class="md-nav__link">
+      SeekBar
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/rating-bar/" title="RatingBar" class="md-nav__link">
+      RatingBar
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/progress-bar/" title="ProgressBar" class="md-nav__link">
+      ProgressBar
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/search-view/" title="SearchView" class="md-nav__link">
+      SearchView
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Layouts
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        Layouts
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../layouts/overview/" title="Layouts Overview" class="md-nav__link">
+      Layouts Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../layouts/linear-layout/" title="Linear Layout" class="md-nav__link">
+      Linear Layout
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../layouts/relative-layout/" title="Relative Layout" class="md-nav__link">
+      Relative Layout
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../layouts/frame-layout/" title="Frame Layout" class="md-nav__link">
+      Frame Layout
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../layouts/layout-prformance/" title="Optimizing Layout Performance" class="md-nav__link">
+      Optimizing Layout Performance
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../activities/" title="Activities" class="md-nav__link">
+      Activities
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      Navigation
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        Navigation
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../navigation/common-navigation-patterns/" title="Common Navigation Patterns" class="md-nav__link">
+      Common Navigation Patterns
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../navigation/intents/" title="Navigation with Intents" class="md-nav__link">
+      Navigation with Intents
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../navigation/swipe-tabbed-navigation/" title="Swipe and Tabbed Navigation" class="md-nav__link">
+      Swipe and Tabbed Navigation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../navigation/navigation-drawer/" title="Navigation Drawer" class="md-nav__link">
+      Navigation Drawer
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../navigation/bottom-navigation/" title="Bottom Navigation" class="md-nav__link">
+      Bottom Navigation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../navigation/task-stacks/" title="Navigation and Task Stacks" class="md-nav__link">
+      Navigation and Task Stacks
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../navigation/common-intents/" title="Common Intents" class="md-nav__link">
+      Common Intents
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../fragments/" title="Fragments" class="md-nav__link">
+      Fragments
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../common-intents/" title="Common Intents" class="md-nav__link">
+      Common Intents
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../android-permissions/" title="Understanding Android Permissions" class="md-nav__link">
+      Understanding Android Permissions
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../networking/" title="Networking" class="md-nav__link">
+      Networking
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#understanding-app-resources" title="Understanding App Resources" class="md-nav__link">
+    Understanding App Resources
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#types-of-resources" title="Types of Resources" class="md-nav__link">
+    Types of Resources
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#organizing-resources" title="Organizing Resources" class="md-nav__link">
+    Organizing Resources
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#providing-app-resources" title="Providing App Resources" class="md-nav__link">
+    Providing App Resources
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#defining-a-string-resource" title="Defining a String Resource" class="md-nav__link">
+    Defining a String Resource
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#referencing-an-app-resource" title="Referencing an App Resource" class="md-nav__link">
+    Referencing an App Resource
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#defining-color-resources" title="Defining Color Resources" class="md-nav__link">
+    Defining Color Resources
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#defining-dimension-resources" title="Defining Dimension Resources" class="md-nav__link">
+    Defining Dimension Resources
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dynamic-resource-retrieval" title="Dynamic Resource Retrieval" class="md-nav__link">
+    Dynamic Resource Retrieval
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#more-resource-types" title="More Resource Types" class="md-nav__link">
+    More Resource Types
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bool" title="Bool" class="md-nav__link">
+    Bool
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file-location" title="File Location" class="md-nav__link">
+    File Location
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resource-reference" title="Resource Reference" class="md-nav__link">
+    Resource Reference
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#syntax" title="Syntax" class="md-nav__link">
+    Syntax
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example" title="Example" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#color" title="Color" class="md-nav__link">
+    Color
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resource-reference_1" title="Resource Reference" class="md-nav__link">
+    Resource Reference
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#syntax_1" title="Syntax" class="md-nav__link">
+    Syntax
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_1" title="Example" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dimension" title="Dimension" class="md-nav__link">
+    Dimension
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resource-reference_2" title="Resource Reference" class="md-nav__link">
+    Resource Reference
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#syntax_2" title="Syntax" class="md-nav__link">
+    Syntax
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_2" title="Example" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#id" title="ID" class="md-nav__link">
+    ID
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_3" title="Example" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integer" title="Integer" class="md-nav__link">
+    Integer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integer-array" title="Integer Array" class="md-nav__link">
+    Integer Array
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#typed-array" title="Typed Array" class="md-nav__link">
+    Typed Array
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#providing-alternate-resources" title="Providing Alternate Resources" class="md-nav__link">
+    Providing Alternate Resources
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#responsive-design" title="Responsive Design" class="md-nav__link">
+    Responsive Design
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#introducing-alternate-resources" title="Introducing Alternate Resources" class="md-nav__link">
+    Introducing Alternate Resources
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#understanding-qualifiers" title="Understanding Qualifiers" class="md-nav__link">
+    Understanding Qualifiers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-alternate-resources" title="Creating Alternate Resources" class="md-nav__link">
+    Creating Alternate Resources
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#determining-configuration-at-runtime" title="Determining Configuration at Runtime" class="md-nav__link">
+    Determining Configuration at Runtime
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alternate-layout-files" title="Alternate Layout Files" class="md-nav__link">
+    Alternate Layout Files
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#layout-best-practices" title="Layout Best Practices" class="md-nav__link">
+    Layout Best Practices
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alias-resources" title="Alias Resources" class="md-nav__link">
+    Alias Resources
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#best-resource-match" title="Best Resource Match" class="md-nav__link">
+    Best Resource Match
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/Peruzal/xamarin-forms-guide/edit/master/docs/android-resources.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="android-resources">Android Resources<a class="headerlink" href="#android-resources" title="Permanent link">&para;</a></h1>
+<h2 id="understanding-app-resources">Understanding App Resources<a class="headerlink" href="#understanding-app-resources" title="Permanent link">&para;</a></h2>
+<p>In Android, almost everything is a <strong>resource</strong>. <a href="http://developer.android.com/guide/topics/resources/providing-resources.html">Defining resources</a> that you can then <a href="http://developer.android.com/guide/topics/resources/accessing-resources.html">access in your app</a> is an essential part of Android development.</p>
+<p>Resources are used for anything from defining colors, images, layouts, menus, and string values. The value of this is that nothing is hardcoded. Everything is defined in these resource files and then can be referenced within your application's code. The simplest of these resources and the most common is using <strong>string resources</strong> to allow for flexible, localized text. </p>
+<h3 id="types-of-resources">Types of Resources<a class="headerlink" href="#types-of-resources" title="Permanent link">&para;</a></h3>
+<p>The following are the most common types of resources within Android apps:</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Folder</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Property Animations</td>
+<td>animator</td>
+<td>XML files that define property animations.</td>
+</tr>
+<tr>
+<td>Tween Animations</td>
+<td>anim</td>
+<td>XML files that define tween animations.</td>
+</tr>
+<tr>
+<td>Drawables</td>
+<td>drawable</td>
+<td>Bitmap files or XML files that act as graphics</td>
+</tr>
+<tr>
+<td>Layout</td>
+<td>layout</td>
+<td>XML files that define a user interface layout</td>
+</tr>
+<tr>
+<td>Menu</td>
+<td>menu</td>
+<td>XML files that define menus or action bar items</td>
+</tr>
+<tr>
+<td>Values</td>
+<td>values</td>
+<td>XML files with values such as strings, integers, and colors.</td>
+</tr>
+</tbody>
+</table>
+<p>In addition, note the following key files stored within the <code>values</code> folder mentioned above:</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>File</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Colors</td>
+<td><code>res/values/colors.xml</code></td>
+<td>For <a href="http://developer.android.com/guide/topics/resources/more-resources.html#Color">color definitions</a> such as text color</td>
+</tr>
+<tr>
+<td>Dimensions</td>
+<td><code>res/values/dimens.xml</code></td>
+<td>For <a href="http://developer.android.com/guide/topics/resources/more-resources.html#Dimension">dimension values</a> such as padding</td>
+</tr>
+<tr>
+<td>Strings</td>
+<td><code>res/values/strings.xml</code></td>
+<td>For <a href="http://developer.android.com/guide/topics/resources/string-resource.html">string values</a> such as the text for a title</td>
+</tr>
+<tr>
+<td>Styles</td>
+<td><code>res/values/styles.xml</code></td>
+<td>For <a href="http://developer.android.com/guide/topics/resources/style-resource.html">style values</a> such as color of the AppBar</td>
+</tr>
+</tbody>
+</table>
+<p>For the full list of resource types, check out the <a href="http://developer.android.com/guide/topics/resources/providing-resources.html">Providing a Resource</a> guide.</p>
+<h2 id="organizing-resources">Organizing Resources<a class="headerlink" href="#organizing-resources" title="Permanent link">&para;</a></h2>
+<p>Resources should be split up into the following key files and folders:</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Path</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>XML Layouts</td>
+<td><code>res/layout/</code></td>
+<td>This is where we put our XML layout files.</td>
+</tr>
+<tr>
+<td>XML Menus</td>
+<td><code>res/menu/</code></td>
+<td>This is where we put our AppBar menu actions.</td>
+</tr>
+<tr>
+<td>Drawables</td>
+<td><code>res/drawable</code></td>
+<td>This is where we put images and XML drawables.</td>
+</tr>
+<tr>
+<td>Colors</td>
+<td><code>res/values/colors.xml</code></td>
+<td>This is where we put <a href="http://developer.android.com/guide/topics/resources/more-resources.html#Color">color definitions</a>.</td>
+</tr>
+<tr>
+<td>Dimensions</td>
+<td><code>res/values/dimens.xml</code></td>
+<td>This is where we put <a href="http://developer.android.com/guide/topics/resources/more-resources.html#Dimension">dimension values</a>.</td>
+</tr>
+<tr>
+<td>Strings</td>
+<td><code>res/values/strings.xml</code></td>
+<td>This is where we put strings.</td>
+</tr>
+<tr>
+<td>Styles</td>
+<td><code>res/values/styles.xml</code></td>
+<td>This is where we put style values.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="providing-app-resources">Providing App Resources<a class="headerlink" href="#providing-app-resources" title="Permanent link">&para;</a></h2>
+<h3 id="defining-a-string-resource">Defining a String Resource<a class="headerlink" href="#defining-a-string-resource" title="Permanent link">&para;</a></h3>
+<p>For every piece of text you want to display within your application (i.e the label of a button, or the text inside a TextView), you should first define the text in the <code>res/values/strings.xml</code> file. Each entry is a key (representing the id of the text) and a value (the text itself). For example, if I want a button to display "Submit", I might add the following string resource to <code>res/values/strings.xml</code>:</p>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;resources&gt;</span>
+    <span class="nt">&lt;string</span> <span class="na">name=</span><span class="s">&quot;hello&quot;</span><span class="nt">&gt;</span>Hello!<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;string</span> <span class="na">name=</span><span class="s">&quot;submit_label&quot;</span><span class="nt">&gt;</span>Submit<span class="nt">&lt;/string&gt;</span>
+<span class="nt">&lt;/resources&gt;</span>
+</pre></div>
+
+
+<p>Now if I ever reference the string resource for <code>submit_label</code>, the default will be for "Submit" to be displayed. Later though, you could create <strong>qualified resource files</strong> that change this value for different countries or between devices. We can also store more complex strings (with html or special characters) by using CDATA to escape the string such as:</p>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;resources&gt;</span>
+  <span class="nt">&lt;string</span> <span class="na">name=</span><span class="s">&quot;feedback_label&quot;</span><span class="nt">&gt;</span>
+  <span class="cp">&lt;![CDATA[</span>
+<span class="cp">    Please &lt;a href=&quot;http://highlight.com&quot;&gt;let us know&lt;/a&gt; if you have feedback on this or if </span>
+<span class="cp">    you would like to log in with another identity service. Thanks! This is a longer string!  </span>
+<span class="cp">  ]]&gt;</span>
+  <span class="nt">&lt;/string&gt;</span>
+<span class="nt">&lt;/resources&gt;</span>
+</pre></div>
+
+
+<p>For more details on defining string resources, <a href="http://developer.android.com/guide/topics/resources/string-resource.html">check this guide</a>. You can also refer to <a href="http://developer.android.com/guide/topics/resources/style-resource.html">this guide for style resources</a> and <a href="http://developer.android.com/guide/topics/resources/more-resources.html">this guide for other types</a>.</p>
+<h3 id="referencing-an-app-resource">Referencing an App Resource<a class="headerlink" href="#referencing-an-app-resource" title="Permanent link">&para;</a></h3>
+<p>Now that we have defined our string resource, we can access that resource in either our Java code or our XML layouts at any time. To access, the resource in the XML Layout file, simply use the <code>@</code> syntax used to access any resource:</p>
+<div class="codehilite"><pre><span></span><span class="nt">&lt;Button</span>
+    <span class="na">android:layout_width=</span><span class="s">&quot;match_parent&quot;</span>
+    <span class="na">android:layout_height=</span><span class="s">&quot;wrap_content&quot;</span>
+    <span class="na">android:text=</span><span class="s">&quot;@string/submit_label&quot;</span> <span class="nt">/&gt;</span>
+</pre></div>
+
+
+<p>To access the resource directly in your Java code, simply use the <code>getResources.getString</code> or <code>getString</code> methods to access the value given the resource id:</p>
+<div class="codehilite"><pre><span></span><span class="n">String</span> <span class="n">submitText</span> <span class="o">=</span> <span class="n">getResources</span><span class="o">().</span><span class="na">getString</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">string</span><span class="o">.</span><span class="na">submit_label</span><span class="o">)</span>
+</pre></div>
+
+
+<p>And the string value will be retrieved. This similar pattern works for almost any resource from images (drawables) to colors. The <code>getResources()</code> method returns a <a href="http://developer.android.com/reference/android/content/res/Resources.html">Resources</a> object with many resource fetching methods. Each resource is defined within different folders and files within the <code>res</code> directory depending on their type.</p>
+<h3 id="defining-color-resources">Defining Color Resources<a class="headerlink" href="#defining-color-resources" title="Permanent link">&para;</a></h3>
+<p>In addition to string resources shown above, the following common resource types can be found below. First, let's take a look at the colors file which is used to define all colors used within an application. Colors should be defined within <code>res/values/colors.xml</code> and the XML file looks like the following:</p>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;resources&gt;</span>
+   <span class="nt">&lt;color</span> <span class="na">name=</span><span class="s">&quot;white&quot;</span><span class="nt">&gt;</span>#FFFFFF<span class="nt">&lt;/color&gt;</span>
+   <span class="nt">&lt;color</span> <span class="na">name=</span><span class="s">&quot;yellow&quot;</span><span class="nt">&gt;</span>#FFFF00<span class="nt">&lt;/color&gt;</span>
+   <span class="nt">&lt;color</span> <span class="na">name=</span><span class="s">&quot;fuchsia&quot;</span><span class="nt">&gt;</span>#FF00FF<span class="nt">&lt;/color&gt;</span>
+<span class="nt">&lt;/resources&gt;</span>
+</pre></div>
+
+
+<p>The colors can be accessed in Java code with:</p>
+<div class="codehilite"><pre><span></span><span class="c1">// getResources().getColor() is now deprecated</span>
+<span class="c1">// Resources res = getResources();</span>
+<span class="c1">// int color = res.getColor(R.color.yellow); </span>
+
+<span class="c1">// Use ContextCompatResources instead of getColor()</span>
+<span class="kt">int</span> <span class="n">color</span> <span class="o">=</span> <span class="n">ContextCompat</span><span class="o">.</span><span class="na">getColor</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">R</span><span class="o">.</span><span class="na">color</span><span class="o">.</span><span class="na">yellow</span><span class="o">);</span>
+</pre></div>
+
+
+<p>It is important to note that the most current way of accessing color resources (since API 24) requires providing context in order to resolve any custom [[theme|Styles and Themes]] attributes.  See <a href="http://www.androiddesignpatterns.com/2016/08/contextcompat-getcolor-getdrawable.html">this article</a> for more context.</p>
+<p>and referenced within any view in the XML using:</p>
+<div class="codehilite"><pre><span></span><span class="nt">&lt;TextView</span>
+    <span class="na">android:layout_width=</span><span class="s">&quot;fill_parent&quot;</span>
+    <span class="na">android:layout_height=</span><span class="s">&quot;wrap_content&quot;</span>
+    <span class="na">android:textColor=</span><span class="s">&quot;@color/fuchsia&quot;</span>
+    <span class="na">android:text=</span><span class="s">&quot;Hello&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+
+
+<p>That's all you need for color resources. Be sure to keep hardcoded colors out of your layout files. </p>
+<h3 id="defining-dimension-resources">Defining Dimension Resources<a class="headerlink" href="#defining-dimension-resources" title="Permanent link">&para;</a></h3>
+<p>Next, let's take a look at the dimensions file which is used to define all size dimensions used within an app. A dimension is specified with a number followed by a unit of measure. For example: <code>10px</code>, <code>5sp</code>.  Dimensions should be defined within <code>res/values/dimens.xml</code> and the XML file looks like the following:</p>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;resources&gt;</span>
+    <span class="nt">&lt;dimen</span> <span class="na">name=</span><span class="s">&quot;textview_height&quot;</span><span class="nt">&gt;</span>25dp<span class="nt">&lt;/dimen&gt;</span>
+    <span class="nt">&lt;dimen</span> <span class="na">name=</span><span class="s">&quot;textview_width&quot;</span><span class="nt">&gt;</span>150dp<span class="nt">&lt;/dimen&gt;</span>
+    <span class="nt">&lt;dimen</span> <span class="na">name=</span><span class="s">&quot;ball_radius&quot;</span><span class="nt">&gt;</span>30dp<span class="nt">&lt;/dimen&gt;</span>
+    <span class="nt">&lt;dimen</span> <span class="na">name=</span><span class="s">&quot;font_size&quot;</span><span class="nt">&gt;</span>16sp<span class="nt">&lt;/dimen&gt;</span>
+<span class="nt">&lt;/resources&gt;</span>
+</pre></div>
+
+
+<p>The dimensions can be accessed in Java code with:</p>
+<div class="codehilite"><pre><span></span><span class="n">Resources</span> <span class="n">res</span> <span class="o">=</span> <span class="n">getResources</span><span class="o">();</span>
+<span class="kt">float</span> <span class="n">fontSize</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="na">getDimension</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">dimen</span><span class="o">.</span><span class="na">font_size</span><span class="o">);</span>
+</pre></div>
+
+
+<p>and referenced within any view in the XML layouts using:</p>
+<div class="codehilite"><pre><span></span><span class="nt">&lt;TextView</span>
+    <span class="na">android:layout_height=</span><span class="s">&quot;@dimen/textview_height&quot;</span>
+    <span class="na">android:layout_width=</span><span class="s">&quot;@dimen/textview_width&quot;</span>
+    <span class="na">android:textSize=</span><span class="s">&quot;@dimen/font_size&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+
+
+<p>That's all you need for dimension resources. Be sure to use this to keep hardcoded font sizes, padding and margin values out of your layout files. There are <a href="http://developer.android.com/guide/topics/resources/more-resources.html#Color">many other resource types to explore</a>. </p>
+<h3 id="dynamic-resource-retrieval">Dynamic Resource Retrieval<a class="headerlink" href="#dynamic-resource-retrieval" title="Permanent link">&para;</a></h3>
+<p>In certain cases, you might want to dynamically retrieve resources using just the key name rather than by "hardcoding" the resource id. For example, suppose I wanted to retrieve the "submit_label" string based on just that key name alone. This can be achieved using the <code>getIdentifier</code> method within an Activity:</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="n">String</span> <span class="nf">getStringValue</span><span class="o">(</span><span class="n">String</span> <span class="n">key</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// Retrieve the resource id</span>
+    <span class="n">String</span> <span class="n">packageName</span> <span class="o">=</span> <span class="n">getBaseContext</span><span class="o">().</span><span class="na">getPackageName</span><span class="o">();</span>
+    <span class="n">Resources</span> <span class="n">resources</span> <span class="o">=</span> <span class="n">getBaseContext</span><span class="o">().</span><span class="na">getResources</span><span class="o">();</span>
+    <span class="kt">int</span> <span class="n">stringId</span> <span class="o">=</span> <span class="n">resources</span><span class="o">.</span><span class="na">getIdentifier</span><span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="s">&quot;string&quot;</span><span class="o">,</span> <span class="n">packageName</span><span class="o">);</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">stringId</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span> <span class="k">return</span> <span class="kc">null</span><span class="o">;</span> <span class="o">}</span>
+    <span class="c1">// Return the string value based on the res id</span>
+    <span class="k">return</span> <span class="n">resources</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="n">stringId</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>Now you can reference your string resources dynamically using:</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="n">String</span> <span class="n">myKey</span> <span class="o">=</span> <span class="s">&quot;submit_label&quot;</span><span class="o">;</span> <span class="c1">// Maps to R.string.submit_label</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="n">myStringValue</span> <span class="o">=</span> <span class="n">getStringValue</span><span class="o">(</span><span class="n">myKey</span><span class="o">);</span> <span class="c1">// Returns string text</span>
+</pre></div>
+
+
+<p>This can be done similarly for other types of resources as well. For example, for dynamically retrieving a view by a string ID:</p>
+<div class="codehilite"><pre><span></span><span class="c1">// getViewById(&quot;tvTest&quot;);</span>
+<span class="kd">public</span> <span class="n">View</span> <span class="nf">getViewById</span><span class="o">(</span><span class="n">String</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// Retrieve the resource id</span>
+    <span class="n">String</span> <span class="n">packageName</span> <span class="o">=</span> <span class="n">getBaseContext</span><span class="o">().</span><span class="na">getPackageName</span><span class="o">();</span>
+    <span class="n">Resources</span> <span class="n">resources</span> <span class="o">=</span> <span class="n">getBaseContext</span><span class="o">().</span><span class="na">getResources</span><span class="o">();</span>
+    <span class="kt">int</span> <span class="n">viewId</span> <span class="o">=</span> <span class="n">resources</span><span class="o">.</span><span class="na">getIdentifier</span><span class="o">(</span><span class="n">id</span><span class="o">,</span> <span class="s">&quot;id&quot;</span><span class="o">,</span> <span class="n">packageName</span><span class="o">);</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">viewId</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span> <span class="k">return</span> <span class="kc">null</span><span class="o">;</span> <span class="o">}</span>
+    <span class="c1">// Return the string value based on the res id</span>
+    <span class="k">return</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">viewId</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>Check out the <a href="http://developer.android.com/reference/android/content/res/Resources.html">getResources</a> object and <a href="http://developer.android.com/reference/android/content/res/Resources.html#getIdentifier\(java.lang.String, java.lang.String, java.lang.String\)">getIdentifier</a> for more details.</p>
+<h2 id="more-resource-types">More Resource Types<a class="headerlink" href="#more-resource-types" title="Permanent link">&para;</a></h2>
+<h3 id="bool">Bool<a class="headerlink" href="#bool" title="Permanent link">&para;</a></h3>
+<p>A boolean value defined in XML.</p>
+<blockquote>
+<p>Note: A bool is a simple resource that is referenced using the value provided in the name attribute (not the name of the XML file). As such, you can combine bool resources with other simple resources in the one XML file, under one <code>&lt;resources&gt;</code> element.</p>
+</blockquote>
+<h3 id="file-location">File Location<a class="headerlink" href="#file-location" title="Permanent link">&para;</a></h3>
+<p>The file should be in <code>res/values/filename.xml</code>. The filename is arbitrary. The <bool> element's name will be used as the resource ID.</p>
+<h3 id="resource-reference">Resource Reference<a class="headerlink" href="#resource-reference" title="Permanent link">&para;</a></h3>
+<p>In Java: <code>R.bool.bool_name</code></p>
+<p>In XML: <code>@[package:]bool/bool_name</code></p>
+<h3 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;resources&gt;</span>
+    <span class="nt">&lt;bool</span>
+        <span class="na">name=</span><span class="s">&quot;bool_name&quot;</span>
+        <span class="nt">&gt;</span>[true | false]<span class="nt">&lt;/bool&gt;</span>
+<span class="nt">&lt;/resources&gt;</span>
+</pre></div>
+
+
+<h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
+<p>XML file saved at <code>res/values-small/bools.xml</code>:</p>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;resources&gt;</span>
+    <span class="nt">&lt;bool</span> <span class="na">name=</span><span class="s">&quot;screen_small&quot;</span><span class="nt">&gt;</span>true<span class="nt">&lt;/bool&gt;</span>
+    <span class="nt">&lt;bool</span> <span class="na">name=</span><span class="s">&quot;adjust_view_bounds&quot;</span><span class="nt">&gt;</span>true<span class="nt">&lt;/bool&gt;</span>
+<span class="nt">&lt;/resources&gt;</span>
+</pre></div>
+
+
+<p>This application code retrieves the boolean:</p>
+<div class="codehilite"><pre><span></span><span class="n">Resources</span> <span class="n">res</span> <span class="o">=</span> <span class="n">getResources</span><span class="o">();</span>
+<span class="kt">boolean</span> <span class="n">screenIsSmall</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="na">getBoolean</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">bool</span><span class="o">.</span><span class="na">screen_small</span><span class="o">);</span>
+</pre></div>
+
+
+<p>This layout XML uses the boolean for an attribute:</p>
+<div class="codehilite"><pre><span></span><span class="nt">&lt;ImageView</span>
+    <span class="na">android:layout_height=</span><span class="s">&quot;fill_parent&quot;</span>
+    <span class="na">android:layout_width=</span><span class="s">&quot;fill_parent&quot;</span>
+    <span class="na">android:src=</span><span class="s">&quot;@drawable/logo&quot;</span>
+    <span class="na">android:adjustViewBounds=</span><span class="s">&quot;@bool/adjust_view_bounds&quot;</span> <span class="nt">/&gt;</span>
+</pre></div>
+
+
+<h3 id="color">Color<a class="headerlink" href="#color" title="Permanent link">&para;</a></h3>
+<p>A color value defined in XML. The color is specified with an RGB value and alpha channel. You can use a color resource any place that accepts a hexadecimal color value. You can also use a color resource when a drawable resource is expected in XML (for example, <code>android:drawable="@color/green"</code>).</p>
+<p>The value always begins with a pound (#) character and then followed by the Alpha-Red-Green-Blue information in one of the following formats:</p>
+<ul>
+<li><code>#RGB</code></li>
+<li><code>#ARGB</code></li>
+<li><code>#RRGGBB</code></li>
+<li><code>#AARRGGBB</code></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A color is a simple resource that is referenced using the value provided in the name attribute (not the name of the XML file). As such, you can combine color resources with other simple resources in the one XML file, under one <code>&lt;resources&gt;</code> element.</p>
+</div>
+<p>File Location - <code>res/values/colors.xml</code>. The filename is arbitrary. The <code>&lt;color&gt;</code> element's name will be used as the resource ID.</p>
+<h3 id="resource-reference_1">Resource Reference<a class="headerlink" href="#resource-reference_1" title="Permanent link">&para;</a></h3>
+<p>In Java: <code>R.color.color_name</code>
+In XML: <code>@[package:]color/color_name</code></p>
+<h3 id="syntax_1">Syntax<a class="headerlink" href="#syntax_1" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;resources&gt;</span>
+    <span class="nt">&lt;color</span>
+        <span class="na">name=</span><span class="s">&quot;color_name&quot;</span>
+        <span class="nt">&gt;</span>hex_color<span class="nt">&lt;/color&gt;</span>
+<span class="nt">&lt;/resources&gt;</span>
+</pre></div>
+
+
+<h3 id="example_1">Example<a class="headerlink" href="#example_1" title="Permanent link">&para;</a></h3>
+<p>XML file saved at <code>res/values/colors.xml</code>:</p>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;resources&gt;</span>
+   <span class="nt">&lt;color</span> <span class="na">name=</span><span class="s">&quot;opaque_red&quot;</span><span class="nt">&gt;</span>#f00<span class="nt">&lt;/color&gt;</span>
+   <span class="nt">&lt;color</span> <span class="na">name=</span><span class="s">&quot;translucent_red&quot;</span><span class="nt">&gt;</span>#80ff0000<span class="nt">&lt;/color&gt;</span>
+<span class="nt">&lt;/resources&gt;</span>
+</pre></div>
+
+
+<p>This application code retrieves the color resource:</p>
+<div class="codehilite"><pre><span></span><span class="n">Resources</span> <span class="n">res</span> <span class="o">=</span> <span class="n">getResources</span><span class="o">();</span>
+<span class="kt">int</span> <span class="n">color</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="na">getColor</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">color</span><span class="o">.</span><span class="na">opaque_red</span><span class="o">);</span>
+</pre></div>
+
+
+<p>This layout XML applies the color to an attribute:</p>
+<div class="codehilite"><pre><span></span><span class="nt">&lt;TextView</span>
+    <span class="na">android:layout_width=</span><span class="s">&quot;fill_parent&quot;</span>
+    <span class="na">android:layout_height=</span><span class="s">&quot;wrap_content&quot;</span>
+    <span class="na">android:textColor=</span><span class="s">&quot;@color/translucent_red&quot;</span>
+    <span class="na">android:text=</span><span class="s">&quot;Hello&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+
+
+<h3 id="dimension">Dimension<a class="headerlink" href="#dimension" title="Permanent link">&para;</a></h3>
+<p>A dimension value defined in XML. A dimension is specified with a number followed by a unit of measure. For example: 10px, 2in, 5sp. The following units of measure are supported by Android:</p>
+<ul>
+<li>
+<p><strong>dp - Density-independent Pixels</strong> - An abstract unit that is based on the physical density of the screen. These units are relative to a 160 dpi (dots per inch) screen, on which 1dp is roughly equal to 1px. When running on a higher density screen, the number of pixels used to draw 1dp is scaled up by a factor appropriate for the screen's dpi. Likewise, when on a lower density screen, the number of pixels used for 1dp is scaled down. The ratio of dp-to-pixel will change with the screen density, but not necessarily in direct proportion. Using dp units (instead of px units) is a simple solution to making the view dimensions in your layout resize properly for different screen densities. In other words, it provides consistency for the real-world sizes of your UI elements across different devices.</p>
+</li>
+<li>
+<p><strong>sp - Scale-independent Pixels</strong> - This is like the dp unit, but it is also scaled by the user's font size preference. It is recommend you use this unit when specifying font sizes, so they will be adjusted for both the screen density and the user's preference.</p>
+</li>
+<li>
+<p><strong>pt - Points</strong> - 1/72 of an inch based on the physical size of the screen, assuming a 72dpi density screen.</p>
+</li>
+<li>
+<p><strong>px - Pixels</strong> - Corresponds to actual pixels on the screen. This unit of measure is not recommended because the actual representation can vary across devices; each devices may have a different number of pixels per inch and may have more or fewer total pixels available on the screen.</p>
+</li>
+<li>
+<p><strong>mm - Millimeters</strong> - Based on the physical size of the screen.</p>
+</li>
+<li>
+<p><strong>in - Inches</strong> - Based on the physical size of the screen.</p>
+</li>
+</ul>
+<blockquote>
+<p>Note: A dimension is a simple resource that is referenced using the value provided in the name attribute (not the name of the XML file). As such, you can combine dimension resources with other simple resources in the one XML file, under one <code>&lt;resources&gt;</code> element.</p>
+</blockquote>
+<p><strong>File Location</strong> - <code>res/values/filename.xml</code>. The filename is arbitrary. The <dimen> element's name will be used as the resource ID.</p>
+<h3 id="resource-reference_2">Resource Reference<a class="headerlink" href="#resource-reference_2" title="Permanent link">&para;</a></h3>
+<p>In Java: <code>R.dimen.dimension_name</code></p>
+<p>In XML: <code>@[package:]dimen/dimension_name</code></p>
+<h3 id="syntax_2">Syntax<a class="headerlink" href="#syntax_2" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;resources&gt;</span>
+    <span class="nt">&lt;dimen</span>
+        <span class="na">name=</span><span class="s">&quot;dimension_name&quot;</span>
+        <span class="nt">&gt;</span>dimension<span class="nt">&lt;/dimen&gt;</span>
+<span class="nt">&lt;/resources&gt;</span>
+</pre></div>
+
+
+<h3 id="example_2">Example<a class="headerlink" href="#example_2" title="Permanent link">&para;</a></h3>
+<p>XML file saved at res/values/dimens.xml:</p>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;resources&gt;</span>
+    <span class="nt">&lt;dimen</span> <span class="na">name=</span><span class="s">&quot;textview_height&quot;</span><span class="nt">&gt;</span>25dp<span class="nt">&lt;/dimen&gt;</span>
+    <span class="nt">&lt;dimen</span> <span class="na">name=</span><span class="s">&quot;textview_width&quot;</span><span class="nt">&gt;</span>150dp<span class="nt">&lt;/dimen&gt;</span>
+    <span class="nt">&lt;dimen</span> <span class="na">name=</span><span class="s">&quot;ball_radius&quot;</span><span class="nt">&gt;</span>30dp<span class="nt">&lt;/dimen&gt;</span>
+    <span class="nt">&lt;dimen</span> <span class="na">name=</span><span class="s">&quot;font_size&quot;</span><span class="nt">&gt;</span>16sp<span class="nt">&lt;/dimen&gt;</span>
+<span class="nt">&lt;/resources&gt;</span>
+</pre></div>
+
+
+<p>This application code retrieves a dimension:</p>
+<div class="codehilite"><pre><span></span><span class="n">Resources</span> <span class="n">res</span> <span class="o">=</span> <span class="n">getResources</span><span class="o">();</span>
+<span class="kt">float</span> <span class="n">fontSize</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="na">getDimension</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">dimen</span><span class="o">.</span><span class="na">font_size</span><span class="o">);</span>
+</pre></div>
+
+
+<p>This layout XML applies dimensions to attributes:</p>
+<div class="codehilite"><pre><span></span><span class="nt">&lt;TextView</span>
+    <span class="na">android:layout_height=</span><span class="s">&quot;@dimen/textview_height&quot;</span>
+    <span class="na">android:layout_width=</span><span class="s">&quot;@dimen/textview_width&quot;</span>
+    <span class="na">android:textSize=</span><span class="s">&quot;@dimen/font_size&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+
+
+<h3 id="id">ID<a class="headerlink" href="#id" title="Permanent link">&para;</a></h3>
+<p>A unique resource ID defined in XML. Using the name you provide in the <code>&lt;item&gt;</code> element, the Android developer tools create a unique integer in your project's R.java class, which you can use as an identifier for an application resources (for example, a View in your UI layout) or a unique integer for use in your application code (for example, as an ID for a dialog or a result code).</p>
+<blockquote>
+<p>Note: An ID is a simple resource that is referenced using the value provided in the name attribute (not the name of the XML file). As such, you can combine ID resources with other simple resources in the one XML file, under one <code>&lt;resources&gt;</code> element. Also, remember that an ID resources does not reference an actual resource item; it is simply a unique ID that you can attach to other resources or use as a unique integer in your application.</p>
+</blockquote>
+<p><strong>File location</strong> - <code>res/values/filename.xml</code>. The filename is arbitrary.</p>
+<p><strong>Resource reference</strong></p>
+<p>In Java: <code>R.id.name</code></p>
+<p>In XML: <code>@[package:]id/name</code></p>
+<p><strong>Syntax</strong></p>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;resources&gt;</span>
+    <span class="nt">&lt;item</span>
+        <span class="na">type=</span><span class="s">&quot;id&quot;</span>
+        <span class="na">name=</span><span class="s">&quot;id_name&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/resources&gt;</span>
+</pre></div>
+
+
+<h3 id="example_3">Example<a class="headerlink" href="#example_3" title="Permanent link">&para;</a></h3>
+<p>XML file saved at <code>res/values/ids.xml</code>:</p>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;resources&gt;</span>
+    <span class="nt">&lt;item</span> <span class="na">type=</span><span class="s">&quot;id&quot;</span> <span class="na">name=</span><span class="s">&quot;button_ok&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;item</span> <span class="na">type=</span><span class="s">&quot;id&quot;</span> <span class="na">name=</span><span class="s">&quot;dialog_exit&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/resources&gt;</span>
+</pre></div>
+
+
+<p>Then, this layout snippet uses the "button_ok" ID for a Button widget:</p>
+<div class="codehilite"><pre><span></span><span class="nt">&lt;Button</span> <span class="na">android:id=</span><span class="s">&quot;@id/button_ok&quot;</span>
+    <span class="na">style=</span><span class="s">&quot;@style/button_style&quot;</span> <span class="nt">/&gt;</span>
+</pre></div>
+
+
+<p>Notice that the <code>android:id</code> value does not include the plus sign in the ID reference, because the ID already exists, as defined in the ids.xml example above. (When you specify an ID to an XML resource using the plus sign—in the format <code>android:id="@+id/name"</code> — it means that the "name" ID does not exist and should be created.)</p>
+<p>As another example, the following code snippet uses the "dialog_exit" ID as a unique identifier for a dialog:</p>
+<div class="codehilite"><pre><span></span><span class="n">showDialog</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">dialog_exit</span><span class="o">);</span>
+</pre></div>
+
+
+<p>In the same application, the "dialog_exit" ID is compared when creating a dialog:</p>
+<div class="codehilite"><pre><span></span><span class="kd">protected</span> <span class="n">Dialog</span> <span class="nf">onCreateDialog</span><span class="o">(</span><span class="kt">int</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">Dialog</span> <span class="n">dialog</span><span class="o">;</span>
+    <span class="k">switch</span><span class="o">(</span><span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">case</span> <span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">dialog_exit</span><span class="o">:</span>
+        <span class="o">...</span>
+        <span class="k">break</span><span class="o">;</span>
+    <span class="k">default</span><span class="o">:</span>
+        <span class="n">dialog</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">dialog</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<h3 id="integer">Integer<a class="headerlink" href="#integer" title="Permanent link">&para;</a></h3>
+<p>An integer defined in XML.</p>
+<blockquote>
+<p>Note: An integer is a simple resource that is referenced using the value provided in the name attribute (not the name of the XML file). As such, you can combine integer resources with other simple resources in the one XML file, under one <code>&lt;resources&gt;</code> element.</p>
+</blockquote>
+<p><strong>File location</strong> - <code>res/values/filename.xml</code> The filename is arbitrary. The <code>&lt;integer&gt;</code> element's name will be used as the resource ID.</p>
+<p><strong>Resource Reference</strong></p>
+<p>In Java: <code>R.integer.integer_name</code></p>
+<p>In XML: <code>@[package:]integer/integer_name</code></p>
+<p><strong>Syntax</strong></p>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;resources&gt;</span>
+    <span class="nt">&lt;integer</span>
+        <span class="na">name=</span><span class="s">&quot;integer_name&quot;</span>
+        <span class="nt">&gt;</span>integer<span class="nt">&lt;/integer&gt;</span>
+<span class="nt">&lt;/resources&gt;</span>
+</pre></div>
+
+
+<p><strong>Example</strong></p>
+<p>XML file saved at <code>res/values/integers.xml</code>:</p>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;resources&gt;</span>
+    <span class="nt">&lt;integer</span> <span class="na">name=</span><span class="s">&quot;max_speed&quot;</span><span class="nt">&gt;</span>75<span class="nt">&lt;/integer&gt;</span>
+    <span class="nt">&lt;integer</span> <span class="na">name=</span><span class="s">&quot;min_speed&quot;</span><span class="nt">&gt;</span>5<span class="nt">&lt;/integer&gt;</span>
+<span class="nt">&lt;/resources&gt;</span>
+</pre></div>
+
+
+<p>This application code retrieves an integer:</p>
+<div class="codehilite"><pre><span></span><span class="n">Resources</span> <span class="n">res</span> <span class="o">=</span> <span class="n">getResources</span><span class="o">();</span>
+<span class="kt">int</span> <span class="n">maxSpeed</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="na">getInteger</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">integer</span><span class="o">.</span><span class="na">max_speed</span><span class="o">);</span>
+</pre></div>
+
+
+<h3 id="integer-array">Integer Array<a class="headerlink" href="#integer-array" title="Permanent link">&para;</a></h3>
+<p>An array of integers defined in XML.</p>
+<blockquote>
+<p>Note: An integer array is a simple resource that is referenced using the value provided in the name attribute (not the name of the XML file). As such, you can combine integer array resources with other simple resources in the one XML file, under one <code>&lt;resources&gt;</code> element.</p>
+</blockquote>
+<p>File location - <code>res/values/filename.xml</code>. The filename is arbitrary. The <code>&lt;integer-array&gt;</code> element's name will be used as the resource ID.</p>
+<p><strong>Compiled resource data type</strong> -  Resource pointer to an array of integers.</p>
+<p><strong>Resource reference</strong></p>
+<p>In Java: <code>R.array.integer_array_name</code></p>
+<p>In XML: <code>@[package:]array.integer_array_name</code></p>
+<p><strong>Syntax</strong></p>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;resources&gt;</span>
+    <span class="nt">&lt;integer-array</span>
+        <span class="na">name=</span><span class="s">&quot;integer_array_name&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;item</span>
+            <span class="nt">&gt;</span>integer<span class="nt">&lt;/item&gt;</span>
+    <span class="nt">&lt;/integer-array&gt;</span>
+<span class="nt">&lt;/resources&gt;</span>
+</pre></div>
+
+
+<p><strong>Example</strong></p>
+<p>XML file saved at <code>res/values/integers.xml</code>:</p>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;resources&gt;</span>
+    <span class="nt">&lt;integer-array</span> <span class="na">name=</span><span class="s">&quot;bits&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;item&gt;</span>4<span class="nt">&lt;/item&gt;</span>
+        <span class="nt">&lt;item&gt;</span>8<span class="nt">&lt;/item&gt;</span>
+        <span class="nt">&lt;item&gt;</span>16<span class="nt">&lt;/item&gt;</span>
+        <span class="nt">&lt;item&gt;</span>32<span class="nt">&lt;/item&gt;</span>
+    <span class="nt">&lt;/integer-array&gt;</span>
+<span class="nt">&lt;/resources&gt;</span>
+</pre></div>
+
+
+<p>This application code retrieves the integer array:</p>
+<div class="codehilite"><pre><span></span><span class="n">Resources</span> <span class="n">res</span> <span class="o">=</span> <span class="n">getResources</span><span class="o">();</span>
+<span class="kt">int</span><span class="o">[]</span> <span class="n">bits</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="na">getIntArray</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">array</span><span class="o">.</span><span class="na">bits</span><span class="o">);</span>
+</pre></div>
+
+
+<h3 id="typed-array">Typed Array<a class="headerlink" href="#typed-array" title="Permanent link">&para;</a></h3>
+<p>A <a href="https://developer.android.com/reference/android/content/res/TypedArray.html">TypedArray</a> defined in XML. You can use this to create an array of other resources, such as drawables. Note that the array is not required to be homogeneous, so you can create an array of mixed resource types, but you must be aware of what and where the data types are in the array so that you can properly obtain each item with the TypedArray's get...() methods.</p>
+<blockquote>
+<p>Note: A typed array is a simple resource that is referenced using the value provided in the name attribute (not the name of the XML file). As such, you can combine typed array resources with other simple resources in the one XML file, under one <code>&lt;resources&gt;</code> element.</p>
+</blockquote>
+<p><strong>File location </strong>- <code>res/values/filename.xml</code>. The filename is arbitrary. The <code>&lt;array&gt;</code> element's name will be used as the resource ID.</p>
+<p><strong>Compiled resource data type</strong> - Resource pointer to a <code>TypedArray</code>.</p>
+<p><strong>Resource reference</strong></p>
+<p>In Java: <code>R.array.array_name</code></p>
+<p>In XML: <code>@[package:]array.array_name</code></p>
+<p><strong>Syntax</strong></p>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;resources&gt;</span>
+    <span class="nt">&lt;array</span>
+        <span class="na">name=</span><span class="s">&quot;integer_array_name&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;item&gt;</span>resource<span class="nt">&lt;/item&gt;</span>
+    <span class="nt">&lt;/array&gt;</span>
+<span class="nt">&lt;/resources&gt;</span>
+</pre></div>
+
+
+<p><strong>Example</strong></p>
+<p>XML file saved at <code>res/values/arrays.xml</code>:</p>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;resources&gt;</span>
+    <span class="nt">&lt;array</span> <span class="na">name=</span><span class="s">&quot;icons&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;item&gt;</span>@drawable/home<span class="nt">&lt;/item&gt;</span>
+        <span class="nt">&lt;item&gt;</span>@drawable/settings<span class="nt">&lt;/item&gt;</span>
+        <span class="nt">&lt;item&gt;</span>@drawable/logout<span class="nt">&lt;/item&gt;</span>
+    <span class="nt">&lt;/array&gt;</span>
+    <span class="nt">&lt;array</span> <span class="na">name=</span><span class="s">&quot;colors&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;item&gt;</span>#FFFF0000<span class="nt">&lt;/item&gt;</span>
+        <span class="nt">&lt;item&gt;</span>#FF00FF00<span class="nt">&lt;/item&gt;</span>
+        <span class="nt">&lt;item&gt;</span>#FF0000FF<span class="nt">&lt;/item&gt;</span>
+    <span class="nt">&lt;/array&gt;</span>
+<span class="nt">&lt;/resources&gt;</span>
+</pre></div>
+
+
+<p>This application code retrieves each array and then obtains the first entry in each array:</p>
+<div class="codehilite"><pre><span></span><span class="n">Resources</span> <span class="n">res</span> <span class="o">=</span> <span class="n">getResources</span><span class="o">();</span>
+<span class="n">TypedArray</span> <span class="n">icons</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="na">obtainTypedArray</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">array</span><span class="o">.</span><span class="na">icons</span><span class="o">);</span>
+<span class="n">Drawable</span> <span class="n">drawable</span> <span class="o">=</span> <span class="n">icons</span><span class="o">.</span><span class="na">getDrawable</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+
+<span class="n">TypedArray</span> <span class="n">colors</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="na">obtainTypedArray</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">array</span><span class="o">.</span><span class="na">colors</span><span class="o">);</span>
+<span class="kt">int</span> <span class="n">color</span> <span class="o">=</span> <span class="n">colors</span><span class="o">.</span><span class="na">getColor</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span><span class="mi">0</span><span class="o">);</span>
+</pre></div>
+
+
+<h2 id="providing-alternate-resources">Providing Alternate Resources<a class="headerlink" href="#providing-alternate-resources" title="Permanent link">&para;</a></h2>
+<h3 id="responsive-design">Responsive Design<a class="headerlink" href="#responsive-design" title="Permanent link">&para;</a></h3>
+<p>In order to create an outstanding UI design, it is essential for app developers to create apps that work properly across a wide variety of devices. To do this, we first divide android mobile devices into various categories (buckets) based on screen size and display as shown below:</p>
+<p><img src="http://i.imgur.com/bLOO9e3.png" width="600" /></p>
+<p>Apps must be designed to work across any different screen densities as well as screen sizes. This can be done leveraging a variety of systems provided by the Android framework.</p>
+<h3 id="introducing-alternate-resources">Introducing Alternate Resources<a class="headerlink" href="#introducing-alternate-resources" title="Permanent link">&para;</a></h3>
+<p>One of the most powerful tools available to developers is the option to provide "alternate resources" based on specific qualifiers such as phone size, language, density, and others. Common uses for alternate resources include:</p>
+<ul>
+<li>Alternative layout files for different form factors (i.e phone vs tablet)</li>
+<li>Alternative string resources for different languages (i.e English vs Italian)</li>
+<li>Alternative drawable resources for different screen densities  (shown below)</li>
+<li>Alternate style resources for different platform versions (Holo vs Material)</li>
+<li>Alternate layout files for different screen orientations (i.e portrait vs landscape)</li>
+</ul>
+<p>To specify configuration-specific alternatives for a set of resources, we create a new directory in <code>res</code> in the form of <code>[resource]-[qualifiers]</code>. For example, one best practice is to ensure that all images are provided for [[multiple screen densities|Working-with-the-ImageView#supporting-multiple-densities]]. </p>
+<p><img alt="Densities" src="http://developer.android.com/images/screens_support/screens-densities.png" /></p>
+<p>This is achieved by having  <code>res/drawable-hdpi</code>, <code>res/drawable-xhdpi</code>, and <code>res/drawable-xxhdpi</code> folders with different versions of the same image. The correct resource is then selected automatically by the system based on the device density. The directory listing might look like the following:</p>
+<div class="codehilite"><pre><span></span><span class="n">res</span><span class="o">/</span>
+    <span class="n">drawable</span><span class="o">/</span>   
+        <span class="n">icon</span><span class="p">.</span><span class="n">png</span>
+        <span class="n">background</span><span class="p">.</span><span class="n">png</span>    
+    <span class="n">drawable</span><span class="o">-</span><span class="n">hdpi</span><span class="o">/</span>  
+        <span class="n">icon</span><span class="p">.</span><span class="n">png</span>
+        <span class="n">background</span><span class="p">.</span><span class="n">png</span>
+</pre></div>
+
+
+<p>Note the resource files need to all have the same name within the different folders. This system works for <strong>any type of resource</strong> with a wide variety of qualifiers.</p>
+<h3 id="understanding-qualifiers">Understanding Qualifiers<a class="headerlink" href="#understanding-qualifiers" title="Permanent link">&para;</a></h3>
+<p>Android supports several configuration qualifiers and you can add multiple qualifiers to one directory name, by separating each qualifier with a dash. The most common qualifiers are listed below:</p>
+<table>
+<thead>
+<tr>
+<th>Configuration</th>
+<th>Examples</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Language</td>
+<td><code>en</code>, <code>fr</code></td>
+<td>Language code selected on the device</td>
+</tr>
+<tr>
+<td>Screen size</td>
+<td><code>sw480dp</code>,<code>sw600dp</code></td>
+<td>Minimum width of the screen's height or width.</td>
+</tr>
+<tr>
+<td>Screen orientation</td>
+<td><code>port</code>, <code>land</code></td>
+<td>Screen is in portrait or landscape mode.</td>
+</tr>
+<tr>
+<td>Screen density</td>
+<td><code>hdpi</code>, <code>xhdpi</code></td>
+<td>Screen density often used for alternate images.</td>
+</tr>
+<tr>
+<td>Platform version</td>
+<td><code>v7</code>, <code>v11</code>, <code>v21</code></td>
+<td>Platform version often used for styles.</td>
+</tr>
+</tbody>
+</table>
+<p>You can specify multiple qualifiers for a single set of resources, separated by dashes. For example, <code>drawable-en-sw600dp-land</code> applies to English tablets in landscape orientation. Note that if you use multiple qualifiers for a resource directory, you must add them to the directory name <strong>in the order they are listed</strong> in the table above. See the official docs for the <a href="http://developer.android.com/guide/topics/resources/providing-resources.html#AlternativeResources">complete set of qualifiers available</a>.</p>
+<h3 id="creating-alternate-resources">Creating Alternate Resources<a class="headerlink" href="#creating-alternate-resources" title="Permanent link">&para;</a></h3>
+<p>In Android Studio, the easiest way to create alternate resources is to <strong>right-click on a resource subfolder</strong> (i.e <code>layout</code>) in the Android project sidebar and then use the <code>New =&gt; Layout resource file</code> wizard to specify the qualifiers you'd like (i.e <code>orientation</code>):</p>
+<p><img src="http://i.imgur.com/cxeH3J1.gif" width="650" /></p>
+<p>This will create <strong>two versions of the layout file</strong>, one for "portrait" mode (vertical) and one for "landscape" (horizontal). If you were to <a href="http://i.imgur.com/5kMibe3.gif">add a different label into the second version of the layout</a> then you would see this effect <strong>automatically</strong> when the screen is rotated:</p>
+<p><img src="http://i.imgur.com/bRUzYLI.gif" width="350" /></p>
+<p>To summarize, you can create as many versions of a resource file as is needed for different situations and then the most appropriate version of the resource file is selected automatically by the system.</p>
+<h3 id="determining-configuration-at-runtime">Determining Configuration at Runtime<a class="headerlink" href="#determining-configuration-at-runtime" title="Permanent link">&para;</a></h3>
+<p>When the app is running, we can always check the current configuration (orientation, screen size, etc) by accessing the <a href="https://developer.android.com/reference/android/content/res/Configuration.html">Configuration</a> object through <code>getResources().getConfiguration()</code> within an activity or context object. For example, to determine the orientation (portrait or landscape) inside an activity, we can do:</p>
+<div class="codehilite"><pre><span></span><span class="n">String</span> <span class="n">image</span><span class="o">;</span>
+<span class="kt">int</span> <span class="n">orientation</span> <span class="o">=</span> <span class="n">getResources</span><span class="o">().</span><span class="na">getConfiguration</span><span class="o">().</span><span class="na">orientation</span><span class="o">;</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">orientation</span> <span class="o">==</span> <span class="n">Configuration</span><span class="o">.</span><span class="na">ORIENTATION_PORTRAIT</span><span class="o">)</span> <span class="o">{</span>
+   <span class="n">image</span> <span class="o">=</span> <span class="s">&quot;image_portrait.png&quot;</span><span class="o">;</span>
+   <span class="c1">// ...</span>
+<span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">orientation</span> <span class="o">==</span> <span class="n">Configuration</span><span class="o">.</span><span class="na">ORIENTATION_LANDSCAPE</span><span class="o">)</span> <span class="o">{</span>
+   <span class="n">image</span> <span class="o">=</span> <span class="s">&quot;image_landscape.png&quot;</span><span class="o">;</span>
+   <span class="c1">// ...</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>We can similarly access this within any object by getting access to a [[Context object|Using-Context]]. For example, within an <code>ArrayAdapter</code> by using <code>getContext().getResources().getConfiguration()</code> to access the configurations.</p>
+<h3 id="alternate-layout-files">Alternate Layout Files<a class="headerlink" href="#alternate-layout-files" title="Permanent link">&para;</a></h3>
+<p>Often alternative resources are used to specify different layout files for phones and tablets. This can be done using the "smallest width" qualifier of <code>sw</code>. The folder structure might be set up as follows:</p>
+<div class="codehilite"><pre><span></span><span class="n">res</span><span class="o">/</span>
+    <span class="n">layout</span><span class="o">/</span>   
+        <span class="n">activity_main</span><span class="p">.</span><span class="n">xml</span>
+        <span class="n">item_photo</span><span class="p">.</span><span class="n">xml</span>    
+    <span class="n">layout</span><span class="o">-</span><span class="n">sw600dp</span><span class="o">/</span> 
+        <span class="n">activity_main</span><span class="p">.</span><span class="n">xml</span>
+    <span class="n">layout</span><span class="o">-</span><span class="n">sw600dp</span><span class="o">-</span><span class="n">land</span><span class="o">/</span>
+        <span class="n">activity_main</span><span class="p">.</span><span class="n">xml</span> 
+    <span class="n">layout</span><span class="o">-</span><span class="n">sw720dp</span><span class="o">/</span> 
+        <span class="n">activity_main</span><span class="p">.</span><span class="n">xml</span>
+        <span class="n">item_photo</span><span class="p">.</span><span class="n">xml</span>
+    <span class="n">layout</span><span class="o">-</span><span class="n">land</span><span class="o">/</span>
+        <span class="n">activity_main</span><span class="p">.</span><span class="n">xml</span>
+        <span class="n">item_photo</span><span class="p">.</span><span class="n">xml</span>
+</pre></div>
+
+
+<p>Generally speaking phones and phablets are between <code>sw240</code> and <code>sw480</code>. 7" tablets are <code>sw600</code> and 10" tablets are <code>sw720</code>. You can also simply add qualifiers such as <code>layout-land</code> to be applied for all devices in landscape mode.  Here’s an illustrated example of the above procedure:</p>
+<p><img src="http://i.imgur.com/KS5xs0n.png" width="600" /></p>
+<p>For a detailed tutorial on how to manage responsive layouts for tablets, review our [[Flexible User Interfaces]] guide. You can also review this <a href="http://www.evoketechnologies.com/blog/effective-ui-design-tips-android-devices/">article on UI design best practices</a> and <a href="http://developer.android.com/guide/topics/resources/providing-resources.html">this official doc on resources</a> for more details.</p>
+<p>There's also a list of Android phone screens and dimensions each one use that you can find <a href="https://material.io/devices/">here</a></p>
+<h3 id="layout-best-practices">Layout Best Practices<a class="headerlink" href="#layout-best-practices" title="Permanent link">&para;</a></h3>
+<p>Here is a quick checklist about how you can ensure that your application displays properly on different screens:</p>
+<ul>
+<li>Avoid using hard coded pixel values in your application code</li>
+<li>Use <code>RelativeLayout</code> properly and never use <code>AbsoluteLayout</code> </li>
+<li>Use <code>wrap_content</code>, <code>match_parent</code>, or <code>dp</code> units when specifying dimensions</li>
+<li>Use alternate layouts and drawables to ensure a responsive design when needed</li>
+</ul>
+<p>Review the rest of the <a href="http://developer.android.com/guide/practices/screens_support.html#screen-independence">best practices for screen independence</a> on the official guide.</p>
+<h3 id="alias-resources">Alias Resources<a class="headerlink" href="#alias-resources" title="Permanent link">&para;</a></h3>
+<p>When you have a resource that you'd like to use for more than one device configuration, you do not need to put the same resource in more than one alternative resource directory. Instead, you can <a href="http://developer.android.com/guide/topics/resources/providing-resources.html#AliasResources">create an alternative resource</a> that acts as an alias for a resource saved in your default resource directory.</p>
+<h3 id="best-resource-match">Best Resource Match<a class="headerlink" href="#best-resource-match" title="Permanent link">&para;</a></h3>
+<p>When you request a resource for which you provide alternatives, Android selects which alternative resource to use at runtime, depending on the current device configuration. Read the <a href="http://developer.android.com/guide/topics/resources/providing-resources.html#BestMatch">official resource guide</a> for a detailed overview of how the match is selected.</p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../project-structure/" title="Android Project Structure" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Android Project Structure
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../android-common-views/view-attributes/" title="View Attributes" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                View Attributes
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset" style="background-color: #ff9900; color: #fff">
+    <div class="md-grid" style="display: flex;">
+      <div style="flex: 1;">
+        <h2>Consulting</h2>
+        <ul style="list-style: none; margin-left: -15px;">
+          <li><a href="https://www.peruzal.com/mobile-app-development" target="_blank">Mobile App Development</a></li>
+          <li><a href="https://www.peruzal.com/mobile-app-device-security-and-penetration-testing" target="_blank">Mobile App Security and Penetration Testing</a></li>
+          <li><a href="https://www.peruzal.com/database-and-web-application-performance-tuning-and-consulting" target="_blank">Database Performance Tuning</a></li>
+        </ul>
+      </div>
+      <div style="flex: 1;">
+        <h2>Training</h2>
+        <ul style="list-style: none; margin-left: -15px;">
+          <li><a href="https://training.peruzal.com/courses/mobile/android-mobile-app-development-training-certification" target="_blank">Android Mobile App Development Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/mobile/ios-mobile-app-development-training-with-swift" target="_blank">iOS Mobile App Development Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/mobile/xamarin/xamarin-forms-mobile-app-development-training" target="_blank">Xamarin Forms Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/mobile/xamarin/android-mobile-app-development-training-with-xamarin" target="_blank">Xamarin Android Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/mobile/xamarin/ios-mobile-app-development-training-with-xamarin" target="_blank">Xamarin iOS Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/web/reactjs-front-end-web-application-development" target="_blank">ReactJS Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/web/reactjs-front-end-web-application-development" target="_blank">React Native Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/gaming/unity-certified-game-development-training-south-africa" target="_blank">Unity Game Development Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/database/mysql-database-administration-training-certification-south-africa" target="_blank">MySQL Database Adminstration Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/programming/java-programming-training-certification" target="_blank">Java Programming Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/programming/ruby-programming-training-certification" target="_blank">Ruby Programming Training</a></li>
+        </ul>
+      </div>
+      <div style="flex: 1">
+        <h2>Resources</h2>
+        <ul style="list-style: none; margin-left: -15px;">
+          <li><a href="http://guides.peruzal.com/xamarin-forms-guide" target="_blank">Xamarin Forms Guide</a></li>
+          <li><a href="http://guides.peruzal.com/v1/android-guides" target="_blank">Android Development Guides</a></li>
+          <li><a href="http://guides.peruzal.com/xamarin-ios" target="_blank">iOS Development Guides</a></li>
+          <li><a href="http://xamarin-android-guide.peruzal.com/" target="_blank">Xamarin Android Guides</a></li>
+          <li><a href="http://xamarin-ios-guide.peruzal.com/" target="_blank">Xamarin iOS Guide</a></li>
+          <li><a href="http://unity-certified-associate-guide.peruzal.com/" target="_blank">Unity Game Development Guide</a></li>
+          <li><a href="https://josephkandi.gitbooks.io/mysql-5-6-database-administration-certification-g/content/" target="_blank">MySQL Database Adminstration Guide</a></li>
+          <li><a href="https://josephkandi.gitbooks.io/learn-java-by-developing-an-android-app/content/" target="_blank">Java Programming Guide</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="md-footer-meta__inner" style="background-color: rgba(0,0,0,.87)">
+      <div style="text-align: center; font-size: 0.7rem">
+          <div class="md-footer-copyright__highlight">
+            <a href="https://www.peruzal.com" target="_blank">Copyright &copy 2019 - Peruzal</a>
+          </div>
+      </div>
+      
+  <div style="text-align: center">
+    <link rel="stylesheet" href="../assets/fonts/font-awesome.css">
+    
+      <a href="https://github.com/peruzal" target="_blank" class="md-footer-social__link fa fa-github"></a>
+    
+      <a href="https://twitter.com/peruzal" target="_blank" class="md-footer-social__link fa fa-twitter"></a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-40772582-8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-40772582-8');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-6342782466521705",
+          enable_page_level_ads: true
+     });
+</script>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application.245445c6.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
+      
+        <script src="../assets/js/utils.js"></script>
+      
+        <script src="../assets/js/mixpanel.js"></script>
+      
+        <script src="../assets/js/track.js"></script>
+      
+        <script src="../assets/js/drift.js"></script>
+      
+    
+  </body>
+</html>

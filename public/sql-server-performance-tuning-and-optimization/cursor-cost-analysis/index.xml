@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cursor-cost-analyses on SQL Server Performance and Tuning</title>
+    <link>http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/cursor-cost-analysis/index.xml</link>
+    <description>Recent content in Cursor-cost-analyses on SQL Server Performance and Tuning</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Copyright 2017 Peruzal</copyright>
+    <lastBuildDate>Sat, 18 Mar 2017 14:55:45 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/cursor-cost-analysis/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Cursor Cost Analysis</title>
+      <link>http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/cursor-cost-analysis/</link>
+      <pubDate>Sat, 18 Mar 2017 14:55:45 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/cursor-cost-analysis/</guid>
+      <description>
+
+&lt;h2 id=&#34;cursor-fundamentals&#34;&gt;Cursor Fundamentals&lt;/h2&gt;
+
+&lt;p&gt;When a query is executed by an application, SQL Server returns a set of data consisting of rows. Generally, applications can’t process multiple rows together; instead, they process one row at a time by walking through the result set returned by SQL Server. This functionality is provided by a cursor, which is a mechanism to work with one row at a time out of a multirow result set.&lt;/p&gt;
+
+&lt;p&gt;T-SQL cursor processing usually involves the following steps:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Declare the cursor to associate it with a SELECT statement and define the characteristics of the cursor.&lt;/li&gt;
+&lt;li&gt;Open the cursor to access the result set returned by the SELECT statement.&lt;/li&gt;
+&lt;li&gt;Retrieve a row from the cursor. Optionally, modify the row through the cursor.&lt;/li&gt;
+&lt;li&gt;Once all the rows in the result set are processed, close the cursor and release the resources assigned to the cursor.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;The following is an example of a server cursor processing of query results from a table:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;--Associate a SELECT statement to a cursor and define the
+--cursor&#39;s characteristics
+USE AdventureWorks2012;
+GO
+SET NOCOUNT ON
+DECLARE MyCursor CURSOR /*&amp;lt;cursor characteristics&amp;gt;*/
+FOR
+SELECT  adt.AddressTypeID,
+        adt.Name,
+        adt.ModifiedDate
+FROM    Person.AddressType adt;
+
+--Open the cursor to access the result set returned by the
+--SELECT statement
+OPEN MyCursor;
+
+--Retrieve one row at a time from the result set returned by
+--the SELECT statement
+DECLARE @AddressTypeId INT,
+    @Name VARCHAR(50),
+    @ModifiedDate DATETIME;
+
+FETCH NEXT FROM MyCursor INTO @AddressTypeId,@Name,@ModifiedDate;
+
+WHILE @@FETCH_STATUS = 0
+    BEGIN
+        PRINT &#39;NAME =   &#39; + @Name;
+
+--Optionally, modify the row through the cursor
+        UPDATE  Person.AddressType
+        SET     Name = Name + &#39;z&#39;
+        WHERE CURRENT OF MyCursor;
+
+        FETCH NEXT FROM MyCursor
+            INTO @AddressTypeId,@Name,@ModifiedDate;
+    END
+
+--Close the cursor and release all resources assigned to the
+--cursor
+CLOSE MyCursor;
+DEALLOCATE MyCursor;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;cursor-cost-comparison&#34;&gt;Cursor Cost Comparison&lt;/h2&gt;
+
+&lt;h2 id=&#34;default-result-set&#34;&gt;Default Result Set&lt;/h2&gt;
+
+&lt;h2 id=&#34;analyzing-sql-server-overhead-with-cursors&#34;&gt;Analyzing SQL Server Overhead with Cursors&lt;/h2&gt;
+
+&lt;p&gt;he T-SQL cursors implemented using T-SQL statements are always executed on SQL Server because they need the SQL Server engine to process their T-SQL statements.&lt;/p&gt;
+
+&lt;p&gt;In most cases, you can avoid cursor operations by rewriting the functionality using SQL queries, concentrating on set-based methods of accessing the data. For example, you can rewrite the preceding stored procedure using SQL queries (instead of the cursor operations) as follows (nocursor.sql in the download):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;IF (SELECT  OBJECT_ID(&#39;dbo.TotalLoss&#39;)
+   ) IS NOT NULL
+    DROP PROC dbo.TotalLoss;
+GO
+CREATE PROC dbo.TotalLoss
+AS
+SELECT  CASE  --Determine status based on following computation
+             WHEN SUM(MoneyLostPerProduct) &amp;gt; 5000 THEN &#39;We are bankrupt!&#39;
+             ELSE &#39;We are safe!&#39;
+        END AS Status
+FROM    (--Calculate total money lost for all discarded products
+         SELECT SUM(wo.ScrappedQty * p.ListPrice) AS MoneyLostPerProduct
+         FROM   Production.WorkOrder AS wo
+         JOIN   Production.ScrapReason AS sr
+                ON wo.ScrapReasonID = sr.ScrapReasonID
+         JOIN   Production.Product AS p
+                ON wo.ProductID = p.ProductID
+         GROUP BY p.ProductID
+        ) DiscardedProducts;
+GO
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;cursor-recommendations&#34;&gt;Cursor Recommendations&lt;/h2&gt;
+
+&lt;p&gt;An ineffective use of cursors can degrade the application performance by introducing extra network round-trips and load on server resources. To keep the cursor cost low, try to follow these recommendations:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Use set-based SQL statements over T-SQL cursors, since SQL Server is designed to work with sets of data.&lt;/li&gt;
+&lt;li&gt;Use the least expensive cursor.&lt;/li&gt;
+&lt;li&gt;When using SQL Server cursors, use the FAST FORWARD cursor type.&lt;/li&gt;
+&lt;li&gt;When using the API cursors implemented by ADO, OLEDB, or ODBC, use the default cursor type, which is generally referred to as the default result set.&lt;/li&gt;
+&lt;li&gt;When using ADO.NET, use the DataReader object.&lt;/li&gt;
+&lt;li&gt;Minimize impact on server resources.&lt;/li&gt;
+&lt;li&gt;Use a client-side cursor for API cursors.&lt;/li&gt;
+&lt;li&gt;Do not perform actions on the underlying tables through the cursor.&lt;/li&gt;
+&lt;li&gt;Always deallocate the cursor as soon as possible. This helps free resources, especially in tempdb.&lt;/li&gt;
+&lt;li&gt;Redesign the cursor’s SELECT statement (or the application) to return the minimum set of rows and columns.&lt;/li&gt;
+&lt;li&gt;Avoid T-SQL cursors entirely by rewriting the logic of the cursor as set-based statements, which are generally more efficient than cursors.&lt;/li&gt;
+&lt;li&gt;Use a ROWVERSION column for dynamic cursors to benefit from the efficient, version-based concurrency control instead of relying upon the value-based technique.&lt;/li&gt;
+&lt;li&gt;Minimize impact on tempdb.&lt;/li&gt;
+&lt;li&gt;Minimize resource contention in tempdb by avoiding the static and keyset-driven cursor types.&lt;/li&gt;
+&lt;li&gt;Static and key-set cursors put additional load on tempdb, so take that into account if you must use them, or avoid them if your tempdb is under stress.&lt;/li&gt;
+&lt;li&gt;Minimize blocking.&lt;/li&gt;
+&lt;li&gt;Use the default result set, fast-forward-only cursor, or static cursor.&lt;/li&gt;
+&lt;li&gt;Process all cursor rows as quickly as possible.&lt;/li&gt;
+&lt;li&gt;Avoid scroll locks or pessimistic locking.&lt;/li&gt;
+&lt;li&gt;Minimize network round-trips while using API cursors.&lt;/li&gt;
+&lt;li&gt;Use the CacheSize property of ADO to fetch multiple rows in one round-trip.&lt;/li&gt;
+&lt;li&gt;Use client-side cursors.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

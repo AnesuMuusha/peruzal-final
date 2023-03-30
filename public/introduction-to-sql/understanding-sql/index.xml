@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Understanding-sqls on Introduction to SQL</title>
+    <link>http://guides.peruzal.com/introduction-to-sql/understanding-sql/index.xml</link>
+    <description>Recent content in Understanding-sqls on Introduction to SQL</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Copyright 2017 Peruzal</copyright>
+    <lastBuildDate>Tue, 28 Feb 2017 21:48:59 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/introduction-to-sql/understanding-sql/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Understanding SQL</title>
+      <link>http://guides.peruzal.com/introduction-to-sql/understanding-sql/</link>
+      <pubDate>Tue, 28 Feb 2017 21:48:59 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/introduction-to-sql/understanding-sql/</guid>
+      <description>
+
+&lt;h2 id=&#34;what-is-sql&#34;&gt;What is SQL&lt;/h2&gt;
+
+&lt;p&gt;SQL stands for &lt;strong&gt;Structured Query Language&lt;/strong&gt;. Structured Query Language, or SQL, is a special-purpose programming language used to manage data within a relational database mangement system (RDMS).&lt;/p&gt;
+
+&lt;p&gt;SQL is a declarative language in which the expected result or operation is given without the specific details about how to accomplish the task. The SQL language is standardized with specific extensions for each database management software.&lt;/p&gt;
+
+&lt;p&gt;Commonly used statements are grouped into the following categories:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Data Query Language (DQL)&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;SELECT - Used to retrieve certain records from one or more tables.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Data Manipulation Language (DML)&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;INSERT - Used to create a record.&lt;/li&gt;
+&lt;li&gt;UPDATE - Used to change certain records.&lt;/li&gt;
+&lt;li&gt;DELETE - Used to delete certain records.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Data Definition Language (DDL)&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;CREATE - Used to create a new table, a view of a table, or other object in database.&lt;/li&gt;
+&lt;li&gt;ALTER - Used to modify an existing database object, such as a table.&lt;/li&gt;
+&lt;li&gt;DROP - Used to delete an entire table, a view of a table or other object in the database.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Data Control Language (DCL)&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;GRANT - Used to give a privilege to someone.&lt;/li&gt;
+&lt;li&gt;REVOKE - Used to take back privileges granted to someone.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;database&#34;&gt;Database&lt;/h2&gt;
+
+&lt;p&gt;A database is a collection of information that is organized so that it can be easily accessed, managed and updated.
+Data is organized into rows, columns and tables, and it is indexed to make it easier to find relevant information.&lt;/p&gt;
+
+&lt;h2 id=&#34;table&#34;&gt;Table&lt;/h2&gt;
+
+&lt;p&gt;Data in the database is stored in a table. It is comprised of rows and columns. A table is usually used to store unique information e.g a customer&amp;rsquo;s table, purchases, sales, student information and so on.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Data stored in the table is of one type. You would never store a list of customers and a list of orders in the same database table. Doing so would make subsequent retrieval and access difficult. Rather, you’d create two tables, one for each list. A join would be used to relate the two datasets.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;Customer&amp;rsquo;s table&lt;/strong&gt;&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;CustomerID&lt;/th&gt;
+&lt;th&gt;CustomerName&lt;/th&gt;
+&lt;th&gt;ContactName&lt;/th&gt;
+&lt;th&gt;Address&lt;/th&gt;
+&lt;th&gt;City&lt;/th&gt;
+&lt;th&gt;PostalCode&lt;/th&gt;
+&lt;th&gt;Country&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;Alfreds Futterkiste&lt;/td&gt;
+&lt;td&gt;Maria Anders&lt;/td&gt;
+&lt;td&gt;Obere Str. 57&lt;/td&gt;
+&lt;td&gt;Berlin&lt;/td&gt;
+&lt;td&gt;12209&lt;/td&gt;
+&lt;td&gt;Germany&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;2&lt;/td&gt;
+&lt;td&gt;Ana Trujillo Emparedados y helados&lt;/td&gt;
+&lt;td&gt;Ana Trujillo&lt;/td&gt;
+&lt;td&gt;Avda. de la Constitución 2222&lt;/td&gt;
+&lt;td&gt;México D.F.&lt;/td&gt;
+&lt;td&gt;05021&lt;/td&gt;
+&lt;td&gt;Mexico&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;3&lt;/td&gt;
+&lt;td&gt;Antonio Moreno Taquería&lt;/td&gt;
+&lt;td&gt;Antonio Moreno&lt;/td&gt;
+&lt;td&gt;Mataderos 2312&lt;/td&gt;
+&lt;td&gt;México D.F.&lt;/td&gt;
+&lt;td&gt;05023&lt;/td&gt;
+&lt;td&gt;Mexico&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;4&lt;/td&gt;
+&lt;td&gt;Around the Horn&lt;/td&gt;
+&lt;td&gt;Thomas Hardy&lt;/td&gt;
+&lt;td&gt;120 Hanover Sq.&lt;/td&gt;
+&lt;td&gt;London&lt;/td&gt;
+&lt;td&gt;WA1 1DP&lt;/td&gt;
+&lt;td&gt;UK&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;5&lt;/td&gt;
+&lt;td&gt;Berglunds snabbköp&lt;/td&gt;
+&lt;td&gt;Christina Berglund&lt;/td&gt;
+&lt;td&gt;Berguvsvägen 8&lt;/td&gt;
+&lt;td&gt;Luleå&lt;/td&gt;
+&lt;td&gt;S-958 22&lt;/td&gt;
+&lt;td&gt;Sweden&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&#34;schema&#34;&gt;Schema&lt;/h2&gt;
+
+&lt;p&gt;Tables have characteristics and properties that define how data is stored in them. These include information about what data may be stored, how it is broken up, how individual pieces of information are named, and much more. This set of information that describes a table is known as a schema&lt;/p&gt;
+
+&lt;h2 id=&#34;column&#34;&gt;Column&lt;/h2&gt;
+
+&lt;p&gt;A column is used to store a single attribute or field in a table. E.g in a Customer&amp;rsquo;s table, one column would store the customer first name, and another the customer last name. Each column is associated with a &lt;code&gt;data type&lt;/code&gt;, e.g the customer name is a set of characters, and the customer&amp;rsquo;s age is a number. The data type will restrict the type of data entered into that column.&lt;/p&gt;
+
+&lt;h2 id=&#34;row&#34;&gt;Row&lt;/h2&gt;
+
+&lt;p&gt;A row in the database table represents a record. E.g. in table the complete information about a customer will be a row.&lt;/p&gt;
+
+&lt;h2 id=&#34;primary-key&#34;&gt;Primary Key&lt;/h2&gt;
+
+&lt;p&gt;A primary key is the column or set of columns that uniquely identifies a row in a table.&lt;/p&gt;
+
+&lt;h2 id=&#34;references&#34;&gt;References&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://en.wikibooks.org/wiki/Structured_Query_Language/Introduction_to_SQL&#34;&gt;https://en.wikibooks.org/wiki/Structured_Query_Language/Introduction_to_SQL&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

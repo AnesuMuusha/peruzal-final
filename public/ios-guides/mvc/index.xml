@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Mvc-rsses on Xamarin iOS Guides</title>
+    <link>http://guides.peruzal.com/ios-guides/mvc/index.xml</link>
+    <description>Recent content in Mvc-rsses on Xamarin iOS Guides</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Peruzal</copyright>
+    <lastBuildDate>Mon, 12 Dec 2016 02:20:42 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/ios-guides/mvc/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Model View Controller in Frameworks</title>
+      <link>http://guides.peruzal.com/ios-guides/mvc/</link>
+      <pubDate>Mon, 12 Dec 2016 02:20:42 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/ios-guides/mvc/</guid>
+      <description>
+
+&lt;p&gt;Most iOS apps follow the same basic structure and patterns.&lt;/p&gt;
+
+&lt;h1 id=&#34;model-view-controller&#34;&gt;Model-View-Controller&lt;/h1&gt;
+
+&lt;p&gt;Most of your code can be broken into three categories: model, view, controller.&lt;/p&gt;
+
+&lt;h2 id=&#34;model&#34;&gt;Model&lt;/h2&gt;
+
+&lt;p&gt;The model layer handles the important logic of your app. In a photo-sharing social network, it would include entities like &amp;ldquo;Users&amp;rdquo; and &amp;ldquo;Photos.&amp;rdquo; Often, the model handles storing data.&lt;/p&gt;
+
+&lt;p&gt;The model should be presentation agnostic. A well designed model could be reused between iPhone, iPad, and Mac.&lt;/p&gt;
+
+&lt;h2 id=&#34;view&#34;&gt;View&lt;/h2&gt;
+
+&lt;p&gt;Everything involving UI and presentation falls into the view. UIKit provides the base classes, such as &lt;code&gt;UIView&lt;/code&gt;, &lt;code&gt;UIButton&lt;/code&gt;, and &lt;code&gt;UIImageView&lt;/code&gt;. You can subclass and create your own views, but the views provided by UIKit are highly customizable, and you should stick to them whenever possible.&lt;/p&gt;
+
+&lt;h2 id=&#34;controller&#34;&gt;Controller&lt;/h2&gt;
+
+&lt;p&gt;The controller sits between your model and view. When you tap a button, the view controller should handle the event and update the model. If the model updates, the view controller reflects this by updating the view.&lt;/p&gt;
+
+&lt;p&gt;Each view controller usually correlates to one screen within your app. For instance, an email client would probably have an &lt;code&gt;AccountsListViewController&lt;/code&gt;. If you clicked on an account, it would push in to an &lt;code&gt;InboxViewController&lt;/code&gt;, which displays a list of emails. If you tapped an email, it would display the full email within an &lt;code&gt;EmailDetailsViewController&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Your view controllers will always subclass from &lt;code&gt;UIViewController&lt;/code&gt;, provided by UIKit. You can handle common events by overriding methods. For instance, if you want to start polling an endpoint when your view appears on screen, you could override &lt;code&gt;viewDidAppear(animated: Bool)&lt;/code&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;the-app-delegate&#34;&gt;The App Delegate&lt;/h1&gt;
+
+&lt;p&gt;If you want to hook into important events in the application lifecycle, you implement delegate methods in your app delegate. Events could include application launch, entering the background, and receiving incoming push notifications.&lt;/p&gt;
+
+&lt;p&gt;For instance, if you want to execute code after the application launches, you override:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;func application(application: UIApplication!, didFinishLaunchingWithOptions launchOptions: NSDictionary!) -&amp;gt; Bool {
+  // Your code here
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;services-and-extensions&#34;&gt;Services and Extensions&lt;/h1&gt;
+
+&lt;p&gt;Your app may provide services to the OS, and other apps. For instance, you can register a custom URL scheme, so when someone launches, &lt;code&gt;myApp://home&lt;/code&gt;, it opens your app, and you present the user with their home screen. You can add this support by adding a few keys to your &lt;code&gt;Info.plist&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;With iOS 8, there are a number of new extensions available. You can add content to Notification Center, provide custom keyboards, or add a new sharing option. These extensions are run independent of your main app, but they are bundled within your main app.&lt;/p&gt;
+
+&lt;p&gt;More: &lt;a href=&#34;https://developer.apple.com/library/prerelease/ios/documentation/General/Conceptual/ExtensibilityPG/ExtensionOverview.html&#34;&gt;Understand How an App Extension Works&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;system-frameworks&#34;&gt;System Frameworks&lt;/h1&gt;
+
+&lt;p&gt;The more interesting functionality of the device is exposed to you via system frameworks. For instance, if you want to get the user&amp;rsquo;s current location, you only need to import the &lt;em&gt;Core Location&lt;/em&gt; framework, and write a few lines of code.&lt;/p&gt;
+
+&lt;p&gt;You spend most of your time working with UIKit, which provides all the view classes. You&amp;rsquo;ll often work with Foundation, which provides the basic building blocks of the language, such as strings, numbers, arrays, dictionaries.&lt;/p&gt;
+
+&lt;p&gt;Other interesting frameworks include:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Address Book - Accessing the user&amp;rsquo;s contacts&lt;/li&gt;
+&lt;li&gt;Map Kit - Displaying maps&lt;/li&gt;
+&lt;li&gt;EventKit - Working with the user&amp;rsquo;s calendar&lt;/li&gt;
+&lt;li&gt;Core Graphics - Drawing&lt;/li&gt;
+&lt;li&gt;AVFoundation - Displaying audio and video&lt;/li&gt;
+&lt;li&gt;Core Motion - Accesing accelerometer and gyroscope data&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The higher level frameworks are usually exposed in Objective-C or Swift, higher level languages. Lower level APIs, such as Core Graphics, follow a C API.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://developer.apple.com/library/ios/documentation/Miscellaneous/Conceptual/iPhoneOSTechOverview/Introduction/Introduction.html&#34;&gt;iOS Technologies Overview&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://developer.apple.com/library/ios/documentation/miscellaneous/conceptual/iphoneostechoverview/iPhoneOSFrameworks/iPhoneOSFrameworks.html&#34;&gt;iOS Frameworks&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://developer.apple.com/library/ios/documentation/MacOSX/Conceptual/BPFrameworks/Concepts/WhatAreFrameworks.html&#34;&gt;What are Frameworks?&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;external-frameworks&#34;&gt;External Frameworks&lt;/h1&gt;
+
+&lt;p&gt;If you&amp;rsquo;re coming from web or backend development, you&amp;rsquo;ll find yourself using fewer external libraries than you&amp;rsquo;re used to. You&amp;rsquo;ll find yourself getting surprisingly far with only the frameworks Apple provides. However, you will likely integrate an external library here and there to fill in gaps. It may be an open source library, or an internal library used by your company.&lt;/p&gt;
+
+&lt;p&gt;The Apple-recommended solution is to use a dynamic framework. Dynamic frameworks behave similar to system frameworks, but you can bundle them alongside your app.&lt;/p&gt;
+
+&lt;p&gt;A more extensive solution is the &lt;a href=&#34;http://cocoapods.org&#34;&gt;CocoaPods&lt;/a&gt; open source project. This tool acts similar to Ruby&amp;rsquo;s &lt;em&gt;Bundler&lt;/em&gt;, allowing you to specify external dependencies in a &lt;code&gt;.podspec&lt;/code&gt; file, and run a single command to load them into your project.&lt;/p&gt;
+
+&lt;p&gt;More: &lt;a href=&#34;http://subjectiveobserver.wordpress.com/2014/06/&#34;&gt;Framing Your Work&lt;/a&gt; - Bundling your work in a dynamic framework&lt;/p&gt;
+
+&lt;h1 id=&#34;references&#34;&gt;References&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://developer.apple.com/library/ios/referencelibrary/GettingStarted/RoadMapiOS/index.html#//apple_ref/doc/uid/TP40011343&#34;&gt;Start Developing iOS Apps Today&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Query-recompilations on SQL Server Performance and Tuning</title>
+    <link>http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/query-recompilation/index.xml</link>
+    <description>Recent content in Query-recompilations on SQL Server Performance and Tuning</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Copyright 2017 Peruzal</copyright>
+    <lastBuildDate>Sat, 18 Mar 2017 14:54:45 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/query-recompilation/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Query Recompilation</title>
+      <link>http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/query-recompilation/</link>
+      <pubDate>Sat, 18 Mar 2017 14:54:45 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/query-recompilation/</guid>
+      <description>
+
+&lt;h2 id=&#34;benefits-and-drawbacks-of-recompilation&#34;&gt;Benefits and Drawbacks of Recompilation&lt;/h2&gt;
+
+&lt;p&gt;The recompilation of queries can be both beneficial and harmful. Sometimes, it may be beneficial to consider a new processing strategy for a query instead of reusing the existing plan, especially if the data distribution in the table (or the corresponding statistics) has changed or new indexes are added to the table.&lt;/p&gt;
+
+&lt;p&gt;Recompiles in SQL Server 2014 are at the statement level. This increases the overall number of recompiles that can occur within a procedure, but it reduces the effects and overhead of recompiles in general. Statement-level recompiles reduce overhead because they recompile only an individual statement rather than all the statements within a procedure&lt;/p&gt;
+
+&lt;h2 id=&#34;identifying-the-statement-causing-recompilation&#34;&gt;Identifying the Statement Causing Recompilation&lt;/h2&gt;
+
+&lt;p&gt;SQL Server can recompile individual statements within a procedure or the entire procedure. Thus, to find the cause of recompilation, it’s important to identify the SQL statement that can’t reuse the existing plan.&lt;/p&gt;
+
+&lt;h2 id=&#34;analyzing-causes-of-recompilation&#34;&gt;Analyzing Causes of Recompilation&lt;/h2&gt;
+
+&lt;p&gt;Statement recompilation occurs for the following reasons:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The schema of regular tables, temporary tables, or views referred to in the stored procedure statement have changed. Schema changes include changes to the metadata of the table or the indexes on the table.&lt;/li&gt;
+&lt;li&gt;Bindings (such as defaults) to the columns of regular or temporary tables have changed.&lt;/li&gt;
+&lt;li&gt;Statistics on the table indexes or columns have changed, either automatically or manually.&lt;/li&gt;
+&lt;li&gt;An object did not exist when the stored procedure was compiled, but it was created during execution. This is called deferred object resolution, which is the cause of the preceding recompilation.&lt;/li&gt;
+&lt;li&gt;SET options have changed.&lt;/li&gt;
+&lt;li&gt;The execution plan was aged and deallocated.&lt;/li&gt;
+&lt;li&gt;An explicit call was made to the sp_recompile system stored procedure.&lt;/li&gt;
+&lt;li&gt;There was an explicit use of the RECOMPILE hint.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Recompiling explicitly :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;EXEC dbo.CustomerList
+    @CustomerId = 1
+    WITH RECOMPILE;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;avoiding-recompilations&#34;&gt;Avoiding Recompilations&lt;/h2&gt;
+
+&lt;p&gt;You can avoid it by following these implementation practices:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Don’t interleave DDL and DML statements.&lt;/li&gt;
+&lt;li&gt;Avoid recompilation caused by statistics changes.&lt;/li&gt;
+&lt;li&gt;Use the KEEPFIXED PLAN option.&lt;/li&gt;
+&lt;li&gt;Disable the auto update statistics feature on the table.&lt;/li&gt;
+&lt;li&gt;Use table variables.&lt;/li&gt;
+&lt;li&gt;Avoid changing SET options within the stored procedure.&lt;/li&gt;
+&lt;li&gt;Use the OPTIMIZE FOR query hint.&lt;/li&gt;
+&lt;li&gt;Use plan guides.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

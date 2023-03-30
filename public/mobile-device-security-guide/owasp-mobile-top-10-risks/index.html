@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+  
+  
+  
+  
+   <html class="no-js"> 
+
+  <head lang="en-us">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=10" />
+    <title>OWASP Top 10 Mobile Risks - Mobile Device Security and Penetration Testing Guide</title>
+    <meta name="generator" content="Hugo 0.31.1" />
+
+    
+    <meta name="description" content="Mobile Device Security and Penetration Testing guide">
+    
+    <link rel="canonical" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/owasp-mobile-top-10-risks/">
+    
+    <meta name="author" content="Peruzal">
+    
+
+    <meta property="og:url" content="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/owasp-mobile-top-10-risks/">
+    <meta property="og:title" content="Mobile Device Security and Penetration Testing Guide">
+    <meta property="og:image" content="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/images/logo.png">
+    <meta name="apple-mobile-web-app-title" content="Mobile Device Security and Penetration Testing Guide">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="shortcut icon" type="image/x-icon" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/images/favicon.ico">
+
+    <style>
+      @font-face {
+        font-family: 'Icon';
+        src: url('https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/fonts/icon.eot');
+        src: url('https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/fonts/icon.eot')
+               format('embedded-opentype'),
+             url('https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/fonts/icon.woff')
+               format('woff'),
+             url('https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/fonts/icon.ttf')
+               format('truetype'),
+             url('https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/fonts/icon.svg')
+               format('svg');
+        font-weight: normal;
+        font-style: normal;
+      }
+    </style>
+
+    <link rel="stylesheet" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/stylesheets/application.css">
+    <link rel="stylesheet" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/stylesheets/temporary.css">
+    <link rel="stylesheet" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/stylesheets/palettes.css">
+    <link rel="stylesheet" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/stylesheets/highlight/highlight.css">
+
+    
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ubuntu:400,700|Ubuntu&#43;Mono">
+    <style>
+      body, input {
+        font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+      }
+      pre, code {
+        font-family: 'Ubuntu Mono', 'Courier New', 'Courier', monospace;
+      }
+    </style>
+
+    
+    <script src="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/javascripts/modernizr.js"></script>
+
+    
+
+  </head>
+  <body class="palette-primary-red palette-accent-teal">
+
+
+
+
+<div class="backdrop">
+	<div class="backdrop-paper"></div>
+</div>
+
+<input class="toggle" type="checkbox" id="toggle-drawer">
+<input class="toggle" type="checkbox" id="toggle-search">
+<label class="toggle-button overlay" for="toggle-drawer"></label>
+
+<header class="header">
+	<nav aria-label="Header">
+  <div class="bar default">
+    <div class="button button-menu" role="button" aria-label="Menu">
+      <label class="toggle-button icon icon-menu" for="toggle-drawer">
+        <span></span>
+      </label>
+    </div>
+    <div class="stretch">
+      <div class="title">
+        OWASP Top 10 Mobile Risks
+      </div>
+    </div>
+
+    
+    <div class="button button-twitter" role="button" aria-label="Twitter">
+       <a href="https://twitter.com/peruzal" title="@peruzal on Twitter" target="_blank" class="toggle-button icon icon-twitter"></a>
+    </div>
+    
+
+    
+    <div class="button button-github" role="button" aria-label="GitHub">
+      <a href="https://github.com/peruzal" title="@peruzal on GitHub" target="_blank" class="toggle-button icon icon-github"></a>
+    </div>
+    
+    
+        
+  </div>
+  <div class="bar search">
+    <div class="button button-close" role="button" aria-label="Close">
+      <label class="toggle-button icon icon-back" for="toggle-search"></label>
+    </div>
+    <div class="stretch">
+      <div class="field">
+        <input class="query" type="text" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck>
+      </div>
+    </div>
+    <div class="button button-reset" role="button" aria-label="Search">
+      <button class="toggle-button icon icon-close" id="reset-search"></button>
+    </div>
+  </div>
+</nav>
+</header>
+
+<main class="main">
+	<div class="drawer">
+		<nav aria-label="Navigation">
+  <a href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide" class="project">
+    <div class="banner">
+      
+        <div class="logo">
+          <img src="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guideimages/logo.png">
+        </div>
+      
+      <div class="name">
+        <strong>Mobile Device Security and Penetration Testing Guide <span class="version">1.0.0</span></strong>
+        
+      </div>
+    </div>
+  </a>
+
+  <div class="scrollable">
+    <div class="wrapper">
+      
+
+      <div class="toc">
+        
+        <ul>
+          
+
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Getting Started" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/getting-started/">
+	
+	Getting Started
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Mobile App Ecosystem" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/mobile-app-ecosystem/">
+	
+	Mobile App Ecosystem
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Mobie App Attack Vectors" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/mobile-device-attack-vectors/">
+	
+	Mobie App Attack Vectors
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Setting Up Android Lab Environment" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/setting-up-android-lab-environment/">
+	
+	Setting Up Android Lab Environment
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Android  Fundamentals" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-fundamentals/">
+	
+	Android  Fundamentals
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Rooting Android Devices" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/rooting-android-devices/">
+	
+	Rooting Android Devices
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Android Security Model" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-security-model/">
+	
+	Android Security Model
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Android Forensic Tools" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-forensic-tools/">
+	
+	Android Forensic Tools
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Android Data Extraction" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-data-extraction/">
+	
+	Android Data Extraction
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a class="current" title="OWASP Mobile Top 10 Risks" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/owasp-mobile-top-10-risks/">
+	
+	OWASP Mobile Top 10 Risks
+</a>
+
+
+<ul id="scrollspy">
+</ul>
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Android Insecure Data Storage" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-insecure-data-storage/">
+	
+	Android Insecure Data Storage
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Setting Up iOS Development Environment" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/setting-up-ios-development-environment/">
+	
+	Setting Up iOS Development Environment
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Setting Up an iOS Pentesting Lab" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/setting-up-ios-pentesting-lab/">
+	
+	Setting Up an iOS Pentesting Lab
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Jailbreaking iOS Devices" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/jailbreaking-ios-devices/">
+	
+	Jailbreaking iOS Devices
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="iOS Internals Overview" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-internals/">
+	
+	iOS Internals Overview
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Data Acqusition from iOS Devices" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-data-acqusition/">
+	
+	Data Acqusition from iOS Devices
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="iOS Data Analysis and Recovery" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-data-analysis-and-recovery/">
+	
+	iOS Data Analysis and Recovery
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="iOS Insecure Local Data Storage" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-insecure-local-data-storage/">
+	
+	iOS Insecure Local Data Storage
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="iOS Unintended Data Leakage" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-unintended-data-leakage/">
+	
+	iOS Unintended Data Leakage
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="iOS Traffic Analysis" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-traffic-analysis/">
+	
+	iOS Traffic Analysis
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="iOS Runtime Analysis" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-runtime-analysis/">
+	
+	iOS Runtime Analysis
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="iOS Network Attacks" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-network-attacks/">
+	
+	iOS Network Attacks
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Mobile Malware" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/mobile-malware/">
+	
+	Mobile Malware
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="License" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/license/">
+	
+	License
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Mobile App Device Security and Penetration Testing" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/">
+	
+	Mobile App Device Security and Penetration Testing
+</a>
+
+
+
+  
+</li>
+
+
+        </ul>
+        
+
+        
+        <hr>
+        <span class="section">The author</span>
+        
+        <ul>
+          
+          <li>
+            <a href="https://twitter.com/peruzal" target="_blank" title="@peruzal on Twitter">
+              @peruzal on Twitter
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="https://github.com/peruzal" target="_blank" title="@peruzal on GitHub">
+              @peruzal on GitHub
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="mailto:info@peruzal.co.za" title="Email of info@peruzal.co.za">
+              Contact via email
+            </a>
+          </li>
+          
+        </ul>
+        
+      </div>
+    </div>
+  </div>
+</nav>
+
+	</div>
+
+	<article class="article">
+		<div class="wrapper">
+			<h1>OWASP Top 10 Mobile Risks </h1>
+
+			
+
+<p>OWASP have come up with 10 risks that are affecting the security mobile apps.</p>
+
+<ul>
+<li>M1: Weak Server-Side Controls</li>
+<li>M2: Insecure Data Storage</li>
+<li>M3: Insufficient Transport Layer Protection</li>
+<li>M4: Unintended Data Leakage</li>
+<li>M5: Poor Authorization and Authentication</li>
+<li>M6: Broken Cryptography</li>
+<li>M7: Client-Side Injection</li>
+<li>M8: Security Decisions via Untrusted Inputs</li>
+<li>M9: Improper Session Handling</li>
+<li>M10: Lack of Binary Protections</li>
+</ul>
+
+<h2 id="m1-weak-server-side-controls">M1: Weak Server-Side Controls</h2>
+
+<p>This deals with the attacks targeting the backend of the mobile app. Mobile apps connect
+to a REST or SOAP API. These backends are vulnerable to the same web attacks since they run on web technologies
+used on websites. Most of the vulnerabilities are found in this section.</p>
+
+<h2 id="m2-insecure-data-storage">M2: Insecure Data Storage</h2>
+
+<p>Most devices need to store the data locally on the device. Sensitive data such as usernames, authentication tokens, passwords and pins and other personal
+identifiable information such as addresses, phone numbers, date of birth are stored locally on the file system.</p>
+
+<p>Once the user have root access to the device, they will have access to all the data stored locally on the filesystem.</p>
+
+<h2 id="m3-insufficient-transport-layer-protection">M3: Insufficient Transport Layer Protection</h2>
+
+<p>Some mobile apps transmit secure data over insecure networks which lead to attacks. The data is susceptible to MITM(Man in the Middle Attacks).
+Some apps perform authentication over HTTPS but then transmit the authentication token using HTTP.</p>
+
+<p>Although most apps connect to the API securely over HTTPS they do not perform certificate validation.</p>
+
+<h2 id="m4-unintended-data-leakage">M4: Unintended Data Leakage</h2>
+
+<p>When an application processes sensitive information taken as input from the user, it may reult in placing that data
+in an insecure location in the device. This insecure location could be accessible to other malicious apps running on the same device.</p>
+
+<p>Examples of unintended data leakage :</p>
+
+<ul>
+<li>Leaking content providers</li>
+<li>Logging</li>
+<li>Browser cookie objects</li>
+<li>Analytics data sent to third parties</li>
+</ul>
+
+<h2 id="m5-poor-authorization-and-authentication">M5: Poor Authorization and Authentication</h2>
+
+<p>Most device PINs are short due to accessibility issues. These short PINs can be easily brute forced allowing the user to again access to the apps data.
+Privileged function could also be crafted and sent to the API and try to gain private information.</p>
+
+<h2 id="m6-broken-cryptography">M6: Broken Cryptography</h2>
+
+<p>Broken Cryptography isn Android is usually due to :</p>
+
+<ul>
+<li>Using a weak algorithm for encryption/decryption, this could using algorithms such as DES, 3DES and others.</li>
+<li>Using strong algorithm but implementing it in an insecure way e.g. storing keys in the local database files, hardcoding the keys in the source.</li>
+</ul>
+
+<h2 id="m7-client-side-injection">M7: Client-Side Injection</h2>
+
+<p>This involves execution of malicious code on the mobile device via the mobile app. Attacks are usuall from :</p>
+
+<ul>
+<li>Injection of executable code through Webviews</li>
+<li>SQL Injection attacks in raw SQL statements used with SQLite databases</li>
+<li>SQL Injection in content providers</li>
+<li>Path traversal in content providers</li>
+</ul>
+
+<h2 id="m8-security-decisions-via-untrusted-inputs">M8: Security Decisions via Untrusted Inputs</h2>
+
+<p>This involves executing security sensitive code with untrusted user input. Examples of this
+is invoking sensitive activities by using malformed intents.</p>
+
+<h2 id="m9-improper-session-handling">M9: Improper Session Handling</h2>
+
+<p>This involves attacking and securing authentication tokens that are generated once the user is logged in.
+Common issues arise when the tokens are invalidated on the device but the server does not invalidate the token.
+A malicious user can gain access to the token and use it to access data on the server side.</p>
+
+<h2 id="m10-lack-of-binary-protections">M10: Lack of Binary Protections</h2>
+
+<p>Android apps are vulnerable to reverse engineering. The code for Android apps can be decompiled and disassembled.
+This allows the attacker to have access to hardcoded secrets, find vulnerabilities and even modify the functionality of the app.</p>
+
+
+			<aside class="copyright" role="note">
+				
+				&copy; 2018 Peruzal Mobile Device Security and Penetration Testing Guide &ndash;
+				
+				Documentation built with
+				<a href="https://www.gohugo.io" target="_blank">Hugo</a>
+				using the
+				<a href="http://github.com/digitalcraftsman/hugo-material-docs" target="_blank">Material</a> theme.
+			</aside>
+
+			<footer class="footer">
+				
+
+<nav class="pagination" aria-label="Footer">
+  <div class="previous">
+  
+      <a href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/setting-up-ios-development-environment/" title="Setting Up iOS Development Environment">
+        <span class="direction">
+          Previous
+        </span>
+        <div class="page">
+          <div class="button button-previous" role="button" aria-label="Previous">
+            <i class="icon icon-back"></i>
+          </div>
+          <div class="stretch">
+            <div class="title">
+              Setting Up iOS Development Environment
+            </div>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+
+  <div class="next">
+  
+      <a href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-data-extraction/" title="Android Data Extraction">
+        <span class="direction">
+          Next
+        </span>
+        <div class="page">
+          <div class="stretch">
+            <div class="title">
+              Android Data Extraction
+            </div>
+          </div>
+          <div class="button button-next" role="button" aria-label="Next">
+            <i class="icon icon-forward"></i>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+</nav>
+
+
+
+
+
+			</footer>
+		</div>
+	</article>
+
+	<div class="results" role="status" aria-live="polite">
+		<div class="scrollable">
+			<div class="wrapper">
+				<div class="meta"></div>
+				<div class="list"></div>
+			</div>
+		</div>
+	</div>
+</main>
+
+    <script>
+    
+      var base_url = '';
+      var repo_id  = '';
+    
+    </script>
+
+    <script src="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/javascripts/application.js"></script>
+    
+
+    <script>
+      /* Add headers to scrollspy */
+      var headers   = document.getElementsByTagName("h2");
+      var scrollspy = document.getElementById('scrollspy');
+
+      if(scrollspy) {
+        if(headers.length > 0) {
+          for(var i = 0; i < headers.length; i++) {
+            var li = document.createElement("li");
+            li.setAttribute("class", "anchor");
+
+            var a  = document.createElement("a");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", headers[i].innerHTML);
+            a.innerHTML = headers[i].innerHTML;
+
+            li.appendChild(a)
+            scrollspy.appendChild(li);
+          }
+        } else {
+          scrollspy.parentElement.removeChild(scrollspy)
+        }
+
+
+        /* Add permanent link next to the headers */
+        var headers = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+
+        for(var i = 0; i < headers.length; i++) {
+            var a = document.createElement("a");
+            a.setAttribute("class", "headerlink");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", "Permanent link")
+            a.innerHTML = "#";
+            headers[i].appendChild(a);
+        }
+      }
+    </script>
+
+    
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>
+

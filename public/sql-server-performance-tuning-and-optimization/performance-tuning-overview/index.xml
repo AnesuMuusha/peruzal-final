@@ -1,0 +1,660 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Performance-tuning-overviews on SQL Server Performance and Tuning</title>
+    <link>http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/performance-tuning-overview/index.xml</link>
+    <description>Recent content in Performance-tuning-overviews on SQL Server Performance and Tuning</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Copyright 2017 Peruzal</copyright>
+    <lastBuildDate>Sat, 18 Mar 2017 10:23:42 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/performance-tuning-overview/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Performance Tuning Overview</title>
+      <link>http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/performance-tuning-overview/</link>
+      <pubDate>Sat, 18 Mar 2017 10:23:42 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/performance-tuning-overview/</guid>
+      <description>
+
+&lt;h2 id=&#34;factors-impacting-performance&#34;&gt;Factors Impacting Performance&lt;/h2&gt;
+
+&lt;p&gt;There are several factors that impact the application performance, although in this guide we will be more concerned with the factors that are related to SQL Server specifically. Here are some factors that impact performance and scalability :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Application Architecture&lt;/li&gt;
+&lt;li&gt;Application Design&lt;/li&gt;
+&lt;li&gt;Transactions and Isolation Levels&lt;/li&gt;
+&lt;li&gt;Transact-SQL Code&lt;/li&gt;
+&lt;li&gt;Hardware Resources&lt;/li&gt;
+&lt;li&gt;SQL Server Configuration&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;sql-server-configuration&#34;&gt;SQL Server Configuration&lt;/h3&gt;
+
+&lt;p&gt;To view the sql server configuration options you can use the stored procedure, &lt;code&gt;sp_configure&lt;/code&gt;. You can show configurations options as follows :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;exec sp_configure
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The above will not show advanced configuration options, you can toggle the display of advanced configurations by running the following :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;EXEC sp_configure &#39;show advanced options&#39;, 1
+GO
+RECONFIGURE
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;the-performance-tuning-process&#34;&gt;The Performance-Tuning Process&lt;/h2&gt;
+
+&lt;p&gt;Performance tuning needs to be a proactive process not reactive. A general good strategy might entail the following :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Creating a baseline for your workload&lt;/li&gt;
+&lt;li&gt;Monitoring your workload&lt;/li&gt;
+&lt;li&gt;Detecting, isolating, and troubleshooting performance problems&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;You should ask yourself the following general questions before embarking on the performance tuning process :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Is any other resource-intensive application running on the same server?&lt;/li&gt;
+&lt;li&gt;Is the capacity of the hardware subsystem capable of withstanding the maximum workload?&lt;/li&gt;
+&lt;li&gt;Is SQL Server configured properly?&lt;/li&gt;
+&lt;li&gt;Does the shared environment, whether VM or platform, have adequate resources, or am I dealing with a configuration issue there or even resource contention from outside forces?&lt;/li&gt;
+&lt;li&gt;Is the database connection between SQL Server and the database application efficient?&lt;/li&gt;
+&lt;li&gt;Does the database design support the fastest data retrieval (and modification for an updatable database)?&lt;/li&gt;
+&lt;li&gt;Is the user workload, consisting of SQL queries, optimized to reduce the load on SQL Server?&lt;/li&gt;
+&lt;li&gt;What processes are causing the system to slow down as reflected in the measurement of various wait states, performance counters, and dynamic management objects?&lt;/li&gt;
+&lt;li&gt;Does the workload support the required level of concurrency?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;creating-a-baseline&#34;&gt;Creating a Baseline&lt;/h3&gt;
+
+&lt;p&gt;A baseline is what you will use to check deviations in performance within your sql server environment. Some environments might even require multiple baselines depending on the application requirements e.g a baseline for OLTP(Online Transaction Processing) workloads and another baseline for OLAP(Online Analytical Processing) workloads.&lt;/p&gt;
+
+&lt;p&gt;Here are some commonly used tools for creating a SQL Server Performance Baseline :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Performance Monitor&lt;/li&gt;
+&lt;li&gt;SQL Server Profiler(Deprecated since 2012, Use Extended Events instead)&lt;/li&gt;
+&lt;li&gt;Extended Events&lt;/li&gt;
+&lt;li&gt;Database Engine Tuning Advisor (DTA)&lt;/li&gt;
+&lt;li&gt;DBCC Commands&lt;/li&gt;
+&lt;li&gt;Dynamic Management Views (DMV) and Functions (DMF)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;monitoring-the-workload&#34;&gt;Monitoring the Workload&lt;/h3&gt;
+
+&lt;p&gt;The baseline is not useful if its not monitored. A plan should be put in place to monitor the baseline. Any significant deviation from baseline represents a change that needs to be understood and analyzed for its impact on the performance of your workload&lt;/p&gt;
+
+&lt;h3 id=&#34;detecting-isolating-and-troubleshooting-common-performance-problems&#34;&gt;Detecting, Isolating, and Troubleshooting Common Performance Problems&lt;/h3&gt;
+
+&lt;p&gt;Performance problems usually manifest themselves as a bottleneck in a subsystem within SQL Server and these can be :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;CPU&lt;/li&gt;
+&lt;li&gt;Memory&lt;/li&gt;
+&lt;li&gt;I/O&lt;/li&gt;
+&lt;li&gt;tempdb&lt;/li&gt;
+&lt;li&gt;Blocking&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;cpu-bottlenecks&#34;&gt;CPU Bottlenecks&lt;/h2&gt;
+
+&lt;p&gt;When a user submits a query that query is either a batch or a request. Each request or batch is executed by a worker process, which is a logical thread in SQL Server, and is mapped directly to an OS thread or a fiber. A worker process can be either in three states :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;RUNNING&lt;/strong&gt; - The worker is currently executing on the CPU&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;RUNNABLE&lt;/strong&gt; - The worker is currently waiting for its turn on the CPU&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;SUSPENDED&lt;/strong&gt; - The worker is waiting on a resource, for example, a lock or an I/O&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;If the SQL Server instance have a large number of workers in the RUNNABLE state this could be a sign of a CPU bottleneck and if more workers are spending their time in the SUSPENDED state they could be a blocking issue, which might be related to I/O or another resource.&lt;/p&gt;
+
+&lt;h3 id=&#34;detecting-cpu-bottlenecks&#34;&gt;Detecting CPU Bottlenecks&lt;/h3&gt;
+
+&lt;p&gt;The following tools can help detect CPU bottleneck :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Performance Monitor&lt;/li&gt;
+&lt;li&gt;DMVs&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;performance-monitor-counters&#34;&gt;Performance Monitor Counters&lt;/h3&gt;
+
+&lt;p&gt;We can use the the following Performance counters to detect CPU pressure :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Processor:% Processor Time&lt;/strong&gt; - A consistent value greater than 80 percent for 15 to 20 minutes indicates that you have CPU bottleneck.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;System:Processor Queue&lt;/strong&gt; -  A sustained value of 2 or higher typically indicates CPU pressure&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Process:%Processor Time&lt;/strong&gt; - If SQL Server is the only application on the machine then you can monitor this value and check the amount of CPU time used by SQL Server.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;using-dmvs&#34;&gt;Using DMVs&lt;/h3&gt;
+
+&lt;p&gt;We can check the number of worker processes for each scheduler that are in the RUNNABLE state using the &lt;code&gt;sys.dm_os_schedulers&lt;/code&gt; and `` as follows :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;select s.scheduler_id, count(*) [workers waiting for cpu] from sys.dm_os_workers w
+join sys.dm_os_schedulers s
+on w.scheduler_address = s.scheduler_address
+where s.scheduler_id &amp;lt; 255 and w.state = N&#39;RUNNABLE&#39;
+group by s.scheduler_id 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;or we can find out the amount of time spent by workers in the RUNNABLE state as follows :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT SUM(signal_wait_time_ms)
+FROM sys.dm_os_wait_stats
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;signal_wait_time&lt;/code&gt; represents the difference in time when the worker process actually started running from the RUNNABLE state.&lt;/p&gt;
+
+&lt;div class=&#34;admonition note&#34;&gt;
+&lt;p class=&#34;admonition-title&#34;&gt;Note&lt;/p&gt;
+&lt;p&gt;The above DMVs contains values since SQL Server was started. You will need to use a baseline to find significant deviations in order to detect CPU pressure.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;isolating-and-troubleshooting-of-cpu-bottlenecks&#34;&gt;Isolating and troubleshooting of CPU bottlenecks&lt;/h3&gt;
+
+&lt;p&gt;Once you are convinced the pressure is cause by CPU bottleneck, you can diagnose the causes. The following are some causes of CPU pressure :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;An inefficient query plan&lt;/li&gt;
+&lt;li&gt;Excessive compilation and recompilation&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;an-inefficient-query-plan&#34;&gt;An inefficient query plan&lt;/h3&gt;
+
+&lt;p&gt;We need to find the queries taking the most CPU time first and comapre them to the baseline. We can use the &lt;code&gt;sys.dm_exec_query_stats&lt;/code&gt;. This DMV returns aggregate performance statistics on cached query plans in SQL Server. We can find the top queries with high CPU per execution with the following :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;USE AdventureWorks2012;
+GO  
+SELECT TOP 10 query_stats.query_hash AS &amp;quot;Query Hash&amp;quot;,   
+    SUM(query_stats.total_worker_time) / SUM(query_stats.execution_count) AS &amp;quot;Avg CPU Time&amp;quot;,  
+    MIN(query_stats.statement_text) AS &amp;quot;Statement Text&amp;quot;  
+FROM   
+    (SELECT QS.*,   
+    SUBSTRING(ST.text, (QS.statement_start_offset/2) + 1,  
+    ((CASE statement_end_offset   
+        WHEN -1 THEN DATALENGTH(ST.text)  
+        ELSE QS.statement_end_offset END   
+            - QS.statement_start_offset)/2) + 1) AS statement_text  
+     FROM sys.dm_exec_query_stats AS QS  
+     CROSS APPLY sys.dm_exec_sql_text(QS.sql_handle) as ST) as query_stats  
+GROUP BY query_stats.query_hash  
+ORDER BY 2 DESC;  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;or a variation of the above :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT TOP 10
+   total_worker_time/execution_count AS avg_cpu_cost, plan_handle,
+   execution_count,
+   (SELECT SUBSTRING(text, statement_start_offset/2 + 1,
+      (CASE WHEN statement_end_offset = -1
+         THEN LEN(CONVERT(nvarchar(max), text)) * 2
+         ELSE statement_end_offset
+      END - statement_start_offset)/2)
+   FROM sys.dm_exec_sql_text(sql_handle)) AS query_text
+FROM sys.dm_exec_query_stats
+ORDER BY [avg_cpu_cost] DESC
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We might miss frequently executed queries by using the above, a slight modification is to find frequently executed queries as follows :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT TOP 10 total_worker_time, plan_handle,execution_count,
+   (SELECT SUBSTRING(text, statement_start_offset/2 + 1,
+      (CASE WHEN statement_end_offset = -1
+         THEN LEN(CONVERT(nvarchar(max),text)) * 2
+         ELSE statement_end_offset
+      END - statement_start_offset)/2)
+   FROM sys.dm_exec_sql_text(sql_handle)) AS query_text
+FROM sys.dm_exec_query_stats
+ORDER BY execution_count DESC
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The following example returns row count aggregate information (total rows, minimum rows, maximum rows and last rows) for queries :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT qs.execution_count,  
+    SUBSTRING(qt.text,qs.statement_start_offset/2 +1,   
+                 (CASE WHEN qs.statement_end_offset = -1   
+                       THEN LEN(CONVERT(nvarchar(max), qt.text)) * 2   
+                       ELSE qs.statement_end_offset end -  
+                            qs.statement_start_offset  
+                 )/2  
+             ) AS query_text,   
+     qt.dbid, dbname= DB_NAME (qt.dbid), qt.objectid,   
+     qs.total_rows, qs.last_rows, qs.min_rows, qs.max_rows  
+FROM sys.dm_exec_query_stats AS qs   
+CROSS APPLY sys.dm_exec_sql_text(qs.sql_handle) AS qt   
+WHERE qt.text like &#39;%SELECT%&#39;   
+ORDER BY qs.execution_count DESC;  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;admonition note&#34;&gt;
+&lt;p class=&#34;admonition-title&#34;&gt;Note&lt;/p&gt;
+&lt;p&gt;The above DMVs only contains aggregate performance information for queries that have the plans cached. Some expensive queries plans might not be cached and will be missed. But if you are polling for this information frequently you will be able to catch them.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;excessive-compilation-and-recompilation&#34;&gt;Excessive compilation and recompilation&lt;/h3&gt;
+
+&lt;p&gt;SQL Server compiles the query before executing it and usually caches the plan. For an expensive query the cost of re-compiling can be reducing by re-using cached query plans. Compiling is a CPU intensive task and excessive re-compilation will result in CPU pressure. There many reasons SQL Server might recompile a query, some of them are :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Schema Change&lt;/strong&gt; - f the metadata of the referenced objects is changed, it causes a recompile. So if you have a batch that mixes DDL and DML, it will force a recompile&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;SET Options&lt;/strong&gt; - There are some set options which will cause a recompile, if changed. Some of these options are &lt;em&gt;ANSI_NULLS&lt;/em&gt;, &lt;em&gt;ANSI_PADDINGS&lt;/em&gt;, &lt;em&gt;ANSI_NULL&lt;/em&gt;, and &lt;em&gt;ARITHABORT&lt;/em&gt;. If you change these options inside a batch, it will force a recompile every time&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Updated Statistics&lt;/strong&gt; - Any significant changes in the statistical information will force a recompile&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Recompile Query Hint&lt;/strong&gt; - If you have a stored procedure with recompile option, it will get recompiled on every execution&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;detecting-compilation-and-re-compilation&#34;&gt;Detecting Compilation and Re-compilation&lt;/h3&gt;
+
+&lt;p&gt;We can use Performance Monitor and DMVs to monitors compilations and recompilations.&lt;/p&gt;
+
+&lt;h3 id=&#34;performance-counters&#34;&gt;Performance Counters&lt;/h3&gt;
+
+&lt;p&gt;We can look at the following Performance Counters :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;SQLServer: SQL Statistics: Batch Requests/Sec&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;SQLServer: SQL Statistics: SQL Compilations/Sec&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;SQLServer: SQL Statistics: SQL Recompilations/Sec&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;admonition note&#34;&gt;
+&lt;p class=&#34;admonition-title&#34;&gt;Note&lt;/p&gt;
+&lt;p&gt;It is important to look at compile/recompile numbers in relation to number batch requests per second&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;using-dmvs-1&#34;&gt;Using DMVs&lt;/h3&gt;
+
+&lt;p&gt;We can check how much time the SQL Server optimizer is spending optimizing the query plan using the `` DMV as follows :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT * FROM sys.dm_exec_query_optimizer_info
+WHERE counter in (&#39;optimizations&#39;, &#39;elapsed time&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We can use the following query to find the top 10 queries with the most recompiles as follows :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT TOP 10 plan_generation_num, execution_count,
+   (SELECT SUBSTRING(text, statement_start_offset/2 + 1,
+      (CASE WHEN statement_end_offset = -1
+         THEN LEN(CONVERT(nvarchar(max),text)) * 2
+         ELSE statement_end_offset
+      END - statement_start_offset)/2)
+   FROM sys.dm_exec_sql_text(sql_handle)) AS query_text
+FROM sys.dm_exec_query_stats
+WHERE plan_generation_num &amp;gt;1
+ORDER BY plan_generation_num DESC
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Recompilations might mean SQL Server is under memory pressure and can not keep the cached plans in memory. We can look at the memory using &lt;em&gt;DBCC&lt;/em&gt; as follows :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;DBCC MEMORYSTATUS
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Look under the Procedure Cache tab results. &lt;em&gt;TotalPages&lt;/em&gt; represent stolen buffer pool pages used to store optimized plans. Here is the sample output :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;Procedure Cache                          Value
+---------------------------------------- -----------
+TotalProcs                               0
+TotalPages                               211
+InUsePages                               0
+
+(3 row(s) affected)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;memory-bottlenecks&#34;&gt;Memory Bottlenecks&lt;/h2&gt;
+
+&lt;p&gt;All data read from tables needs to be in memory first before SQL Server can work with it. The first time SQL Server reads a page from the file, this is called a physical read and when the page is read from memory its called a logical read. SQL Server keeps the pages in memory structure called the buffer pool. Its uses the LRU(Least Recently Used) algorithm to keep the pages in memory.&lt;/p&gt;
+
+&lt;p&gt;SQL Server also uses memory for its internal structures, e.g. for user connections, locks, query cache and other internal structures.&lt;/p&gt;
+
+&lt;p&gt;SQL Server uses both physical RAM and virtual memory. A page file is used for the virtual memory. When a process is not using a part of memory, the data is &lt;em&gt;paged&lt;/em&gt; to disk and then &lt;em&gt;paged in&lt;/em&gt; again when the process needs to use them. This process is quite slow. Paging can also be the result of not having enough RAM on the machine.&lt;/p&gt;
+
+&lt;h3 id=&#34;show-available-memory&#34;&gt;Show Available Memory&lt;/h3&gt;
+
+&lt;p&gt;We can use &lt;em&gt;DBCC&lt;/em&gt; to show the available memory and paging memory as follows :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;DBCC MEMORYSTATUS
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here is a sample output :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;Process/System Counts                    Value
+---------------------------------------- --------------------
+Available Physical Memory                3500609536
+Available Virtual Memory                 140714606923776
+Available Paging File                    2413473792
+Working Set                              168247296
+Percent of Committed Memory in WS        13
+Page Faults                              1821744
+System physical memory high              1
+System physical memory low               0
+Process physical memory low              0
+Process virtual memory low               0
+
+(10 row(s) affected)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;detecting-memory-pressure&#34;&gt;Detecting Memory Pressure&lt;/h3&gt;
+
+&lt;p&gt;Using Performance Monitor we can look at the following counters :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Memory: Available Bytes&lt;/strong&gt; - This represents the amount of physical memory, in bytes, available to processes running on the computer.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;SQLServer:Buffer Manager: Buffer Cache Hit Ratio&lt;/strong&gt; - This represents the percentage of pages that were found in the buffer pool without having to incur a read from disk. For most production workloads this value should be in the high 90s&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;SQLServer:Buffer Manager: Page Life Expectancy&lt;/strong&gt; - This represents the number of seconds a page will stay in the buffer pool without references. A lower value indicates that the buffer pool is under memory pressure.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;SQLServer:Buffer Manager: Checkpoint Pages/Sec&lt;/strong&gt; - This represents number of pages flushed by checkpoint or other operations that require all dirty pages to be flushed. This indicates increased buffer pool activity of your workload&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;SQLServer:Buffer Manager: Lazywrites/Sec&lt;/strong&gt; - This represents number of buffers written by buffer manager’s lazy writer. This indicates increased buffer pool activity of your workload.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The majority of the committed memory is used by the buffer pool on a SQL Server instance can be seen from the output of &lt;code&gt;DBCC MEMORYSTATUS&lt;/code&gt;. Here is the sample output :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;Buffer Pool                              Value
+---------------------------------------- -----------
+Database                                 6005
+Simulated                                1104
+Target                                   16203776
+Dirty                                    162
+In IO                                    0
+Latched                                  0
+Page Life Expectancy                     105067
+
+(7 row(s) affected)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Committed&lt;/strong&gt; - This value shows the total buffers that are committed. Buffers that are committed have physical memory associated with them. The Committed value is the current size of the buffer pool.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Target&lt;/strong&gt; - This value shows the target size of the buffer pool. It is computed periodically by SQL Server as the number of 8-KB pages it can commit without causing paging. SQL Server lowers its value in response to memory low notification from the Windows operating system. A decrease in the number of target pages on a normally loaded server may indicate response to an external physical memory pressure.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;isolation-and-troubleshooting-of-memory-pressure&#34;&gt;Isolation and Troubleshooting of Memory Pressure&lt;/h3&gt;
+
+&lt;p&gt;Use the Performance counters to detect external memory pressure. The following are some counters to look at :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Process:Working Set&lt;/strong&gt; counter for each process&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Memory:Cache Bytes&lt;/strong&gt; counter for system working set&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Memory:Pool Nonpaged&lt;/strong&gt; Bytes counter for size of unpaged pool&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Memory:Available Bytes&lt;/strong&gt; (equivalent of the Available value in Task Manager)&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;We can use the following DMV to find the amount of memory currently being used by the buffer pool :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT
+   SUM(virtual_memory_committed_kb + shared_memory_committed_kb
+      + awe_allocated_kb) AS [Used by BPool, Kb]
+FROM sys.dm_os_memory_clerks
+WHERE type = &#39;MEMORYCLERK_SQLBUFFERPOOL&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;i-o-bottlenecks&#34;&gt;I/O Bottlenecks&lt;/h2&gt;
+
+&lt;p&gt;The IO subsystem is an important part of SQL Server. SQL Server needs to read data pages from the file before it can work with. Sometimes IO bottlenecks are the result os a different subsystem, e.g memory pressure.&lt;/p&gt;
+
+&lt;h3 id=&#34;detection-of-i-o-bottlenecks&#34;&gt;Detection of I/O Bottlenecks&lt;/h3&gt;
+
+&lt;p&gt;We can use Performance Monitor and look at counters for I/O. Here are some counters to look at :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;PhysicalDisk Object: Avg. Disk Queue Length&lt;/strong&gt; - Disk Queue Length represents the average number of physical Read and Write requests that were queued on the selected physical disk during the sampling period. If your I/O system is overloaded, more Read/Write operations will be waiting. If your disk-queue length frequently exceeds a value of two per physical disk during peak usage of SQL Server, then you might have an I/O bottleneck&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;PhysicalDisk Object: Avg. Disk Sec/Read or Avg&lt;/strong&gt; - is the average time, in seconds, of a read or write of data from/to the disk. Some general guidelines follow:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Less than 10 ms is very good&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Between 10 and 20 ms is okay&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Between 20 and 50 ms is slow, needs attention&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Greater than 50 ms is considered a serious I/O bottleneck&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;PhysicalDisk: Disk Reads/Sec or Disk Writes/Sec&lt;/strong&gt; - is the rate of read or write operations on the disk. You need to make sure that this number is less than 85 percent of the disk capacity. The disk access time increases exponentially beyond 85 percent capacity.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;admonition note&#34;&gt;
+&lt;p class=&#34;admonition-title&#34;&gt;Note&lt;/p&gt;
+&lt;p&gt;The Performance counter shows the I/O information at the disk level not file level. If you are mixing the database files and the logs files on the same disk you miss valuable information.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;p&gt;We can use the DMV to find the I/O information at the file level as follows :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT database_id, file_id, io_stall_read_ms, io_stall_write_ms 
+FROM sys.dm_io_virtual_file_stats(null, null)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We can also check for the latch waits. SQL Server waits for &lt;em&gt;PAGEIOLATCH_EX&lt;/em&gt; or &lt;em&gt;PAGEIOLATCH_SH&lt;/em&gt; if the page is not in the buffer pool.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT
+   wait_type,
+   waiting_tasks_count,
+   wait_time_ms,
+   signal_wait_time_ms,
+   (wait_time_ms - signal_wait_time_ms) &#39;io time waiting&#39;
+FROM sys.dm_os_wait_stats
+WHERE wait_type IN (&#39;PAGEIOLATCH_SH&#39;, &#39;PAGEIOLATCH_EX&#39;)
+ORDER BY wait_type
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The long waits of this type indicate a problem with the disk subsystem. The column &lt;em&gt;wait_time_ms&lt;/em&gt; includes the time a worker spends in SUSPENDED state and in RUNNABLE state while the column &lt;em&gt;signal_wait_time_ms&lt;/em&gt; represents the time a worker spends in RUNNABLE state. So the difference of the two (wait_time_ms – signal_wait_time_ms), actually represents the time spent waiting for I/O to complete.&lt;/p&gt;
+
+&lt;h3 id=&#34;isolation-and-troubleshooting-of-i-o-bottlenecks&#34;&gt;Isolation and Troubleshooting of I/O Bottlenecks&lt;/h3&gt;
+
+&lt;p&gt;To troubleshoot I/O bottlenecks you will need to look into
+- physical memory available to SQL Server and,
+- the queries with the highest I/O.&lt;/p&gt;
+
+&lt;p&gt;For troubleshooting memory, you can use the techniques already discussed.&lt;/p&gt;
+
+&lt;h3 id=&#34;using-dmvs-to-troublehsoot-i-o&#34;&gt;Using DMVs to Troublehsoot I/O&lt;/h3&gt;
+
+&lt;p&gt;We can use the following DMV to find the top 10 queries with the highest I/O per execution as follows :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT TOP 10
+   (total_logical_reads/execution_count) AS avg_logical_reads,
+   (total_logical_writes/execution_count) AS avg_logical_writes,
+   (total_physical_reads/execution_count) AS avg_phys_reads,
+   execution_count,
+   (SELECT SUBSTRING(text, statement_start_offset/2 + 1,
+      (CASE WHEN statement_end_offset = -1
+         THEN LEN(CONVERT(nvarchar(MAX),text)) * 2
+         ELSE statement_end_offset
+         END - statement_start_offset)/2)
+      FROM sys.dm_exec_sql_text(sql_handle)) AS query_text,
+   plan_handle
+FROM sys.dm_exec_query_stats
+ORDER BY (total_logical_reads + total_logical_writes) DESC
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;tempdb-bottlenecks&#34;&gt;Tempdb Bottlenecks&lt;/h3&gt;
+
+&lt;p&gt;The SQL Server &lt;code&gt;tempdb&lt;/code&gt; is a shared resource within the SQL Server instance, and all databases uses the same tempdb. The tempdb can be a bottleneck and with the new SQL Server it can be configured with its own set of memory, data and log files and CPU configurations.&lt;/p&gt;
+
+&lt;h2 id=&#34;blocking&#34;&gt;Blocking&lt;/h2&gt;
+
+&lt;p&gt;When a user submits a request/batch, the SQL Server assigns a worker and schedules it on the CPU to execute it. If the number of incoming requests far exceeds the capacity of CPU(s) to process it, the end user may perceive that the request is blocked or running slow. Poorly configured hardware configurations can cause blocking in SQL Server.&lt;/p&gt;
+
+&lt;h3 id=&#34;detection-of-blocking&#34;&gt;Detection of blocking&lt;/h3&gt;
+
+&lt;p&gt;We can use the &lt;code&gt;sys.dm_os_wait_stats&lt;/code&gt; DMV to detect blocking. The following query would list the top 10 waits encountered :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT TOP 10
+   wait_type,
+   waiting_tasks_count AS tasks,
+   wait_time_ms,
+   max_wait_time_ms AS max_wait,
+   signal_wait_time_ms AS signal
+FROM sys.dm_os_wait_stats
+ORDER BY wait_time_ms DESC
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We can use the DBCC command to clear the wait stats as follows :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;DBCC SQLPERF(&amp;quot;sys.dm_os_wait_stats&amp;quot;,CLEAR);  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Using Performance Monitor,we can also monitor the following counters :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;SQLServer:Locks: Average Wait Time (ms)&lt;/strong&gt; - represents the average wait time (milliseconds) for each lock request that resulted in a wait.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;SQLServer:Locks: Lock Requests/Sec&lt;/strong&gt; - represents the number of new locks and lock conversions requested from the lock manager&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;SQLServer:Locks: Lock Wait Time (ms)&lt;/strong&gt; - represents total wait time (milliseconds) for locks in the last second.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;SQLServer:Locks: Lock Waits/Sec&lt;/strong&gt; - represents number of lock requests that could not be satisfied immediately and required the caller to wait before being granted the lock&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;SQLServer:Locks: Number of Deadlocks/Sec&lt;/strong&gt; - represents the number of lock requests that resulted in a deadlock&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;SQLServer:General Statistics: Processes Blocked&lt;/strong&gt; -  represents the number of currently blocked processes&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;SQLServer:Access Methods: Table Lock Escalations/Sec&lt;/strong&gt; - represents the number of times locks were escalated to table-level granularity&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;isolating-and-troubleshooting-blocking-problems&#34;&gt;Isolating and Troubleshooting Blocking Problems&lt;/h3&gt;
+
+&lt;p&gt;Blocking is normal is an application but excessive blocking in undesirable. Here are some guidelines to reduce blocking :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Shorten the duration of the transaction and run it at a lower isolation level&lt;/li&gt;
+&lt;li&gt;Minimize the data that needs to be accessed by the transaction&lt;/li&gt;
+&lt;li&gt;When doing DML operations on objects, try designing your application in such a way that you access objects in the same order&lt;/li&gt;
+&lt;li&gt;If you are doing DML operations on a large number of rows, break it into smaller transactions to prevent lock escalation&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;We can use the &lt;code&gt;sys.dm_tran_locks&lt;/code&gt; to find out all the locks that are being held and their status as follows :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT resource_type, resource_associated_entity_id,  
+    request_status, request_mode,request_session_id,  
+    resource_description   
+    FROM sys.dm_tran_locks  
+    WHERE resource_database_id = db_id()  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and we can find blocking information as follows :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT   
+        t1.resource_type,  
+        t1.resource_database_id,  
+        t1.resource_associated_entity_id,  
+        t1.request_mode,  
+        t1.request_session_id,  
+        t2.blocking_session_id  
+    FROM sys.dm_tran_locks as t1  
+    INNER JOIN sys.dm_os_waiting_tasks as t2  
+        ON t1.lock_owner_address = t2.resource_address;  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The following query returns object information by using &lt;em&gt;resource_associated_entity_id&lt;/em&gt; from the previous query. This query must be executed while you are connected to the database that contains the object.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT object_name(object_id), *  
+    FROM sys.partitions  
+    WHERE hobt_id=&amp;lt;resource_associated_entity_id&amp;gt;  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We can even get more information by combining other DMVs as follows :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT
+   t1.resource_type,
+   &#39;database&#39; = DB_NAME(resource_database_id),
+   &#39;blk object&#39; = t1.resource_associated_entity_id,
+   t1.request_mode,
+   t1.request_session_id,
+   t2.blocking_session_id,
+   t2.wait_duration_ms,
+   (SELECT SUBSTRING(text, t3.statement_start_offset/2 + 1,
+   (CASE WHEN t3.statement_end_offset = -1
+      THEN LEN(CONVERT(nvarchar(max),text)) * 2
+      ELSE t3.statement_end_offset
+   END - t3.statement_start_offset)/2)
+FROM sys.dm_exec_sql_text(sql_handle)) AS query_text,
+   t2.resource_description
+FROM
+   sys.dm_tran_locks AS t1,
+   sys.dm_os_waiting_tasks AS t2,
+   sys.dm_exec_requests AS t3
+WHERE
+   t1.lock_owner_address = t2.resource_address AND
+   t1.request_request_id = t3.request_id AND
+   t2.session_id = t3.session_id
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We can find out more information on blocking on indexes using the &lt;em&gt;sys.dm_db_index_operational_stats&lt;/em&gt;. The DMV function provides comprehensive index usage statistics including blocking experienced while accessing that index.&lt;/p&gt;
+
+&lt;p&gt;For example to find the lock counts on the indexes on the Person.Person table we can use the following query :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT s.index_id,
+   i.name,
+   range_scan_count,
+   row_lock_count,
+   page_lock_count
+FROM sys.dm_db_index_operational_stats(DB_ID(),
+   OBJECT_ID(&#39;Person.Person&#39;), NULL, NULL) s
+JOIN sys.indexes i
+ON s.index_id = i.index_id and i.object_id =  OBJECT_ID(&#39;Person.Person&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;performance-vs-price&#34;&gt;Performance vs. Price&lt;/h2&gt;
+
+&lt;p&gt;When optimizing performance you should remember the Pareto Principle. In most cases, you will see 80% performance improvement by only fixing 20% of the problems with SQL Server. Here are general considerations :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Use a baseline to measure performance against&lt;/li&gt;
+&lt;li&gt;Count the cost of improving performance&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;performance-baseline&#34;&gt;Performance Baseline&lt;/h2&gt;
+
+&lt;p&gt;Performance tuning should be a proactive process. A baseline should be created at the beginning of the process and used to measure against any deviations in performance.&lt;/p&gt;
+
+&lt;h2 id=&#34;where-to-focus-efforts&#34;&gt;Where to Focus Efforts&lt;/h2&gt;
+
+&lt;p&gt;You should focus your effort on the SQL queries and stored procedures executed on the database more as compared to focusing your efforts on the hardware running SQL Server. You will gain a considerable amount of performance in the data access layer than you will from the hardware.&lt;/p&gt;
+
+&lt;p&gt;T-SQL Code and indexing were the top SQL Server root cause of poor performance from a survey conducted by Paul Radal.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://www.sqlskills.com/blogs/paul/wp-content/uploads/2011/4/mostrecentperf.jpg&#34; alt=&#34;SQL Server Performance Survey Result&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;sql-server-performance-killers&#34;&gt;SQL Server Performance Killers&lt;/h2&gt;
+
+&lt;p&gt;Here some issues that might degrade SQL Server Performance :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Insufficient indexing&lt;/li&gt;
+&lt;li&gt;Inaccurate statistics&lt;/li&gt;
+&lt;li&gt;Improper query design&lt;/li&gt;
+&lt;li&gt;Poorly generated execution plans&lt;/li&gt;
+&lt;li&gt;Excessive blocking and deadlocks&lt;/li&gt;
+&lt;li&gt;Non-set-based operations, usually T-SQL cursors&lt;/li&gt;
+&lt;li&gt;Inappropriate database design&lt;/li&gt;
+&lt;li&gt;Excessive fragmentation&lt;/li&gt;
+&lt;li&gt;Nonreusable execution plans&lt;/li&gt;
+&lt;li&gt;Frequent recompilation of queries&lt;/li&gt;
+&lt;li&gt;Improper use of cursors&lt;/li&gt;
+&lt;li&gt;Improper configuration of the database transaction log&lt;/li&gt;
+&lt;li&gt;Excessive use or improper configuration of tempdb&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;references&#34;&gt;References&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;http://www.sqlskills.com/blogs/paul/survey-results-common-causes-of-performance-problems/&#34;&gt;http://www.sqlskills.com/blogs/paul/survey-results-common-causes-of-performance-problems/&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://docs.microsoft.com/en-us/sql/relational-databases/system-dynamic-management-views/sys-dm-exec-query-stats-transact-sql&#34;&gt;https://docs.microsoft.com/en-us/sql/relational-databases/system-dynamic-management-views/sys-dm-exec-query-stats-transact-sql&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://support.microsoft.com/en-za/help/907877/how-to-use-the-dbcc-memorystatus-command-to-monitor-memory-usage-on-sql-server-2005&#34;&gt;https://support.microsoft.com/en-za/help/907877/how-to-use-the-dbcc-memorystatus-command-to-monitor-memory-usage-on-sql-server-2005&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://social.technet.microsoft.com/wiki/contents/articles/22316.sql-server-memory-and-troubleshooting.aspx#How_to_test_that_your_SQL_server_is_facing_memory_crunch&#34;&gt;https://social.technet.microsoft.com/wiki/contents/articles/22316.sql-server-memory-and-troubleshooting.aspx#How_to_test_that_your_SQL_server_is_facing_memory_crunch&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://technet.microsoft.com/en-us/library/aa337525(v=sql.105).aspx&#34;&gt;https://technet.microsoft.com/en-us/library/aa337525(v=sql.105).aspx&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://docs.microsoft.com/en-us/sql/relational-databases/system-dynamic-management-views/sys-dm-tran-locks-transact-sql&#34;&gt;https://docs.microsoft.com/en-us/sql/relational-databases/system-dynamic-management-views/sys-dm-tran-locks-transact-sql&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

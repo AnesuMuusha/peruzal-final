@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+  
+  
+  
+  
+   <html class="no-js"> 
+
+  <head lang="en-us">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=10" />
+    <title>Exercises - Introduction to SQL</title>
+    <meta name="generator" content="Hugo 0.19" />
+
+    
+    <meta name="description" content="Introduction to SQL Guide">
+    
+    <link rel="canonical" href="http://guides.peruzal.com/introduction-to-sql/exercises/">
+    
+    <meta name="author" content="Peruzal">
+    
+
+    <meta property="og:url" content="http://guides.peruzal.com/introduction-to-sql/exercises/">
+    <meta property="og:title" content="Introduction to SQL">
+    <meta property="og:image" content="http://guides.peruzal.com/images/logo.png">
+    <meta name="apple-mobile-web-app-title" content="Introduction to SQL">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="shortcut icon" type="image/x-icon" href="http://guides.peruzal.com/introduction-to-sql/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="http://guides.peruzal.com/introduction-to-sql/images/favicon.ico">
+
+    <style>
+      @font-face {
+        font-family: 'Icon';
+        src: url('http://guides.peruzal.com/introduction-to-sql/fonts/icon.eot');
+        src: url('http://guides.peruzal.com/introduction-to-sql/fonts/icon.eot')
+               format('embedded-opentype'),
+             url('http://guides.peruzal.com/introduction-to-sql/fonts/icon.woff')
+               format('woff'),
+             url('http://guides.peruzal.com/introduction-to-sql/fonts/icon.ttf')
+               format('truetype'),
+             url('http://guides.peruzal.com/introduction-to-sql/fonts/icon.svg')
+               format('svg');
+        font-weight: normal;
+        font-style: normal;
+      }
+    </style>
+
+    <link rel="stylesheet" href="http://guides.peruzal.com/introduction-to-sql/stylesheets/application.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/introduction-to-sql/stylesheets/temporary.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/introduction-to-sql/stylesheets/palettes.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/introduction-to-sql/stylesheets/highlight/highlight.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/github-gist.min.css">
+
+    
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ubuntu:400,700|Ubuntu&#43;Mono">
+    <style>
+      body, input {
+        font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+      }
+      pre, code {
+        font-family: 'Ubuntu Mono', 'Courier New', 'Courier', monospace;
+      }
+    </style>
+
+    
+    <script src="http://guides.peruzal.com/introduction-to-sql/javascripts/modernizr.js"></script>
+
+    
+
+  </head>
+  <body class="palette-primary-deep-orange palette-accent-light-blue">
+
+
+
+
+<div class="backdrop">
+	<div class="backdrop-paper"></div>
+</div>
+
+<input class="toggle" type="checkbox" id="toggle-drawer">
+<input class="toggle" type="checkbox" id="toggle-search">
+<label class="toggle-button overlay" for="toggle-drawer"></label>
+
+<header class="header">
+	<nav aria-label="Header">
+  <div class="bar default">
+    <div class="button button-menu" role="button" aria-label="Menu">
+      <label class="toggle-button icon icon-menu" for="toggle-drawer">
+        <span></span>
+      </label>
+    </div>
+    <div class="stretch">
+      <div class="title">
+        Exercises
+      </div>
+    </div>
+
+    
+    <div class="button button-twitter" role="button" aria-label="Twitter">
+       <a href="https://twitter.com/peruzal" title="@peruzal on Twitter" target="_blank" class="toggle-button icon icon-twitter"></a>
+    </div>
+    
+
+    
+    <div class="button button-github" role="button" aria-label="GitHub">
+      <a href="https://github.com/peruzal" title="@peruzal on GitHub" target="_blank" class="toggle-button icon icon-github"></a>
+    </div>
+    
+    
+        
+  </div>
+  <div class="bar search">
+    <div class="button button-close" role="button" aria-label="Close">
+      <label class="toggle-button icon icon-back" for="toggle-search"></label>
+    </div>
+    <div class="stretch">
+      <div class="field">
+        <input class="query" type="text" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck>
+      </div>
+    </div>
+    <div class="button button-reset" role="button" aria-label="Search">
+      <button class="toggle-button icon icon-close" id="reset-search"></button>
+    </div>
+  </div>
+</nav>
+</header>
+
+<main class="main">
+	<div class="drawer">
+		<nav aria-label="Navigation">
+  <a href="http://guides.peruzal.com/introduction-to-sql" class="project">
+    <div class="banner">
+      
+        <div class="logo">
+          <img src="http://guides.peruzal.com/introduction-to-sql/images/logo.png">
+        </div>
+      
+      <div class="name">
+        <strong>Introduction to SQL <span class="version">1.0.0</span></strong>
+        
+      </div>
+    </div>
+  </a>
+
+  <div class="scrollable">
+    <div class="wrapper">
+      
+
+      <div class="toc">
+        
+        <ul>
+          
+
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Understanding SQL" href="http://guides.peruzal.com/introduction-to-sql/understanding-sql/">
+	
+	Understanding SQL
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Retrieving Data" href="http://guides.peruzal.com/introduction-to-sql/retrieving-data/">
+	
+	Retrieving Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Sorting Data" href="http://guides.peruzal.com/introduction-to-sql/sorting-data/">
+	
+	Sorting Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Filtering Data" href="http://guides.peruzal.com/introduction-to-sql/filtering-data/">
+	
+	Filtering Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Functions Data" href="http://guides.peruzal.com/introduction-to-sql/functions/">
+	
+	Functions Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Grouping Data" href="http://guides.peruzal.com/introduction-to-sql/grouping-data/">
+	
+	Grouping Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Sub Queries" href="http://guides.peruzal.com/introduction-to-sql/subqueries/">
+	
+	Sub Queries
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Joining Tables" href="http://guides.peruzal.com/introduction-to-sql/joining-tables/">
+	
+	Joining Tables
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Inserting Data" href="http://guides.peruzal.com/introduction-to-sql/inserting-data/">
+	
+	Inserting Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Updating Data" href="http://guides.peruzal.com/introduction-to-sql/updating-data/">
+	
+	Updating Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Deleting Data" href="http://guides.peruzal.com/introduction-to-sql/deleting-data/">
+	
+	Deleting Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Working with Tables" href="http://guides.peruzal.com/introduction-to-sql/working-with-tables/">
+	
+	Working with Tables
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Views" href="http://guides.peruzal.com/introduction-to-sql/views/">
+	
+	Views
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Stored Procedures" href="http://guides.peruzal.com/introduction-to-sql/stored-procedures/">
+	
+	Stored Procedures
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Transaction" href="http://guides.peruzal.com/introduction-to-sql/transactions/">
+	
+	Transaction
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Advanced SQL Features" href="http://guides.peruzal.com/introduction-to-sql/advanced-sql-features/">
+	
+	Advanced SQL Features
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Calculated Fields" href="http://guides.peruzal.com/introduction-to-sql/calculated-fields/">
+	
+	Calculated Fields
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Installing SQL Server" href="http://guides.peruzal.com/introduction-to-sql/installing-sql-server/">
+	
+	Installing SQL Server
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="SQL Server Architecture" href="http://guides.peruzal.com/introduction-to-sql/sql-server-architecture/">
+	
+	SQL Server Architecture
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Database Recovery" href="http://guides.peruzal.com/introduction-to-sql/database-recovery/">
+	
+	Database Recovery
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Security" href="http://guides.peruzal.com/introduction-to-sql/database-security/">
+	
+	Security
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="AlwaysOn Availability Groups" href="http://guides.peruzal.com/introduction-to-sql/sql-server-alwayson/">
+	
+	AlwaysOn Availability Groups
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Intro to SQL" href="http://guides.peruzal.com/introduction-to-sql/">
+	
+	Intro to SQL
+</a>
+
+
+
+  
+</li>
+
+
+        </ul>
+        
+
+        
+        <hr>
+        <span class="section">The author</span>
+        
+        <ul>
+          
+          <li>
+            <a href="https://twitter.com/peruzal" target="_blank" title="@peruzal on Twitter">
+              @peruzal on Twitter
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="https://github.com/peruzal" target="_blank" title="@peruzal on GitHub">
+              @peruzal on GitHub
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="mailto:hello@peruzal.com" title="Email of hello@peruzal.com">
+              Contact via email
+            </a>
+          </li>
+          
+        </ul>
+        
+      </div>
+    </div>
+  </div>
+</nav>
+
+	</div>
+
+	<article class="article">
+		<div class="wrapper">
+			<h1>Exercises </h1>
+
+			
+
+<h2 id="connecting-to-the-database">Connecting to the Database</h2>
+
+<p>To connect to an MS SQL Server you will need the following :</p>
+
+<ul>
+<li>Either a Windows user account with database login access</li>
+<li>or a an sql user registered with the database</li>
+<li>You will also need the hostname/ip address of the server with the database</li>
+</ul>
+
+<h2 id="choose-a-database">Choose a Database</h2>
+
+<p>You use the <strong>USE</strong> statement to select a database to work, e.g</p>
+
+<pre><code class="language-sql">USE AdventureWorks;
+</code></pre>
+
+<p>Alternatively with SMSS(SQL Server Management Studio), you can choose the database you want to work with from the drop down.</p>
+
+<h2 id="retrieving-specific-columns">Retrieving Specific Columns</h2>
+
+<p><strong>Problem</strong></p>
+
+<p>You have a table or a view. You wish to retrieve data from specific columns.</p>
+
+<h3 id="solution">Solution</h3>
+
+<p>Write a <strong>SELECT</strong> statement. List the columns you wish returned following the <strong>SELECT</strong> keyword. The following example demonstrates a very simple <strong>SELECT</strong> against the <em>AdventureWorks</em> database, whereby three columns are returned, along with several rows from the <em>HumanResources.Employee</em> table.</p>
+
+<pre><code class="language-sql">SELECT NationalIDNumber,    LoginID,    JobTitle 
+FROM  HumanResources.Employee
+</code></pre>
+
+<h3 id="analysis">Analysis</h3>
+
+<p>The <strong>FROM</strong> clause specifies the data source, which in this example is a table. Notice the two-part name of <em>HumanResources.Employee</em>. The first part (the part before the period) is the <em>schema</em>, and the second part (after the period) is the actual table name. A schema contains the object, and that schema is then owned by a user. Because users own a schema, and the schema contains the object, you can change the owner of the schema without having to modify object ownership.</p>
+
+<h2 id="retrieving-all-columns">Retrieving All Columns</h2>
+
+<h3 id="problem">Problem</h3>
+
+<p>You are writing an ad hoc query. You wish to retrieve all columns from a table or view without having to type all the column names.</p>
+
+<h3 id="solution-1">Solution</h3>
+
+<p>Specify an asterisk (*) instead of a column list. Doing so causes SQL Server to return all columns from the table or view. For example:</p>
+
+<pre><code class="language-sql">SELECT * 
+FROM  HumanResources.Employee; 
+</code></pre>
+
+<h3 id="analysis-1">Analysis</h3>
+
+<p>The asterisk symbol (*) returns all columns of the table or view you are querying.</p>
+
+<div class="admonition note">
+<p class="admonition-title">Using SELECT *</p>
+<p>Please remember that, as good practice, it is better to reference the columns you want to retrieve explicitly instead of using SELECT *.</p>
+
+<p>Using SELECT * can also negatively affect performance, as you may be returning more data than you need over the network, increasing the result set size and data retrieval operations on the SQL Server instance</p>
+</div>
+
+<h2 id="specifying-the-rows-to-be-returned">Specifying the Rows to Be Returned</h2>
+
+<h3 id="problem-1">Problem</h3>
+
+<p>You do not want to return all rows from a table or a view. You want to restrict query results to only those
+rows of interest.</p>
+
+<h3 id="solution-2">Solution</h3>
+
+<p>Specify a <strong>WHERE</strong> clause giving the conditions that rows must meet in order to be returned. For example, the
+following query returns only rows in which the person’s title is “Ms.”</p>
+
+<pre><code class="language-sql">SELECT Title, FirstName, LastName
+FROM Person.Person
+WHERE Title = 'Ms.';
+</code></pre>
+
+<p>You may combine multiple conditions in a <strong>WHERE</strong> clause through the use of the keywords <strong>AND</strong> and <strong>OR</strong>. The
+following query looks specifically for <em>Ms. Antrim’s</em> data:</p>
+
+<pre><code class="language-sql">SELECT Title, FirstName, LastName
+FROM Person.Person
+WHERE Title = 'Ms.' AND
+LastName = 'Antrim';
+</code></pre>
+
+<h3 id="analysis-2">Analysis</h3>
+
+<p>The <strong>WHERE</strong> clause provides search conditions that determine the rows returned by the query. Search conditions are written as predicates, which are expressions that evaluate to one of the Boolean results of <strong>TRUE</strong>, <strong>FALSE</strong>, or <strong>UNKNOWN</strong>. Only rows for which the final evaluation of the <strong>WHERE</strong> clause is <strong>TRUE</strong> are returned.</p>
+
+<p>Use the OR operator to specify alternate choices. Use parentheses to clarify the order of operations. For
+example:</p>
+
+<pre><code class="language-sql">WHERE Title = 'Ms.' AND
+(LastName = 'Antrim' OR LastName = 'Galvin')
+</code></pre>
+
+<p>You can write multiple operators <strong>(AND, OR, NOT)</strong> in a single <strong>WHERE</strong> clause, but it is important to make
+your intentions clear by properly embedding your <strong>ANDs</strong> and <strong>ORs</strong> in parentheses. The <strong>NOT</strong> operator takes
+precedence (is evaluated first) before <strong>AND</strong>. The <strong>AND</strong> operator takes precedence over the <strong>OR</strong> operator. Using
+both <strong>AND</strong> and** **OR operators in the same <strong>WHERE</strong> clause without parentheses can return unexpected results. For
+example, the following query may return unintended results:</p>
+
+<pre><code class="language-sql">SELECT Title, FirstName, LastName
+FROM Person.Person
+WHERE Title = 'Ms.' AND
+FirstName = 'Catherine' OR
+LastName = 'Adams'
+</code></pre>
+
+<p>Is the intention to return results for all rows with a Title of <em>“Ms.”</em>, and of those rows, only include those with
+a <em>FirstName</em> of <em>Catherine</em> or a <em>LastName</em> of Adams? Or did the query author wish to search for all people
+named “Ms.” with a <em>FirstName</em> of <em>Catherine</em>, as well as anyone with a <em>LastName</em> of <em>Adams</em>?</p>
+
+<h2 id="specifying-a-range-of-values">Specifying A Range of Values</h2>
+
+<h3 id="problem-2">Problem</h3>
+
+<p>You wish to specify a range of values as a search condition. For example, you are querying a table having a date
+column. You wish to return rows having dates only in a specified range of interest.</p>
+
+<h3 id="solution-3">Solution</h3>
+
+<p>Write a predicate involving the <strong>BETWEEN</strong> operator. That operator allows you to specify a range of values, in this
+case of date values. For example, to find sales orders placed between the dates July 23, 2005 and July 24, 2005:</p>
+
+<pre><code class="language-sql">SELECT SalesOrderID, ShipDate
+FROM Sales.SalesOrderHeader
+WHERE ShipDate BETWEEN '2005-07-23T00:00:00'
+AND '2005-07-24T23:59:59';
+</code></pre>
+
+<h2 id="checking-for-null-values">Checking for NULL Values</h2>
+
+<h3 id="problem-3">Problem</h3>
+
+<p>Some of the values in a column might be NULL. You wish to identify rows having or not having NULL values.</p>
+
+<h3 id="solution-4">Solution</h3>
+
+<p>Make use of the IS NULL and IS NOT NULL tests to identify rows having or not having NULL values in a given
+column. For example, the following query returns any rows for which the value of the product’s weight is
+unknown:</p>
+
+<pre><code class="language-sql">SELECT ProductID, Name, Weight
+FROM Production.Product
+WHERE Weight IS NULL;
+</code></pre>
+
+<div class="admonition note">
+<p class="admonition-title">Checking NULL Values</p>
+<p>NULL values cannot be identified using operators such as = and &lt;&gt; that are designed to compare two values
+and return a TRUE or FALSE result.</p>
+
+<p>IS NULL however, is specifically designed to return TRUE when a value is NULL. Likewise, the expression IS
+NOT NULL returns TRUE when a value is not NULL. Predicates involving IS NULL and IS NOT NULL enable you to
+filter for rows having or not having NULL values in one or more columns.</p>
+</div>
+
+<h2 id="providing-a-list-of-values">Providing a List of Values</h2>
+
+<h3 id="problem-4">Problem</h3>
+
+<p>You are searching for matches to a specific list of values. You could write a string of predicates joined by OR
+operators. But you prefer a more easily readable and maintainable solution.</p>
+
+<h3 id="solution-5">Solution</h3>
+
+<p>Create a predicate involving the IN operator, which allows you to specify an arbitrary list of values. For example,
+the IN operator in the following query tests the equality of the Color column to a list of expressions:</p>
+
+<pre><code class="language-sql">SELECT ProductID,
+Name,
+Color
+FROM Production.Product
+WHERE Color IN ('Silver', 'Black', 'Red');
+</code></pre>
+
+<h3 id="analysis-3">Analysis</h3>
+
+<p>Use the IN operator any time you have a specific list of values. You can think of IN as shorthand for multiple OR
+expressions. For example, the following two WHERE clauses are semantically equivalent:</p>
+
+<pre><code class="language-sql">WHERE Color IN ('Silver', 'Black', 'Red')
+</code></pre>
+
+<pre><code class="language-sql">WHERE Color = 'Silver' OR Color = 'Black' OR Color = 'Red'
+</code></pre>
+
+<h2 id="performing-wildcard-searches">Performing Wildcard Searches</h2>
+
+<h3 id="problem-5">Problem</h3>
+
+<p>You don’t have a specific value or list of values to find. What you do have is a general pattern, and you want to
+find all values that match that pattern.</p>
+
+<h3 id="solution-6">Solution</h3>
+
+<p>Make use of the <strong>LIKE</strong> predicate, which provides a set of basic pattern-matching capabilities. Create a string using so-called wildcards to serve as a search expression.</p>
+
+<p>The following example demonstrates using the LIKE operation with the % wildcard, searching for any product
+with a name beginning with the letter B:</p>
+
+<pre><code class="language-sql">SELECT ProductID,
+Name
+FROM Production.Product
+WHERE Name LIKE 'B%';
+</code></pre>
+
+<h2 id="sorting-your-results">Sorting Your Results</h2>
+
+<h3 id="problem-6">Problem</h3>
+
+<p>You are executing a query, and you wish the results to come back in a specific order.</p>
+
+<p>###Solution</p>
+
+<p>Write an <strong>ORDER BY</strong> clause into your query. Specify the columns on which to sort. Place the clause at the very end
+of your query.</p>
+
+<p>This next example demonstrates ordering the query results by columns <em>ProductID</em> and <em>EndDate</em>:</p>
+
+<pre><code class="language-sql">SELECT p.Name, h.EndDate, h.ListPrice
+FROM Production.Product AS p
+INNER JOIN Production.ProductListPriceHistory AS h
+ON p.ProductID = h.ProductID
+ORDER BY p.Name,
+h.EndDate;
+</code></pre>
+
+<h2 id="specifying-sort-order">Specifying Sort Order</h2>
+
+<h3 id="problem-7">Problem</h3>
+
+<p>You do not want the default, ascending-order sort. You want to sort by one or more columns in descending order.</p>
+
+<h3 id="solution-7">Solution</h3>
+
+<p>Make use of the keywords <strong>ASC</strong> and <strong>ASCENDING</strong>, or <strong>DESC</strong> and <strong>DESCENDING</strong>, to specify the sort direction. Apply these
+keywords to each sort column as you desire.
+This next example sorts on the same two columns as Recipe 1-13’s query, but this time in descending order
+for each of those columns:</p>
+
+<pre><code class="language-sql">SELECT p.Name,
+h.EndDate,
+h.ListPrice
+FROM Production.Product AS p
+INNER JOIN Production.ProductListPriceHistory AS h
+ON p.ProductID = h.ProductID
+ORDER BY p.Name DESC,
+h.EndDate DESC;
+</code></pre>
+
+<h2 id="sorting-by-columns-not-selected">Sorting by Columns Not Selected</h2>
+
+<h3 id="problem-8">Problem</h3>
+
+<p>You want to sort by columns not returned by the query.</p>
+
+<h3 id="solution-8">Solution</h3>
+
+<p>Simply specify the columns you wish to sort by. They do not need to be in your query results. For example, you
+can return a list of product names sorted by color without returning the colors:</p>
+
+<pre><code class="language-sql">SELECT p.Name
+FROM Production.Product AS p
+ORDER BY p.Color;
+</code></pre>
+
+<div class="admonition note">
+<p class="admonition-title">SELECT DISTINCT</p>
+<p>When using a SELECT DISTINCT, the columns used in the ORDER BY should appear in the SELECT columns list.</p>
+</div>
+
+<h2 id="forcing-unusual-sort-orders">Forcing Unusual Sort Orders</h2>
+
+<h3 id="problem-9">Problem</h3>
+
+<p>You wish to force a sort order not directly supported by the data. For example, you wish to retrieve only the
+colored products, and you further wish to force the color red to sort first.</p>
+
+<h3 id="solution-9">Solution</h3>
+
+<p>Write an expression to translate values in the data to values that will give the sort order you are after. Then order
+your query results by that expression. Following is one approach to the problem of retrieving colored parts and
+listing the red ones first:</p>
+
+<pre><code class="language-sql">SELECT p.ProductID,
+p.Name,
+p.Color
+FROM Production.Product AS p
+WHERE p.Color IS NOT NULL
+ORDER BY CASE p.Color
+WHEN 'Red' THEN NULL
+ELSE p.Color
+END;
+</code></pre>
+
+<h3 id="analysis-4">Analysis</h3>
+
+<p>The solution takes advantage of the fact that SQL Server sorts nulls first. The CASE expression returns NULL for
+red-colored items, thus forcing those first. Other colors are returned unchanged. The result is all the red items
+first in the list, and then red is followed by other colors in their natural sort order.
+You don’t have to rely upon nulls sorting first. Here is another version of the query to illustrate that and one
+other point:</p>
+
+<pre><code class="language-sql">SELECT p.ProductID,
+p.Name,
+p.Color
+FROM Production.Product AS p
+WHERE p.Color IS NOT NULL
+ORDER BY CASE LOWER(p.Color)
+WHEN 'red' THEN ' '
+ELSE LOWER(p.Color)
+END;
+</code></pre>
+
+<p>This version of the query returns the same results as before. The value ‘Red’ is converted into a single space,
+which sorts before all the spelled-out color names. The CASE expression specifies <strong>LOWER(p.Color)</strong> to ensure
+<em>‘Red’, ‘RED’, ‘red’</em>, and so forth are all treated the same.</p>
+
+<h2 id="paging-through-a-result-set">Paging Through A Result Set</h2>
+
+<h3 id="problem-10">Problem</h3>
+
+<p>You wish to present a result set to an application user N rows at a time.</p>
+
+<h3 id="solution-10">Solution</h3>
+
+<p>Make use of the query paging feature that is brand new in SQL Server 2012. Do this by adding OFFSET and FETCH
+clauses to your query’s ORDER BY clause. For example, the following query uses OFFSET and FETCH to retrieve the
+first 10 rows of results:</p>
+
+<pre><code class="language-sql">SELECT ProductID, Name
+FROM Production.Product
+ORDER BY Name
+OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY;
+</code></pre>
+
+<p>Changing the offset from 0 to 8 will fetch another 10 rows. The offset will skip the first eight rows. There will
+be a two-row overlap with the preceding result set. Here is the query:</p>
+
+<pre><code class="language-sql">SELECT ProductID, Name
+FROM Production.Product
+ORDER BY Name
+OFFSET 8 ROWS FETCH NEXT 10 ROWS ONLY;
+</code></pre>
+
+<p>You must specify an <strong>ORDER BY</strong> clause! <strong>OFFSET</strong> and <strong>FETCH</strong> are actually considered as part of that clause. If you don’t specify a sort order, then rows can come back in any order</p>
+
+<p>Consider executing sequences of paging queries from within a transaction providing a snapshot or serializable isolation. You could set an isolation level as follows :</p>
+
+<pre><code class="language-sql">SET TRANSACTION ISOLATION LEVEL SNAPSHOT;
+BEGIN TRANSACTION;
+… /* Queries go here */
+COMMIT;
+</code></pre>
+
+
+			<aside class="copyright" role="note">
+				
+				&copy; 2017 Copyright 2017 Peruzal &ndash;
+				
+				Documentation built with
+				<a href="https://www.gohugo.io" target="_blank">Hugo</a>
+				using the
+				<a href="http://github.com/digitalcraftsman/hugo-material-docs" target="_blank">Material</a> theme.
+			</aside>
+
+			<footer class="footer">
+				
+
+<nav class="pagination" aria-label="Footer">
+  <div class="previous">
+  
+      <a href="http://guides.peruzal.com/introduction-to-sql/getting-started-exercises/" title="Getting Started Exercises">
+        <span class="direction">
+          Previous
+        </span>
+        <div class="page">
+          <div class="button button-previous" role="button" aria-label="Previous">
+            <i class="icon icon-back"></i>
+          </div>
+          <div class="stretch">
+            <div class="title">
+              Getting Started Exercises
+            </div>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+
+  <div class="next">
+  
+      <a href="http://guides.peruzal.com/introduction-to-sql/combined-queries/" title="Combined Queries">
+        <span class="direction">
+          Next
+        </span>
+        <div class="page">
+          <div class="stretch">
+            <div class="title">
+              Combined Queries
+            </div>
+          </div>
+          <div class="button button-next" role="button" aria-label="Next">
+            <i class="icon icon-forward"></i>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+</nav>
+
+
+
+
+
+			</footer>
+		</div>
+	</article>
+
+	<div class="results" role="status" aria-live="polite">
+		<div class="scrollable">
+			<div class="wrapper">
+				<div class="meta"></div>
+				<div class="list"></div>
+			</div>
+		</div>
+	</div>
+</main>
+
+    <script>
+    
+      var base_url = '';
+      var repo_id  = '';
+    
+    </script>
+
+    <script src="http://guides.peruzal.com/introduction-to-sql/javascripts/application.js"></script>
+    
+
+    <script>
+      /* Add headers to scrollspy */
+      var headers   = document.getElementsByTagName("h2");
+      var scrollspy = document.getElementById('scrollspy');
+
+      if(scrollspy) {
+        if(headers.length > 0) {
+          for(var i = 0; i < headers.length; i++) {
+            var li = document.createElement("li");
+            li.setAttribute("class", "anchor");
+
+            var a  = document.createElement("a");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", headers[i].innerHTML);
+            a.innerHTML = headers[i].innerHTML;
+
+            li.appendChild(a)
+            scrollspy.appendChild(li);
+          }
+        } else {
+          scrollspy.parentElement.removeChild(scrollspy)
+        }
+
+
+        /* Add permanent link next to the headers */
+        var headers = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+
+        for(var i = 0; i < headers.length; i++) {
+            var a = document.createElement("a");
+            a.setAttribute("class", "headerlink");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", "Permanent link")
+            a.innerHTML = "#";
+            headers[i].appendChild(a);
+        }
+      }
+    </script>
+
+    
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>
+

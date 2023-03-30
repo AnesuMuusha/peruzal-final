@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Views on Introduction to SQL</title>
+    <link>http://guides.peruzal.com/introduction-to-sql/views/index.xml</link>
+    <description>Recent content in Views on Introduction to SQL</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Copyright 2017 Peruzal</copyright>
+    <lastBuildDate>Tue, 28 Feb 2017 21:52:58 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/introduction-to-sql/views/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Views</title>
+      <link>http://guides.peruzal.com/introduction-to-sql/views/</link>
+      <pubDate>Tue, 28 Feb 2017 21:52:58 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/introduction-to-sql/views/</guid>
+      <description>
+
+&lt;h2 id=&#34;understanding-views&#34;&gt;Understanding Views&lt;/h2&gt;
+
+&lt;p&gt;Views are virtual tables. Unlike tables that contain data, views simply contain queries that dynamically retrieve data when used.&lt;/p&gt;
+
+&lt;h3 id=&#34;why-use-views&#34;&gt;Why Use Views&lt;/h3&gt;
+
+&lt;p&gt;You’ve already seen one use for views. Here are some other common uses:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;To reuse SQL statements.&lt;/li&gt;
+&lt;li&gt;To simplify complex SQL operations. After the query is written, it can be reused easily, without having to know the details of the underlying query itself.&lt;/li&gt;
+&lt;li&gt;To expose parts of a table instead of complete tables.&lt;/li&gt;
+&lt;li&gt;To secure data. Users can be given access to specific subsets of tables instead of to entire tables.&lt;/li&gt;
+&lt;li&gt;To change data formatting and representation. Views can return data formatted and presented differently from their underlying tables.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;creating-views&#34;&gt;Creating Views&lt;/h2&gt;
+
+&lt;p&gt;Views are created using the CREATE VIEW statement.&lt;/p&gt;
+
+&lt;h3 id=&#34;using-views-to-simplify-complex-joins&#34;&gt;Using Views to Simplify Complex Joins&lt;/h3&gt;
+
+&lt;p&gt;One of the most common uses of views is to hide complex SQL, and this often involves joins. Look at the following statement:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;CREATE VIEW ProductCustomers AS
+SELECT cust_name, cust_contact, prod_id
+FROM Customers, Orders, OrderItems
+WHERE Customers.cust_id = Orders.cust_id
+ AND OrderItems.order_num = Orders.order_num;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This statement creates a view named &lt;strong&gt;ProductCustomers&lt;/strong&gt;, which joins three tables to return a list of all customers who have ordered any product. If you were to &lt;code&gt;SELECT * FROM ProductCustomers&lt;/code&gt;, you’d list every customer who ordered anything.&lt;/p&gt;
+
+&lt;p&gt;To retrieve a list of customers who ordered product &lt;em&gt;RGAN01&lt;/em&gt; you can do the following:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT cust_name, cust_contact
+FROM ProductCustomers
+WHERE prod_id = &#39;RGAN01&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This statement retrieves specific data from the view by issuing a WHERE clause. When the DBMS processes the request, it adds the specified WHERE clause to any existing WHERE clauses in the view query so that the data is filtered correctly.&lt;/p&gt;
+
+&lt;h3 id=&#34;using-views-to-filter-unwanted-data&#34;&gt;Using Views to Filter Unwanted Data&lt;/h3&gt;
+
+&lt;p&gt;Views are also useful for applying common &lt;strong&gt;WHERE&lt;/strong&gt; clauses. For example, you might want to define a &lt;em&gt;CustomerEMailList&lt;/em&gt; view so that it filters out customers without e-mail addresses. To do this, you can use the following statement&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;CREATE VIEW CustomerEMailList AS
+SELECT cust_id, cust_name, cust_email
+FROM Customers
+WHERE cust_email IS NOT NULL;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Obviously, when sending e-mail to a mailing list you’d want to ignore users that have no e-mail address. The &lt;strong&gt;WHERE&lt;/strong&gt; clause here filters out those rows that have NULL values in the _cust&lt;em&gt;email&lt;/em&gt; columns so that they’ll not be retrieved.&lt;/p&gt;
+
+&lt;p&gt;View &lt;em&gt;CustomerEMailList&lt;/em&gt; can now be used like any table.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT *
+FROM CustomerEMailList;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;using-views-with-calculated-fields&#34;&gt;Using Views with Calculated Fields&lt;/h3&gt;
+
+&lt;p&gt;Views are exceptionally useful for simplifying the use of calculated fields. The following statement retrieves the order items for a specific order, calculating the expanded price for each item:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT prod_id,
+       quantity,
+       item_price,
+       quantity*item_price AS expanded_price
+FROM OrderItems
+WHERE order_num = 20008;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To turn this into a view, do the following:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;CREATE VIEW OrderItemsExpanded AS
+SELECT order_num,
+       prod_id,
+       quantity,
+       item_price,
+       quantity*item_price AS expanded_price
+FROM OrderItems;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To retrieve the details for order 20008 (the output above), do the following:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT *
+FROM OrderItemsExpanded
+WHERE order_num = 20008;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

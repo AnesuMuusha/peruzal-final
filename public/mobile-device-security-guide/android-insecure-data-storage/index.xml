@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Android-insecure-data-storages on Mobile Device Security and Penetration Testing Guide</title>
+    <link>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-insecure-data-storage/</link>
+    <description>Recent content in Android-insecure-data-storages on Mobile Device Security and Penetration Testing Guide</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Peruzal Mobile Device Security and Penetration Testing Guide</copyright>
+    <lastBuildDate>Sun, 08 Jan 2017 17:16:38 +0200</lastBuildDate>
+    
+	<atom:link href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-insecure-data-storage/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Android Insecure Data Storage</title>
+      <link>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-insecure-data-storage/</link>
+      <pubDate>Sun, 08 Jan 2017 17:16:38 +0200</pubDate>
+      
+      <guid>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-insecure-data-storage/</guid>
+      <description>Android apps usually store data locally on these places:
+ Shared preferences SQLite databases Internal storage External storage  Shared preferences The shared preferences are stored in an XML file. They are stored in the app&amp;rsquo;s data folder under the shared_prefs folder.
+SQLite databases SQLite databases are relational files that use a single file for storing data. The SQLite are suited for storing structured data on mobile. The database is only accessible to the app and not outside.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ios-insecure-local-data-storages on Mobile Device Security and Penetration Testing Guide</title>
+    <link>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-insecure-local-data-storage/</link>
+    <description>Recent content in Ios-insecure-local-data-storages on Mobile Device Security and Penetration Testing Guide</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Peruzal Mobile Device Security and Penetration Testing Guide</copyright>
+    <lastBuildDate>Sun, 01 Jan 2017 11:52:12 +0200</lastBuildDate>
+    
+	<atom:link href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-insecure-local-data-storage/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>iOS Insecure Local Data Storage</title>
+      <link>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-insecure-local-data-storage/</link>
+      <pubDate>Sun, 01 Jan 2017 11:52:12 +0200</pubDate>
+      
+      <guid>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-insecure-local-data-storage/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

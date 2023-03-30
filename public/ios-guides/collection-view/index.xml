@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Collection-view-rsses on Xamarin iOS Guides</title>
+    <link>http://guides.peruzal.com/ios-guides/collection-view/index.xml</link>
+    <description>Recent content in Collection-view-rsses on Xamarin iOS Guides</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Peruzal</copyright>
+    <lastBuildDate>Mon, 21 Nov 2016 23:24:37 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/ios-guides/collection-view/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Collection View</title>
+      <link>http://guides.peruzal.com/ios-guides/collection-view/</link>
+      <pubDate>Mon, 21 Nov 2016 23:24:37 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/ios-guides/collection-view/</guid>
+      <description>
+
+&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://developer.apple.com/library/ios/documentation/UIKit/Reference/UICollectionView_class/&#34;&gt;Collection views&lt;/a&gt; are used to display &lt;em&gt;cells&lt;/em&gt; in customizable layouts. Here are some examples:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://i.imgur.com/3A0KT3F.jpg&#34; alt=&#34;Imgur&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Left to right: Marvin, Flickr, Storehouse&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;This guide is a quick intro to setting up and using a simple collection view with Interface Builder.&lt;/p&gt;
+
+&lt;h2 id=&#34;collection-view-setup&#34;&gt;Collection View Setup&lt;/h2&gt;
+
+&lt;p&gt;We&amp;rsquo;ll be creating a grid of colors with labels showing their RGB values.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://i.imgur.com/p1fzY7j.jpg&#34; alt=&#34;Imgur&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;step-1-determine-what-data-to-display-in-the-collection-view&#34;&gt;Step 1: Determine what data to display in the collection view&lt;/h3&gt;
+
+&lt;p&gt;Decide what kind of data you&amp;rsquo;d like to show. For simple text, you might use an array of strings. In our example, we&amp;rsquo;ll use a function that takes an index path and returns a corresponding UIColor. Type this code into your view controller&amp;rsquo;s class definition:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let totalColors: Int = 100
+func colorForIndexPath(indexPath: NSIndexPath) -&amp;gt; UIColor {
+    if indexPath.row &amp;gt;= totalColors {
+        return UIColor.blackColor()	// return black if we get an unexpected row index
+    }
+    
+    var hueValue: CGFloat = CGFloat(indexPath.row) / CGFloat(totalColors)
+    return UIColor(hue: hueValue, saturation: 1.0, brightness: 1.0, alpha: 1.0)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;step-2-add-collection-view-to-view-controller&#34;&gt;Step 2: Add collection view to view controller&lt;/h3&gt;
+
+&lt;p&gt;In your Storyboard, drag a &lt;code&gt;Collection View&lt;/code&gt; (not &lt;code&gt;Collection View Controller&lt;/code&gt;) from the Object Library into your view controller. Use the Assistant Editor to add an outlet for the collection view in your view controller.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://i.imgur.com/27p0zyU.gif&#34; alt=&#34;Imgur&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;step-3-create-custom-class-for-prototype-cell&#34;&gt;Step 3: Create custom class for prototype cell&lt;/h3&gt;
+
+&lt;p&gt;The &lt;code&gt;Collection View&lt;/code&gt; comes with a &lt;code&gt;Collection View Cell&lt;/code&gt; prototype. Create a new class to use as a template for these cells.&lt;/p&gt;
+
+&lt;p&gt;Select &lt;code&gt;File -&amp;gt; New -&amp;gt; File... -&amp;gt; iOS -&amp;gt; Source -&amp;gt; Cocoa Touch Class&lt;/code&gt;
+and create a new subclass of &lt;code&gt;UICollectionViewCell&lt;/code&gt;. Name it &lt;code&gt;ColorCell&lt;/code&gt;. Back in your Storyboard, select your prototype cell, and in the Identity Inspector, set its custom class property to the new class you just created.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://i.imgur.com/4fmsHFi.jpg&#34; alt=&#34;Imgur&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;step-4-configure-prototype-cell&#34;&gt;Step 4: Configure prototype cell&lt;/h3&gt;
+
+&lt;p&gt;Change the background color of the Collection View to white. Add a &lt;code&gt;Label&lt;/code&gt; from the Object Library to the prototype cell, and change its placeholder text to &lt;code&gt;Color&lt;/code&gt;. Use the Assistant Editor to add an outlet for the label in the &lt;code&gt;ColorCell&lt;/code&gt; class. Name it &lt;code&gt;colorLabel&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://i.imgur.com/mjYstAJ.gif&#34; alt=&#34;Imgur&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Your ColorCell class should have the following code:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;class ColorCell: UICollectionViewCell {
+    @IBOutlet weak var colorLabel: UILabel!
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;step-5-set-prototype-cell-s-reuse-identifier&#34;&gt;Step 5: Set prototype cell&amp;rsquo;s reuse identifier&lt;/h3&gt;
+
+&lt;p&gt;Select the cell in the Storyboard and give it a unique identifier in the Attributes Inspector. This allows the Collection View to reuse instances of our prototype cell.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://i.imgur.com/XdSDDEO.jpg&#34; alt=&#34;Imgur&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;step-6-set-the-collection-view-s-data-source&#34;&gt;Step 6: Set the collection view&amp;rsquo;s data source&lt;/h3&gt;
+
+&lt;p&gt;In your view controller&amp;rsquo;s &lt;code&gt;viewDidLoad&lt;/code&gt; method, set the collection view&amp;rsquo;s data source:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;class ViewController: UIViewController {
+    @IBOutlet weak var collectionView: UICollectionView!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        collectionView.dataSource = self
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Add an extension that implements the &lt;code&gt;UICollectionViewDataSource&lt;/code&gt; protocol. Implement the &lt;code&gt;collectionView(_:numberOfItemsInSection:)&lt;/code&gt; and &lt;code&gt;collectionView(_:cellForItemAtIndexPath:)&lt;/code&gt; methods.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;extension ViewController: UICollectionViewDataSource {
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -&amp;gt; Int {
+        return totalColors
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -&amp;gt; UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(&amp;quot;com.codepath.ColorCell&amp;quot;, forIndexPath: indexPath) as! ColorCell
+        let cellColor = colorForIndexPath(indexPath)
+        cell.backgroundColor = cellColor
+        
+        if CGColorGetNumberOfComponents(cellColor.CGColor) == 4 {
+            let redComponent = CGColorGetComponents(cellColor.CGColor)[0] * 255
+            let greenComponent = CGColorGetComponents(cellColor.CGColor)[1] * 255
+            let blueComponent = CGColorGetComponents(cellColor.CGColor)[2] * 255
+            cell.colorLabel.text = String(format: &amp;quot;%.0f, %.0f, %.0f&amp;quot;, redComponent, greenComponent, blueComponent)
+        }
+        
+        return cell
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Build and run the demo app. Your collection view should show 100 colored cells, each with a different hue and a label of its RGB value.&lt;/p&gt;
+
+&lt;h2 id=&#34;configuring-the-layout&#34;&gt;Configuring the Layout&lt;/h2&gt;
+
+&lt;p&gt;In the &lt;code&gt;UICollectionView&lt;/code&gt; setup demo, we&amp;rsquo;re left with gaps between each cell. In order to adjust that, we need to change the &lt;code&gt;UICollectionViewLayout&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://developer.apple.com/library/ios/documentation/UIKit/Reference/UICollectionViewLayout_class/index.html&#34;&gt;&lt;code&gt;UICollectionViewLayout&lt;/code&gt;&lt;/a&gt; is where the &lt;code&gt;UICollectionView&lt;/code&gt; defines how it will layout its data. &lt;code&gt;UICollectionView&lt;/code&gt; are not constrained to a strict, single column, vertical format, unlike &lt;code&gt;UITableView&lt;/code&gt;. &lt;code&gt;UICollectionView&lt;/code&gt; can display items in any fashion, provided they are specified by a &lt;code&gt;UICollectionViewLayout&lt;/code&gt;. In order to do this, a developer needs to subclass &lt;code&gt;UICollectionViewLayout&lt;/code&gt; and specify the layout rules inside.&lt;/p&gt;
+
+&lt;h3 id=&#34;flow-layout&#34;&gt;Flow Layout&lt;/h3&gt;
+
+&lt;p&gt;By default, Apple provides developers with a subclass of &lt;code&gt;UICollectionViewLayout&lt;/code&gt; called &lt;code&gt;UICollectionViewFlowLayout&lt;/code&gt;. When you add a &lt;code&gt;UICollectionView&lt;/code&gt; in the storyboard, it comes with a &lt;code&gt;UICollectionViewFlowLayout&lt;/code&gt; already included.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://developer.apple.com/library/ios/documentation/WindowsViews/Conceptual/CollectionViewPGforIOS/UsingtheFlowLayout/UsingtheFlowLayout.html&#34;&gt;&lt;code&gt;UICollectionViewFlowLayout&lt;/code&gt;&lt;/a&gt; is a layout that displays items in a grid format, with any number of cells in each section, and in vertical or horizontal directions. The items in a single section can be surrounded with header or footer views. It commonly covers most basic cases for the layout of &lt;code&gt;UICollectionView&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;UICollectionViewFlowLayout&lt;/code&gt; can be configured in a number of ways:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Specifying the size of items&lt;/li&gt;
+&lt;li&gt;Specifying the space between items and lines&lt;/li&gt;
+&lt;li&gt;Using section insets to adjust the margins of content&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;modifying-a-flow-layout&#34;&gt;Modifying a Flow Layout&lt;/h4&gt;
+
+&lt;p&gt;When adding a &lt;code&gt;UICollectionView&lt;/code&gt; to a view controller in the storyboard, a &lt;code&gt;UICollectionViewCell&lt;/code&gt; and &lt;code&gt;UICollectionViewFlowLayout&lt;/code&gt; are included by default. You can modify the layout of your &lt;code&gt;UICollectionView&lt;/code&gt; by:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Editing attributes and dimensions of the Collection View Flow Layout in the storyboard&lt;/li&gt;
+&lt;li&gt;Programmatically changing values and defining behavior&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;If your collection view only requires cells of the same static, non-proportional size, then use storyboard to adjust values. If you need a more varied layout, then see &lt;a href=&#34;#customizing-the-cells-and-spacing-uicollectionviewdelegateflowlayout&#34;&gt;customizing the cells and spacing&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;configuring-the-flow-layout-with-the-storyboard&#34;&gt;Configuring the Flow Layout with the Storyboard&lt;/h4&gt;
+
+&lt;p&gt;By default, a &lt;code&gt;UICollectionViewFlowLayout&lt;/code&gt; is provided to you in the storyboard. If you select the Collection View Flow Layout, under your collection view, in the Utilities pane, you can alter attributes and dimensions.&lt;/p&gt;
+
+&lt;h4 id=&#34;configuring-the-flow-layout-programmatically&#34;&gt;Configuring the Flow Layout programmatically&lt;/h4&gt;
+
+&lt;p&gt;In the code, you can configure the Flow Layout&amp;rsquo;s properties and define rules for dimensions to change according to.&lt;/p&gt;
+
+&lt;p&gt;To access the properties of the layout of your &lt;code&gt;UICollectionView&lt;/code&gt;, you can make an outlet for &lt;code&gt;UICollectionViewFlowLayout&lt;/code&gt; like how you made one for &lt;code&gt;UICollectionView&lt;/code&gt;. You can then directly set values, like in the storyboard.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
+    
+	override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        collectionView.delegate = self
+        collectionView.dataSource = self
+
+        flowLayout.scrollDirection = .Horizontal
+        flowLayout.minimumLineSpacing = 0
+        flowLayout.minimumInteritemSpacing = 0
+        flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 10)
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;customizing-the-cells-and-spacing-uicollectionviewdelegateflowlayout&#34;&gt;Customizing the cells and spacing (UICollectionViewDelegateFlowLayout)&lt;/h4&gt;
+
+&lt;p&gt;If you need to customize cells and spacing, changing the direct properties of the Flow Layout will not suffice. You will need to implement the &lt;code&gt;UICollectionViewDelegateFlowLayout&lt;/code&gt; protocol. With the &lt;code&gt;UICollectionViewDelegateFlowLayout&lt;/code&gt; protocol, item sizes, section insets, line spacing and interitem spacing can all be made to change dynamically according to their position in the collection view.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://developer.apple.com/library/ios/documentation/WindowsViews/Conceptual/CollectionViewPGforIOS/UsingtheFlowLayout/UsingtheFlowLayout.html&#34;&gt;&lt;img src=&#34;https://developer.apple.com/library/ios/documentation/WindowsViews/Conceptual/CollectionViewPGforIOS/Art/flow_horiz_layout_uneven_2x.png&#34; title=&#34;Different sized cells&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;To define dynamic rules to layout a UICollectionView, we add the &lt;a href=&#34;https://developer.apple.com/library/ios/documentation/UIKit/Reference/UICollectionViewDelegateFlowLayout_protocol/index.html&#34;&gt;&lt;code&gt;UICollectionViewDelegateFlowLayout&lt;/code&gt;&lt;/a&gt; protocol.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+	...
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;small-example-of-configuring-the-flow-layout&#34;&gt;Small Example of configuring the Flow Layout&lt;/h4&gt;
+
+&lt;p&gt;Here is a small example of configuring the cell size according to the row. Calculating how large each cell should be, to have three cells per row, and changing the height depending on whether the row is even or odd.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://imgur.com/ehSq2LS&#34;&gt;&lt;img src=&#34;http://i.imgur.com/ehSq2LS.png&#34; title=&#34;Different sized cells example&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+
+    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+		...
+        
+        flowLayout.scrollDirection = .Horizontal
+        flowLayout.minimumLineSpacing = 0
+        flowLayout.minimumInteritemSpacing = 0
+        flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0)
+    }
+	
+	...
+    
+    // MARK: UICollectionViewDelegateFlowLayout methods 
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -&amp;gt; CGSize {
+        let totalwidth = collectionView.bounds.size.width;
+        let numberOfCellsPerRow = 3
+        let oddEven = indexPath.row / numberOfCellsPerRow % 2
+        let dimensions = CGFloat(Int(totalwidth) / numberOfCellsPerRow)
+        if (oddEven == 0) {
+            return CGSizeMake(dimensions, dimensions)
+        } else {
+            return CGSizeMake(dimensions, dimensions / 2)
+        }
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;do-you-need-a-more-custom-layout&#34;&gt;Do you need a more custom layout?&lt;/h4&gt;
+
+&lt;p&gt;You don&amp;rsquo;t always want to use a &lt;code&gt;UICollectionViewFlowLayout&lt;/code&gt; and sometimes, you may want something more customized.&lt;/p&gt;
+
+&lt;p&gt;Apple provides a &lt;a href=&#34;https://developer.apple.com/library/ios/documentation/WindowsViews/Conceptual/CollectionViewPGforIOS/UsingtheFlowLayout/UsingtheFlowLayout.html#//apple_ref/doc/uid/TP40012334-CH3-SW4&#34;&gt;good guide&lt;/a&gt; on how to decide whether you need something more specific.&lt;/p&gt;
+
+&lt;h3 id=&#34;creating-a-custom-uicollectionviewlayout&#34;&gt;Creating a custom UICollectionViewLayout&lt;/h3&gt;
+
+&lt;p&gt;to be completed&amp;hellip;&lt;/p&gt;
+
+&lt;h2 id=&#34;collection-view-usage&#34;&gt;Collection view usage&lt;/h2&gt;
+
+&lt;h3 id=&#34;respond-to-cell-selection&#34;&gt;Respond to cell selection&lt;/h3&gt;
+
+&lt;p&gt;A common event you&amp;rsquo;ll need to respond to is the user selecting a cell in the collection view.&lt;/p&gt;
+
+&lt;h4 id=&#34;segue-to-another-view-controller&#34;&gt;Segue to another view controller&lt;/h4&gt;
+
+&lt;p&gt;Often, you&amp;rsquo;ll want a cell selection to push a new view controller with details about that cell. In your Storyboard, control-drag from the prototype cell onto a new view controller, and select the appropriate segue under the &lt;code&gt;Selection Segue&lt;/code&gt; section.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://i.imgur.com/xjuYPVd.gif&#34; alt=&#34;Imgur&#34; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;handling-cell-selection-progammatically&#34;&gt;Handling cell selection progammatically&lt;/h4&gt;
+
+&lt;p&gt;You can also respond programmatically by implementing the &lt;code&gt;UICollectionViewDelegate&lt;/code&gt; &lt;a href=&#34;https://developer.apple.com/library/ios/documentation/UIKit/Reference/UICollectionViewDelegate_protocol/index.html#//apple_ref/occ/intfm/UICollectionViewDelegate/collectionView:didSelectItemAtIndexPath:&#34;&gt;&lt;code&gt;collectionView(_:didSelectItemAtIndexPath:)&lt;/code&gt;&lt;/a&gt; method.&lt;/p&gt;
+
+&lt;p&gt;In your view controller&amp;rsquo;s &lt;code&gt;viewDidLoad&lt;/code&gt; method, add a line to set the collection view&amp;rsquo;s delegate.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;collectionView.delegate = self
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then, add an extension to your view controller that adopts the UICollectionViewDelegate protocol, and implement the above method. The following code prints a cell&amp;rsquo;s row index when it is selected.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;extension ViewController: UICollectionViewDelegate {
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        println(&amp;quot;Selected cell number: \(indexPath.row)&amp;quot;)
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;references&#34;&gt;References&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://developer.apple.com/library/ios/documentation/WindowsViews/Conceptual/CollectionViewPGforIOS/Introduction/Introduction.html&#34;&gt;Apple&amp;rsquo;s collection view programming guide&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

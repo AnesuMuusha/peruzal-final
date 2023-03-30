@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Form-input-rsses on Xamarin iOS Guides</title>
+    <link>http://guides.peruzal.com/ios-guides/form-input/index.xml</link>
+    <description>Recent content in Form-input-rsses on Xamarin iOS Guides</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Peruzal</copyright>
+    <lastBuildDate>Mon, 12 Dec 2016 02:04:33 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/ios-guides/form-input/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Handling Form Input</title>
+      <link>http://guides.peruzal.com/ios-guides/form-input/</link>
+      <pubDate>Mon, 12 Dec 2016 02:04:33 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/ios-guides/form-input/</guid>
+      <description>
+
+&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+
+&lt;p&gt;This guide covers how to handle basic form input in iOS.&lt;/p&gt;
+
+&lt;p&gt;Unlike &lt;a href=&#34;http://www.w3.org/TR/html4/interact/forms.html#adef-action&#34;&gt;HTML forms&lt;/a&gt;, in iOS there is no standard &lt;a href=&#34;http://www.w3.org/TR/html4/interact/forms.html#adef-action&#34;&gt;form
+submission action&lt;/a&gt;.  This means that it is up to you to
+define &lt;em&gt;when&lt;/em&gt; a form&amp;rsquo;s contents should be processed.  It also means that
+you are responsible for &lt;em&gt;how&lt;/em&gt; to translate a form&amp;rsquo;s state into
+meaningful information for the the application&amp;rsquo;s
+&lt;a href=&#34;Application-Architecture#models&#34;&gt;models&lt;/a&gt;, and vice versa.&lt;/p&gt;
+
+&lt;p&gt;We&amp;rsquo;ll focus on the very common use case of embedding form inputs in a
+table view.  This will allow us to highlight some points that require
+extra care when working with inputs in iOS.  For example, if the table
+view uses &lt;a href=&#34;Table-View-Guide#reusing-uitableviewcells&#34;&gt;reusable cells&lt;/a&gt;, a
+cell containing a form input may be removed from memory as soon as it
+disappears from the screen when the user scrolls the table.  This means
+that you cannot necessarily rely on the state of the form itself to
+store information the user has input.  We&amp;rsquo;ll cover how to overcome this and
+other problems below.&lt;/p&gt;
+
+&lt;p&gt;Here is a typical example of form inputs in a table view:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://imgur.com/e4vUMW4&#34;&gt;&lt;img src=&#34;http://i.imgur.com/e4vUMW4.png&#34; title=&#34;source: imgur.com&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;static-forms&#34;&gt;Static Forms&lt;/h2&gt;
+
+&lt;p&gt;One way to avoid some complexity when working with form input in a table
+view is to use &lt;a href=&#34;https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/TableView_iPhone/TableViewCells/TableViewCells.html#//apple_ref/doc/uid/TP40007451-CH7-SW20&#34;&gt;static cells&lt;/a&gt;.  However, this is only
+applicable when using Interface Builder and when your table view is
+backed by a
+&lt;a href=&#34;Table-View-Guide#uitableview-vs-uitableviewcontroller&#34;&gt;UITableViewController&lt;/a&gt;.
+Additionally you should only use static cells when the structure of your
+forms will never change.&lt;/p&gt;
+
+&lt;p&gt;To create a table with static cells you&amp;rsquo;ll need to drag a &lt;code&gt;Table View
+Controller&lt;/code&gt; into the scene from the Object Library and set &lt;code&gt;Content&lt;/code&gt; to
+&lt;code&gt;Static Cells&lt;/code&gt; in the Attributes Inspector.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://imgur.com/dtxyIoX&#34;&gt;&lt;img src=&#34;http://i.imgur.com/dtxyIoX.png&#34; title=&#34;source: imgur.com&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;You can now control the number of sections in your table and the the
+number of cells by selecting either the &amp;ldquo;Table View&amp;rdquo; or &amp;ldquo;Section&amp;rdquo; in the
+Outline view and using the Attributes Inspector.  Using Interface
+Builder you can now design each individual cell as it would appear in
+your app.  You can also connect the controls in your cells to
+&lt;code&gt;@IBOutlets&lt;/code&gt; and &lt;code&gt;@IBActions&lt;/code&gt; in your UITableViewController&amp;rsquo;s
+corresponding subclass.  Since there is no danger of static cells being
+removed from memory when they scroll off screen, you can choose whenever
+you want to process the information from any form inputs into useful
+information for the rest of your app.&lt;/p&gt;
+
+&lt;h3 id=&#34;example-basic-preferences-page&#34;&gt;Example: Basic preferences page&lt;/h3&gt;
+
+&lt;p&gt;Here is how we might implement a simple preferences page for an app.  To
+demonstrate the fact that the preferences will be used in the rest of
+the app we have a main &lt;code&gt;ViewController&lt;/code&gt; that initializes and displays
+the preferences.  It has an &amp;ldquo;Edit Preferences&amp;rdquo; button that will open up
+our &lt;code&gt;PreferencesTableViewController&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;NB: In practice, you might instead opt to use the &lt;a href=&#34;https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/UserDefaults/Preferences/Preferences.html#//apple_ref/doc/uid/10000059i-CH6-SW5&#34;&gt;iOS Settings
+Bundle&lt;/a&gt; feature when creating a preferences page.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://imgur.com/jt3Pmf6&#34;&gt;&lt;img src=&#34;http://i.imgur.com/jt3Pmf6.gif&#34; title=&#34;source: imgur.com&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;The preferences table has three &lt;em&gt;static&lt;/em&gt; cells each containing a single
+&lt;a href=&#34;https://developer.apple.com/library/ios/documentation/UIKit/Reference/UISwitch_Class/index.html&#34;&gt;switch&lt;/a&gt; corresponding to an on/off preference.  The swiches
+are connected to &lt;code&gt;@IBOutlets&lt;/code&gt; in our &lt;code&gt;PreferencesTableViewController&lt;/code&gt;.
+The preferences table view controller also has &amp;ldquo;Save&amp;rdquo; and &amp;ldquo;Cancel&amp;rdquo;
+buttons connected to unwind segues in our main &lt;code&gt;ViewController&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://imgur.com/rF4Ww3W&#34;&gt;&lt;img src=&#34;http://i.imgur.com/rF4Ww3W.png&#34; title=&#34;source: imgur.com&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;The &lt;code&gt;Preferences&lt;/code&gt; class provides us with a model to store the
+preferences.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;class Preferences {
+   var autoRefresh = true, playSounds = true, showPhotos = true
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In our preferences table view controller we initialize the state of the
+switches to match the current preferences&amp;mdash;which will be set by our
+main view controller.&lt;/p&gt;
+
+&lt;p&gt;Notice that when a switch is toggled, we do not mutate the current
+preferences since we might still cancel our changes.  Instead we provide
+a way to create a new &lt;code&gt;Preferences&lt;/code&gt; object from the current state of the
+switches in the UI with the &lt;code&gt;preferencesFromTableData&lt;/code&gt; method.  We&amp;rsquo;ll use this
+method in the unwind segue associated with the &amp;ldquo;Save&amp;rdquo; button.&lt;/p&gt;
+
+&lt;p&gt;We can wait to convert the state of the switches (as they appear in the
+UI) to a &lt;code&gt;Preferences&lt;/code&gt; object until we are ready to save because we are
+using &lt;em&gt;static cells&lt;/em&gt;.  This means that the cells do not get allocated
+and removed from memory dynamically and that we can obtain &lt;code&gt;@IBOutlets&lt;/code&gt;
+to controls inside each specific cell.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;import UIKit
+
+class PreferencesTableViewController: UITableViewController {
+
+    @IBOutlet weak var autoRefreshSwitch: UISwitch!
+    @IBOutlet weak var soundsSwitch: UISwitch!
+    @IBOutlet weak var showPhotosSwitch: UISwitch!
+
+    // should be set by the class that instantiates this view controller
+    var currentPrefs: Preferences!
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        currentPrefs = currentPrefs ?? Preferences()
+        initSwitches()
+    }
+
+    private func initSwitches() {
+        autoRefreshSwitch?.on = currentPrefs.autoRefresh
+        soundsSwitch?.on = currentPrefs.playSounds
+        showPhotosSwitch?.on = currentPrefs.showPhotos
+    }
+
+    func preferencesFromTableData() -&amp;gt; Preferences {
+        var newPrefs = Preferences()
+        newPrefs.autoRefresh = autoRefreshSwitch.on
+        newPrefs.playSounds = soundsSwitch.on
+        newPrefs.showPhotos = showPhotosSwitch.on
+        return newPrefs
+    }
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In our main &lt;code&gt;ViewController&lt;/code&gt; we set up the
+&lt;code&gt;PreferencesTableViewController&lt;/code&gt; with the current preferences before our
+segue.  When coming back from the segue via the &amp;ldquo;Save&amp;rdquo; button we read
+off the new preferences from the switches and update our &lt;code&gt;preferences&lt;/code&gt;
+object.  We don&amp;rsquo;t take any action if the edit was &amp;ldquo;Canceled&amp;rdquo; because the
+&lt;code&gt;PreferencesTableViewController&lt;/code&gt; does not modify the &lt;code&gt;preferences&lt;/code&gt;
+object we pass in.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;class ViewController: UIViewController {
+
+    @IBOutlet weak var autoRefreshLabel: UILabel!
+    @IBOutlet weak var playSoundsLabel: UILabel!
+    @IBOutlet weak var showPhotosLabel: UILabel!
+
+    var preferences: Preferences = Preferences() {
+        didSet {
+            updateLabels()
+        }
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        updateLabels()
+    }
+
+    private func updateLabels() {
+        autoRefreshLabel.text = preferences.autoRefresh ? &amp;quot;Yes&amp;quot; : &amp;quot;No&amp;quot;
+        playSoundsLabel.text = preferences.playSounds ? &amp;quot;Yes&amp;quot; : &amp;quot;No&amp;quot;
+        showPhotosLabel.text = preferences.showPhotos ? &amp;quot;Yes&amp;quot; : &amp;quot;No&amp;quot;
+    }
+
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == &amp;quot;showPreferencesSegue&amp;quot; {
+            // we wrapped our PreferencesTableViewController inside a UINavigationController
+            let navController = segue.destinationViewController as UINavigationController
+            let prefsVC = navController.topViewController as PreferencesTableViewController
+            prefsVC.currentPrefs = self.preferences
+        }
+    }
+
+    @IBAction func didSavePreferences(segue: UIStoryboardSegue) {
+        if let prefsVC = segue.sourceViewController as? PreferencesTableViewController {
+            self.preferences = prefsVC.preferencesFromTableData()
+        }
+    }
+
+    @IBAction func didCancelPreferences(segue: UIStoryboardSegue) {
+        // do nothing
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;dynamic-forms&#34;&gt;Dynamic Forms&lt;/h2&gt;
+
+&lt;p&gt;Static cells are quite limited because single &lt;code&gt;UITableView&lt;/code&gt; has to
+contain either &lt;em&gt;all static cells&lt;/em&gt; or have &lt;em&gt;all&lt;/em&gt; of its content be
+provided dynamically.  For example it would not be possible to use
+static cells if the number of rows in &lt;em&gt;any&lt;/em&gt; section of your table was
+based on data loaded at runtime.&lt;/p&gt;
+
+&lt;p&gt;Furthermore, you can only use static cells in Interface Builder and when
+your table view is backed by &lt;code&gt;UITableViewController&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id=&#34;challenges-of-tables-with-dynamically-created-form-inputs&#34;&gt;Challenges of tables with dynamically created form inputs&lt;/h3&gt;
+
+&lt;p&gt;There are a few additional challenges to overcome when working with form
+inputs in a table with dynamic content:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Since the cells are dynamically allocated, &lt;em&gt;inside your view
+controller&lt;/em&gt; there is no way to obtain &lt;code&gt;@IBOutlets&lt;/code&gt; to an form input
+inside a specific cell.  You must arrange a way for the cells to read
+the state of its own form inputs and for the view controller to get this
+information from the cell.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Likewise, if your view controller needs to respond to events from an
+individual cell, you must arrange a way for the cell to propagate the
+event to the view controller.  You cannot simply associate an
+&lt;code&gt;@IBAction&lt;/code&gt; inside the view controller with an element inside a specific
+cell.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Generally you&amp;rsquo;ll be getting reusable cells to configure by calling
+&lt;code&gt;dequeueReusableCellWithIdentifier&lt;/code&gt;.  This means you cannot rely on
+the information contained in the form inputs in an individual cell to
+persist when it scrolls off screen.  You will have to maintain all the
+information necessary to populate the state of all form inputs in each
+cell somewhere else.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;You&amp;rsquo;ll also have to update this information immediately if the user
+interacts with the cell because, again, the form input itself cannot be
+used to to store information once the cell is no longer on the screen.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;If your form is used for editing data and provides a &amp;ldquo;Cancel&amp;rdquo; option,
+you must maintain an additional copy of the data seperate from the
+initial data and seperate from the current value inside the form inputs.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;example-basic-preferences-page-revisited&#34;&gt;Example: Basic preferences page revisited&lt;/h3&gt;
+
+&lt;p&gt;To see how these factors come into play, we&amp;rsquo;ll reimplement our basic
+preferences page example from &lt;a href=&#34;#example-basic-preferences-page&#34;&gt;above&lt;/a&gt;
+to use dynamically created cells based on &lt;a href=&#34;Table-View-Guide#using-prototype-cells&#34;&gt;prototype
+cells&lt;/a&gt; instead of static cells.&lt;/p&gt;
+
+&lt;p&gt;As before we have a main &lt;code&gt;ViewController&lt;/code&gt; displays the current
+preferences and has an &amp;ldquo;Edit Preferences&amp;rdquo; button that does a modal segue
+to our &lt;code&gt;PreferencesViewController&lt;/code&gt;.  The &lt;code&gt;ViewController&lt;/code&gt; class also
+contains &lt;code&gt;@IBActions&lt;/code&gt; for unwind segues that happen when the user either
+saves or cancels editing preferences.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://imgur.com/8nbwUnu&#34;&gt;&lt;img src=&#34;http://i.imgur.com/8nbwUnu.png&#34; title=&#34;source: imgur.com&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;We renamed our &lt;code&gt;PreferencesTableViewController&lt;/code&gt; to
+&lt;code&gt;PreferencesViewController&lt;/code&gt;.  It no longer has to be a subclass of
+&lt;code&gt;UITableViewController&lt;/code&gt;, and instead it only implements the
+&lt;code&gt;UITableViewDataSource&lt;/code&gt; protocol.  Other than replacing this type name,
+the code in our &lt;code&gt;ViewController&lt;/code&gt; class remains the same as above.  The
+code for our &lt;code&gt;Preferences&lt;/code&gt; model has not changed from above at all.&lt;/p&gt;
+
+&lt;p&gt;The bulk of our changes are in &lt;code&gt;PreferencesViewController&lt;/code&gt;.  We need to
+maintain the temporary state of our table as we are editing our
+preferences outside of the cells themselves.  We introduce two
+properties &lt;code&gt;tableStructure&lt;/code&gt; and &lt;code&gt;prefValues&lt;/code&gt; to keep track of this
+state.&lt;/p&gt;
+
+&lt;p&gt;We write logic to convert a &lt;code&gt;Preferences&lt;/code&gt; object into our &lt;code&gt;prefValues&lt;/code&gt;.
+This allow us to update the &lt;code&gt;prefValues&lt;/code&gt; to store the state of table as
+we are editing without modifying the original &lt;code&gt;Preferences&lt;/code&gt; object that
+is passed in.  Likewise we have a procedure to obtain a new &lt;code&gt;Preferences&lt;/code&gt;
+object from the &lt;code&gt;prefValues&lt;/code&gt;.  This allows the rest of the application
+to obtain an updated &lt;code&gt;Preferences&lt;/code&gt; once the user hits &amp;ldquo;Save&amp;rdquo;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;enum PrefRowIdentifier : String {
+    case AutoRefresh = &amp;quot;Auto Refresh&amp;quot;
+    case PlaySounds = &amp;quot;Play Sounds&amp;quot;
+    case ShowPhotos = &amp;quot;Show Photos&amp;quot;
+}
+
+class PreferencesViewController: UIViewController, UITableViewDataSource, PreferenceSwitchCellDelegate {
+    @IBOutlet weak var tableView: UITableView!
+    let tableStructure: [[PrefRowIdentifier]] = [[.AutoRefresh], [.PlaySounds, .ShowPhotos]]
+    var prefValues: [PrefRowIdentifier: Bool] = [:]
+
+    // should be set by the class that instantiates this view controller
+    var currentPrefs: Preferences! {
+        didSet {
+            prefValues[.AutoRefresh] = currentPrefs.autoRefresh
+            prefValues[.PlaySounds] = currentPrefs.playSounds
+            prefValues[.ShowPhotos] = currentPrefs.showPhotos
+            tableView?.reloadData()
+        }
+    }
+
+    func preferencesFromTableData() -&amp;gt; Preferences {
+        let ret = Preferences()
+        ret.autoRefresh = prefValues[.AutoRefresh] ?? ret.autoRefresh
+        ret.playSounds = prefValues[.PlaySounds] ?? ret.playSounds
+        ret.showPhotos = prefValues[.ShowPhotos] ?? ret.showPhotos
+        return ret
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        currentPrefs = currentPrefs ?? Preferences()
+        tableView.dataSource = self
+    }
+
+    func numberOfSectionsInTableView(tableView: UITableView) -&amp;gt; Int {
+        return tableStructure.count
+    }
+
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -&amp;gt; String? {
+        return &amp;quot; &amp;quot;
+    }
+
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -&amp;gt; Int {
+        return tableStructure[section].count
+    }
+
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -&amp;gt; UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier(&amp;quot;PreferenceSwitchCell&amp;quot;) as PreferenceSwitchCell
+        let prefIdentifier = tableStructure[indexPath.section][indexPath.row]
+        cell.prefRowIdentifier = prefIdentifier
+        cell.onOffSwitch.on = prefValues[prefIdentifier]!
+        cell.delegate = self
+        return cell
+    }
+
+    func preferenceSwitchCellDidToggle(cell: PreferenceSwitchCell, newValue: Bool) {
+        prefValues[cell.prefRowIdentifier] = newValue
+    }
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;!--- TODO link to delegate pattern --&gt;
+
+&lt;p&gt;Finally we need a way for our custom cell containing a single switch to
+know which preference it represents and to notify our view controller
+immediately once its switch is toggled.  We do this by implementing a
+custom &lt;code&gt;PreferenceSwitchCell&lt;/code&gt; class with a corresponding delegate
+&lt;code&gt;PreferenceSwitchCellDelegate&lt;/code&gt; that is implemented by our
+&lt;code&gt;PreferencesViewController&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;The action of the switch in our protoype cell is connected to our code
+in &lt;code&gt;PreferenceSwitchCell&lt;/code&gt; by an &lt;code&gt;@IBAction&lt;/code&gt;.  We notify our view
+controller once this event is triggered by propagating the change
+through the delegate.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;protocol PreferenceSwitchCellDelegate: class {
+    func preferenceSwitchCellDidToggle(cell: PreferenceSwitchCell, newValue:Bool)
+}
+
+class PreferenceSwitchCell: UITableViewCell {
+    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var onOffSwitch: UISwitch!
+
+    weak var delegate: PreferenceSwitchCellDelegate?
+
+    var prefRowIdentifier: PrefRowIdentifier! {
+        didSet {
+            descriptionLabel?.text = prefRowIdentifier?.rawValue
+        }
+    }
+
+    @IBAction func didToggleSwitch(sender: AnyObject) {
+        delegate?.preferenceSwitchCellDidToggle(self, newValue: onOffSwitch.on)
+    }
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;!---
+### Example: Multi-Select with Dynamic Content
+
+### Example: Drop-Down Select
+--&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

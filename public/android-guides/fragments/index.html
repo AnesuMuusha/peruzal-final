@@ -1,0 +1,2009 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="A fragment is a reusable class implementing a portion of an activity.  A Fragment typically defines a part of a user interface.">
+      
+      
+        <link rel="canonical" href="https://guides.peruzal.com/xamarin-forms-guide/fragments/">
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.0">
+    
+    
+      
+        <title>Fragments - Android Mobile App Development Guide</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.0284f74d.css">
+      
+        <link rel="stylesheet" href="../assets/stylesheets/application-palette.01803549.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#ffa000">
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.74668098.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../assets/fonts/material-icons.css">
+    
+    
+    
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="amber" data-md-color-accent="deep-orange">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#overview" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://guides.peruzal.com/xamarin-forms-guide" title="Android Mobile App Development Guide" class="md-header-nav__button md-logo">
+          
+            <img src="../images/logo-lines.png" width="24" height="24">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              Android Mobile App Development Guide
+            </span>
+            <span class="md-header-nav__topic">
+              
+                Fragments
+              
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/Peruzal/xamarin-forms-guide/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    Github
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://guides.peruzal.com/xamarin-forms-guide" title="Android Mobile App Development Guide" class="md-nav__button md-logo">
+      
+        <img src="../images/logo-lines.png" width="48" height="48">
+      
+    </a>
+    Android Mobile App Development Guide
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/Peruzal/xamarin-forms-guide/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    Github
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Getting Started" class="md-nav__link">
+      Getting Started
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../project-structure/" title="Android Project Structure" class="md-nav__link">
+      Android Project Structure
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../android-resources/" title="Understanding App Resources" class="md-nav__link">
+      Understanding App Resources
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Android Common View
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        Android Common View
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/view-attributes/" title="View Attributes" class="md-nav__link">
+      View Attributes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/textview/" title="TextView" class="md-nav__link">
+      TextView
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/button/" title="Button" class="md-nav__link">
+      Button
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/edittext/" title="EditText" class="md-nav__link">
+      EditText
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/image-view/" title="ImageView" class="md-nav__link">
+      ImageView
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/image-button/" title="ImageButton" class="md-nav__link">
+      ImageButton
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/radio-button/" title="RadioButton" class="md-nav__link">
+      RadioButton
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/view/" title="View" class="md-nav__link">
+      View
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/spinner/" title="Spinner" class="md-nav__link">
+      Spinner
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/checkbox/" title="CheckBox" class="md-nav__link">
+      CheckBox
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/switch/" title="Switch" class="md-nav__link">
+      Switch
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/seek-bar/" title="SeekBar" class="md-nav__link">
+      SeekBar
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/rating-bar/" title="RatingBar" class="md-nav__link">
+      RatingBar
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/progress-bar/" title="ProgressBar" class="md-nav__link">
+      ProgressBar
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/search-view/" title="SearchView" class="md-nav__link">
+      SearchView
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Layouts
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        Layouts
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../layouts/overview/" title="Layouts Overview" class="md-nav__link">
+      Layouts Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../layouts/linear-layout/" title="Linear Layout" class="md-nav__link">
+      Linear Layout
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../layouts/relative-layout/" title="Relative Layout" class="md-nav__link">
+      Relative Layout
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../layouts/frame-layout/" title="Frame Layout" class="md-nav__link">
+      Frame Layout
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../layouts/layout-prformance/" title="Optimizing Layout Performance" class="md-nav__link">
+      Optimizing Layout Performance
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../activities/" title="Activities" class="md-nav__link">
+      Activities
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      Navigation
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        Navigation
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../navigation/common-navigation-patterns/" title="Common Navigation Patterns" class="md-nav__link">
+      Common Navigation Patterns
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../navigation/intents/" title="Navigation with Intents" class="md-nav__link">
+      Navigation with Intents
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../navigation/swipe-tabbed-navigation/" title="Swipe and Tabbed Navigation" class="md-nav__link">
+      Swipe and Tabbed Navigation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../navigation/navigation-drawer/" title="Navigation Drawer" class="md-nav__link">
+      Navigation Drawer
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../navigation/bottom-navigation/" title="Bottom Navigation" class="md-nav__link">
+      Bottom Navigation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../navigation/task-stacks/" title="Navigation and Task Stacks" class="md-nav__link">
+      Navigation and Task Stacks
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../navigation/common-intents/" title="Common Intents" class="md-nav__link">
+      Common Intents
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Fragments
+      </label>
+    
+    <a href="./" title="Fragments" class="md-nav__link md-nav__link--active">
+      Fragments
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" title="Overview" class="md-nav__link">
+    Overview
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#understanding-fragments" title="Understanding Fragments" class="md-nav__link">
+    Understanding Fragments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#importance-of-fragments" title="Importance of Fragments" class="md-nav__link">
+    Importance of Fragments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#organizing-your-code" title="Organizing your Code" class="md-nav__link">
+    Organizing your Code
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" title="Usage" class="md-nav__link">
+    Usage
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#defining-a-fragment" title="Defining a Fragment" class="md-nav__link">
+    Defining a Fragment
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#embedding-a-fragment-in-an-activity" title="Embedding a Fragment in an Activity" class="md-nav__link">
+    Embedding a Fragment in an Activity
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#statically" title="Statically" class="md-nav__link">
+    Statically
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dynamically" title="Dynamically" class="md-nav__link">
+    Dynamically
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fragment-lifecycle" title="Fragment Lifecycle" class="md-nav__link">
+    Fragment Lifecycle
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#looking-up-a-fragment-instance" title="Looking Up a Fragment Instance" class="md-nav__link">
+    Looking Up a Fragment Instance
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#finding-fragment-by-id" title="Finding Fragment By ID" class="md-nav__link">
+    Finding Fragment By ID
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#finding-fragment-by-tag" title="Finding Fragment By Tag" class="md-nav__link">
+    Finding Fragment By Tag
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#finding-fragment-within-pager" title="Finding Fragment Within Pager" class="md-nav__link">
+    Finding Fragment Within Pager
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#communicating-with-fragments" title="Communicating with Fragments" class="md-nav__link">
+    Communicating with Fragments
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fragment-with-arguments" title="Fragment with Arguments" class="md-nav__link">
+    Fragment with Arguments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fragment-methods" title="Fragment Methods" class="md-nav__link">
+    Fragment Methods
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fragment-listener" title="Fragment Listener" class="md-nav__link">
+    Fragment Listener
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#understanding-the-fragmentmanager" title="Understanding the FragmentManager" class="md-nav__link">
+    Understanding the FragmentManager
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#actionbar-menu-items-and-fragments" title="ActionBar Menu Items and Fragments" class="md-nav__link">
+    ActionBar Menu Items and Fragments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#navigating-between-fragments" title="Navigating Between Fragments" class="md-nav__link">
+    Navigating Between Fragments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#managing-fragment-backstack" title="Managing Fragment Backstack" class="md-nav__link">
+    Managing Fragment Backstack
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fragment-hiding-vs-replace" title="Fragment Hiding vs Replace" class="md-nav__link">
+    Fragment Hiding vs Replace
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nesting-fragments-within-fragments" title="Nesting Fragments within Fragments" class="md-nav__link">
+    Nesting Fragments within Fragments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#managing-configuration-changes" title="Managing Configuration Changes" class="md-nav__link">
+    Managing Configuration Changes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" title="References" class="md-nav__link">
+    References
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../common-intents/" title="Common Intents" class="md-nav__link">
+      Common Intents
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../android-permissions/" title="Understanding Android Permissions" class="md-nav__link">
+      Understanding Android Permissions
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../networking/" title="Networking" class="md-nav__link">
+      Networking
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" title="Overview" class="md-nav__link">
+    Overview
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#understanding-fragments" title="Understanding Fragments" class="md-nav__link">
+    Understanding Fragments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#importance-of-fragments" title="Importance of Fragments" class="md-nav__link">
+    Importance of Fragments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#organizing-your-code" title="Organizing your Code" class="md-nav__link">
+    Organizing your Code
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" title="Usage" class="md-nav__link">
+    Usage
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#defining-a-fragment" title="Defining a Fragment" class="md-nav__link">
+    Defining a Fragment
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#embedding-a-fragment-in-an-activity" title="Embedding a Fragment in an Activity" class="md-nav__link">
+    Embedding a Fragment in an Activity
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#statically" title="Statically" class="md-nav__link">
+    Statically
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dynamically" title="Dynamically" class="md-nav__link">
+    Dynamically
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fragment-lifecycle" title="Fragment Lifecycle" class="md-nav__link">
+    Fragment Lifecycle
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#looking-up-a-fragment-instance" title="Looking Up a Fragment Instance" class="md-nav__link">
+    Looking Up a Fragment Instance
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#finding-fragment-by-id" title="Finding Fragment By ID" class="md-nav__link">
+    Finding Fragment By ID
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#finding-fragment-by-tag" title="Finding Fragment By Tag" class="md-nav__link">
+    Finding Fragment By Tag
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#finding-fragment-within-pager" title="Finding Fragment Within Pager" class="md-nav__link">
+    Finding Fragment Within Pager
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#communicating-with-fragments" title="Communicating with Fragments" class="md-nav__link">
+    Communicating with Fragments
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fragment-with-arguments" title="Fragment with Arguments" class="md-nav__link">
+    Fragment with Arguments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fragment-methods" title="Fragment Methods" class="md-nav__link">
+    Fragment Methods
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fragment-listener" title="Fragment Listener" class="md-nav__link">
+    Fragment Listener
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#understanding-the-fragmentmanager" title="Understanding the FragmentManager" class="md-nav__link">
+    Understanding the FragmentManager
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#actionbar-menu-items-and-fragments" title="ActionBar Menu Items and Fragments" class="md-nav__link">
+    ActionBar Menu Items and Fragments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#navigating-between-fragments" title="Navigating Between Fragments" class="md-nav__link">
+    Navigating Between Fragments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#managing-fragment-backstack" title="Managing Fragment Backstack" class="md-nav__link">
+    Managing Fragment Backstack
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fragment-hiding-vs-replace" title="Fragment Hiding vs Replace" class="md-nav__link">
+    Fragment Hiding vs Replace
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nesting-fragments-within-fragments" title="Nesting Fragments within Fragments" class="md-nav__link">
+    Nesting Fragments within Fragments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#managing-configuration-changes" title="Managing Configuration Changes" class="md-nav__link">
+    Managing Configuration Changes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" title="References" class="md-nav__link">
+    References
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/Peruzal/xamarin-forms-guide/edit/master/docs/fragments.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                  <h1>Fragments</h1>
+                
+                <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>A fragment is a reusable class implementing a portion of an activity.  A Fragment typically defines a part of a user interface. Fragments must be embedded in activities; they cannot run independently of activities.</p>
+<p><img alt="Fragments" src="http://developer.android.com/images/fundamentals/fragments.png" /></p>
+<h3 id="understanding-fragments">Understanding Fragments<a class="headerlink" href="#understanding-fragments" title="Permanent link">&para;</a></h3>
+<p>Here are the important things to understand about fragments:</p>
+<ul>
+<li>A <code>Fragment</code> is a combination of an XML layout file and a java class much like an <code>Activity</code>.</li>
+<li>Using the support library, fragments are supported back to all relevant Android versions.</li>
+<li>Fragments encapsulate views and logic so that it is easier to reuse within activities.</li>
+<li>Fragments are standalone components that can contain views, events and logic. </li>
+</ul>
+<p>Within a fragment-oriented architecture, <strong>activities become navigational containers</strong> that are primarily responsible for navigation to other activities, presenting fragments and passing data. </p>
+<h3 id="importance-of-fragments">Importance of Fragments<a class="headerlink" href="#importance-of-fragments" title="Permanent link">&para;</a></h3>
+<p>There are many use cases for fragments but the most common use cases include:</p>
+<ul>
+<li><strong>Reusing View and Logic Components</strong> - Fragments enable re-use of parts of your screen including views and event logic over and over in different ways across many disparate activities. For example, using the same list across different data sources within an app.</li>
+<li><strong>Tablet Support</strong> - Often within apps, the tablet version of an activity has a substantially different layout from the phone version which is different from the TV version. Fragments enable device-specific activities to reuse shared elements while also having differences.</li>
+<li><strong>Screen Orientation</strong> - Often within apps, the portrait version of an activity has a substantially different layout from the landscape version. Fragments enable both orientations to reuse shared elements while also having differences.</li>
+</ul>
+<h3 id="organizing-your-code">Organizing your Code<a class="headerlink" href="#organizing-your-code" title="Permanent link">&para;</a></h3>
+<p>Within a fragment-heavy app, we need to remember to organize our code according to architectural best practices. Inside of an app which uses fragments extensively, we need to keep in mind that the role of an activity shifts. </p>
+<p><strong>Activities are navigation controllers</strong> primarily responsible for:</p>
+<ul>
+<li>Navigation to other activities through intents.</li>
+<li>Presenting navigational components such as the [[navigation drawer|Fragment Navigation Drawer]] or the [[viewpager|ViewPager-with-FragmentPagerAdapter]].</li>
+<li>Hiding and showing relevant fragments using the fragment manager.</li>
+<li>Receiving data from intents and passing data between fragments.</li>
+</ul>
+<p><strong>Fragments are content controllers</strong> and contain most views, layouts, and event logic including:</p>
+<ul>
+<li>Layouts and views displaying relevant app content.</li>
+<li>Event handling logic associated with relevant views.</li>
+<li>View state management logic such as visibility or error handling.</li>
+<li>Triggering of network request through a client object.</li>
+<li>Retrieval and storage of data from persistence through model objects.</li>
+</ul>
+<p>To reiterate, in a fragment-based architecture, the <strong>activities are for navigation</strong> and the <strong>fragments are for views and logic</strong>. </p>
+<h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h2>
+<h3 id="defining-a-fragment">Defining a Fragment<a class="headerlink" href="#defining-a-fragment" title="Permanent link">&para;</a></h3>
+<p>A fragment, like an activity, has an XML layout file and a Java class that represents the <a href="http://developer.android.com/reference/android/app/Fragment.html">Fragment</a> controller.</p>
+<p>The XML layout file is just like any other layout file, and can be named <code>fragment_foo.xml</code>. Think of them as a partial (re-usable) activity:</p>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;LinearLayout</span> <span class="na">xmlns:android=</span><span class="s">&quot;http://schemas.android.com/apk/res/android&quot;</span>
+    <span class="na">android:layout_width=</span><span class="s">&quot;match_parent&quot;</span> <span class="na">android:layout_height=</span><span class="s">&quot;match_parent&quot;</span>
+    <span class="na">android:orientation=</span><span class="s">&quot;vertical&quot;</span> <span class="nt">&gt;</span>
+
+    <span class="nt">&lt;TextView</span>
+        <span class="na">android:id=</span><span class="s">&quot;@+id/textView1&quot;</span>
+        <span class="na">android:layout_width=</span><span class="s">&quot;wrap_content&quot;</span>
+        <span class="na">android:layout_height=</span><span class="s">&quot;wrap_content&quot;</span>
+        <span class="na">android:text=</span><span class="s">&quot;TextView&quot;</span> <span class="nt">/&gt;</span>
+
+    <span class="nt">&lt;Button</span>
+        <span class="na">android:id=</span><span class="s">&quot;@+id/button1&quot;</span>
+        <span class="na">android:layout_width=</span><span class="s">&quot;wrap_content&quot;</span>
+        <span class="na">android:layout_height=</span><span class="s">&quot;wrap_content&quot;</span>
+        <span class="na">android:text=</span><span class="s">&quot;Button&quot;</span> <span class="nt">/&gt;</span>
+
+<span class="nt">&lt;/LinearLayout&gt;</span>
+</pre></div>
+
+
+<p>The Java controller for a fragment looks like:</p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">android.support.v4.app.Fragment</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">FooFragment</span> <span class="kd">extends</span> <span class="n">Fragment</span> <span class="o">{</span>
+    <span class="c1">// The onCreateView method is called when Fragment should create its View object hierarchy,</span>
+    <span class="c1">// either dynamically or via XML layout inflation. </span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">View</span> <span class="nf">onCreateView</span><span class="o">(</span><span class="n">LayoutInflater</span> <span class="n">inflater</span><span class="o">,</span> <span class="n">ViewGroup</span> <span class="n">parent</span><span class="o">,</span> <span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// Defines the xml file for the fragment</span>
+        <span class="k">return</span> <span class="n">inflater</span><span class="o">.</span><span class="na">inflate</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">fragment_foo</span><span class="o">,</span> <span class="n">parent</span><span class="o">,</span> <span class="kc">false</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="c1">// This event is triggered soon after onCreateView().</span>
+    <span class="c1">// Any view setup should occur here.  E.g., view lookups and attaching view listeners.</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onViewCreated</span><span class="o">(</span><span class="n">View</span> <span class="n">view</span><span class="o">,</span> <span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// Setup any handles to view objects here</span>
+        <span class="c1">// EditText etFoo = (EditText) view.findViewById(R.id.etFoo);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<h3 id="embedding-a-fragment-in-an-activity">Embedding a Fragment in an Activity<a class="headerlink" href="#embedding-a-fragment-in-an-activity" title="Permanent link">&para;</a></h3>
+<p>There are two ways to add a fragment to an activity: dynamically using <strong>Java</strong> and statically using <strong>XML</strong>. </p>
+<p>Before embedding a "support" fragment in an Activity make sure the Activity is changed to extend from <code>FragmentActivity</code> or <code>AppCompatActivity</code> which adds support for the fragment manager to all Android versions. Any activity using fragments should make sure to extend from <code>FragmentActivity</code> or <code>AppCompatActivity</code>:</p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">android.support.v7.app.AppCompatActivity</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span> <span class="kd">extends</span> <span class="n">AppCompatActivity</span> <span class="o">{</span>
+    <span class="c1">// ...</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<h4 id="statically">Statically<a class="headerlink" href="#statically" title="Permanent link">&para;</a></h4>
+<p>To add the fragment <strong>statically</strong>, simply embed the fragment in the activity's xml layout file:</p>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;LinearLayout</span> <span class="na">xmlns:android=</span><span class="s">&quot;http://schemas.android.com/apk/res/android&quot;</span>
+    <span class="na">android:layout_width=</span><span class="s">&quot;match_parent&quot;</span>
+    <span class="na">android:layout_height=</span><span class="s">&quot;match_parent&quot;</span>
+    <span class="na">android:orientation=</span><span class="s">&quot;vertical&quot;</span> <span class="nt">&gt;</span>
+
+    <span class="nt">&lt;fragment</span>
+        <span class="na">android:name=</span><span class="s">&quot;com.example.android.FooFragment&quot;</span>
+        <span class="na">android:id=</span><span class="s">&quot;@+id/fooFragment&quot;</span>
+        <span class="na">android:layout_width=</span><span class="s">&quot;match_parent&quot;</span> 
+        <span class="na">android:layout_height=</span><span class="s">&quot;match_parent&quot;</span> <span class="nt">/&gt;</span>
+
+<span class="nt">&lt;/LinearLayout&gt;</span>
+</pre></div>
+
+
+<p>Note: 
+* You will likely need to change the path for FooFragment based on your project setup.
+* You cannot replace a fragment defined statically in the layout file via a FragmentTransaction. You can only replace fragments that you added dynamically.</p>
+<h4 id="dynamically">Dynamically<a class="headerlink" href="#dynamically" title="Permanent link">&para;</a></h4>
+<p>The second way is by adding the fragment <strong>dynamically</strong> in Java using the <code>FragmentManager</code>. The <code>FragmentManager</code> class and the <a href="http://developer.android.com/reference/android/app/FragmentTransaction.html">FragmentTransaction class</a> allow you to add, remove and replace fragments in the layout of your activity at runtime.</p>
+<p>In this case, you want to add a "placeholder" container (usually a <code>FrameLayout</code>) to your activity where the fragment is inserted at runtime:</p>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;LinearLayout</span> <span class="na">xmlns:android=</span><span class="s">&quot;http://schemas.android.com/apk/res/android&quot;</span>
+    <span class="na">android:layout_width=</span><span class="s">&quot;match_parent&quot;</span>
+    <span class="na">android:layout_height=</span><span class="s">&quot;match_parent&quot;</span>
+    <span class="na">android:orientation=</span><span class="s">&quot;vertical&quot;</span> <span class="nt">&gt;</span>
+
+  <span class="nt">&lt;FrameLayout</span>
+       <span class="na">android:id=</span><span class="s">&quot;@+id/your_placeholder&quot;</span>
+       <span class="na">android:layout_width=</span><span class="s">&quot;match_parent&quot;</span>
+       <span class="na">android:layout_height=</span><span class="s">&quot;match_parent&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;/FrameLayout&gt;</span>
+
+<span class="nt">&lt;/LinearLayout&gt;</span>
+</pre></div>
+
+
+<p>and then you can use the <a href="http://developer.android.com/reference/android/app/FragmentManager.html">FragmentManager</a> to create a <a href="http://developer.android.com/reference/android/app/FragmentTransaction.html">FragmentTransaction</a> which allows us to add fragments to the <code>FrameLayout</code> at runtime:</p>
+<div class="codehilite"><pre><span></span><span class="c1">// Begin the transaction</span>
+<span class="n">FragmentTransaction</span> <span class="n">ft</span> <span class="o">=</span> <span class="n">getSupportFragmentManager</span><span class="o">().</span><span class="na">beginTransaction</span><span class="o">();</span>
+<span class="c1">// Replace the contents of the container with the new fragment</span>
+<span class="n">ft</span><span class="o">.</span><span class="na">replace</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">your_placeholder</span><span class="o">,</span> <span class="k">new</span> <span class="n">FooFragment</span><span class="o">());</span>
+<span class="c1">// or ft.add(R.id.your_placeholder, new FooFragment());</span>
+<span class="c1">// Complete the changes added above</span>
+<span class="n">ft</span><span class="o">.</span><span class="na">commit</span><span class="o">();</span>
+</pre></div>
+
+
+<p>If the fragment should always be within the activity, use XML to statically add the fragment but in more complex cases be sure to use the Java-based approach.</p>
+<h3 id="fragment-lifecycle">Fragment Lifecycle<a class="headerlink" href="#fragment-lifecycle" title="Permanent link">&para;</a></h3>
+<p>Fragment has many methods which can be overridden to plug into the lifecycle (<strong>[[similar to an Activity|Activity-Lifecycle]]</strong>):</p>
+<ul>
+<li><code>onAttach()</code> is called when a fragment is connected to an activity.</li>
+<li><code>onCreate()</code> is called to do initial creation of the fragment.</li>
+<li><code>onCreateView()</code> is called by Android once the Fragment should inflate a view.</li>
+<li><code>onViewCreated()</code> is called after <code>onCreateView()</code> and ensures that the fragment's root view is <code>non-null</code>.  Any view setup should happen here.  E.g., view lookups, attaching listeners. </li>
+<li><code>onActivityCreated()</code> is called when host activity has completed its <code>onCreate()</code> method.</li>
+<li><code>onStart()</code> is called once the fragment is ready to be displayed on screen.</li>
+<li><code>onResume()</code> - Allocate “expensive” resources such as registering for location, sensor updates, etc.</li>
+<li><code>onPause()</code> - Release “expensive” resources. Commit any changes.</li>
+<li><code>onDestroyView()</code> is called when fragment's view is being destroyed, but the fragment is still kept around.</li>
+<li><code>onDestroy()</code> is called when fragment is no longer in use.</li>
+<li><code>onDetach()</code> is called when fragment is no longer connected to the activity.</li>
+</ul>
+<p>The lifecycle execution order is mapped out below:</p>
+<p><a href="https://i.imgur.com/0EVReuq.png"><img src="https://i.imgur.com/0EVReuq.png" alt="lifecycle" width="500" /></a></p>
+<p>The most common ones to override are <code>onCreateView</code> which is in almost every fragment to setup the inflated view, <code>onCreate</code> for any data initialization and <code>onActivityCreated</code> used for setting up things that can only take place once the Activity has been fully created.</p>
+<p>Here's an example of how you might use the various fragment lifecycle events:</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SomeFragment</span> <span class="kd">extends</span> <span class="n">Fragment</span> <span class="o">{</span>
+    <span class="n">ThingsAdapter</span> <span class="n">adapter</span><span class="o">;</span>
+    <span class="n">FragmentActivity</span> <span class="n">listener</span><span class="o">;</span>
+
+    <span class="c1">// This event fires 1st, before creation of fragment or any views</span>
+    <span class="c1">// The onAttach method is called when the Fragment instance is associated with an Activity. </span>
+    <span class="c1">// This does not mean the Activity is fully initialized.</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onAttach</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onAttach</span><span class="o">(</span><span class="n">context</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">context</span> <span class="k">instanceof</span> <span class="n">Activity</span><span class="o">){</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">listener</span> <span class="o">=</span> <span class="o">(</span><span class="n">FragmentActivity</span><span class="o">)</span> <span class="n">context</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="c1">// This event fires 2nd, before views are created for the fragment</span>
+    <span class="c1">// The onCreate method is called when the Fragment instance is being created, or re-created.</span>
+    <span class="c1">// Use onCreate for any standard setup that does not require the activity to be fully created</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+        <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Thing</span><span class="o">&gt;</span> <span class="n">things</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Thing</span><span class="o">&gt;();</span>
+        <span class="n">adapter</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ThingsAdapter</span><span class="o">(</span><span class="n">getActivity</span><span class="o">(),</span> <span class="n">things</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="c1">// The onCreateView method is called when Fragment should create its View object hierarchy,</span>
+    <span class="c1">// either dynamically or via XML layout inflation. </span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">View</span> <span class="nf">onCreateView</span><span class="o">(</span><span class="n">LayoutInflater</span> <span class="n">inflater</span><span class="o">,</span> <span class="n">ViewGroup</span> <span class="n">parent</span><span class="o">,</span> <span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">inflater</span><span class="o">.</span><span class="na">inflate</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">fragment_some</span><span class="o">,</span> <span class="n">parent</span><span class="o">,</span> <span class="kc">false</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="c1">// This event is triggered soon after onCreateView().</span>
+    <span class="c1">// onViewCreated() is only called if the view returned from onCreateView() is non-null.</span>
+    <span class="c1">// Any view setup should occur here.  E.g., view lookups and attaching view listeners.</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onViewCreated</span><span class="o">(</span><span class="n">View</span> <span class="n">view</span><span class="o">,</span> <span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onViewCreated</span><span class="o">(</span><span class="n">view</span><span class="o">,</span> <span class="n">savedInstanceState</span><span class="o">);</span>
+        <span class="n">ListView</span> <span class="n">lv</span> <span class="o">=</span> <span class="o">(</span><span class="n">ListView</span><span class="o">)</span> <span class="n">view</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">lvSome</span><span class="o">);</span>
+        <span class="n">lv</span><span class="o">.</span><span class="na">setAdapter</span><span class="o">(</span><span class="n">adapter</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="c1">// This method is called when the fragment is no longer connected to the Activity</span>
+    <span class="c1">// Any references saved in onAttach should be nulled out here to prevent memory leaks. </span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onDetach</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onDetach</span><span class="o">();</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">listener</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">// This method is called after the parent Activity&#39;s onCreate() method has completed.</span>
+    <span class="c1">// Accessing the view hierarchy of the parent activity must be done in the onActivityCreated.</span>
+    <span class="c1">// At this point, it is safe to search for activity View objects by their ID, for example.</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onActivityCreated</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onActivityCreated</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>Refer to <a href="https://github.com/xxv/android-lifecycle">this detailed lifecycle chart</a> to view the lifecycle of a fragment more visually.</p>
+<h3 id="looking-up-a-fragment-instance">Looking Up a Fragment Instance<a class="headerlink" href="#looking-up-a-fragment-instance" title="Permanent link">&para;</a></h3>
+<p>Often we need to lookup or find a fragment instance within an activity layout file. There are a few methods for looking up an existing fragment instance:</p>
+<ol>
+<li><strong>ID</strong> - Lookup a fragment by calling <code>findFragmentById</code> on the <code>FragmentManager</code></li>
+<li><strong>Tag</strong> - Lookup a fragment by calling <code>findFragmentByTag</code> on the <code>FragmentManager</code></li>
+<li><strong>Pager</strong> - Lookup a fragment by calling <code>getRegisteredFragment</code> on a <code>PagerAdapter</code> (not part of the Android APIs but there is a custom implementation here https://stackoverflow.com/a/30594487)</li>
+</ol>
+<p>Each method is outlined in more detail below.</p>
+<h4 id="finding-fragment-by-id">Finding Fragment By ID<a class="headerlink" href="#finding-fragment-by-id" title="Permanent link">&para;</a></h4>
+<p>If the fragment was statically embedded in the XML within an activity and given an <code>android:id</code> such as <code>fragmentDemo</code> then we can lookup this fragment by id by calling <code>findFragmentById</code> on the <code>FragmentManager</code>:</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span> <span class="kd">extends</span> <span class="n">AppCompatActivity</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">savedInstanceState</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+          <span class="n">DemoFragment</span> <span class="n">fragmentDemo</span> <span class="o">=</span> <span class="o">(</span><span class="n">DemoFragment</span><span class="o">)</span> 
+              <span class="n">getSupportFragmentManager</span><span class="o">().</span><span class="na">findFragmentById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">fragmentDemo</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<h4 id="finding-fragment-by-tag">Finding Fragment By Tag<a class="headerlink" href="#finding-fragment-by-tag" title="Permanent link">&para;</a></h4>
+<p>If the fragment was dynamically added at runtime within an activity then we can lookup this fragment by tag by calling <code>findFragmentByTag</code> on the <code>FragmentManager</code>:</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span> <span class="kd">extends</span> <span class="n">AppCompatActivity</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">savedInstanceState</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+          <span class="c1">// Let&#39;s first dynamically add a fragment into a frame container</span>
+          <span class="n">getSupportFragmentManager</span><span class="o">().</span><span class="na">beginTransaction</span><span class="o">().</span> 
+              <span class="n">replace</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">flContainer</span><span class="o">,</span> <span class="k">new</span> <span class="n">DemoFragment</span><span class="o">(),</span> <span class="s">&quot;SOMETAG&quot;</span><span class="o">).</span>
+              <span class="n">commit</span><span class="o">();</span>
+          <span class="c1">// Now later we can lookup the fragment by tag</span>
+          <span class="n">DemoFragment</span> <span class="n">fragmentDemo</span> <span class="o">=</span> <span class="o">(</span><span class="n">DemoFragment</span><span class="o">)</span> 
+              <span class="n">getSupportFragmentManager</span><span class="o">().</span><span class="na">findFragmentByTag</span><span class="o">(</span><span class="s">&quot;SOMETAG&quot;</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<h4 id="finding-fragment-within-pager">Finding Fragment Within Pager<a class="headerlink" href="#finding-fragment-within-pager" title="Permanent link">&para;</a></h4>
+<p>If the fragment was dynamically added at runtime within an activity into a <code>ViewPager</code> using a [[FragmentPagerAdapter|ViewPager-with-FragmentPagerAdapter#setup-fragmentpageradapter]] then we can lookup the fragment by upgrading to a <code>SmartFragmentStatePagerAdapter</code> as [[described in the ViewPager guide|ViewPager-with-FragmentPagerAdapter#setup-smartfragmentstatepageradapter]]. Now with the adapter in place, we can also easily access any fragments within the ViewPager using <code>getRegisteredFragment</code>:</p>
+<div class="codehilite"><pre><span></span><span class="c1">// returns first Fragment item within the pager</span>
+<span class="n">adapterViewPager</span><span class="o">.</span><span class="na">getRegisteredFragment</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span> 
+</pre></div>
+
+
+<p>Note that the <code>ViewPager</code> loads the fragment instances lazily similar to the a <code>ListView</code> recycling items as they appear on screen. If you attempt to access a fragment that is not on screen, the lookup will return <code>null</code>.</p>
+<h3 id="communicating-with-fragments">Communicating with Fragments<a class="headerlink" href="#communicating-with-fragments" title="Permanent link">&para;</a></h3>
+<p>Fragments should generally only communicate with their direct parent activity. Fragments communicate through their parent activity allowing the activity to manage the inputs and outputs of data from that fragment coordinating with other fragments or activities. Think of the Activity as the controller managing all interaction with each of the fragments contained within. </p>
+<p>A few exceptions to this are [[dialog fragments|Using-DialogFragment#passing-data-to-parent-fragment]] presented from within another fragment or [[nested child fragments|Creating-and-Using-Fragments#nesting-fragments-within-fragments]]. Both of these cases are situations where a fragment has nested child fragments and that are therefore allowed to communicate upward to their parent (which is a fragment).</p>
+<p>The important thing to keep in mind is that <strong>fragments should not directly communicate with each other</strong> and should generally only <strong>communicate with their parent activity</strong>.  Fragments should be modular, standalone and reusable components. The fragments allow their parent activity to respond to intents and callbacks in most cases.</p>
+<p>There are three ways a fragment and an activity can communicate:</p>
+<ol>
+<li><strong>Bundle</strong> - Activity can construct a fragment and set arguments</li>
+<li><strong>Methods</strong> - Activity can call methods on a fragment instance</li>
+<li><strong>Listener</strong> - Fragment can fire listener events on an activity via an interface</li>
+</ol>
+<p>In other words, communication should generally follow these principles:</p>
+<ul>
+<li>Activities can initialize fragments with [[data during construction|Creating-and-Using-Fragments#fragment-with-arguments]]</li>
+<li>Activities can pass data to fragments [[using methods on the fragment instance|Creating-and-Using-Fragments#fragment-methods]]</li>
+<li>Fragments can communicate up to their parent activity [[using an interface and listeners|Creating-and-Using-Fragments#fragment-listener]]</li>
+<li>Fragments should pass data to other fragments only routed through their parent activity</li>
+<li>Fragments can pass data to and from [[dialog fragments as outlined here|Using-DialogFragment#passing-data-to-parent-fragment]]</li>
+<li>Fragments can contain [[nested child fragments as outlined here|Creating-and-Using-Fragments#nesting-fragments-within-fragments]]</li>
+</ul>
+<h4 id="fragment-with-arguments">Fragment with Arguments<a class="headerlink" href="#fragment-with-arguments" title="Permanent link">&para;</a></h4>
+<p>In certain cases, your fragment may want to accept certain arguments. A common pattern is to create a static <code>newInstance</code> method for creating a Fragment with arguments. This is because a Fragment <strong>must have only a constructor with no arguments</strong>. Instead, we want to use the <code>setArguments</code> method such as:</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DemoFragment</span> <span class="kd">extends</span> <span class="n">Fragment</span> <span class="o">{</span>
+    <span class="c1">// Creates a new fragment given an int and title</span>
+    <span class="c1">// DemoFragment.newInstance(5, &quot;Hello&quot;);</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">DemoFragment</span> <span class="nf">newInstance</span><span class="o">(</span><span class="kt">int</span> <span class="n">someInt</span><span class="o">,</span> <span class="n">String</span> <span class="n">someTitle</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">DemoFragment</span> <span class="n">fragmentDemo</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DemoFragment</span><span class="o">();</span>
+        <span class="n">Bundle</span> <span class="n">args</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Bundle</span><span class="o">();</span>
+        <span class="n">args</span><span class="o">.</span><span class="na">putInt</span><span class="o">(</span><span class="s">&quot;someInt&quot;</span><span class="o">,</span> <span class="n">someInt</span><span class="o">);</span>
+        <span class="n">args</span><span class="o">.</span><span class="na">putString</span><span class="o">(</span><span class="s">&quot;someTitle&quot;</span><span class="o">,</span> <span class="n">someTitle</span><span class="o">);</span>
+        <span class="n">fragmentDemo</span><span class="o">.</span><span class="na">setArguments</span><span class="o">(</span><span class="n">args</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">fragmentDemo</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>This sets certain arguments into the Fragment for later access within <code>onCreate</code>. You can access the arguments later by using:</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DemoFragment</span> <span class="kd">extends</span> <span class="n">Fragment</span> <span class="o">{</span>
+   <span class="nd">@Override</span>
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+       <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+       <span class="c1">// Get back arguments</span>
+       <span class="kt">int</span> <span class="n">SomeInt</span> <span class="o">=</span> <span class="n">getArguments</span><span class="o">().</span><span class="na">getInt</span><span class="o">(</span><span class="s">&quot;someInt&quot;</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span>   
+       <span class="n">String</span> <span class="n">someTitle</span> <span class="o">=</span> <span class="n">getArguments</span><span class="o">().</span><span class="na">getString</span><span class="o">(</span><span class="s">&quot;someTitle&quot;</span><span class="o">,</span> <span class="s">&quot;&quot;</span><span class="o">);</span>    
+   <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>Now we can load a fragment dynamically in an Activity with:</p>
+<div class="codehilite"><pre><span></span><span class="c1">// Within the activity</span>
+<span class="n">FragmentTransaction</span> <span class="n">ft</span> <span class="o">=</span> <span class="n">getSupportFragmentManager</span><span class="o">().</span><span class="na">beginTransaction</span><span class="o">();</span>
+<span class="n">DemoFragment</span> <span class="n">fragmentDemo</span> <span class="o">=</span> <span class="n">DemoFragment</span><span class="o">.</span><span class="na">newInstance</span><span class="o">(</span><span class="mi">5</span><span class="o">,</span> <span class="s">&quot;my title&quot;</span><span class="o">);</span>
+<span class="n">ft</span><span class="o">.</span><span class="na">replace</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">your_placeholder</span><span class="o">,</span> <span class="n">fragmentDemo</span><span class="o">);</span>
+<span class="n">ft</span><span class="o">.</span><span class="na">commit</span><span class="o">();</span>
+</pre></div>
+
+
+<p>This pattern makes passing arguments to fragments for initialization fairly straightforward.</p>
+<h4 id="fragment-methods">Fragment Methods<a class="headerlink" href="#fragment-methods" title="Permanent link">&para;</a></h4>
+<p>If an activity needs to make a fragment perform an action after initialization, the easiest way is by having the activity invoke a method on the fragment instance. In the fragment, add a method:</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DemoFragment</span> <span class="kd">extends</span> <span class="n">Fragment</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">doSomething</span><span class="o">(</span><span class="n">String</span> <span class="n">param</span><span class="o">)</span> <span class="o">{</span>
+      <span class="c1">// do something in fragment</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>and then in the activity, get access to the fragment using the fragment manager and call the method:</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span> <span class="kd">extends</span> <span class="n">AppCompatActivity</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+        <span class="n">DemoFragment</span> <span class="n">fragmentDemo</span> <span class="o">=</span> <span class="o">(</span><span class="n">DemoFragment</span><span class="o">)</span> 
+            <span class="n">getSupportFragmentManager</span><span class="o">().</span><span class="na">findFragmentById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">fragmentDemo</span><span class="o">);</span>
+        <span class="n">fragmentDemo</span><span class="o">.</span><span class="na">doSomething</span><span class="o">(</span><span class="s">&quot;some param&quot;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>and then the activity can communicate directly with the fragment by invoking this method.</p>
+<h4 id="fragment-listener">Fragment Listener<a class="headerlink" href="#fragment-listener" title="Permanent link">&para;</a></h4>
+<p>If a fragment needs to communicate events to the activity, the fragment should [[define an interface|Creating-Custom-Listeners]] as an inner type and require that the activity must implement this interface:</p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">android.support.v4.app.Fragment</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyListFragment</span> <span class="kd">extends</span> <span class="n">Fragment</span> <span class="o">{</span>
+  <span class="c1">// ...</span>
+  <span class="c1">// Define the listener of the interface type</span>
+  <span class="c1">// listener will the activity instance containing fragment</span>
+  <span class="kd">private</span> <span class="n">OnItemSelectedListener</span> <span class="n">listener</span><span class="o">;</span>
+
+  <span class="c1">// Define the events that the fragment will use to communicate</span>
+  <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">OnItemSelectedListener</span> <span class="o">{</span>
+    <span class="c1">// This can be any number of events to be sent to the activity</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onRssItemSelected</span><span class="o">(</span><span class="n">String</span> <span class="n">link</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="c1">// Store the listener (activity) that will have events fired once the fragment is attached</span>
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onAttach</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
+      <span class="kd">super</span><span class="o">.</span><span class="na">onAttach</span><span class="o">(</span><span class="n">context</span><span class="o">);</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">context</span> <span class="k">instanceof</span> <span class="n">OnItemSelectedListener</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">listener</span> <span class="o">=</span> <span class="o">(</span><span class="n">OnItemSelectedListener</span><span class="o">)</span> <span class="n">context</span><span class="o">;</span>
+      <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="n">ClassCastException</span><span class="o">(</span><span class="n">context</span><span class="o">.</span><span class="na">toString</span><span class="o">()</span>
+            <span class="o">+</span> <span class="s">&quot; must implement MyListFragment.OnItemSelectedListener&quot;</span><span class="o">);</span>
+      <span class="o">}</span>
+  <span class="o">}</span>
+
+  <span class="c1">// Now we can fire the event when the user selects something in the fragment</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onSomeClick</span><span class="o">(</span><span class="n">View</span> <span class="n">v</span><span class="o">)</span> <span class="o">{</span>
+     <span class="n">listener</span><span class="o">.</span><span class="na">onRssItemSelected</span><span class="o">(</span><span class="s">&quot;some link&quot;</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>and then in the activity we have to implement the <code>OnItemSelectedListener</code> listener:</p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">android.support.v7.app.AppCompatActivity</span><span class="o">;</span>
+
+<span class="c1">// Activity implements the fragment listener to handle events</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">RssfeedActivity</span> <span class="kd">extends</span> <span class="n">AppCompatActivity</span> <span class="kd">implements</span> <span class="n">MyListFragment</span><span class="o">.</span><span class="na">OnItemSelectedListener</span> <span class="o">{</span>
+    <span class="c1">// Can be any fragment, `DetailFragment` is just an example</span>
+    <span class="n">DetailFragment</span> <span class="n">fragment</span><span class="o">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+        <span class="n">setContentView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_rssfeed</span><span class="o">);</span>
+        <span class="c1">// Get access to the detail view fragment by id</span>
+        <span class="n">fragment</span> <span class="o">=</span> <span class="o">(</span><span class="n">DetailFragment</span><span class="o">)</span> <span class="n">getSupportFragmentManager</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">findFragmentById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">detailFragment</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="c1">// Now we can define the action to take in the activity when the fragment event fires</span>
+  <span class="c1">// This is implementing the `OnItemSelectedListener` interface methods</span>
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onRssItemSelected</span><span class="o">(</span><span class="n">String</span> <span class="n">link</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">fragment</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">fragment</span><span class="o">.</span><span class="na">isInLayout</span><span class="o">())</span> <span class="o">{</span>
+          <span class="n">fragment</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="n">link</span><span class="o">);</span>
+      <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>in order to keep the fragment as re-usable as possible. For more details about this pattern, check out our detailed [[Creating Custom Listeners]] guide.</p>
+<h3 id="understanding-the-fragmentmanager">Understanding the FragmentManager<a class="headerlink" href="#understanding-the-fragmentmanager" title="Permanent link">&para;</a></h3>
+<p>The <a href="http://developer.android.com/intl/es/reference/android/support/v4/app/FragmentManager.html">FragmentManager</a> is responsible for all runtime management of fragments including adding, removing, hiding, showing, or otherwise navigating between fragments. As shown above, the fragment manager is also responsible for finding fragments within an activity. Important available methods are outlined below:</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>addOnBackStackChangedListener</code></td>
+<td>Add a new listener for changes to the fragment back stack.</td>
+</tr>
+<tr>
+<td><code>beginTransaction()</code></td>
+<td>Creates a new transaction to change fragments at runtime.</td>
+</tr>
+<tr>
+<td><code>findFragmentById(int id)</code></td>
+<td>Finds a fragment by id usually inflated from activity XML layout.</td>
+</tr>
+<tr>
+<td><code>findFragmentByTag(String tag)</code></td>
+<td>Finds a fragment by tag usually for a runtime added fragment.</td>
+</tr>
+<tr>
+<td><code>popBackStack()</code></td>
+<td>Remove a fragment from the backstack.</td>
+</tr>
+<tr>
+<td><code>executePendingTransactions()</code></td>
+<td>Forces committed transactions to be applied.</td>
+</tr>
+</tbody>
+</table>
+<p>See the <a href="http://developer.android.com/intl/es/reference/android/support/v4/app/FragmentManager.html">official documentation</a> for more information. You can also review the <a href="http://developer.android.com/intl/es/reference/android/app/FragmentTransaction.html">FragmentTransaction</a> to take a closer look at what modifications can be made at run-time through the manager.</p>
+<h3 id="actionbar-menu-items-and-fragments">ActionBar Menu Items and Fragments<a class="headerlink" href="#actionbar-menu-items-and-fragments" title="Permanent link">&para;</a></h3>
+<p>One common case is the need for fragment-specific menu items that only show up for that fragment. This can be done by adding an <code>onCreateOptionsMenu</code> method to the fragment directly. This works just like the one for the activity:</p>
+<div class="codehilite"><pre><span></span><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreateOptionsMenu</span><span class="o">(</span><span class="n">Menu</span> <span class="n">menu</span><span class="o">,</span> <span class="n">MenuInflater</span> <span class="n">inflater</span><span class="o">)</span> <span class="o">{</span>
+   <span class="n">inflater</span><span class="o">.</span><span class="na">inflate</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">menu</span><span class="o">.</span><span class="na">fragment_menu</span><span class="o">,</span> <span class="n">menu</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>You then also need to notify the fragment that it's menu items should be loaded within the fragment's <code>onCreate</code> method:</p>
+<div class="codehilite"><pre><span></span><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+     <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+     <span class="n">setHasOptionsMenu</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+<span class="o">}</span>  
+</pre></div>
+
+
+<p>Clicks can be handled using <code>onClick</code> property as usual or more typically in this case, using the <code>onOptionsItemSelected</code> method in the fragment:</p>
+<div class="codehilite"><pre><span></span><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onOptionsItemSelected</span><span class="o">(</span><span class="n">MenuItem</span> <span class="n">item</span><span class="o">)</span> <span class="o">{</span>
+   <span class="c1">// handle item selection</span>
+   <span class="k">switch</span> <span class="o">(</span><span class="n">item</span><span class="o">.</span><span class="na">getItemId</span><span class="o">())</span> <span class="o">{</span>
+      <span class="k">case</span> <span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">edit_item</span><span class="o">:</span>
+         <span class="c1">// do s.th.</span>
+         <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+      <span class="k">default</span><span class="o">:</span>
+         <span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">onOptionsItemSelected</span><span class="o">(</span><span class="n">item</span><span class="o">);</span>
+   <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>Note that the fragment’s method is called only when the Activity didn’t consume the event first. Be sure to check out a more detailed guide about <a href="http://www.grokkingandroid.com/adding-action-items-from-within-fragments/">fragments and action bar</a> if you have more questions.</p>
+<h3 id="navigating-between-fragments">Navigating Between Fragments<a class="headerlink" href="#navigating-between-fragments" title="Permanent link">&para;</a></h3>
+<p>There are several methods for navigating between different fragments within a single Activity. The primary options are:</p>
+<ol>
+<li>[[TabLayout| Google Play Style Tabs using TabLayout]] - Tabs at the top</li>
+<li>[[Fragment Navigation Drawer]] - Slide out navigation menu</li>
+<li>[[ViewPager | ViewPager with FragmentPagerAdapter]] - Swiping between fragments</li>
+</ol>
+<p>Check the guides linked above for detailed steps for each of these approaches.</p>
+<h3 id="managing-fragment-backstack">Managing Fragment Backstack<a class="headerlink" href="#managing-fragment-backstack" title="Permanent link">&para;</a></h3>
+<p>A record of all Fragment transactions is kept for each Activity by the FragmentManager.  When used properly, this allows the user to hit the device’s back button to remove previously added Fragments (not unlike how the back button removes an Activity). Simply call <a href="http://developer.android.com/reference/android/app/FragmentTransaction.html#addToBackStack(java.lang.String)">addToBackstack</a> on each FragmentTransaction that should be recorded:</p>
+<div class="codehilite"><pre><span></span><span class="c1">// Create the transaction</span>
+<span class="n">FragmentTransaction</span> <span class="n">fts</span> <span class="o">=</span> <span class="n">getSupportFragmentManager</span><span class="o">().</span><span class="na">beginTransaction</span><span class="o">();</span>
+<span class="c1">// Replace the content of the container</span>
+<span class="n">fts</span><span class="o">.</span><span class="na">replace</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">flContainer</span><span class="o">,</span> <span class="k">new</span> <span class="n">FirstFragment</span><span class="o">());</span> 
+<span class="c1">// Append this transaction to the backstack</span>
+<span class="n">fts</span><span class="o">.</span><span class="na">addToBackStack</span><span class="o">(</span><span class="s">&quot;optional tag&quot;</span><span class="o">);</span>
+<span class="c1">// Commit the changes</span>
+<span class="n">fts</span><span class="o">.</span><span class="na">commit</span><span class="o">();</span>
+</pre></div>
+
+
+<p>Programmatically, you can also pop from the back stack at any time through the manager:</p>
+<div class="codehilite"><pre><span></span><span class="n">FragmentManager</span> <span class="n">fragmentManager</span> <span class="o">=</span> <span class="n">getSupportFragmentManager</span><span class="o">();</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">fragmentManager</span><span class="o">.</span><span class="na">getBackStackEntryCount</span><span class="o">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">fragmentManager</span><span class="o">.</span><span class="na">popBackStack</span><span class="o">();</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>With this approach, we can easily keep the history of which fragments have appeared dynamically on screen and allow the user to easily navigate to previous fragments.</p>
+<h3 id="fragment-hiding-vs-replace">Fragment Hiding vs Replace<a class="headerlink" href="#fragment-hiding-vs-replace" title="Permanent link">&para;</a></h3>
+<p>In many of the examples above, we call <code>transaction.replace(...)</code> to load a dynamic fragment which first removes the existing fragment from the activity invoking <code>onStop</code> and <code>onDestroy</code> for that fragment before adding the new fragment to the container. This can be good because this will release memory and make the UI snappier. However, in many cases, we may want to keep both fragments around in the container and simply toggle their visibility. This allows all fragments to maintain their state because they are never removed from the container. To do this, we might modify this code:</p>
+<div class="codehilite"><pre><span></span><span class="c1">// Within an activity</span>
+
+<span class="kd">private</span> <span class="n">FragmentA</span> <span class="n">fragmentA</span><span class="o">;</span>
+<span class="kd">private</span> <span class="n">FragmentB</span> <span class="n">fragmentB</span><span class="o">;</span>
+<span class="kd">private</span> <span class="n">FragmentC</span> <span class="n">fragmentC</span><span class="o">;</span>
+
+<span class="nd">@Override</span>
+<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+    <span class="n">setContentView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_main</span><span class="o">);</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">savedInstanceState</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">fragmentA</span> <span class="o">=</span> <span class="n">FragmentA</span><span class="o">.</span><span class="na">newInstance</span><span class="o">(</span><span class="s">&quot;foo&quot;</span><span class="o">);</span>
+        <span class="n">fragmentB</span> <span class="o">=</span> <span class="n">FragmentB</span><span class="o">.</span><span class="na">newInstance</span><span class="o">(</span><span class="s">&quot;bar&quot;</span><span class="o">);</span>
+        <span class="n">fragmentC</span> <span class="o">=</span> <span class="n">FragmentC</span><span class="o">.</span><span class="na">newInstance</span><span class="o">(</span><span class="s">&quot;baz&quot;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">displayFragmentA</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">FragmentTransaction</span> <span class="n">ft</span> <span class="o">=</span> <span class="n">getSupportFragmentManager</span><span class="o">().</span><span class="na">beginTransaction</span><span class="o">();</span>
+    <span class="c1">// removes the existing fragment calling onDestroy</span>
+    <span class="n">ft</span><span class="o">.</span><span class="na">replace</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">flContainer</span><span class="o">,</span> <span class="n">fragmentA</span><span class="o">);</span> 
+    <span class="n">ft</span><span class="o">.</span><span class="na">commit</span><span class="o">();</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>to this approach instead leveraging <code>add</code>, <code>show</code>, and <code>hide</code> in the <code>FragmentTransaction</code>:</p>
+<div class="codehilite"><pre><span></span><span class="c1">// ...onCreate stays the same</span>
+
+<span class="c1">// Replace the switch method</span>
+<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">displayFragmentA</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">FragmentTransaction</span> <span class="n">ft</span> <span class="o">=</span> <span class="n">getSupportFragmentManager</span><span class="o">().</span><span class="na">beginTransaction</span><span class="o">();</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">fragmentA</span><span class="o">.</span><span class="na">isAdded</span><span class="o">())</span> <span class="o">{</span> <span class="c1">// if the fragment is already in container</span>
+        <span class="n">ft</span><span class="o">.</span><span class="na">show</span><span class="o">(</span><span class="n">fragmentA</span><span class="o">);</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span> <span class="c1">// fragment needs to be added to frame container</span>
+        <span class="n">ft</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">flContainer</span><span class="o">,</span> <span class="n">fragmentA</span><span class="o">,</span> <span class="s">&quot;A&quot;</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="c1">// Hide fragment B</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">fragmentB</span><span class="o">.</span><span class="na">isAdded</span><span class="o">())</span> <span class="o">{</span> <span class="n">ft</span><span class="o">.</span><span class="na">hide</span><span class="o">(</span><span class="n">fragmentB</span><span class="o">);</span> <span class="o">}</span>
+    <span class="c1">// Hide fragment C</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">fragmentC</span><span class="o">.</span><span class="na">isAdded</span><span class="o">())</span> <span class="o">{</span> <span class="n">ft</span><span class="o">.</span><span class="na">hide</span><span class="o">(</span><span class="n">fragmentC</span><span class="o">);</span> <span class="o">}</span>
+    <span class="c1">// Commit changes</span>
+    <span class="n">ft</span><span class="o">.</span><span class="na">commit</span><span class="o">();</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>Using this approach, all three fragments will remain in the container once added initially and then we are simply revealing the desired fragment and hiding the others within the container. Check out <a href="http://stackoverflow.com/a/13185025/313399">this stackoverflow</a> for a discussion on deciding when to replace vs hide and show.</p>
+<h3 id="nesting-fragments-within-fragments">Nesting Fragments within Fragments<a class="headerlink" href="#nesting-fragments-within-fragments" title="Permanent link">&para;</a></h3>
+<p>Inevitably in certain cases you will want to <strong>embed a fragment within another fragment</strong>. Since <a href="http://developer.android.com/about/versions/android-4.2.html#NestedFragments">Android 4.2</a>, you have the ability to embed a fragment within another fragment. This nested fragment is known as a <strong>child fragment</strong>.
+A common situation where you might want to nest fragments is when you are using a sliding drawer for top-level navigation and one of the fragments needs to display tabs. </p>
+<p>Note that one limitation is that nested (or child) fragments <strong>must be dynamically added at runtime</strong> to their parent fragment and cannot be statically added using the <code>&lt;fragment&gt;</code> tag. To nest a fragment in another fragment, first we need a <code>&lt;FrameLayout&gt;</code> or alternatively a [[ViewPager|ViewPager-with-FragmentPagerAdapter]] to contain the dynamic child fragment in the <code>res/layout/fragment_parent.xml</code> layout:</p>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;LinearLayout</span> <span class="na">xmlns:android=</span><span class="s">&quot;http://schemas.android.com/apk/res/android&quot;</span>
+    <span class="na">android:layout_width=</span><span class="s">&quot;fill_parent&quot;</span> <span class="na">android:layout_height=</span><span class="s">&quot;fill_parent&quot;</span>
+    <span class="na">android:orientation=</span><span class="s">&quot;vertical&quot;</span> <span class="nt">&gt;</span>
+<span class="nt">&lt;TextView</span>
+        <span class="na">android:layout_width=</span><span class="s">&quot;wrap_content&quot;</span>
+        <span class="na">android:layout_height=</span><span class="s">&quot;wrap_content&quot;</span>
+        <span class="na">android:text=</span><span class="s">&quot;I am the parent fragment&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;FrameLayout</span>
+        <span class="na">android:id=</span><span class="s">&quot;@+id/child_fragment_container&quot;</span>
+        <span class="na">android:layout_width=</span><span class="s">&quot;fill_parent&quot;</span>
+        <span class="na">android:layout_height=</span><span class="s">&quot;wrap_content&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/LinearLayout&gt;</span>
+</pre></div>
+
+
+<p>Notice that there's a <code>FrameLayout</code> with the id of <code>@+id/child_fragment_container</code> in which the child fragment will be inserted. Inflation of the <code>ParentFragment</code> view is within the <code>onCreateView</code> method, just as was outlined in earlier sections. In addition, we would also define a <code>ChildFragment</code> that would have its own distinct layout file:</p>
+<div class="codehilite"><pre><span></span><span class="c1">// Top-level fragment that will contain the child</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ParentFragment</span> <span class="kd">extends</span> <span class="n">Fragment</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">View</span> <span class="nf">onCreateView</span><span class="o">(</span><span class="n">LayoutInflater</span> <span class="n">inflater</span><span class="o">,</span> <span class="n">ViewGroup</span> <span class="n">container</span><span class="o">,</span>
+        <span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+       <span class="k">return</span> <span class="n">inflater</span><span class="o">.</span><span class="na">inflate</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">fragment_parent</span><span class="o">,</span> <span class="n">container</span><span class="o">,</span> <span class="kc">false</span><span class="o">);</span>
+   <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="c1">// Child fragment that will be dynamically embedded in the parent</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ChildFragment</span> <span class="kd">extends</span> <span class="n">Fragment</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">View</span> <span class="nf">onCreateView</span><span class="o">(</span><span class="n">LayoutInflater</span> <span class="n">inflater</span><span class="o">,</span> <span class="n">ViewGroup</span> <span class="n">container</span><span class="o">,</span>
+        <span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+       <span class="c1">// Need to define the child fragment layout</span>
+       <span class="k">return</span> <span class="n">inflater</span><span class="o">.</span><span class="na">inflate</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">fragment_child</span><span class="o">,</span> <span class="n">container</span><span class="o">,</span> <span class="kc">false</span><span class="o">);</span>
+   <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>Now we can add the child fragment to the parent at runtime using the <code>getChildFragmentManager</code> method:</p>
+<div class="codehilite"><pre><span></span><span class="c1">// Top-level fragment that will contain the child</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ParentFragment</span> <span class="kd">extends</span> <span class="n">Fragment</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">View</span> <span class="nf">onCreateView</span><span class="o">(</span><span class="n">LayoutInflater</span> <span class="n">inflater</span><span class="o">,</span> <span class="n">ViewGroup</span> <span class="n">container</span><span class="o">,</span>
+        <span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">inflater</span><span class="o">.</span><span class="na">inflate</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">fragment_parent</span><span class="o">,</span> <span class="n">container</span><span class="o">,</span> <span class="kc">false</span><span class="o">);</span>
+    <span class="o">}</span>
+
+   <span class="c1">// This event is triggered soon after onCreateView().</span>
+   <span class="c1">// onViewCreated() is only called if the view returned from onCreateView() is non-null.</span>
+   <span class="c1">// Any view setup should occur here.  E.g., view lookups and attaching view listeners.</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onViewCreated</span><span class="o">(</span><span class="n">View</span> <span class="n">view</span><span class="o">,</span> <span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">insertNestedFragment</span><span class="o">();</span>
+    <span class="o">}</span>
+
+   <span class="c1">// Embeds the child fragment dynamically</span>
+   <span class="kd">private</span> <span class="kt">void</span> <span class="nf">insertNestedFragment</span><span class="o">()</span> <span class="o">{</span>
+       <span class="n">Fragment</span> <span class="n">childFragment</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ChildFragment</span><span class="o">();</span>
+       <span class="n">FragmentTransaction</span> <span class="n">transaction</span> <span class="o">=</span> <span class="n">getChildFragmentManager</span><span class="o">().</span><span class="na">beginTransaction</span><span class="o">();</span>
+       <span class="n">transaction</span><span class="o">.</span><span class="na">replace</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">child_fragment_container</span><span class="o">,</span> <span class="n">childFragment</span><span class="o">).</span><span class="na">commit</span><span class="o">();</span>
+   <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>Note that <strong>you must always use <code>getChildFragmentManager</code></strong> when interacting with nested fragments instead of using <code>getSupportFragmentManager</code>. Read <a href="http://stackoverflow.com/a/14775322">this stackoverflow post</a> for an explanation of the difference between the two.</p>
+<p>In the child fragment, we can use <code>getParentFragment()</code> to get the reference to the parent fragment, similar to a fragment's <code>getActivity()</code> method that gives reference to the parent Activity. See <a href="http://developer.android.com/reference/android/app/Fragment.html#getParentFragment()">the docs</a> for more information. </p>
+<h3 id="managing-configuration-changes">Managing Configuration Changes<a class="headerlink" href="#managing-configuration-changes" title="Permanent link">&para;</a></h3>
+<p>When you are working with fragment as with activities, you need to make sure to [[handle configuration changes|Handling-Configuration-Changes#saving-and-restoring-fragment-state]] such as screen rotation or the activity being closed. Be sure to review [[the configuration changes guide|Handling-Configuration-Changes#saving-and-restoring-fragment-state]] for more details on how to save and restore fragment state.</p>
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="http://developer.android.com/reference/android/app/Fragment.html">http://developer.android.com/reference/android/app/Fragment.html</a></li>
+<li><a href="http://developer.android.com/training/basics/fragments/creating.html">http://developer.android.com/training/basics/fragments/creating.html</a></li>
+<li><a href="http://developer.android.com/guide/components/fragments.html">http://developer.android.com/guide/components/fragments.html</a></li>
+<li><a href="http://www.vogella.com/articles/AndroidFragments/article.html">http://www.vogella.com/articles/AndroidFragments/article.html</a></li>
+<li><a href="http://xperiment-andro.blogspot.com/2013/02/nested-fragments.html">http://xperiment-andro.blogspot.com/2013/02/nested-fragments.html</a></li>
+</ul>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../navigation/common-intents/" title="Common Intents" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Common Intents
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../common-intents/" title="Common Intents" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Common Intents
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset" style="background-color: #ff9900; color: #fff">
+    <div class="md-grid" style="display: flex;">
+      <div style="flex: 1;">
+        <h2>Consulting</h2>
+        <ul style="list-style: none; margin-left: -15px;">
+          <li><a href="https://www.peruzal.com/mobile-app-development" target="_blank">Mobile App Development</a></li>
+          <li><a href="https://www.peruzal.com/mobile-app-device-security-and-penetration-testing" target="_blank">Mobile App Security and Penetration Testing</a></li>
+          <li><a href="https://www.peruzal.com/database-and-web-application-performance-tuning-and-consulting" target="_blank">Database Performance Tuning</a></li>
+        </ul>
+      </div>
+      <div style="flex: 1;">
+        <h2>Training</h2>
+        <ul style="list-style: none; margin-left: -15px;">
+          <li><a href="https://training.peruzal.com/courses/mobile/android-mobile-app-development-training-certification" target="_blank">Android Mobile App Development Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/mobile/ios-mobile-app-development-training-with-swift" target="_blank">iOS Mobile App Development Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/mobile/xamarin/xamarin-forms-mobile-app-development-training" target="_blank">Xamarin Forms Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/mobile/xamarin/android-mobile-app-development-training-with-xamarin" target="_blank">Xamarin Android Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/mobile/xamarin/ios-mobile-app-development-training-with-xamarin" target="_blank">Xamarin iOS Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/web/reactjs-front-end-web-application-development" target="_blank">ReactJS Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/web/reactjs-front-end-web-application-development" target="_blank">React Native Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/gaming/unity-certified-game-development-training-south-africa" target="_blank">Unity Game Development Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/database/mysql-database-administration-training-certification-south-africa" target="_blank">MySQL Database Adminstration Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/programming/java-programming-training-certification" target="_blank">Java Programming Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/programming/ruby-programming-training-certification" target="_blank">Ruby Programming Training</a></li>
+        </ul>
+      </div>
+      <div style="flex: 1">
+        <h2>Resources</h2>
+        <ul style="list-style: none; margin-left: -15px;">
+          <li><a href="http://guides.peruzal.com/xamarin-forms-guide" target="_blank">Xamarin Forms Guide</a></li>
+          <li><a href="http://guides.peruzal.com/v1/android-guides" target="_blank">Android Development Guides</a></li>
+          <li><a href="http://guides.peruzal.com/xamarin-ios" target="_blank">iOS Development Guides</a></li>
+          <li><a href="http://xamarin-android-guide.peruzal.com/" target="_blank">Xamarin Android Guides</a></li>
+          <li><a href="http://xamarin-ios-guide.peruzal.com/" target="_blank">Xamarin iOS Guide</a></li>
+          <li><a href="http://unity-certified-associate-guide.peruzal.com/" target="_blank">Unity Game Development Guide</a></li>
+          <li><a href="https://josephkandi.gitbooks.io/mysql-5-6-database-administration-certification-g/content/" target="_blank">MySQL Database Adminstration Guide</a></li>
+          <li><a href="https://josephkandi.gitbooks.io/learn-java-by-developing-an-android-app/content/" target="_blank">Java Programming Guide</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="md-footer-meta__inner" style="background-color: rgba(0,0,0,.87)">
+      <div style="text-align: center; font-size: 0.7rem">
+          <div class="md-footer-copyright__highlight">
+            <a href="https://www.peruzal.com" target="_blank">Copyright &copy 2019 - Peruzal</a>
+          </div>
+      </div>
+      
+  <div style="text-align: center">
+    <link rel="stylesheet" href="../assets/fonts/font-awesome.css">
+    
+      <a href="https://github.com/peruzal" target="_blank" class="md-footer-social__link fa fa-github"></a>
+    
+      <a href="https://twitter.com/peruzal" target="_blank" class="md-footer-social__link fa fa-twitter"></a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-40772582-8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-40772582-8');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-6342782466521705",
+          enable_page_level_ads: true
+     });
+</script>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application.245445c6.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
+      
+        <script src="../assets/js/utils.js"></script>
+      
+        <script src="../assets/js/mixpanel.js"></script>
+      
+        <script src="../assets/js/track.js"></script>
+      
+        <script src="../assets/js/drift.js"></script>
+      
+    
+  </body>
+</html>

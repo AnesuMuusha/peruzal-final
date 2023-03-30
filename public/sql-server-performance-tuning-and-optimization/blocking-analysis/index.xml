@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Blocking-analyses on SQL Server Performance and Tuning</title>
+    <link>http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/blocking-analysis/index.xml</link>
+    <description>Recent content in Blocking-analyses on SQL Server Performance and Tuning</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Copyright 2017 Peruzal</copyright>
+    <lastBuildDate>Sat, 18 Mar 2017 14:55:06 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/blocking-analysis/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Blocking Analysis</title>
+      <link>http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/blocking-analysis/</link>
+      <pubDate>Sat, 18 Mar 2017 14:55:06 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/blocking-analysis/</guid>
+      <description>
+
+&lt;h2 id=&#34;blocking-fundamentals&#34;&gt;Blocking Fundamentals&lt;/h2&gt;
+
+&lt;p&gt;In an ideal world, every SQL query would be able to execute concurrently, without any blocking by other queries. However, in the real world, queries do block each other. In SQL Server, this traffic management takes the form of the lock manager, which controls concurrent access to a database resource to maintain data consistency.&lt;/p&gt;
+
+&lt;p&gt;Terms :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;locking&lt;/li&gt;
+&lt;li&gt;blocking&lt;/li&gt;
+&lt;li&gt;deadlocking&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Locking&lt;/strong&gt;  - is an integral part of the process of SQL Server managing multiple sessions. When a session needs access to a piece of data, a lock of some type is placed on it.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Blocking&lt;/strong&gt; - is when one session, or thread, needs access to a piece of data and has to wait for another session’s lock to clear&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Deadlocking&lt;/strong&gt; is when two sessions, or threads, form what is sometimes referred to as a deadly embrace. They are each waiting on the other for a lock to clear. Deadlocking could also be referred to as a permanent blocking situation&lt;/p&gt;
+
+&lt;p&gt;So, locks can lead to blocks, and both locks and blocks play a part in deadlocks, but these are three very distinct concepts.&lt;/p&gt;
+
+&lt;h2 id=&#34;understanding-blocking&#34;&gt;Understanding Blocking&lt;/h2&gt;
+
+&lt;p&gt;In SQL Server, a database query can execute as a logical unit of work in itself, or it can participate in a bigger logical unit of work. A bigger logical unit of work can be defined using the BEGIN TRANSACTION statement along with COMMIT and/or ROLLBACK statements. Every logical unit of work must conform to a set of four properties called ACID properties:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Atomicity&lt;/li&gt;
+&lt;li&gt;Consistency&lt;/li&gt;
+&lt;li&gt;Isolation&lt;/li&gt;
+&lt;li&gt;Durability&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;atomicity&#34;&gt;Atomicity&lt;/h3&gt;
+
+&lt;p&gt;The atomicity of a user-defined transaction can be ensured in the following two ways:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;SET XACT_ABORT ON&lt;/li&gt;
+&lt;li&gt;Explicit rollback&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The SET XACT_ABORT statement specifies whether SQL Server should automatically roll back and abort an entire transaction when a statement within the transaction fails.&lt;/p&gt;
+
+&lt;p&gt;You can also manage the atomicity of a user-defined transaction by using the TRY/CATCH error-trapping mechanism within SQL Server. If a statement within the TRY block of code generates an error, then the CATCH block of code will handle the error. The ROLLBACK statement rolls back all the actions performed in the transaction until that point.&lt;/p&gt;
+
+&lt;h2 id=&#34;locks&#34;&gt;Locks&lt;/h2&gt;
+
+&lt;p&gt;When a session executes a query, SQL Server determines the database resources that need to be accessed; and, if required, the lock manager grants different types of locks to the session. The query is blocked if another session has already been granted the locks; however, to provide both transaction isolation and concurrency, SQL Server uses different lock granularities.&lt;/p&gt;
+
+&lt;h3 id=&#34;lock-granularity&#34;&gt;Lock Granularity&lt;/h3&gt;
+
+&lt;p&gt;To improve concurrency, SQL Server implements lock granularities at the following resource levels and in this order:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Row (RID)&lt;/li&gt;
+&lt;li&gt;Key (KEY)&lt;/li&gt;
+&lt;li&gt;Page (PAG)&lt;/li&gt;
+&lt;li&gt;Extent (EXT)&lt;/li&gt;
+&lt;li&gt;Heap or B-tree (HoBT)&lt;/li&gt;
+&lt;li&gt;Table (TAB)&lt;/li&gt;
+&lt;li&gt;File (FIL)&lt;/li&gt;
+&lt;li&gt;Application (APP)&lt;/li&gt;
+&lt;li&gt;MetaData (MDT)&lt;/li&gt;
+&lt;li&gt;Allocation Unit (AU)&lt;/li&gt;
+&lt;li&gt;Database (DB)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;row-level-lock&#34;&gt;Row-Level Lock&lt;/h3&gt;
+
+&lt;p&gt;This lock is maintained on a single row within a table and is the lowest level of lock on a database table. When a query modifies a row in a table, an RID lock is granted to the query on the row. For example, consider the transaction on the following test table:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;--Create a test table
+IF (SELECT  OBJECT_ID(&#39;dbo.Test1&#39;)
+   ) IS NOT NULL
+    DROP TABLE dbo.Test1;
+GO
+CREATE TABLE dbo.Test1 (C1 INT);
+INSERT  INTO dbo.Test1
+VALUES  (1);
+GO
+
+BEGIN TRAN
+DELETE  dbo.Test1
+WHERE   C1 = 1;
+
+SELECT  dtl.request_session_id,
+        dtl.resource_database_id,
+        dtl.resource_associated_entity_id,
+        dtl.resource_type,
+        dtl.resource_description,
+        dtl.request_mode,
+        dtl.request_status
+FROM    sys.dm_tran_locks AS dtl
+WHERE   dtl.request_session_id = @@SPID;
+ROLLBACK
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The dynamic management view, sys.dm_tran_locks, can be used to display the lock status. Granting an RID lock to the DELETE statement prevents other transactions from accessing the row.&lt;/p&gt;
+
+&lt;p&gt;The resource locked by the RID lock can be represented in the following format from the resource_description column:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;DatabaseID:FileID:PageID:Slot(row)&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;he resource_description column value for the RID type represents the remaining part of the RID resource as 1:23819:0. In this case, a FileID of 1 is the primary data file, a PageID of 23819 is a page belonging to the dbo.Test1 table identified by the C1 column, and a Slot (row) of 0 represents the row position within the page. You can obtain the table name and the database name by executing the following SQL statements:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT  OBJECT_NAME(1668200993), DB_NAME(5);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The row-level lock provides very high concurrency since blocking is restricted to the row under effect&lt;/p&gt;
+
+&lt;h3 id=&#34;key-level-lock&#34;&gt;Key-Level Lock&lt;/h3&gt;
+
+&lt;p&gt;This is a row lock within an index, and it is identified as a KEY lock. As you know, for a table with a clustered index, the data pages of the table and the leaf pages of the clustered index are the same. Since both of the rows are the same for a table with a clustered index, only a KEY lock is acquired on the clustered index row, or limited range of rows, while accessing the rows from the table (or the clustered index). For example, consider having a clustered index on the Test1 table.&lt;/p&gt;
+
+&lt;p&gt;CREATE CLUSTERED INDEX TestIndex ON dbo.Test1(C1);
+Next, rerun the following code:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;BEGIN TRAN
+DELETE  dbo.Test1
+WHERE   C1 = 1 ;
+
+SELECT  dtl.request_session_id,
+        dtl.resource_database_id,
+        dtl.resource_associated_entity_id,
+        dtl.resource_type,
+        dtl.resource_description,
+        dtl.request_mode,
+        dtl.request_status
+FROM    sys.dm_tran_locks AS dtl
+WHERE   dtl.request_session_id = @@SPID ;
+ROLLBACK
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The corresponding output from sys.dm_tran_locks shows a KEY lock instead of the RID lock&lt;/p&gt;
+
+&lt;p&gt;When you are querying sys.dm_tran_locks, you will be able to retrieve the database identifier, resource_database_id. You can also get information about what is being locked from resource_associated_entity&lt;em&gt;id; however, to get to the particular resource (in this case, the page on the key), you have to go to the resource&lt;/em&gt; description column for the value, which is 1:24117. In this case, the Index ID of 1 is the clustered index on the dbo.Test1 table. You also see the types of requests that are made: S, Sch-S, X, and so on&lt;/p&gt;
+
+&lt;p&gt;Like the row-level lock, the key-level lock provides very high concurrency.&lt;/p&gt;
+
+&lt;h3 id=&#34;page-level-lock&#34;&gt;Page-Level Lock&lt;/h3&gt;
+
+&lt;p&gt;A page-level lock is maintained on a single page within a table or an index, and it is identified as a PAG lock. When a query requests multiple rows within a page, the consistency of all the requested rows can be maintained by acquiring either RID/KEY locks on the individual rows or a PAG lock on the entire page.&lt;/p&gt;
+
+&lt;p&gt;The resource locked by the PAG lock may be represented in the following format in the resource_description column of sys.dm_tran_locks:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;DatabaseID:FileID:PageID&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;The page-level lock can increase the performance of an individual query by reducing its locking overhead, but it hurts the concurrency of the database by blocking access to all the rows in the page.&lt;/p&gt;
+
+&lt;p&gt;The resource locked by the TAB lock will be represented in resource_description in the following format:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;DatabaseID:ObjectID&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;A table-level lock requires the least overhead compared to the other locks and thus improves the performance of the individual query. On the other hand, since the table-level lock blocks all write requests on the entire table (including indexes), it can significantly hurt database concurrency.&lt;/p&gt;
+
+&lt;p&gt;In such cases, a query developer may override the lock manager’s lock level selection for a table referred to in the query by using locking hints.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT * FROM &amp;lt;TableName&amp;gt; WITH(TABLOCK)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;database-level-lock&#34;&gt;Database-Level Lock&lt;/h3&gt;
+
+&lt;p&gt;A database-level lock is maintained on a database and is identified as a DB lock. When an application makes a database connection, the lock manager assigns a database-level shared lock to the corresponding session_id. This prevents a user from accidentally dropping or restoring the database while other users are connected to it.&lt;/p&gt;
+
+&lt;h3 id=&#34;lock-modes&#34;&gt;Lock Modes&lt;/h3&gt;
+
+&lt;p&gt;Depending on the type of access requested, SQL Server uses different lock modes while locking resources:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Shared (S)&lt;/li&gt;
+&lt;li&gt;Update (U)&lt;/li&gt;
+&lt;li&gt;Exclusive (X)&lt;/li&gt;
+&lt;li&gt;Intent:
+
+&lt;ul&gt;
+&lt;li&gt;Intent Shared (IS)&lt;/li&gt;
+&lt;li&gt;Intent Exclusive (IX)&lt;/li&gt;
+&lt;li&gt;Shared with Intent Exclusive (SIX)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Schema:
+
+&lt;ul&gt;
+&lt;li&gt;Schema Modification (Sch-M)&lt;/li&gt;
+&lt;li&gt;Schema Stability (Sch-S)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Bulk Update (BU)&lt;/li&gt;
+&lt;li&gt;Key-Range&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;shared-s-mode&#34;&gt;Shared (S) Mode&lt;/h3&gt;
+
+&lt;p&gt;Shared mode is used for read-only queries, such as a SELECT statement. It doesn’t prevent other read-only queries from accessing the data simultaneously because the integrity of the data isn’t compromised by the concurrent reads. By default, the (S) lock acquired by a SELECT statement is released immediately after the data is read. For example, consider the following transaction:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;BEGIN TRAN
+SELECT  *
+FROM    Production.Product AS p
+WHERE   p.ProductID = 1;
+--Other queries
+COMMIT
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The (S) lock acquired by the SELECT statement is not held until the end of the transaction; instead, it is released immediately after the data is read by the SELECT statement under read_ committed, the default isolation level. This behavior of the (S) lock can be altered by using a higher isolation level or a lock hint.&lt;/p&gt;
+
+&lt;h3 id=&#34;update-u-mode&#34;&gt;Update (U) Mode&lt;/h3&gt;
+
+&lt;p&gt;Update mode may be considered similar to the (S) lock, but it also includes an objective to modify the data as part of the same query. Unlike the (S) lock, the (U) lock indicates that the data is read for modification. Since the data is read with an objective to modify it, SQL Server does not allow more than one (U) lock on the data simultaneously. This rule helps maintain data integrity. Note that concurrent (S) locks on the data are allowed.&lt;/p&gt;
+
+&lt;p&gt;Different lock modes are used in the two intermediate steps to maximize concurrency. Instead of acquiring an exclusive right while reading the data, the first step acquires a (U) lock on the data. In the second step, the (U) lock is converted to an exclusive lock for modification. If no modification is required, then the (U) lock is released; in other words, it’s not held until the end of the transaction. Consider the following example, which demonstrates the locking behavior of the UPDATE statement:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;BEGIN TRANSACTION LockTran1
+UPDATE  Sales.Currency
+SET     Name = &#39;Euro&#39;
+WHERE   CurrencyCode = &#39;EUR&#39;;
+COMMIT
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Block the second step of the UPDATE statement by first executing a transaction from a second connection.
+&amp;ndash;Execute from a second connection&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;BEGIN TRANSACTION LockTran2
+--Retain an  (S) lock on the resource
+SELECT  *
+FROM    Sales.Currency AS c WITH (REPEATABLEREAD)
+WHERE   c.CurrencyCode = &#39;EUR&#39; ;
+--Allow DMVs to be executed before second step of
+-- UPDATE statement is executed by tran
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;exclusive-x-mode&#34;&gt;Exclusive (X) Mode&lt;/h3&gt;
+
+&lt;p&gt;Exclusive mode provides an exclusive right on a database resource for modification by data manipulation queries such as INSERT, UPDATE, and DELETE. It prevents other concurrent transactions from accessing the resource under modification.&lt;/p&gt;
+
+&lt;p&gt;The (X) lock serves two purposes.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;It prevents other transactions from accessing the resource under modification so that they see a value either before or after the modification, not a value undergoing modification.&lt;/li&gt;
+&lt;li&gt;It allows the transaction modifying the resource to safely roll back to the original value before modification, if needed, since no other transaction is allowed to modify the resource simultaneously.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;BEGIN TRAN
+DELETE  Sales.Currency
+WHERE   CurrencyCode = &#39;ALL&#39;;
+
+SELECT  tl.request_session_id,
+        tl.resource_database_id,
+        tl.resource_associated_entity_id,
+        tl.resource_type,
+        tl.resource_description,
+        tl.request_mode,
+        tl.request_status
+FROM    sys.dm_tran_locks tl;
+
+ROLLBACK TRAN
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;isolation-levels-effect-of-indexes-on-locking&#34;&gt;Isolation Levels Effect of Indexes on Locking&lt;/h2&gt;
+
+&lt;p&gt;SQL Server provides isolation to a transaction by preventing other transactions from accessing the same resource in an incompatible way.&lt;/p&gt;
+
+&lt;p&gt;SQL Server implements six isolation levels, four of them as defined by ISO:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Read Uncommitted&lt;/li&gt;
+&lt;li&gt;Read Committed&lt;/li&gt;
+&lt;li&gt;Repeatable Read&lt;/li&gt;
+&lt;li&gt;Serializable&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;You can use the following SET statement to configure the isolation level of a database connection to the Read Uncommitted isolation level:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can also achieve this degree of isolation on a query basis using the NOLOCK locking hint.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT  *
+FROM    Production.Product AS p WITH (NOLOCK);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The effect of the locking hint remains applicable for the query and doesn’t change the isolation level of the connection.&lt;/p&gt;
+
+&lt;p&gt;The Read Uncommitted isolation level avoids the blocking caused by a SELECT statement, but you should not use it if the transaction depends on the accuracy of the data read by the SELECT statement or if the transaction cannot withstand a concurrent change of data by another transaction.&lt;/p&gt;
+
+&lt;h2 id=&#34;capturing-blocking-information&#34;&gt;Capturing Blocking Information&lt;/h2&gt;
+
+&lt;p&gt;In a blocking scenario, you need the following information to have a clear understanding of the cause of the blocking:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The connection information of the blocking and blocked sessions: You can obtain this information from the sys.dm_os_waiting_tasks dynamic management view or the sp_who2 system stored procedure.&lt;/li&gt;
+&lt;li&gt;The lock information of the blocking and blocked sessions: You can obtain this information from the sys.dm_tran_locks DMO.&lt;/li&gt;
+&lt;li&gt;The SQL statements last executed by the blocking and blocked sessions: You can use the sys.dm_exec_requests DMV combined with sys.dm_exec_sql_text and sys.dm_exec_queryplan or Extended Events to obtain this information.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT  dtl.request_session_id AS WaitingSessionID,
+        der.blocking_session_id AS BlockingSessionID,
+        dowt.resource_description,
+        der.wait_type,
+        dowt.wait_duration_ms,
+        DB_NAME(dtl.resource_database_id) AS DatabaseName,
+        dtl.resource_associated_entity_id AS WaitingAssociatedEntity,
+        dtl.resource_type AS WaitingResourceType,
+        dtl.request_type AS WaitingRequestType,
+        dest.[text] AS WaitingTSql,
+        dtlbl.request_type BlockingRequestType,
+        destbl.[text] AS BlockingTsql
+FROM    sys.dm_tran_locks AS dtl
+JOIN    sys.dm_os_waiting_tasks AS dowt
+        ON dtl.lock_owner_address = dowt.resource_address
+JOIN    sys.dm_exec_requests AS der
+        ON der.session_id = dtl.request_session_id
+CROSS APPLY sys.dm_exec_sql_text(der.sql_handle) AS dest
+LEFT JOIN sys.dm_exec_requests derbl
+        ON derbl.session_id = dowt.blocking_session_id
+OUTER APPLY sys.dm_exec_sql_text(derbl.sql_handle) AS destbl
+LEFT JOIN sys.dm_tran_locks AS dtlbl
+        ON derbl.session_id = dtlbl.request_session_id;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Extended Events provide an event called blocked_process_report. This event works off the blocked process threshold that you need to provide to the system configuration. This script sets the threshold to five seconds:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;EXEC sp_configure &#39;show advanced option&#39;, &#39;1&#39;;
+RECONFIGURE;
+EXEC sp_configure
+    &#39;blocked process threshold&#39;,
+    5;
+RECONFIGURE;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This would normally be a very low value in most systems. If you have an established performance service level agreement (SLA), you could use that as the threshold.&lt;/p&gt;
+
+&lt;h2 id=&#34;blocking-resolutions&#34;&gt;Blocking Resolutions&lt;/h2&gt;
+
+&lt;p&gt;Once you’ve analyzed the cause of a block, the next step is to determine any possible resolutions. Here are a few techniques you can use to do this:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Optimize the queries executed by blocking and blocked SPIDs.&lt;/li&gt;
+&lt;li&gt;Decrease the isolation level.&lt;/li&gt;
+&lt;li&gt;Partition the contended data.&lt;/li&gt;
+&lt;li&gt;Use a covering index on the contended data.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;recommendations-to-reduce-blocking&#34;&gt;Recommendations to Reduce Blocking&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Keep transactions short.&lt;/li&gt;
+&lt;li&gt;Optimize queries.&lt;/li&gt;
+&lt;li&gt;Use query timeouts or a resource governor to control runaway queries. For more on the resource governor, consult Books Online: &lt;a href=&#34;http://bit.ly/1jiPhfS&#34;&gt;http://bit.ly/1jiPhfS&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Use the lowest isolation level required.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;automation-to-detect-and-collect-blocking-information&#34;&gt;Automation to Detect and Collect Blocking Information&lt;/h2&gt;
+
+&lt;p&gt;In addition to capturing information using extended events, you can automate the process of detecting a blocking condition and collecting the relevant information using SQL Server Agent.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

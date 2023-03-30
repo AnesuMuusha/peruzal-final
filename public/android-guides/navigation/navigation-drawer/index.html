@@ -1,0 +1,1633 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="Navigation with Navigation Drawer">
+      
+      
+        <link rel="canonical" href="https://guides.peruzal.com/xamarin-forms-guide/navigation/navigation-drawer/">
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.0">
+    
+    
+      
+        <title>Navigation Drawer - Android Mobile App Development Guide</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.0284f74d.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.01803549.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#ffa000">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.74668098.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+    
+    
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="amber" data-md-color-accent="deep-orange">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#navigation-with-navigation-drawer" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://guides.peruzal.com/xamarin-forms-guide" title="Android Mobile App Development Guide" class="md-header-nav__button md-logo">
+          
+            <img src="../../images/logo-lines.png" width="24" height="24">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              Android Mobile App Development Guide
+            </span>
+            <span class="md-header-nav__topic">
+              
+                Navigation Drawer
+              
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/Peruzal/xamarin-forms-guide/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    Github
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://guides.peruzal.com/xamarin-forms-guide" title="Android Mobile App Development Guide" class="md-nav__button md-logo">
+      
+        <img src="../../images/logo-lines.png" width="48" height="48">
+      
+    </a>
+    Android Mobile App Development Guide
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/Peruzal/xamarin-forms-guide/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    Github
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Getting Started" class="md-nav__link">
+      Getting Started
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../project-structure/" title="Android Project Structure" class="md-nav__link">
+      Android Project Structure
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../android-resources/" title="Understanding App Resources" class="md-nav__link">
+      Understanding App Resources
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Android Common View
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        Android Common View
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../android-common-views/view-attributes/" title="View Attributes" class="md-nav__link">
+      View Attributes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../android-common-views/textview/" title="TextView" class="md-nav__link">
+      TextView
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../android-common-views/button/" title="Button" class="md-nav__link">
+      Button
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../android-common-views/edittext/" title="EditText" class="md-nav__link">
+      EditText
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../android-common-views/image-view/" title="ImageView" class="md-nav__link">
+      ImageView
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../android-common-views/image-button/" title="ImageButton" class="md-nav__link">
+      ImageButton
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../android-common-views/radio-button/" title="RadioButton" class="md-nav__link">
+      RadioButton
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../android-common-views/view/" title="View" class="md-nav__link">
+      View
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../android-common-views/spinner/" title="Spinner" class="md-nav__link">
+      Spinner
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../android-common-views/checkbox/" title="CheckBox" class="md-nav__link">
+      CheckBox
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../android-common-views/switch/" title="Switch" class="md-nav__link">
+      Switch
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../android-common-views/seek-bar/" title="SeekBar" class="md-nav__link">
+      SeekBar
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../android-common-views/rating-bar/" title="RatingBar" class="md-nav__link">
+      RatingBar
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../android-common-views/progress-bar/" title="ProgressBar" class="md-nav__link">
+      ProgressBar
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../android-common-views/search-view/" title="SearchView" class="md-nav__link">
+      SearchView
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Layouts
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        Layouts
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../layouts/overview/" title="Layouts Overview" class="md-nav__link">
+      Layouts Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../layouts/linear-layout/" title="Linear Layout" class="md-nav__link">
+      Linear Layout
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../layouts/relative-layout/" title="Relative Layout" class="md-nav__link">
+      Relative Layout
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../layouts/frame-layout/" title="Frame Layout" class="md-nav__link">
+      Frame Layout
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../layouts/layout-prformance/" title="Optimizing Layout Performance" class="md-nav__link">
+      Optimizing Layout Performance
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../activities/" title="Activities" class="md-nav__link">
+      Activities
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7" checked>
+    
+    <label class="md-nav__link" for="nav-7">
+      Navigation
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        Navigation
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../common-navigation-patterns/" title="Common Navigation Patterns" class="md-nav__link">
+      Common Navigation Patterns
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../intents/" title="Navigation with Intents" class="md-nav__link">
+      Navigation with Intents
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../swipe-tabbed-navigation/" title="Swipe and Tabbed Navigation" class="md-nav__link">
+      Swipe and Tabbed Navigation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Navigation Drawer
+      </label>
+    
+    <a href="./" title="Navigation Drawer" class="md-nav__link md-nav__link--active">
+      Navigation Drawer
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#usage" title="Usage" class="md-nav__link">
+    Usage
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setup" title="Setup" class="md-nav__link">
+    Setup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#download-nav-drawer-item-icons" title="Download Nav Drawer Item icons" class="md-nav__link">
+    Download Nav Drawer Item icons
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setup-drawer-resources" title="Setup Drawer Resources" class="md-nav__link">
+    Setup Drawer Resources
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#define-fragments" title="Define Fragments" class="md-nav__link">
+    Define Fragments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setup-toolbar" title="Setup Toolbar" class="md-nav__link">
+    Setup Toolbar
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setup-drawer-in-activity" title="Setup Drawer in Activity" class="md-nav__link">
+    Setup Drawer in Activity
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#navigating-between-menu-items" title="Navigating between Menu Items" class="md-nav__link">
+    Navigating between Menu Items
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-navigation-header" title="Add Navigation Header" class="md-nav__link">
+    Add Navigation Header
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getting-references-to-the-header" title="Getting references to the header" class="md-nav__link">
+    Getting references to the header
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#animate-the-hamburger-icon" title="Animate the Hamburger Icon" class="md-nav__link">
+    Animate the Hamburger Icon
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#making-status-bar-translucent" title="Making Status Bar Translucent" class="md-nav__link">
+    Making Status Bar Translucent
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adding-custom-views-to-navigation-drawer" title="Adding custom views to navigation drawer" class="md-nav__link">
+    Adding custom views to navigation drawer
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#persistent-navigation-drawer" title="Persistent Navigation Drawer" class="md-nav__link">
+    Persistent Navigation Drawer
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alternative-to-fragments" title="Alternative to Fragments" class="md-nav__link">
+    Alternative to Fragments
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../bottom-navigation/" title="Bottom Navigation" class="md-nav__link">
+      Bottom Navigation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../task-stacks/" title="Navigation and Task Stacks" class="md-nav__link">
+      Navigation and Task Stacks
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../common-intents/" title="Common Intents" class="md-nav__link">
+      Common Intents
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../fragments/" title="Fragments" class="md-nav__link">
+      Fragments
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../common-intents/" title="Common Intents" class="md-nav__link">
+      Common Intents
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../android-permissions/" title="Understanding Android Permissions" class="md-nav__link">
+      Understanding Android Permissions
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../networking/" title="Networking" class="md-nav__link">
+      Networking
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#usage" title="Usage" class="md-nav__link">
+    Usage
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setup" title="Setup" class="md-nav__link">
+    Setup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#download-nav-drawer-item-icons" title="Download Nav Drawer Item icons" class="md-nav__link">
+    Download Nav Drawer Item icons
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setup-drawer-resources" title="Setup Drawer Resources" class="md-nav__link">
+    Setup Drawer Resources
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#define-fragments" title="Define Fragments" class="md-nav__link">
+    Define Fragments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setup-toolbar" title="Setup Toolbar" class="md-nav__link">
+    Setup Toolbar
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setup-drawer-in-activity" title="Setup Drawer in Activity" class="md-nav__link">
+    Setup Drawer in Activity
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#navigating-between-menu-items" title="Navigating between Menu Items" class="md-nav__link">
+    Navigating between Menu Items
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-navigation-header" title="Add Navigation Header" class="md-nav__link">
+    Add Navigation Header
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getting-references-to-the-header" title="Getting references to the header" class="md-nav__link">
+    Getting references to the header
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#animate-the-hamburger-icon" title="Animate the Hamburger Icon" class="md-nav__link">
+    Animate the Hamburger Icon
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#making-status-bar-translucent" title="Making Status Bar Translucent" class="md-nav__link">
+    Making Status Bar Translucent
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adding-custom-views-to-navigation-drawer" title="Adding custom views to navigation drawer" class="md-nav__link">
+    Adding custom views to navigation drawer
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#persistent-navigation-drawer" title="Persistent Navigation Drawer" class="md-nav__link">
+    Persistent Navigation Drawer
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alternative-to-fragments" title="Alternative to Fragments" class="md-nav__link">
+    Alternative to Fragments
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/Peruzal/xamarin-forms-guide/edit/master/docs/navigation/navigation-drawer.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="navigation-with-navigation-drawer">Navigation with Navigation Drawer<a class="headerlink" href="#navigation-with-navigation-drawer" title="Permanent link">&para;</a></h1>
+<p>During the I/O Conference 2015, Google
+released <a href="https://developer.android.com/reference/android/support/design/widget/NavigationView.html">NavigationView</a>, which makes it far easier to create it than the <a href="http://developer.android.com/training/implementing-navigation/nav-drawer.html#top">previously documented instructions</a>.</p>
+<p>With the release of Android 5.0 Lollipop, the new material design style navigation drawer spans the full height of the screen and is displayed over the <code>ActionBar</code> and overlaps the translucent <code>StatusBar</code>. Read the <a href="http://www.google.com/design/spec/patterns/navigation-drawer.html">material design style navigation drawer</a> document for specs on styling your navigation drawer.</p>
+<p><img src="https://i.imgur.com/hPOFJUf.gif" width="350" /></p>
+<h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h2>
+<p>This guide explains how to setup a basic material design style drawer filled with navigation items that switch different fragments into the content area. In this way, you can define multiple fragments, and then define the list of options which will display in the drawers items list. Each item when clicked will switch the relevant fragment into the activity's container view.</p>
+<h3 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link">&para;</a></h3>
+<p>Make sure to setup the Google [[Design Support Library]] before using Google's new <a href="https://developer.android.com/reference/android/support/design/widget/NavigationView.html">NavigationView</a>, announced as part of the Android M release.  The NavigationView should be backwards compatible with all versions down to Android 2.1.</p>
+<p>Make sure you have this Gradle dependency added to your <code>app/build.gradle</code> file:</p>
+<div class="codehilite"><pre><span></span><span class="n">dependencies</span> <span class="err">{</span>
+  <span class="n">compile</span> <span class="s1">&#39;com.android.support:design:25.2.0&#39;</span>
+<span class="err">}</span>
+</pre></div>
+
+
+<h3 id="download-nav-drawer-item-icons">Download Nav Drawer Item icons<a class="headerlink" href="#download-nav-drawer-item-icons" title="Permanent link">&para;</a></h3>
+<p>Download the following icons and add them to your drawable folders by copying and pasting them into the drawable folder or using the <code>New Image Asset</code> dialog to create versions for each density.  </p>
+<ul>
+<li><a href="https://i.imgur.com/PfXVA78.png">ic_one</a></li>
+<li><a href="https://i.imgur.com/xzIdYlo.png">ic_two</a></li>
+<li><a href="https://i.imgur.com/k5o1mCJ.png">ic_three</a></li>
+</ul>
+<p>If you use the <code>New Image Asset</code> dialog, choose a black foreground color and change the resource name.</p>
+<p><img src="https://i.imgur.com/DE49F1R.png" width="600"/></p>
+<h3 id="setup-drawer-resources">Setup Drawer Resources<a class="headerlink" href="#setup-drawer-resources" title="Permanent link">&para;</a></h3>
+<p>Create a <code>menu/drawer_view.xml</code> file:</p>
+<div class="codehilite"><pre><span></span><span class="nt">&lt;menu</span> <span class="na">xmlns:android=</span><span class="s">&quot;http://schemas.android.com/apk/res/android&quot;</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;group</span> <span class="na">android:checkableBehavior=</span><span class="s">&quot;single&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;item</span>
+            <span class="na">android:id=</span><span class="s">&quot;@+id/nav_first_fragment&quot;</span>
+            <span class="na">android:icon=</span><span class="s">&quot;@drawable/ic_one&quot;</span>
+            <span class="na">android:title=</span><span class="s">&quot;First&quot;</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;item</span>
+            <span class="na">android:id=</span><span class="s">&quot;@+id/nav_second_fragment&quot;</span>
+            <span class="na">android:icon=</span><span class="s">&quot;@drawable/ic_two&quot;</span>
+            <span class="na">android:title=</span><span class="s">&quot;Second&quot;</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;item</span>
+            <span class="na">android:id=</span><span class="s">&quot;@+id/nav_third_fragment&quot;</span>
+            <span class="na">android:icon=</span><span class="s">&quot;@drawable/ic_three&quot;</span>
+            <span class="na">android:title=</span><span class="s">&quot;Third&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/group&gt;</span>
+<span class="nt">&lt;/menu&gt;</span>
+</pre></div>
+
+
+<p>Note that you can set one of these elements to be default selected by using <code>android:checked="true"</code>.  </p>
+<p>You can also create subheaders too and group elements together:</p>
+<div class="codehilite"><pre><span></span> <span class="nt">&lt;item</span> <span class="na">android:title=</span><span class="s">&quot;Sub items&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;menu&gt;</span>
+            <span class="nt">&lt;group</span> <span class="na">android:checkableBehavior=</span><span class="s">&quot;single&quot;</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;item</span>
+                    <span class="na">android:icon=</span><span class="s">&quot;@drawable/ic_dashboard&quot;</span>
+                    <span class="na">android:title=</span><span class="s">&quot;Sub item 1&quot;</span> <span class="nt">/&gt;</span>
+                <span class="nt">&lt;item</span>
+                    <span class="na">android:icon=</span><span class="s">&quot;@drawable/ic_forum&quot;</span>
+                    <span class="na">android:title=</span><span class="s">&quot;Sub item 2&quot;</span> <span class="nt">/&gt;</span>
+            <span class="nt">&lt;/group&gt;</span>
+        <span class="nt">&lt;/menu&gt;</span>
+    <span class="nt">&lt;/item&gt;</span>
+</pre></div>
+
+
+<p><img src="http://imgur.com/zoDqDKM.png"/></p>
+<h3 id="define-fragments">Define Fragments<a class="headerlink" href="#define-fragments" title="Permanent link">&para;</a></h3>
+<p>Next, you need to define your fragments that will be displayed within the drawer. These can be any support fragments you define within your application. Make sure that all the fragments extend from <strong>android.support.v4.app.Fragment</strong>.</p>
+<h3 id="setup-toolbar">Setup Toolbar<a class="headerlink" href="#setup-toolbar" title="Permanent link">&para;</a></h3>
+<p>In order to slide our navigation drawer over the ActionBar, we need to use the new [[Toolbar|Using-the-App-ToolBar]] widget as defined in the AppCompat v21 library. The <code>Toolbar</code> can be embedded into your view hierarchy which makes sure that the drawer slides over the <code>ActionBar</code>.</p>
+<p>Create a new layout file <code>res/layout/toolbar.xml</code> with the following code:</p>
+<div class="codehilite"><pre><span></span><span class="nt">&lt;android.support.v7.widget.Toolbar</span>
+    <span class="na">xmlns:android=</span><span class="s">&quot;http://schemas.android.com/apk/res/android&quot;</span>
+    <span class="na">xmlns:app=</span><span class="s">&quot;http://schemas.android.com/apk/res-auto&quot;</span>
+    <span class="na">android:id=</span><span class="s">&quot;@+id/toolbar&quot;</span>
+    <span class="na">android:layout_height=</span><span class="s">&quot;wrap_content&quot;</span>
+    <span class="na">android:layout_width=</span><span class="s">&quot;match_parent&quot;</span>
+    <span class="na">android:fitsSystemWindows=</span><span class="s">&quot;true&quot;</span>
+    <span class="na">android:minHeight=</span><span class="s">&quot;?attr/actionBarSize&quot;</span>
+    <span class="na">app:theme=</span><span class="s">&quot;@style/ThemeOverlay.AppCompat.Dark.ActionBar&quot;</span>
+    <span class="na">android:background=</span><span class="s">&quot;?attr/colorPrimaryDark&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/android.support.v7.widget.Toolbar&gt;</span>
+</pre></div>
+
+
+<p>Note that when the <code>android:fitsSystemWindows</code> attribute is set to true for a view, the view would be laid out as if the <code>StatusBar</code> and the <code>ActionBar</code> were present i.e. the UI on top gets padding enough to not be obscured by the navigation bar.  Without this attribute, there is not enough padding factored into consideration for the <code>ToolBar</code>:</p>
+<p><img src="http://imgur.com/HaOAmoh.png"/></p>
+<p>We want our main content view to have the navigation bar and hence <code>android:fitsSystemWindows</code> is set to true for the <code>Toolbar</code>.</p>
+<p>To use the <code>Toolbar</code> as an <code>ActionBar</code>, you need to disable the default <code>ActionBar</code>. This can be done by setting the app theme in <code>styles.xml</code> file.   </p>
+<div class="codehilite"><pre><span></span><span class="nt">&lt;resources&gt;</span>
+    <span class="c">&lt;!-- Base application theme. --&gt;</span>
+    <span class="nt">&lt;style</span> <span class="na">name=</span><span class="s">&quot;AppTheme&quot;</span> <span class="na">parent=</span><span class="s">&quot;Theme.AppCompat.Light.NoActionBar&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;item</span> <span class="na">name=</span><span class="s">&quot;colorPrimary&quot;</span><span class="nt">&gt;</span>#673AB7<span class="nt">&lt;/item&gt;</span>
+        <span class="nt">&lt;item</span> <span class="na">name=</span><span class="s">&quot;colorPrimaryDark&quot;</span><span class="nt">&gt;</span>#512DA8<span class="nt">&lt;/item&gt;</span>
+        <span class="nt">&lt;item</span> <span class="na">name=</span><span class="s">&quot;colorAccent&quot;</span><span class="nt">&gt;</span>#FF4081<span class="nt">&lt;/item&gt;</span>
+    <span class="nt">&lt;/style&gt;</span>
+<span class="nt">&lt;/resources&gt;</span>
+</pre></div>
+
+
+<p>Also note that normally you should decide on your color scheme by going to <a href="http://www.materialpalette.com/">Material Palette</a> and choosing a primary and dark primary color. For this example, we will pick purple-based colors as shown in the screenshot.</p>
+<p><em>Note</em>: If you forget to disable the ActionBar in <code>styles.xml</code>, you are likely to see a <code>java.lang.IllegalStateException</code> with an error message that reads <code>This Activity already has an action bar supplied by the window decor. Do not request Window.FEATURE_ACTION_BAR and set windowActionBar to false in your theme to use a Toolbar instead.</code>  If you see this message, you need to make sure to follow the previous steps.</p>
+<h3 id="setup-drawer-in-activity">Setup Drawer in Activity<a class="headerlink" href="#setup-drawer-in-activity" title="Permanent link">&para;</a></h3>
+<p>Next, let's setup a basic navigation drawer based on the following layout file which has the entire drawer setup in <code>res/layout/activity_main.xml</code>. Note that the <code>Toolbar</code> is added as the first child of the main content view by adding the include tag.</p>
+<div class="codehilite"><pre><span></span><span class="c">&lt;!-- This DrawerLayout has two children at the root  --&gt;</span>
+<span class="nt">&lt;android.support.v4.widget.DrawerLayout</span>
+    <span class="na">xmlns:android=</span><span class="s">&quot;http://schemas.android.com/apk/res/android&quot;</span>
+    <span class="na">xmlns:app=</span><span class="s">&quot;http://schemas.android.com/apk/res-auto&quot;</span>
+    <span class="na">android:id=</span><span class="s">&quot;@+id/drawer_layout&quot;</span>
+    <span class="na">android:layout_width=</span><span class="s">&quot;match_parent&quot;</span>
+    <span class="na">android:layout_height=</span><span class="s">&quot;match_parent&quot;</span><span class="nt">&gt;</span>
+
+    <span class="c">&lt;!-- This LinearLayout represents the contents of the screen  --&gt;</span>
+    <span class="nt">&lt;LinearLayout</span>
+        <span class="na">android:layout_width=</span><span class="s">&quot;match_parent&quot;</span>
+        <span class="na">android:layout_height=</span><span class="s">&quot;match_parent&quot;</span>
+        <span class="na">android:orientation=</span><span class="s">&quot;vertical&quot;</span><span class="nt">&gt;</span>
+
+        <span class="c">&lt;!-- The ActionBar displayed at the top --&gt;</span>
+        <span class="nt">&lt;include</span>
+            <span class="na">layout=</span><span class="s">&quot;@layout/toolbar&quot;</span>
+            <span class="na">android:layout_width=</span><span class="s">&quot;match_parent&quot;</span>
+            <span class="na">android:layout_height=</span><span class="s">&quot;wrap_content&quot;</span> <span class="nt">/&gt;</span>
+
+        <span class="c">&lt;!-- The main content view where fragments are loaded --&gt;</span>
+        <span class="nt">&lt;FrameLayout</span>
+            <span class="na">android:id=</span><span class="s">&quot;@+id/flContent&quot;</span>
+            <span class="na">android:layout_width=</span><span class="s">&quot;match_parent&quot;</span>
+            <span class="na">android:layout_height=</span><span class="s">&quot;match_parent&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/LinearLayout&gt;</span>
+
+    <span class="c">&lt;!-- The navigation drawer that comes from the left --&gt;</span>
+    <span class="c">&lt;!-- Note that `android:layout_gravity` needs to be set to &#39;start&#39; --&gt;</span>
+    <span class="nt">&lt;android.support.design.widget.NavigationView</span>
+        <span class="na">android:id=</span><span class="s">&quot;@+id/nvView&quot;</span>
+        <span class="na">android:layout_width=</span><span class="s">&quot;wrap_content&quot;</span>
+        <span class="na">android:layout_height=</span><span class="s">&quot;match_parent&quot;</span>
+        <span class="na">android:layout_gravity=</span><span class="s">&quot;start&quot;</span>
+        <span class="na">android:background=</span><span class="s">&quot;@android:color/white&quot;</span>
+        <span class="na">app:menu=</span><span class="s">&quot;@menu/drawer_view&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/android.support.v4.widget.DrawerLayout&gt;</span>
+</pre></div>
+
+
+<p>Now, let's setup the drawer in our activity.  We can also setup the menu icon too.</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span> <span class="kd">extends</span> <span class="n">AppCompatActivity</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">DrawerLayout</span> <span class="n">mDrawer</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">Toolbar</span> <span class="n">toolbar</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">NavigationView</span> <span class="n">nvDrawer</span><span class="o">;</span>
+
+    <span class="c1">// Make sure to be using android.support.v7.app.ActionBarDrawerToggle version.</span>
+    <span class="c1">// The android.support.v4.app.ActionBarDrawerToggle has been deprecated.</span>
+    <span class="kd">private</span> <span class="n">ActionBarDrawerToggle</span> <span class="n">drawerToggle</span><span class="o">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+        <span class="n">setContentView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_main</span><span class="o">);</span>
+
+        <span class="c1">// Set a Toolbar to replace the ActionBar.</span>
+        <span class="n">toolbar</span> <span class="o">=</span> <span class="o">(</span><span class="n">Toolbar</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">toolbar</span><span class="o">);</span>
+        <span class="n">setSupportActionBar</span><span class="o">(</span><span class="n">toolbar</span><span class="o">);</span>
+
+        <span class="c1">// Find our drawer view</span>
+        <span class="n">mDrawer</span> <span class="o">=</span> <span class="o">(</span><span class="n">DrawerLayout</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">drawer_layout</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onOptionsItemSelected</span><span class="o">(</span><span class="n">MenuItem</span> <span class="n">item</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// The action bar home/up action should open or close the drawer.</span>
+        <span class="k">switch</span> <span class="o">(</span><span class="n">item</span><span class="o">.</span><span class="na">getItemId</span><span class="o">())</span> <span class="o">{</span>
+            <span class="k">case</span> <span class="n">android</span><span class="o">.</span><span class="na">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">home</span><span class="o">:</span>
+                <span class="n">mDrawer</span><span class="o">.</span><span class="na">openDrawer</span><span class="o">(</span><span class="n">GravityCompat</span><span class="o">.</span><span class="na">START</span><span class="o">);</span>
+                <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">onOptionsItemSelected</span><span class="o">(</span><span class="n">item</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<h3 id="navigating-between-menu-items">Navigating between Menu Items<a class="headerlink" href="#navigating-between-menu-items" title="Permanent link">&para;</a></h3>
+<p>Setup a handler to respond to click events on the navigation elements and swap out the fragment. This can be put into the activity directly:</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span> <span class="kd">extends</span> <span class="n">AppCompatActivity</span> <span class="o">{</span>
+
+    <span class="c1">// ...</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// ...From section above...</span>
+        <span class="c1">// Find our drawer view</span>
+        <span class="n">nvDrawer</span> <span class="o">=</span> <span class="o">(</span><span class="n">NavigationView</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">nvView</span><span class="o">);</span>
+        <span class="c1">// Setup drawer view</span>
+        <span class="n">setupDrawerContent</span><span class="o">(</span><span class="n">nvDrawer</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">setupDrawerContent</span><span class="o">(</span><span class="n">NavigationView</span> <span class="n">navigationView</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">navigationView</span><span class="o">.</span><span class="na">setNavigationItemSelectedListener</span><span class="o">(</span>
+                <span class="k">new</span> <span class="n">NavigationView</span><span class="o">.</span><span class="na">OnNavigationItemSelectedListener</span><span class="o">()</span> <span class="o">{</span>
+                    <span class="nd">@Override</span>
+                    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onNavigationItemSelected</span><span class="o">(</span><span class="n">MenuItem</span> <span class="n">menuItem</span><span class="o">)</span> <span class="o">{</span>
+                        <span class="n">selectDrawerItem</span><span class="o">(</span><span class="n">menuItem</span><span class="o">);</span>
+                        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+                    <span class="o">}</span>
+                <span class="o">});</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">selectDrawerItem</span><span class="o">(</span><span class="n">MenuItem</span> <span class="n">menuItem</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// Create a new fragment and specify the fragment to show based on nav item clicked</span>
+        <span class="n">Fragment</span> <span class="n">fragment</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="n">Class</span> <span class="n">fragmentClass</span><span class="o">;</span>
+        <span class="k">switch</span><span class="o">(</span><span class="n">menuItem</span><span class="o">.</span><span class="na">getItemId</span><span class="o">())</span> <span class="o">{</span>
+            <span class="k">case</span> <span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">nav_first_fragment</span><span class="o">:</span>
+                <span class="n">fragmentClass</span> <span class="o">=</span> <span class="n">FirstFragment</span><span class="o">.</span><span class="na">class</span><span class="o">;</span>
+                <span class="k">break</span><span class="o">;</span>
+            <span class="k">case</span> <span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">nav_second_fragment</span><span class="o">:</span>
+                <span class="n">fragmentClass</span> <span class="o">=</span> <span class="n">SecondFragment</span><span class="o">.</span><span class="na">class</span><span class="o">;</span>
+                <span class="k">break</span><span class="o">;</span>
+            <span class="k">case</span> <span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">nav_third_fragment</span><span class="o">:</span>
+                <span class="n">fragmentClass</span> <span class="o">=</span> <span class="n">ThirdFragment</span><span class="o">.</span><span class="na">class</span><span class="o">;</span>
+                <span class="k">break</span><span class="o">;</span>
+            <span class="k">default</span><span class="o">:</span>
+                <span class="n">fragmentClass</span> <span class="o">=</span> <span class="n">FirstFragment</span><span class="o">.</span><span class="na">class</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">fragment</span> <span class="o">=</span> <span class="o">(</span><span class="n">Fragment</span><span class="o">)</span> <span class="n">fragmentClass</span><span class="o">.</span><span class="na">newInstance</span><span class="o">();</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+
+        <span class="c1">// Insert the fragment by replacing any existing fragment</span>
+        <span class="n">FragmentManager</span> <span class="n">fragmentManager</span> <span class="o">=</span> <span class="n">getSupportFragmentManager</span><span class="o">();</span>
+        <span class="n">fragmentManager</span><span class="o">.</span><span class="na">beginTransaction</span><span class="o">().</span><span class="na">replace</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">flContent</span><span class="o">,</span> <span class="n">fragment</span><span class="o">).</span><span class="na">commit</span><span class="o">();</span>
+
+        <span class="c1">// Highlight the selected item has been done by NavigationView</span>
+        <span class="n">menuItem</span><span class="o">.</span><span class="na">setChecked</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+        <span class="c1">// Set action bar title</span>
+        <span class="n">setTitle</span><span class="o">(</span><span class="n">menuItem</span><span class="o">.</span><span class="na">getTitle</span><span class="o">());</span>
+        <span class="c1">// Close the navigation drawer</span>
+        <span class="n">mDrawer</span><span class="o">.</span><span class="na">closeDrawers</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="c1">// ...</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<h3 id="add-navigation-header">Add Navigation Header<a class="headerlink" href="#add-navigation-header" title="Permanent link">&para;</a></h3>
+<p><img src="https://i.imgur.com/Ri3c6Xz.png"/></p>
+<p>The NavigationView also accepts a custom attribute that can reference a layout that provides a header of our layout.  For instance, you can create a <code>layout/nav_header.xml</code> similar to the following:</p>
+<div class="codehilite"><pre><span></span><span class="nt">&lt;LinearLayout</span> <span class="na">xmlns:android=</span><span class="s">&quot;http://schemas.android.com/apk/res/android&quot;</span>
+    <span class="na">android:layout_width=</span><span class="s">&quot;match_parent&quot;</span>
+    <span class="na">android:layout_height=</span><span class="s">&quot;192dp&quot;</span>
+    <span class="na">android:background=</span><span class="s">&quot;?attr/colorPrimaryDark&quot;</span>
+    <span class="na">android:padding=</span><span class="s">&quot;16dp&quot;</span>
+    <span class="na">android:theme=</span><span class="s">&quot;@style/ThemeOverlay.AppCompat.Dark&quot;</span>
+    <span class="na">android:orientation=</span><span class="s">&quot;vertical&quot;</span>
+    <span class="na">android:gravity=</span><span class="s">&quot;bottom&quot;</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;TextView</span>
+        <span class="na">android:layout_width=</span><span class="s">&quot;match_parent&quot;</span>
+        <span class="na">android:layout_height=</span><span class="s">&quot;wrap_content&quot;</span>
+        <span class="na">android:text=</span><span class="s">&quot;Header&quot;</span>
+        <span class="na">android:textColor=</span><span class="s">&quot;@android:color/white&quot;</span>
+        <span class="na">android:textAppearance=</span><span class="s">&quot;@style/TextAppearance.AppCompat.Body1&quot;</span><span class="nt">/&gt;</span>
+
+<span class="nt">&lt;/LinearLayout&gt;</span>
+</pre></div>
+
+
+<p>You would then reference this in the layout <code>res/layout/activity_main.xml</code> in the <code>NavigationView</code> with the <code>app:headerLayout</code> custom attribute:</p>
+<div class="codehilite"><pre><span></span><span class="c">&lt;!-- res/layout/activity_main.xml --&gt;</span>
+
+ <span class="c">&lt;!-- The navigation drawer --&gt;</span>
+    <span class="nt">&lt;android.support.design.widget.NavigationView</span>
+        <span class="err">...</span>
+        <span class="na">app:headerLayout=</span><span class="s">&quot;@layout/nav_header&quot;</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;/android.support.design.widget.NavigationView&gt;</span>
+</pre></div>
+
+
+<p>This <code>app:headerLayout</code> inflates the specified layout into the header automatically. This can alternatively be done at runtime with:</p>
+<div class="codehilite"><pre><span></span><span class="c1">// Lookup navigation view</span>
+<span class="n">NavigationView</span> <span class="n">navigationView</span> <span class="o">=</span> <span class="o">(</span><span class="n">NavigationView</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">nav_draw</span><span class="o">);</span>
+<span class="c1">// Inflate the header view at runtime</span>
+<span class="n">View</span> <span class="n">headerLayout</span> <span class="o">=</span> <span class="n">navigationView</span><span class="o">.</span><span class="na">inflateHeaderView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">nav_header</span><span class="o">);</span>
+<span class="c1">// We can now look up items within the header if needed</span>
+<span class="n">ImageView</span> <span class="n">ivHeaderPhoto</span> <span class="o">=</span> <span class="n">headerLayout</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">imageView</span><span class="o">);</span>
+</pre></div>
+
+
+<h3 id="getting-references-to-the-header">Getting references to the header<a class="headerlink" href="#getting-references-to-the-header" title="Permanent link">&para;</a></h3>
+<p><strong>Note:</strong> Version <code>23.1.0</code> of the design support library switches <code>NavigationView</code> to using a <code>RecyclerView</code> and causes NPE (null exceptions) on header lookups unless the header is added at runtime. 
+If you need to get a reference to the header, you need to use the new <code>getHeaderView()</code> method introduced in the latest <code>v23.1.1</code> update:</p>
+<div class="codehilite"><pre><span></span><span class="c1">// There is usually only 1 header view.  </span>
+<span class="c1">// Multiple header views can technically be added at runtime.</span>
+<span class="c1">// We can use navigationView.getHeaderCount() to determine the total number.</span>
+<span class="n">View</span> <span class="n">headerLayout</span> <span class="o">=</span> <span class="n">navigationView</span><span class="o">.</span><span class="na">getHeaderView</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+</pre></div>
+
+
+<h2 id="animate-the-hamburger-icon">Animate the Hamburger Icon<a class="headerlink" href="#animate-the-hamburger-icon" title="Permanent link">&para;</a></h2>
+<p><img src="http://imgur.com/ekmWl7q.gif"/></p>
+<p>In order for the hamburger icon to animate to indicate the drawer is being opened and closed, we need to use the <a href="https://developer.android.com/reference/android/support/v7/app/ActionBarDrawerToggle.html">ActionBarDrawerToggle</a> class.</p>
+<p>In your <code>res/values/strings.xml</code> add the following:</p>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;resources&gt;</span>
+    <span class="nt">&lt;string</span> <span class="na">name=</span><span class="s">&quot;drawer_open&quot;</span><span class="nt">&gt;</span>Open navigation drawer<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;string</span> <span class="na">name=</span><span class="s">&quot;drawer_close&quot;</span><span class="nt">&gt;</span>Close navigation drawer<span class="nt">&lt;/string&gt;</span>
+<span class="nt">&lt;/resources&gt;</span>
+</pre></div>
+
+
+<p>We need to tie the DrawerLayout and Toolbar together:</p>
+<div class="codehilite"><pre><span></span>  <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span> 
+    <span class="c1">// Set a Toolbar to replace the ActionBar.</span>
+        <span class="n">toolbar</span> <span class="o">=</span> <span class="o">(</span><span class="n">Toolbar</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">toolbar</span><span class="o">);</span>
+        <span class="n">setSupportActionBar</span><span class="o">(</span><span class="n">toolbar</span><span class="o">);</span>
+
+        <span class="c1">// Find our drawer view</span>
+        <span class="n">mDrawer</span> <span class="o">=</span> <span class="o">(</span><span class="n">DrawerLayout</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">drawer_layout</span><span class="o">);</span>
+        <span class="n">drawerToggle</span> <span class="o">=</span> <span class="n">setupDrawerToggle</span><span class="o">();</span>
+
+        <span class="c1">// Tie DrawerLayout events to the ActionBarToggle</span>
+        <span class="n">mDrawer</span><span class="o">.</span><span class="na">addDrawerListener</span><span class="o">(</span><span class="n">drawerToggle</span><span class="o">);</span>
+   <span class="o">}</span>
+
+   <span class="kd">private</span> <span class="n">ActionBarDrawerToggle</span> <span class="nf">setupDrawerToggle</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// NOTE: Make sure you pass in a valid toolbar reference.  ActionBarDrawToggle() does not require it</span>
+        <span class="c1">// and will not render the hamburger icon without it.  </span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">ActionBarDrawerToggle</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">mDrawer</span><span class="o">,</span> <span class="n">toolbar</span><span class="o">,</span> <span class="n">R</span><span class="o">.</span><span class="na">string</span><span class="o">.</span><span class="na">drawer_open</span><span class="o">,</span>  <span class="n">R</span><span class="o">.</span><span class="na">string</span><span class="o">.</span><span class="na">drawer_close</span><span class="o">);</span>
+   <span class="o">}</span>
+</pre></div>
+
+
+<p>Next, we need to make sure we synchronize the state whenever the screen is restored or there is a configuration change (i.e screen rotation):</p>
+<div class="codehilite"><pre><span></span>    <span class="c1">// `onPostCreate` called when activity start-up is complete after `onStart()`</span>
+    <span class="c1">// NOTE 1: Make sure to override the method with only a single `Bundle` argument</span>
+    <span class="c1">// Note 2: Make sure you implement the correct `onPostCreate(Bundle savedInstanceState)` method. </span>
+    <span class="c1">// There are 2 signatures and only `onPostCreate(Bundle state)` shows the hamburger icon.</span>
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onPostCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onPostCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+        <span class="c1">// Sync the toggle state after onRestoreInstanceState has occurred.</span>
+        <span class="n">drawerToggle</span><span class="o">.</span><span class="na">syncState</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onConfigurationChanged</span><span class="o">(</span><span class="n">Configuration</span> <span class="n">newConfig</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onConfigurationChanged</span><span class="o">(</span><span class="n">newConfig</span><span class="o">);</span>
+        <span class="c1">// Pass any configuration change to the drawer toggles</span>
+        <span class="n">drawerToggle</span><span class="o">.</span><span class="na">onConfigurationChanged</span><span class="o">(</span><span class="n">newConfig</span><span class="o">);</span>
+    <span class="o">}</span>
+</pre></div>
+
+
+<p>We also need to change the <code>onOptionsItemSelected()</code> method and allow the ActionBarToggle to handle the events.  </p>
+<div class="codehilite"><pre><span></span>    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onOptionsItemSelected</span><span class="o">(</span><span class="n">MenuItem</span> <span class="n">item</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">drawerToggle</span><span class="o">.</span><span class="na">onOptionsItemSelected</span><span class="o">(</span><span class="n">item</span><span class="o">))</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">onOptionsItemSelected</span><span class="o">(</span><span class="n">item</span><span class="o">);</span>
+    <span class="o">}</span>
+</pre></div>
+
+
+<p>The ActionBarToggle will perform the same function done previously but adds a bit more checks and allows mouse clicks on the icon to open and close the drawer.  See the <a href="https://github.com/android/platform_frameworks_support/blob/master/v7/appcompat/src/android/support/v7/app/ActionBarDrawerToggle.java#L285-291">source code</a> for more context.</p>
+<p>One thing to note is that the ActionBarDrawerToggle renders a custom <a href="https://github.com/android/platform_frameworks_support/blob/master/v7/appcompat/src/android/support/v7/graphics/drawable/DrawerArrowDrawable.java">DrawerArrowDrawable</a> for you for the hamburger icon.</p>
+<p>Also, make sure to be using <code>android.support.v7.app.ActionBarDrawerToggle</code> version.  The <code>android.support.v4.app.ActionBarDrawerToggle</code> has been deprecated.</p>
+<h2 id="making-status-bar-translucent">Making Status Bar Translucent<a class="headerlink" href="#making-status-bar-translucent" title="Permanent link">&para;</a></h2>
+<p><img src="http://imgur.com/o4WvT3k.gif"/></p>
+<p>To have the status bar translucent and have our drawer slide over it, we need to set <code>android:windowTranslucentStatus</code> to true. Because this style is not available for pre Kitkat devices, we'll add  <code>res/values-v19/styles.xml</code> file for API version 19 and onwards.  <strong>Note</strong>: If you modify your <code>res/values/styles.xml</code> directly with this <code>android:windowTranslucentStatus</code> line, you are likely to need to build only for SDK versions 19 or higher, which will obviously limit you from supporting many older devices.</p>
+<p>In <code>res/values-v19/styles.xml</code> we can add the following:</p>
+<div class="codehilite"><pre><span></span><span class="nt">&lt;resources&gt;</span>
+  <span class="c">&lt;!-- Base application theme. --&gt;</span>
+  <span class="nt">&lt;style</span> <span class="na">name=</span><span class="s">&quot;AppTheme&quot;</span> <span class="na">parent=</span><span class="s">&quot;Theme.AppCompat.Light.NoActionBar&quot;</span><span class="nt">&gt;</span>
+    <span class="c">&lt;!-- Customize your theme here. --&gt;</span>
+    <span class="nt">&lt;item</span> <span class="na">name=</span><span class="s">&quot;android:windowTranslucentStatus&quot;</span><span class="nt">&gt;</span>true<span class="nt">&lt;/item&gt;</span>
+  <span class="nt">&lt;/style&gt;</span>
+<span class="nt">&lt;/resources&gt;</span>
+</pre></div>
+
+
+<p>Now if you run your app, you should see the navigation drawer and be able to select between your fragments.</p>
+<h2 id="adding-custom-views-to-navigation-drawer">Adding custom views to navigation drawer<a class="headerlink" href="#adding-custom-views-to-navigation-drawer" title="Permanent link">&para;</a></h2>
+<p>One improvement made to the design support library 23.1.0 is the addition of support for custom views for the navigation drawer items.  For instance, we can create a custom switch like the navigation drawer from Google Play Movies for one of the rows:</p>
+<p><img src="http://i.imgur.com/gCgB5PQ.png"/></p>
+<p>The approach is the same as adding [[ActionView items|Extended-ActionBar-Guide#adding-actionview-items]] to the ActionBar.  We simply need to define a separate layout such as the following snippet.  We will call this file <code>action_view_switch.xml</code>:</p>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;LinearLayout</span> <span class="na">xmlns:android=</span><span class="s">&quot;http://schemas.android.com/apk/res/android&quot;</span>
+    <span class="na">android:orientation=</span><span class="s">&quot;horizontal&quot;</span> <span class="na">android:layout_width=</span><span class="s">&quot;match_parent&quot;</span>
+    <span class="na">android:layout_height=</span><span class="s">&quot;match_parent&quot;</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;android.support.v7.widget.SwitchCompat</span>
+        <span class="na">android:layout_width=</span><span class="s">&quot;fill_parent&quot;</span>
+        <span class="na">android:layout_height=</span><span class="s">&quot;match_parent&quot;</span>
+        <span class="na">android:text=</span><span class="s">&quot;Switch&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/LinearLayout&gt;</span>
+</pre></div>
+
+
+<p>We then reference this layout using the <code>app:actionLayout</code> attribute.  A title must be provided
+but can also be set to blank:</p>
+<div class="codehilite"><pre><span></span><span class="nt">&lt;menu</span> <span class="na">xmlns:app=</span><span class="s">&quot;http://schemas.android.com/apk/res-auto&quot;</span> <span class="na">xmlns:android=</span><span class="s">&quot;http://schemas.android.com/apk/res/android&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;item</span> <span class="na">android:id=</span><span class="s">&quot;@+id/nav_switch&quot;</span>
+        <span class="na">app:actionLayout=</span><span class="s">&quot;@layout/action_view_switch&quot;</span>
+        <span class="na">android:title=</span><span class="s">&quot;Downloaded only&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;/item&gt;</span>
+<span class="nt">&lt;/menu&gt;</span>
+</pre></div>
+
+
+<p>You can attach events directly in XML so long as your Activity will implement the method.  To add an event handling to the toggle switch programmatically through Java, you will need to first get the menu instance and get access to the corresponding ActionView:</p>
+<div class="codehilite"><pre><span></span><span class="n">Menu</span> <span class="n">menu</span> <span class="o">=</span> <span class="n">navigationView</span><span class="o">.</span><span class="na">getMenu</span><span class="o">();</span>
+<span class="n">MenuItem</span> <span class="n">menuItem</span> <span class="o">=</span> <span class="n">menu</span><span class="o">.</span><span class="na">findItem</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">nav_switch</span><span class="o">);</span>
+<span class="n">View</span> <span class="n">actionView</span> <span class="o">=</span> <span class="n">MenuItemCompat</span><span class="o">.</span><span class="na">getActionView</span><span class="o">(</span><span class="n">menuItem</span><span class="o">);</span>
+<span class="n">actionView</span><span class="o">.</span><span class="na">setOnClickListener</span><span class="o">(</span><span class="k">new</span> <span class="n">View</span><span class="o">.</span><span class="na">OnClickListener</span><span class="o">()</span> <span class="o">{</span>
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onClick</span><span class="o">(</span><span class="n">View</span> <span class="n">v</span><span class="o">)</span> <span class="o">{</span>
+
+  <span class="o">}</span>
+<span class="o">});</span>
+</pre></div>
+
+
+<p>Custom widgets using <code>app:actionViewClass</code> can also be used too for menu items as well now too.  For more details about how Action Views, see adding the [[SearchView to ActionBar|Extended-ActionBar-Guide#adding-searchview-to-actionbar]] guide. </p>
+<h2 id="persistent-navigation-drawer">Persistent Navigation Drawer<a class="headerlink" href="#persistent-navigation-drawer" title="Permanent link">&para;</a></h2>
+<p>In certain situations, especially on tablets, the navigation drawer should be a permanent fixture on the activity acting as a sidebar:</p>
+<p><img alt="Persistent" src="http://i.imgur.com/9f7nyrA.png" /></p>
+<p>To achieve this effect, review the following links which describe one approach:</p>
+<ul>
+<li><a href="http://derekrwoods.com/2013/09/creating-a-static-navigation-drawer-in-android/">Static Nav Drawer</a></li>
+<li><a href="http://stackoverflow.com/a/18095111">Related Stackoverflow Question</a></li>
+<li><a href="https://github.com/samerzmd/Navigation-Drawer-set-as-always-opened-on-tablets">Sample Code</a></li>
+</ul>
+<p>Third-party libraries may also make this easier to achieve.</p>
+<h2 id="alternative-to-fragments">Alternative to Fragments<a class="headerlink" href="#alternative-to-fragments" title="Permanent link">&para;</a></h2>
+<p>Although many navigation drawer examples show how fragments can be used with the navigation drawer, you can also use a <code>RelativeLayout</code>/<code>LinearLayout</code> if you wish to use the drawer as an overlay to your currently displayed Activity.  </p>
+<p>Instead of <code>&lt;FrameLayout&gt;</code> you can substitute that for a <code>&lt;LinearLayout&gt;</code></p>
+<div class="codehilite"><pre><span></span><span class="nt">&lt;android.support.v4.widget.DrawerLayout</span>
+        <span class="na">xmlns:android=</span><span class="s">&quot;http://schemas.android.com/apk/res/android&quot;</span>
+        <span class="na">android:layout_width=</span><span class="s">&quot;match_parent&quot;</span>
+        <span class="na">android:layout_height=</span><span class="s">&quot;match_parent&quot;</span>
+        <span class="na">android:id=</span><span class="s">&quot;@+id/drawer_layout&quot;</span><span class="nt">&gt;</span>
+
+        <span class="nt">&lt;LinearLayout</span>
+                <span class="na">android:id=</span><span class="s">&quot;@+id/content_frame&quot;</span>
+                <span class="na">android:orientation=</span><span class="s">&quot;horizontal&quot;</span>
+                <span class="na">android:layout_width=</span><span class="s">&quot;match_parent&quot;</span>
+                <span class="na">android:layout_height=</span><span class="s">&quot;match_parent&quot;</span><span class="nt">/&gt;</span>
+
+        <span class="c">&lt;!-- The navigation drawer --&gt;</span>
+        <span class="nt">&lt;ListView</span> <span class="na">android:id=</span><span class="s">&quot;@+id/left_drawer&quot;</span>
+                  <span class="na">android:layout_width=</span><span class="s">&quot;240dp&quot;</span>
+                  <span class="na">android:layout_height=</span><span class="s">&quot;wrap_content&quot;</span>
+                  <span class="na">android:layout_gravity=</span><span class="s">&quot;start&quot;</span>
+                  <span class="na">android:choiceMode=</span><span class="s">&quot;singleChoice&quot;</span>
+                  <span class="na">android:divider=</span><span class="s">&quot;@android:color/transparent&quot;</span>
+                  <span class="na">android:dividerHeight=</span><span class="s">&quot;0dp&quot;</span>
+                  <span class="na">android:background=</span><span class="s">&quot;#111&quot;</span><span class="nt">/&gt;</span>
+
+<span class="nt">&lt;/android.support.v4.widget.DrawerLayout&gt;</span>
+</pre></div>
+
+
+<p>Instead of this:</p>
+<div class="codehilite"><pre><span></span><span class="c1">// Insert the fragment by replacing any existing fragment</span>
+<span class="n">getFragmentManager</span><span class="o">().</span><span class="na">beginTransaction</span><span class="o">()</span>
+       <span class="o">.</span><span class="na">replace</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">content_frame</span><span class="o">,</span> <span class="n">fragment</span><span class="o">)</span>
+       <span class="o">.</span><span class="na">commit</span><span class="o">();</span>
+</pre></div>
+
+
+<p>You can instead use the <code>LinearLayout</code> container to inflate the Activity directly:</p>
+<div class="codehilite"><pre><span></span><span class="n">LayoutInflater</span> <span class="n">inflater</span> <span class="o">=</span> <span class="n">getLayoutInflater</span><span class="o">();</span>
+<span class="n">LinearLayout</span> <span class="n">container</span> <span class="o">=</span> <span class="o">(</span><span class="n">LinearLayout</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">content_frame</span><span class="o">);</span>
+<span class="n">inflater</span><span class="o">.</span><span class="na">inflate</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_main</span><span class="o">,</span> <span class="n">container</span><span class="o">);</span>
+</pre></div>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../swipe-tabbed-navigation/" title="Swipe and Tabbed Navigation" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Swipe and Tabbed Navigation
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../bottom-navigation/" title="Bottom Navigation" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Bottom Navigation
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset" style="background-color: #ff9900; color: #fff">
+    <div class="md-grid" style="display: flex;">
+      <div style="flex: 1;">
+        <h2>Consulting</h2>
+        <ul style="list-style: none; margin-left: -15px;">
+          <li><a href="https://www.peruzal.com/mobile-app-development" target="_blank">Mobile App Development</a></li>
+          <li><a href="https://www.peruzal.com/mobile-app-device-security-and-penetration-testing" target="_blank">Mobile App Security and Penetration Testing</a></li>
+          <li><a href="https://www.peruzal.com/database-and-web-application-performance-tuning-and-consulting" target="_blank">Database Performance Tuning</a></li>
+        </ul>
+      </div>
+      <div style="flex: 1;">
+        <h2>Training</h2>
+        <ul style="list-style: none; margin-left: -15px;">
+          <li><a href="https://training.peruzal.com/courses/mobile/android-mobile-app-development-training-certification" target="_blank">Android Mobile App Development Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/mobile/ios-mobile-app-development-training-with-swift" target="_blank">iOS Mobile App Development Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/mobile/xamarin/xamarin-forms-mobile-app-development-training" target="_blank">Xamarin Forms Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/mobile/xamarin/android-mobile-app-development-training-with-xamarin" target="_blank">Xamarin Android Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/mobile/xamarin/ios-mobile-app-development-training-with-xamarin" target="_blank">Xamarin iOS Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/web/reactjs-front-end-web-application-development" target="_blank">ReactJS Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/web/reactjs-front-end-web-application-development" target="_blank">React Native Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/gaming/unity-certified-game-development-training-south-africa" target="_blank">Unity Game Development Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/database/mysql-database-administration-training-certification-south-africa" target="_blank">MySQL Database Adminstration Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/programming/java-programming-training-certification" target="_blank">Java Programming Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/programming/ruby-programming-training-certification" target="_blank">Ruby Programming Training</a></li>
+        </ul>
+      </div>
+      <div style="flex: 1">
+        <h2>Resources</h2>
+        <ul style="list-style: none; margin-left: -15px;">
+          <li><a href="http://guides.peruzal.com/xamarin-forms-guide" target="_blank">Xamarin Forms Guide</a></li>
+          <li><a href="http://guides.peruzal.com/v1/android-guides" target="_blank">Android Development Guides</a></li>
+          <li><a href="http://guides.peruzal.com/xamarin-ios" target="_blank">iOS Development Guides</a></li>
+          <li><a href="http://xamarin-android-guide.peruzal.com/" target="_blank">Xamarin Android Guides</a></li>
+          <li><a href="http://xamarin-ios-guide.peruzal.com/" target="_blank">Xamarin iOS Guide</a></li>
+          <li><a href="http://unity-certified-associate-guide.peruzal.com/" target="_blank">Unity Game Development Guide</a></li>
+          <li><a href="https://josephkandi.gitbooks.io/mysql-5-6-database-administration-certification-g/content/" target="_blank">MySQL Database Adminstration Guide</a></li>
+          <li><a href="https://josephkandi.gitbooks.io/learn-java-by-developing-an-android-app/content/" target="_blank">Java Programming Guide</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="md-footer-meta__inner" style="background-color: rgba(0,0,0,.87)">
+      <div style="text-align: center; font-size: 0.7rem">
+          <div class="md-footer-copyright__highlight">
+            <a href="https://www.peruzal.com" target="_blank">Copyright &copy 2019 - Peruzal</a>
+          </div>
+      </div>
+      
+  <div style="text-align: center">
+    <link rel="stylesheet" href="../../assets/fonts/font-awesome.css">
+    
+      <a href="https://github.com/peruzal" target="_blank" class="md-footer-social__link fa fa-github"></a>
+    
+      <a href="https://twitter.com/peruzal" target="_blank" class="md-footer-social__link fa fa-twitter"></a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-40772582-8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-40772582-8');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-6342782466521705",
+          enable_page_level_ads: true
+     });
+</script>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.245445c6.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
+      
+        <script src="../../assets/js/utils.js"></script>
+      
+        <script src="../../assets/js/mixpanel.js"></script>
+      
+        <script src="../../assets/js/track.js"></script>
+      
+        <script src="../../assets/js/drift.js"></script>
+      
+    
+  </body>
+</html>

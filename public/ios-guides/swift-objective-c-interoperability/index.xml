@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Swift-objective-c-interoperability-rsses on Xamarin iOS Guides</title>
+    <link>http://guides.peruzal.com/ios-guides/swift-objective-c-interoperability/index.xml</link>
+    <description>Recent content in Swift-objective-c-interoperability-rsses on Xamarin iOS Guides</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Peruzal</copyright>
+    <lastBuildDate>Mon, 12 Dec 2016 01:55:55 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/ios-guides/swift-objective-c-interoperability/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Swift and Objective-C in the Same Project</title>
+      <link>http://guides.peruzal.com/ios-guides/swift-objective-c-interoperability/</link>
+      <pubDate>Mon, 12 Dec 2016 01:55:55 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/ios-guides/swift-objective-c-interoperability/</guid>
+      <description>
+
+&lt;h2 id=&#34;swift-and-objective-c-in-the-same-project&#34;&gt;Swift and Objective-C in the Same Project&lt;/h2&gt;
+
+&lt;p&gt;With some caveats, you can use Objective-C code in a Swift file and vice versa.&lt;/p&gt;
+
+&lt;h3 id=&#34;using-objective-c-in-swift&#34;&gt;Using Objective-C in Swift&lt;/h3&gt;
+
+&lt;p&gt;In order to use Objective-C in a Swift file, you have to create an Objective-C bridging header. While you can create this manually, the easiest way is to let Xcode do it for you.&lt;/p&gt;
+
+&lt;h3 id=&#34;step-1-create-an-objective-c-file&#34;&gt;Step 1: Create an Objective-C file&lt;/h3&gt;
+
+&lt;p&gt;In your Xcode project, create a new file and select &amp;ldquo;Objective-C&amp;rdquo; file in the wizard. It doesn&amp;rsquo;t matter what you name the file because you&amp;rsquo;ll delete it later anyway. When Xcode prompts you to create the bridging header, you should accept.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://i.imgur.com/0rzQCPM.png&#34; alt=&#34;Bridging header&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;step-2-import-objective-c-headers&#34;&gt;Step 2: Import Objective-C Headers&lt;/h3&gt;
+
+&lt;p&gt;In the bridging header, import any Objective-C header file that you would like to access from Swift. Once you do that, the Objective-C objects are available for you to use in any Swift file using the Swift language syntax.&lt;/p&gt;
+
+&lt;h2 id=&#34;references&#34;&gt;References&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://developer.apple.com/library/ios/documentation/swift/conceptual/buildingcocoaapps/MixandMatch.html&#34;&gt;Using Swift with Cocoa and Objective-C&lt;/a&gt; (apple.com)&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

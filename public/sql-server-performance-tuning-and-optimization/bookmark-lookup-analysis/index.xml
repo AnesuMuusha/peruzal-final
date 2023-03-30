@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Bookmark-lookup-analyses on SQL Server Performance and Tuning</title>
+    <link>http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/bookmark-lookup-analysis/index.xml</link>
+    <description>Recent content in Bookmark-lookup-analyses on SQL Server Performance and Tuning</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Copyright 2017 Peruzal</copyright>
+    <lastBuildDate>Sat, 18 Mar 2017 14:52:36 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/bookmark-lookup-analysis/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Boomark Lookup Analysis</title>
+      <link>http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/bookmark-lookup-analysis/</link>
+      <pubDate>Sat, 18 Mar 2017 14:52:36 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/bookmark-lookup-analysis/</guid>
+      <description>
+
+&lt;h2 id=&#34;purpose-of-bookmark-lookups&#34;&gt;Purpose of Bookmark Lookups&lt;/h2&gt;
+
+&lt;p&gt;A major overhead associated with nonclustered indexes is the cost of excessive lookups, formerly known as bookmark lookups, which are a mechanism to navigate from a nonclustered index row to the corresponding data row in the clustered index or the heap.&lt;/p&gt;
+
+&lt;p&gt;When a SQL query requests information through a query, the optimizer can use a nonclustered index, if available, on the columns in the WHERE or JOIN clause to retrieve the data. If the query refers to columns that are not part of the nonclustered index being used to retrieve the data, then navigation is required from the index row to the corresponding data row in the table to access these remaining columns.&lt;/p&gt;
+
+&lt;p&gt;For example, in the following SELECT statement, if the nonclustered index used by the optimizer doesn’t include all the columns, navigation will be required from a nonclustered index row to the data row in the clustered index or heap to retrieve the value of those columns:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT  p.[Name],
+        AVG(sod.LineTotal)
+FROM    Sales.SalesOrderDetail AS sod
+        JOIN Production.Product p
+        ON sod.ProductID = p.ProductID
+WHERE   sod.ProductID = 776
+GROUP BY sod.CarrierTrackingNumber,
+        p.[Name]
+HAVING  MAX(sod.OrderQty) &amp;gt; 1
+ORDER BY MIN(sod.LineTotal);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT  *
+FROM    Sales.SalesOrderDetail AS sod
+WHERE   sod.ProductID = 776 ;
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;drawbacks-of-bookmark-lookups&#34;&gt;Drawbacks of Bookmark Lookups&lt;/h2&gt;
+
+&lt;p&gt;A lookup requires data page access in addition to index page access. Accessing two sets of pages increases the number of logical reads for the query. Additionally, if the pages are not available in memory, a lookup will probably require a random (or nonsequential) I/O operation on the disk to jump from the index page to the data page as well as requiring the necessary CPU power to marshal this data and perform the necessary operations. This is because, for a large table, the index page and the corresponding data page usually won’t be directly next to each other on the disk.&lt;/p&gt;
+
+&lt;h2 id=&#34;analyzing-the-cause-of-a-bookmark-lookup&#34;&gt;Analyzing the Cause of a Bookmark Lookup&lt;/h2&gt;
+
+&lt;p&gt;Since a lookup can be a costly operation, you should analyze what causes a query plan to choose a lookup step in an execution plan. You may find that you are able to avoid the lookup by including the missing columns in the nonclustered index key or as INCLUDE columns at the index page level and thereby avoid the cost overhead associated with the lookup.&lt;/p&gt;
+
+&lt;p&gt;To learn how to identify the columns not included in the nonclustered index, consider the following query, which pulls information from the HumanResources.Employee table based on NationalIDNumber:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT  NationalIDNumber,
+        JobTitle,
+        HireDate
+FROM    HumanResources.Employee AS e
+WHERE   e.NationalIDNumber = &#39;693168613&#39; ;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/images/boomark-lookup-column-properties.png&#34; alt=&#34;Book Lookup Columns&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The SELECT statement refers to columns NationalIDNumber, JobTitle, and HireDate. The nonclustered index on column NationalIDNumber doesn’t provide values for columns JobTitle and HireDate, so a lookup operation was required to retrieve those columns from the data storage location.&lt;/p&gt;
+
+&lt;p&gt;If you look at the properties on the Key Lookup (Clustered) operation, you can see the output list for the operation. This shows you the columns being output by the lookup. To get the list of output columns quickly and easily and be able to copy them, right-click the operator, which in this case is Key Lookup (Clustered).&lt;/p&gt;
+
+&lt;h2 id=&#34;resolving-bookmark-lookups&#34;&gt;Resolving Bookmark Lookups&lt;/h2&gt;
+
+&lt;p&gt;Since the relative cost of a lookup can be high, you should, wherever possible, try to get rid of lookup operations.&lt;/p&gt;
+
+&lt;h3 id=&#34;using-a-clustered-index&#34;&gt;Using a Clustered Index&lt;/h3&gt;
+
+&lt;p&gt;For a clustered index, the leaf page of the index is the same as the data page of the table. Therefore, when reading the values of the clustered index key columns, the database engine can also read the values of other columns without any navigation from the index row.&lt;/p&gt;
+
+&lt;h3 id=&#34;using-a-covering-index&#34;&gt;Using a Covering Index&lt;/h3&gt;
+
+&lt;p&gt;To understand how you can use a covering index to avoid a lookup, examine the query against the HumanResources.Employee table again.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT  NationalIDNumber,
+        JobTitle,
+        HireDate
+FROM    HumanResources.Employee AS e
+WHERE   e.NationalIDNumber = &#39;693168613&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To avoid this bookmark, you can add the columns referred to in the query, JobTitle and HireDate, directly to the nonclustered index key. This will make the nonclustered index a covering index for this query because all columns can be retrieved from the index without having to go to the heap or clustered index.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;CREATE UNIQUE NONCLUSTERED INDEX [AK_Employee_NationalIDNumber] ON
+[HumanResources].[Employee]
+(NationalIDNumber ASC,
+JobTitle ASC,
+HireDate ASC )
+WITH DROP_EXISTING;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;There are a couple of caveats to creating a covering index by changing the key, however. If you add too many columns to a nonclustered index, it becomes wider. The index maintenance cost associated with the action queries can increase.&lt;/p&gt;
+
+&lt;p&gt;Another way to arrive at the covering index, without reshaping the index by adding key columns, is to use the INCLUDE columns. Change the index to look like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;CREATE UNIQUE NONCLUSTERED INDEX [AK_Employee_NationalIDNumber]
+ON [HumanResources].[Employee]
+(NationalIDNumber ASC)
+INCLUDE  (JobTitle,HireDate)
+WITH DROP_EXISTING ;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Because the data is stored at the leaf level of the index, when the index is used to retrieve the key values, the rest of the columns in the INCLUDE statement are available for use, almost like they were part of the key&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

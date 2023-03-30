@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+  
+  
+  
+  
+   <html class="no-js"> 
+
+  <head lang="en-us">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=10" />
+    <title>Grouping Data - Introduction to SQL</title>
+    <meta name="generator" content="Hugo 0.19" />
+
+    
+    <meta name="description" content="Introduction to SQL Guide">
+    
+    <link rel="canonical" href="http://guides.peruzal.com/introduction-to-sql/grouping-data/">
+    
+    <meta name="author" content="Peruzal">
+    
+
+    <meta property="og:url" content="http://guides.peruzal.com/introduction-to-sql/grouping-data/">
+    <meta property="og:title" content="Introduction to SQL">
+    <meta property="og:image" content="http://guides.peruzal.com/images/logo.png">
+    <meta name="apple-mobile-web-app-title" content="Introduction to SQL">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="shortcut icon" type="image/x-icon" href="http://guides.peruzal.com/introduction-to-sql/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="http://guides.peruzal.com/introduction-to-sql/images/favicon.ico">
+
+    <style>
+      @font-face {
+        font-family: 'Icon';
+        src: url('http://guides.peruzal.com/introduction-to-sql/fonts/icon.eot');
+        src: url('http://guides.peruzal.com/introduction-to-sql/fonts/icon.eot')
+               format('embedded-opentype'),
+             url('http://guides.peruzal.com/introduction-to-sql/fonts/icon.woff')
+               format('woff'),
+             url('http://guides.peruzal.com/introduction-to-sql/fonts/icon.ttf')
+               format('truetype'),
+             url('http://guides.peruzal.com/introduction-to-sql/fonts/icon.svg')
+               format('svg');
+        font-weight: normal;
+        font-style: normal;
+      }
+    </style>
+
+    <link rel="stylesheet" href="http://guides.peruzal.com/introduction-to-sql/stylesheets/application.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/introduction-to-sql/stylesheets/temporary.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/introduction-to-sql/stylesheets/palettes.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/introduction-to-sql/stylesheets/highlight/highlight.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/github-gist.min.css">
+
+    
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ubuntu:400,700|Ubuntu&#43;Mono">
+    <style>
+      body, input {
+        font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+      }
+      pre, code {
+        font-family: 'Ubuntu Mono', 'Courier New', 'Courier', monospace;
+      }
+    </style>
+
+    
+    <script src="http://guides.peruzal.com/introduction-to-sql/javascripts/modernizr.js"></script>
+
+    
+
+  </head>
+  <body class="palette-primary-deep-orange palette-accent-light-blue">
+
+
+
+
+<div class="backdrop">
+	<div class="backdrop-paper"></div>
+</div>
+
+<input class="toggle" type="checkbox" id="toggle-drawer">
+<input class="toggle" type="checkbox" id="toggle-search">
+<label class="toggle-button overlay" for="toggle-drawer"></label>
+
+<header class="header">
+	<nav aria-label="Header">
+  <div class="bar default">
+    <div class="button button-menu" role="button" aria-label="Menu">
+      <label class="toggle-button icon icon-menu" for="toggle-drawer">
+        <span></span>
+      </label>
+    </div>
+    <div class="stretch">
+      <div class="title">
+        Grouping Data
+      </div>
+    </div>
+
+    
+    <div class="button button-twitter" role="button" aria-label="Twitter">
+       <a href="https://twitter.com/peruzal" title="@peruzal on Twitter" target="_blank" class="toggle-button icon icon-twitter"></a>
+    </div>
+    
+
+    
+    <div class="button button-github" role="button" aria-label="GitHub">
+      <a href="https://github.com/peruzal" title="@peruzal on GitHub" target="_blank" class="toggle-button icon icon-github"></a>
+    </div>
+    
+    
+        
+  </div>
+  <div class="bar search">
+    <div class="button button-close" role="button" aria-label="Close">
+      <label class="toggle-button icon icon-back" for="toggle-search"></label>
+    </div>
+    <div class="stretch">
+      <div class="field">
+        <input class="query" type="text" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck>
+      </div>
+    </div>
+    <div class="button button-reset" role="button" aria-label="Search">
+      <button class="toggle-button icon icon-close" id="reset-search"></button>
+    </div>
+  </div>
+</nav>
+</header>
+
+<main class="main">
+	<div class="drawer">
+		<nav aria-label="Navigation">
+  <a href="http://guides.peruzal.com/introduction-to-sql" class="project">
+    <div class="banner">
+      
+        <div class="logo">
+          <img src="http://guides.peruzal.com/introduction-to-sql/images/logo.png">
+        </div>
+      
+      <div class="name">
+        <strong>Introduction to SQL <span class="version">1.0.0</span></strong>
+        
+      </div>
+    </div>
+  </a>
+
+  <div class="scrollable">
+    <div class="wrapper">
+      
+
+      <div class="toc">
+        
+        <ul>
+          
+
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Understanding SQL" href="http://guides.peruzal.com/introduction-to-sql/understanding-sql/">
+	
+	Understanding SQL
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Retrieving Data" href="http://guides.peruzal.com/introduction-to-sql/retrieving-data/">
+	
+	Retrieving Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Sorting Data" href="http://guides.peruzal.com/introduction-to-sql/sorting-data/">
+	
+	Sorting Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Filtering Data" href="http://guides.peruzal.com/introduction-to-sql/filtering-data/">
+	
+	Filtering Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Functions Data" href="http://guides.peruzal.com/introduction-to-sql/functions/">
+	
+	Functions Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a class="current" title="Grouping Data" href="http://guides.peruzal.com/introduction-to-sql/grouping-data/">
+	
+	Grouping Data
+</a>
+
+
+<ul id="scrollspy">
+</ul>
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Sub Queries" href="http://guides.peruzal.com/introduction-to-sql/subqueries/">
+	
+	Sub Queries
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Joining Tables" href="http://guides.peruzal.com/introduction-to-sql/joining-tables/">
+	
+	Joining Tables
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Inserting Data" href="http://guides.peruzal.com/introduction-to-sql/inserting-data/">
+	
+	Inserting Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Updating Data" href="http://guides.peruzal.com/introduction-to-sql/updating-data/">
+	
+	Updating Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Deleting Data" href="http://guides.peruzal.com/introduction-to-sql/deleting-data/">
+	
+	Deleting Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Working with Tables" href="http://guides.peruzal.com/introduction-to-sql/working-with-tables/">
+	
+	Working with Tables
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Views" href="http://guides.peruzal.com/introduction-to-sql/views/">
+	
+	Views
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Stored Procedures" href="http://guides.peruzal.com/introduction-to-sql/stored-procedures/">
+	
+	Stored Procedures
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Transaction" href="http://guides.peruzal.com/introduction-to-sql/transactions/">
+	
+	Transaction
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Advanced SQL Features" href="http://guides.peruzal.com/introduction-to-sql/advanced-sql-features/">
+	
+	Advanced SQL Features
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Calculated Fields" href="http://guides.peruzal.com/introduction-to-sql/calculated-fields/">
+	
+	Calculated Fields
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Installing SQL Server" href="http://guides.peruzal.com/introduction-to-sql/installing-sql-server/">
+	
+	Installing SQL Server
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="SQL Server Architecture" href="http://guides.peruzal.com/introduction-to-sql/sql-server-architecture/">
+	
+	SQL Server Architecture
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Database Recovery" href="http://guides.peruzal.com/introduction-to-sql/database-recovery/">
+	
+	Database Recovery
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Security" href="http://guides.peruzal.com/introduction-to-sql/database-security/">
+	
+	Security
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="AlwaysOn Availability Groups" href="http://guides.peruzal.com/introduction-to-sql/sql-server-alwayson/">
+	
+	AlwaysOn Availability Groups
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Intro to SQL" href="http://guides.peruzal.com/introduction-to-sql/">
+	
+	Intro to SQL
+</a>
+
+
+
+  
+</li>
+
+
+        </ul>
+        
+
+        
+        <hr>
+        <span class="section">The author</span>
+        
+        <ul>
+          
+          <li>
+            <a href="https://twitter.com/peruzal" target="_blank" title="@peruzal on Twitter">
+              @peruzal on Twitter
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="https://github.com/peruzal" target="_blank" title="@peruzal on GitHub">
+              @peruzal on GitHub
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="mailto:hello@peruzal.com" title="Email of hello@peruzal.com">
+              Contact via email
+            </a>
+          </li>
+          
+        </ul>
+        
+      </div>
+    </div>
+  </div>
+</nav>
+
+	</div>
+
+	<article class="article">
+		<div class="wrapper">
+			<h1>Grouping Data </h1>
+
+			
+
+<h2 id="understanding-data-grouping">Understanding Data Grouping</h2>
+
+<p>Grouping lets you divide data into logical sets so that you can perform aggregate calculations on each group.</p>
+
+<h2 id="creating-groups">Creating Groups</h2>
+
+<p>Groups are created using the GROUP BY clause in your SELECT statement. The best way to understand this is to look at an example:</p>
+
+<pre><code class="language-sql">SELECT vend_id, COUNT(*) AS num_prods
+FROM Products
+GROUP BY vend_id;
+</code></pre>
+
+<p>The above <strong>SELECT</strong> statement specifies two columns, _vend<em>id</em>, which contains the ID of a product’s vendor, and _num<em>prods</em>, which is a calculated field (created using the <strong>COUNT(*)</strong> function). The <strong>GROUP BY</strong> clause instructs the DBMS to sort the data and group it by vend_id. This causes num_prods to be calculated once per vend_id rather than once for the entire table. As you can see in the output, vendor <em>BRS01</em> has 3 products listed, vendor <em>DLL01</em> has 4 products listed, and vendor <em>FNG01</em> has 2 products listed.</p>
+
+<p>Because you used <strong>GROUP BY</strong>, you did not have to specify each group to be evaluated and calculated. That was done automatically. The <strong>GROUP BY</strong> clause instructs the DBMS to group the data and then perform the aggregate on each group rather than on the entire result set.</p>
+
+<h2 id="filtering-groups">Filtering Groups</h2>
+
+<p>In addition to being able to group data using GROUP BY, SQL also allows you to filter which groups to include and which to exclude. The <strong>HAVING</strong> clause is used, it works similar to the <strong>WHERE</strong> keyword but for groups.</p>
+
+<p>Look at the following example:</p>
+
+<pre><code class="language-sql">SELECT cust_id, COUNT(*) AS orders
+FROM Orders
+GROUP BY cust_id
+HAVING COUNT(*) &gt;= 2;
+</code></pre>
+
+<p>The first three lines of this <strong>SELECT</strong> statement are similar to the statements seen above. The final line adds a <strong>HAVING</strong> clause that filters on those groups with a _COUNT(*) &gt;= 2_—two or more orders.</p>
+
+<p>As you can see, a <strong>WHERE</strong> clause does not work here because the filtering is based on the group aggregate value, not on the values of specific rows.</p>
+
+<div class="admonition note">
+<p class="admonition-title">The Difference Between HAVING and WHERE</p>
+<p>Here’s another way to look it: WHERE filters before data is grouped, and HAVING filters after data is grouped. This is an important distinction; rows that are eliminated by a WHERE clause will not be included in the group. This could change the calculated values which in turn could affect which groups are filtered based on the use of those values in the HAVING clause.</p>
+</div>
+
+<h3 id="using-both-where-and-having">Using both WHERE and HAVING</h3>
+
+<pre><code class="language-sql">SELECT vend_id, COUNT(*) AS num_prods
+FROM Products
+WHERE prod_price &gt;= 4
+GROUP BY vend_id
+HAVING COUNT(*) &gt;= 2;
+</code></pre>
+
+<p>The first line is a basic <strong>SELECT</strong> using an aggregate function—much like the examples thus far. The <strong>WHERE</strong> clause filters all rows with a prod_price of at least 4. Data is then grouped by vend_id, and then a <strong>HAVING</strong> clause filters just those groups with a count of 2 or more. Without the <strong>WHERE</strong> clause an extra row would have been retrieved (vendor <em>DLL01</em> who sells four products all priced under 4) as seen here:</p>
+
+<pre><code class="language-sql">SELECT vend_id, COUNT(*) AS num_prods
+FROM Products
+GROUP BY vend_id
+HAVING COUNT(*) &gt;= 2;
+</code></pre>
+
+<h2 id="grouping-and-sorting">Grouping and Sorting</h2>
+
+<p>Lets look at ordering the results from a grouping. The following statement retrieves the order number and number of items ordered for all orders containing three or more items:</p>
+
+<pre><code class="language-sql">SELECT order_num, COUNT(*) AS items
+FROM OrderItems
+GROUP BY order_num
+HAVING COUNT(*) &gt;= 3;
+</code></pre>
+
+<p>To sort the output by number of items ordered, all you need to do is add an ORDER BY clause, as follows:</p>
+
+<pre><code class="language-sql">SELECT order_num, COUNT(*) AS items
+FROM OrderItems
+GROUP BY order_num
+HAVING COUNT(*) &gt;= 3
+ORDER BY items, order_num;
+</code></pre>
+
+
+			<aside class="copyright" role="note">
+				
+				&copy; 2017 Copyright 2017 Peruzal &ndash;
+				
+				Documentation built with
+				<a href="https://www.gohugo.io" target="_blank">Hugo</a>
+				using the
+				<a href="http://github.com/digitalcraftsman/hugo-material-docs" target="_blank">Material</a> theme.
+			</aside>
+
+			<footer class="footer">
+				
+
+<nav class="pagination" aria-label="Footer">
+  <div class="previous">
+  
+      <a href="http://guides.peruzal.com/introduction-to-sql/subqueries/" title="Subqueries">
+        <span class="direction">
+          Previous
+        </span>
+        <div class="page">
+          <div class="button button-previous" role="button" aria-label="Previous">
+            <i class="icon icon-back"></i>
+          </div>
+          <div class="stretch">
+            <div class="title">
+              Subqueries
+            </div>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+
+  <div class="next">
+  
+      <a href="http://guides.peruzal.com/introduction-to-sql/functions/" title="Functions">
+        <span class="direction">
+          Next
+        </span>
+        <div class="page">
+          <div class="stretch">
+            <div class="title">
+              Functions
+            </div>
+          </div>
+          <div class="button button-next" role="button" aria-label="Next">
+            <i class="icon icon-forward"></i>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+</nav>
+
+
+
+
+
+			</footer>
+		</div>
+	</article>
+
+	<div class="results" role="status" aria-live="polite">
+		<div class="scrollable">
+			<div class="wrapper">
+				<div class="meta"></div>
+				<div class="list"></div>
+			</div>
+		</div>
+	</div>
+</main>
+
+    <script>
+    
+      var base_url = '';
+      var repo_id  = '';
+    
+    </script>
+
+    <script src="http://guides.peruzal.com/introduction-to-sql/javascripts/application.js"></script>
+    
+
+    <script>
+      /* Add headers to scrollspy */
+      var headers   = document.getElementsByTagName("h2");
+      var scrollspy = document.getElementById('scrollspy');
+
+      if(scrollspy) {
+        if(headers.length > 0) {
+          for(var i = 0; i < headers.length; i++) {
+            var li = document.createElement("li");
+            li.setAttribute("class", "anchor");
+
+            var a  = document.createElement("a");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", headers[i].innerHTML);
+            a.innerHTML = headers[i].innerHTML;
+
+            li.appendChild(a)
+            scrollspy.appendChild(li);
+          }
+        } else {
+          scrollspy.parentElement.removeChild(scrollspy)
+        }
+
+
+        /* Add permanent link next to the headers */
+        var headers = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+
+        for(var i = 0; i < headers.length; i++) {
+            var a = document.createElement("a");
+            a.setAttribute("class", "headerlink");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", "Permanent link")
+            a.innerHTML = "#";
+            headers[i].appendChild(a);
+        }
+      }
+    </script>
+
+    
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>
+

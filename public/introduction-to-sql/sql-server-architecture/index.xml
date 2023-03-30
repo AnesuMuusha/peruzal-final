@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Sql-server-architectures on Introduction to SQL</title>
+    <link>http://guides.peruzal.com/introduction-to-sql/sql-server-architecture/index.xml</link>
+    <description>Recent content in Sql-server-architectures on Introduction to SQL</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Copyright 2017 Peruzal</copyright>
+    <lastBuildDate>Wed, 15 Mar 2017 07:23:27 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/introduction-to-sql/sql-server-architecture/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>SQL Server Architecture</title>
+      <link>http://guides.peruzal.com/introduction-to-sql/sql-server-architecture/</link>
+      <pubDate>Wed, 15 Mar 2017 07:23:27 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/introduction-to-sql/sql-server-architecture/</guid>
+      <description>
+
+&lt;h2 id=&#34;system-databases&#34;&gt;System Databases&lt;/h2&gt;
+
+&lt;p&gt;During the installation of the Database Engine, the following system databases are generated:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;master&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;model&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;tempdb&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;msdb&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;master-database&#34;&gt;&lt;strong&gt;master&lt;/strong&gt; Database&lt;/h3&gt;
+
+&lt;p&gt;The master database is the most important system database of the Database Engine. It comprises all system tables that are necessary for your work. For example, the master database contains information about all other databases managed by the Database Engine, system connections to clients, and user authorizations.&lt;/p&gt;
+
+&lt;p&gt;Because of the importance of this system database, you should always keep a current backup copy of it. Also, the master database is modified each time you perform an operation such as creating user databases or user tables.&lt;/p&gt;
+
+&lt;h3 id=&#34;model-database&#34;&gt;&lt;strong&gt;model&lt;/strong&gt; Database&lt;/h3&gt;
+
+&lt;p&gt;The model database is used as a template when user-defined databases are created. It contains the subset of all system tables of the master database, which every user-defined database needs. The system administrator can change the properties of the model database to adapt it to the specific needs of their system.&lt;/p&gt;
+
+&lt;h3 id=&#34;tempdb-database&#34;&gt;&lt;strong&gt;tempdb&lt;/strong&gt; Database&lt;/h3&gt;
+
+&lt;p&gt;The tempdb database provides the storage space for temporary tables and other temporary objects that are needed. For example, the system stores intermediate results of the calculation of each complex expression in the tempdb database. The tempdb database is used by all the databases belonging to the entire system. Its content is destroyed every time the system is restarted.&lt;/p&gt;
+
+&lt;p&gt;The system stores three different elements in the tempdb database:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;User objects&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Internal objects&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Version store&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Local and global temporary tables&lt;/strong&gt;, which are created by users, are stored in the &lt;strong&gt;tempdb&lt;/strong&gt; database. The other objects stored in this system database are table variables and table-valued functions.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Internal objects&lt;/strong&gt; are similar to user objects, except that they are not visible using catalog views or other tools to retrieve metadata. There are three types of internal objects: work files, work tables, and sort units. Work files are created when the system retrieves information using particular operators. Work tables are created by the system when certain operations, such as spooling and recovering databases and tables by the DBCC command, are executed. Finally, sort units are created when a sort operation is executed.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Optimistic concurrency&lt;/strong&gt; uses the tempdb database as a place to store versions of rows. Hence, the tempdb database grows each time the system performs the following operations, among others:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;An INSERT, UPDATE, or DELETE statement is executed in a snapshot transaction&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;A trigger is executed&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;msdb-database&#34;&gt;&lt;strong&gt;msdb&lt;/strong&gt; Database&lt;/h3&gt;
+
+&lt;p&gt;The msdb database is used by the component called SQL Server Agent to schedule alerts and jobs. This system database contains task scheduling, exception handling, alert management, and system operator information; for example, the msdb database holds information for all the operators, such as e-mail addresses and pager numbers, and history information about all the backups and restore operations.&lt;/p&gt;
+
+&lt;h2 id=&#34;disk-storage-structure&#34;&gt;Disk Storage Structure&lt;/h2&gt;
+
+&lt;p&gt;The storage architecture of the Database Engine contains several units for storing database objects:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Page&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Extent&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;File&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Filegroup&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The main unit of data storage is the page. The size of a page is always 8KB. Each page has a 96-byte header used to store the system information. Data rows are placed on the page immediately after the header.&lt;/p&gt;
+
+&lt;p&gt;The Database Engine supports different page types. The most important are&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Data pages&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Index pages&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;admonition note&#34;&gt;
+&lt;p class=&#34;admonition-title&#34;&gt;Note&lt;/p&gt;
+&lt;p&gt;Data and index pages are actually physical parts of a database where the corresponding tables and indices are stored. The content of a database is stored in one or more files, and each file is divided into page units. Therefore, each table or index page (as a database physical unit) can be uniquely identified using a database ID, database file ID, and a page number.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;p&gt;When you create a table or index, the system allocates a fixed amount of space to contain the data belonging to the table or index. When the space fills, the space for additional storage must be allocated. The physical unit of storage in which space is allocated to a table (index) is called an extent. An &lt;strong&gt;extent&lt;/strong&gt; comprises eight contiguous pages, or 64KB. There are two types of extents:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Uniform extents&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Mixed extents&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Uniform extents are owned by a single table or index, while mixed extents are shared by up to eight tables or indices. The system always allocates pages from mixed extents first. After that, if the size of the table (index) is greater than eight pages, it switches to uniform extents.&lt;/p&gt;
+
+&lt;h2 id=&#34;utilities-and-the-dbcc-command&#34;&gt;Utilities and the DBCC Command&lt;/h2&gt;
+
+&lt;p&gt;Utilities are components that provide different features such as data reliability, data definition, and statistics maintenance functions. The following utilities are described next:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;bcp&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;sqlcmd&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;sqlservr&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;bcp-utility&#34;&gt;&lt;strong&gt;bcp&lt;/strong&gt; Utility&lt;/h3&gt;
+
+&lt;p&gt;bcp (Bulk Copy Program) is a useful utility that copies database data to/from a data file. Therefore, bcp is often used to transfer a large amount of data into a Database Engine database from another relational DBMS using a text file, or vice versa.&lt;/p&gt;
+
+&lt;p&gt;E.g to copy the the table into a file :&lt;/p&gt;
+
+&lt;p&gt;bcp AdventureWorks2012.Person.Address out &amp;ldquo;address.tx&amp;rdquo; -T -c&lt;/p&gt;
+
+&lt;p&gt;The &lt;strong&gt;bcp&lt;/strong&gt; command in exports the data from the address table of the &lt;strong&gt;AdventureWorks&lt;/strong&gt; database in the output file address.txt. The option &lt;strong&gt;–&lt;/strong&gt;T specifies that the trusted connection is used. (Trusted connection means that the system uses integrated security instead of the SQL Server authentication.) The option &lt;strong&gt;–c&lt;/strong&gt; specifies character mode; thus, the data is stored in the ASCII file.&lt;/p&gt;
+
+&lt;h3 id=&#34;sqlcmd-utility&#34;&gt;&lt;strong&gt;sqlcmd&lt;/strong&gt; Utility&lt;/h3&gt;
+
+&lt;p&gt;sqlcmd allows you to enter Transact-SQL statements, system procedures, and script files at the command prompt.&lt;/p&gt;
+
+&lt;p&gt;E.g to run a script in a file and put the results in a file :&lt;/p&gt;
+
+&lt;p&gt;sqlcmd -S localhost -i C:\Scripts\test.sql -o C:\Output\report.rpt&lt;/p&gt;
+
+&lt;h3 id=&#34;dbcc-command&#34;&gt;DBCC Command&lt;/h3&gt;
+
+&lt;p&gt;The Transact-SQL language supports the DBCC (Database Console Commands) statements, which are commands for the Database Engine. Depending on the options used with DBCC, the DBCC commands can be divided into the following groups:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Maintenance&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Informational&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Validation&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Miscellaneous&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

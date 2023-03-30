@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Sql-server-alwaysons on Introduction to SQL</title>
+    <link>http://guides.peruzal.com/introduction-to-sql/sql-server-alwayson/index.xml</link>
+    <description>Recent content in Sql-server-alwaysons on Introduction to SQL</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Copyright 2017 Peruzal</copyright>
+    <lastBuildDate>Fri, 17 Mar 2017 00:43:53 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/introduction-to-sql/sql-server-alwayson/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>SQL Server AlwaysOn Step by Step Setup</title>
+      <link>http://guides.peruzal.com/introduction-to-sql/sql-server-alwayson/</link>
+      <pubDate>Fri, 17 Mar 2017 00:43:53 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/introduction-to-sql/sql-server-alwayson/</guid>
+      <description>
+
+&lt;p&gt;This guide will walk you through step by step to setup SQL Server AlwaysOn on SQL Server Server 2016 running on Windos Server 2016.&lt;/p&gt;
+
+&lt;h3 id=&#34;prerequisites&#34;&gt;Prerequisites&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Windows Server 2016&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;SQL Server Developer/Standard Edition&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Three machines running Windows 2016 (WESTEROS, CASTLE-BLACK, WITNESS)&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;step-1-enable-failover-clustering&#34;&gt;Step 1 - Enable Failover Clustering&lt;/h2&gt;
+
+&lt;p&gt;AlwaysOn requires Failover Clustering feature to be added to machine that will have SQL Server installed. You can add this feature through the server manager :&lt;/p&gt;
+
+&lt;h3 id=&#34;open-server-manager&#34;&gt;Open Server Manager&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/cluster/add-roles-step-1.PNG&#34; alt=&#34;Open Server Manager&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;select-installation-type&#34;&gt;Select Installation Type&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/cluster/add-roles-installation-type.PNG&#34; alt=&#34;Add Roles Installation Type&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;choose-the-server-to-install-the-feature-on&#34;&gt;Choose the Server to Install the Feature on&lt;/h3&gt;
+
+&lt;p&gt;You will need to repeat this process for each on the servers, that is for &lt;strong&gt;WESTEROS&lt;/strong&gt; and &lt;strong&gt;CASTLE-BLACK&lt;/strong&gt; which will be nodes in the cluster.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/cluster/server-selection.PNG&#34; alt=&#34;Choose Server&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;don-t-choose-any-server-roles&#34;&gt;Don&amp;rsquo;t choose any Server Roles&lt;/h3&gt;
+
+&lt;p&gt;Click next on the Server Roles, we are not adding anything from this page, we are adding features that are found on the next screen.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/cluster/server-role.PNG&#34; alt=&#34;Choose Server Roles&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;add-the-failover-clustering&#34;&gt;Add the Failover Clustering&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/cluster/failover-clustering.png&#34; alt=&#34;Failover clustering features&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;add-the-feature&#34;&gt;Add the feature&lt;/h3&gt;
+
+&lt;p&gt;Installation will start and the results will be displayed once install is complete.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/cluster/confirm-and-finish.PNG&#34; alt=&#34;Failover Clustering&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;creating-the-cluster&#34;&gt;Creating the Cluster&lt;/h3&gt;
+
+&lt;p&gt;The next step is to create the cluster and add the nodes to it. This step can be performed from any one of the nodes.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/cluster/create-cluster-wizard-select-servers.PNG&#34; alt=&#34;Create Cluster&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Add the nodes and run the validation tests. Once the tests are done you will have a cluster created.&lt;/p&gt;
+
+&lt;h3 id=&#34;add-a-file-share-quorum-witness&#34;&gt;Add a File Share Quorum Witness&lt;/h3&gt;
+
+&lt;p&gt;Since we only have two nodes, we need a third node to vote so that the server can stay online with a majority vote of two.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/cluster/cluster-configuration-quorum-witness.PNG&#34; alt=&#34;Quorum Witness Wizard&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;choose-quorum-option&#34;&gt;Choose Quorum Option&lt;/h3&gt;
+
+&lt;p&gt;Select the File Witness quorum option as we need to use a shared folder as a witness.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/cluster/qorum-options.PNG&#34; alt=&#34;Quorum Option&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;configure-file-share-witness&#34;&gt;Configure File Share Witness&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/cluster/quorum-witness.PNG&#34; alt=&#34;Configure File Share Witness&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;choose-the-shared-folder-path&#34;&gt;Choose the Shared Folder Path&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/cluster/file-share-witness.PNG&#34; alt=&#34;Choose the Shared Folder Path&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The quorum should now a witness and it will be brought online.&lt;/p&gt;
+
+&lt;h2 id=&#34;step-2-enable-alwayson&#34;&gt;Step 2 - Enable AlwaysOn&lt;/h2&gt;
+
+&lt;p&gt;Now that we have a working cluster, we can now enable AlwaysOn in the SQL Server Configuration Tool.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/cluster/enable-alwayson-sql-server-configuration.PNG&#34; alt=&#34;Enable AlwaysOn&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;step-3-create-alwayson-availability-groups&#34;&gt;Step 3 - Create AlwaysOn Availability Groups&lt;/h2&gt;
+
+&lt;p&gt;AlwaysOn Availability Groups is a set of database that are always failed over to another server in the cluster together.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/cluster/create always on availability group1.png&#34; alt=&#34;New Availability Group&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;sepcify-the-name-of-the-ag&#34;&gt;Sepcify the Name of the AG&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/cluster/create always on availability group3.png&#34; alt=&#34;Give the AG a Name&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;add-database-to-the-ag&#34;&gt;Add Database to the AG&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/cluster/create always on availability group4.png&#34; alt=&#34;Add Database to the AG&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;choose-replica-servers&#34;&gt;Choose Replica Servers&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/cluster/create always on availability group5.png&#34; alt=&#34;Replica Server&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;change-backup-preferences&#34;&gt;Change Backup Preferences&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/cluster/create always on availability group9.png&#34; alt=&#34;Backup Preferences&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;add-the-ag-listener&#34;&gt;Add the AG Listener&lt;/h3&gt;
+
+&lt;p&gt;This is the hostname used to connect to the availability group.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/cluster/create always on availability group10.png&#34; alt=&#34;Availability Group Listener&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;choose-synchronization-option&#34;&gt;Choose Synchronization Option&lt;/h3&gt;
+
+&lt;p&gt;Select how the initial synchronization of the database would happen, the easiest is to use a file share.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

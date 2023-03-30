@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Database-tuning-advisors on SQL Server Performance and Tuning</title>
+    <link>http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/database-tuning-advisor/index.xml</link>
+    <description>Recent content in Database-tuning-advisors on SQL Server Performance and Tuning</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Copyright 2017 Peruzal</copyright>
+    <lastBuildDate>Sat, 18 Mar 2017 14:52:22 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/database-tuning-advisor/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Datase Tuning Advisor</title>
+      <link>http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/database-tuning-advisor/</link>
+      <pubDate>Sat, 18 Mar 2017 14:52:22 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/database-tuning-advisor/</guid>
+      <description>
+
+&lt;h2 id=&#34;database-engine-tuning-advisor-mechanisms&#34;&gt;Database Engine Tuning Advisor Mechanisms&lt;/h2&gt;
+
+&lt;p&gt;This tool can help identify an optimal set of indexes and statistics for a given workload without requiring an expert understanding of the database schema, workload, or SQL Server internals.&lt;/p&gt;
+
+&lt;h3 id=&#34;running-dta&#34;&gt;Running DTA&lt;/h3&gt;
+
+&lt;p&gt;You can run the DTA from the command line or within SQL Server Management Studio.&lt;/p&gt;
+
+&lt;h3 id=&#34;running-from-the-command-line&#34;&gt;Running from the command line&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Click &lt;strong&gt;Start&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Type &lt;strong&gt;run&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Type &lt;strong&gt;cmd&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;From the cmd you now access the &lt;strong&gt;dta&lt;/strong&gt; command line tool&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;running-from-sql-server-management-studio&#34;&gt;Running from SQL Server Management Studio&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Click &lt;strong&gt;Tools&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Choose &lt;strong&gt;Database Tuning Advisor&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;You can also tune a specific query from SMSS by right-clicking and choosing &lt;strong&gt;Database Tuning Advisor&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/images/database-tuning-advisor.png&#34; alt=&#34;Database Tuning Advisor&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;database-engine-tuning-advisor-examples&#34;&gt;Database Engine Tuning Advisor Examples&lt;/h2&gt;
+
+&lt;p&gt;Tuning a Query&lt;/p&gt;
+
+&lt;p&gt;You can use the Database Engine Tuning Advisor to recommend indexes for a complete database by using a workload that fairly represents all SQL activities. You can also use it to recommend indexes for a set of problematic queries.&lt;/p&gt;
+
+&lt;p&gt;To learn how you can use the Database Engine Tuning Advisor to get index recommendations on a set of problematic queries, say you have a simple query that is called rather frequently. Because of the frequency, you want a quick turnaround for some tuning. This is the query:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT  soh.DueDate,
+        soh.CustomerID,
+        soh.Status
+FROM    Sales.SalesOrderHeader AS soh
+WHERE   soh.DueDate BETWEEN &#39;1/1/2008&#39; AND &#39;2/1/2008&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To analyze the query, right-click it in the query window and select Analyze Query in the Database Engine Tuning Advisor.&lt;/p&gt;
+
+&lt;h2 id=&#34;tuning-a-workload-using-the-plan-cache&#34;&gt;Tuning a Workload Using the Plan Cache&lt;/h2&gt;
+
+&lt;p&gt;You can also specify the plan cache as a workload to tune.  In this case, the DTA will select the top 1,000 events from the plan cache based on total elapsed time of the query (that is, based on the total_elapsed_time column of the &lt;strong&gt;sys.dm_exec_query_stats&lt;/strong&gt; DMV)&lt;/p&gt;
+
+&lt;p&gt;Let’s try an example, and to make it easy to see the results, let’s clear the plan cache and run only one query in Management Studio:s&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt; -- let’s clear the plan cache and run only one query in Management Studio:
+DBCC FREEPROCCACHE
+GO
+SELECT SalesOrderID, OrderQty, ProductID
+FROM dbo.SalesOrderDetail
+WHERE CarrierTrackingNumber = &#39;D609-4F2A-9B&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;After the query is executed, most likely, it will be kept in the plan cache. Open a new DTA session. In the Workload option, select Plan Cache and specify AdventureWorks2012 as both the database to tune and the database for workload analysis. Click the Start Analysis button. After the analysis is completed, you can select the Recommendations tab and select Index Recommendations, which will include the following recommendations (which you can see by looking at the Definition column):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;-- after the analysis is completed, you can select the Recommendations tab
+CREATE NONCLUSTERED INDEX [_dta_index_SalesOrderDetail_5_807673925__K3_1_4_5]
+ON [dbo].[SalesOrderDetail]
+(
+[CarrierTrackingNumber] ASC
+)
+INCLUDE ([SalesOrderID],
+[OrderQty],
+[ProductID]) WITH (SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF)
+ON [PRIMARY]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;-- finally, drop the table you just created by running the following statement:
+DROP TABLE dbo.SalesOrderDetail
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;offload-of-tuning-overhead-to-test-server&#34;&gt;Offload of Tuning Overhead to Test Server&lt;/h2&gt;
+
+&lt;p&gt;One of the most interesting and perhaps less known features of the DTA is that you can use it with a test server to tune the workload of a production server.&lt;/p&gt;
+
+&lt;p&gt;The DTA can gather the database metadata and statistics from the production server and use it to create a similar database, with no data, on a different server. This database is called a shell database.&lt;/p&gt;
+
+&lt;h2 id=&#34;database-engine-tuning-advisor-limitations&#34;&gt;Database Engine Tuning Advisor Limitations&lt;/h2&gt;
+
+&lt;p&gt;The Database Engine Tuning Advisor recommendations are based on the input workload. If the input workload is not a true representation of the actual workload, then the recommended indexes may sometimes have a negative effect on some queries that are missing in the workload.&lt;/p&gt;
+
+&lt;p&gt;But most importantly, in many cases, the Database Engine Tuning Advisor may not recognize possible tuning opportunities. It has a sophisticated testing engine, but in some scenarios, its capabilities are limited&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

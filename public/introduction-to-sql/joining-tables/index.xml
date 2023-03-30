@@ -1,0 +1,577 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Joining-tables on Introduction to SQL</title>
+    <link>http://guides.peruzal.com/introduction-to-sql/joining-tables/index.xml</link>
+    <description>Recent content in Joining-tables on Introduction to SQL</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Copyright 2017 Peruzal</copyright>
+    <lastBuildDate>Tue, 28 Feb 2017 21:51:23 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/introduction-to-sql/joining-tables/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Joining Tables</title>
+      <link>http://guides.peruzal.com/introduction-to-sql/joining-tables/</link>
+      <pubDate>Tue, 28 Feb 2017 21:51:23 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/introduction-to-sql/joining-tables/</guid>
+      <description>
+
+&lt;h2 id=&#34;understanding-joins&#34;&gt;Understanding Joins&lt;/h2&gt;
+
+&lt;p&gt;Relational tables are designed so that information is split into multiple tables, one for each data type. The tables are related to each other through common values (and thus the relational in relational design).&lt;/p&gt;
+
+&lt;h2 id=&#34;using-inner-join&#34;&gt;Using INNER JOIN&lt;/h2&gt;
+
+&lt;p&gt;Most of the time, to join tables together, you will use INNER JOIN. When connecting two tables with INNER JOIN, only the rows from the tables that match on the joining columns will show up in the results. If you join the customer and order tables, the query will return only the customers who have placed orders, along with the orders that have been placed. Only the rows where the customer ID is common in both tables will show up in the results&lt;/p&gt;
+
+&lt;h3 id=&#34;creating-a-join&#34;&gt;Creating a Join&lt;/h3&gt;
+
+&lt;p&gt;Joining table is easy, you just add the table after the JOIN keyword. Here is the syntax for joining two tables (the keyword INNER is optional):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT &amp;lt;select list&amp;gt;
+FROM &amp;lt;table1&amp;gt;
+[INNER] JOIN &amp;lt;table2&amp;gt; ON &amp;lt;table1&amp;gt;.&amp;lt;col1&amp;gt; = &amp;lt;table2&amp;gt;.&amp;lt;col2&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/joining-tables.PNG&#34; alt=&#34;Joining Tables&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Here is an example join on the two tables :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT s.SalesOrderID, s.OrderDate, s.TotalDue, d.SalesOrderDetailID,
+    d.ProductID, d.OrderQty
+FROM Sales.SalesOrderHeader AS s
+INNER JOIN Sales.SalesOrderDetail AS d ON s.SalesOrderID = d.SalesOrderID;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Creating a join is very simple. You must specify all the tables to be included and how they are related to each other. Look at the following example&lt;/p&gt;
+
+&lt;p&gt;The SELECT list may contain columns from either of the tables. In the FROM clause, you list one of the tables followed by the words INNER JOIN and the second table name. To define how the two tables join together, use the keyword ON and an equality expression.&lt;/p&gt;
+
+&lt;p&gt;If a row exists in the &lt;em&gt;Sales.SalesOrderHeader&lt;/em&gt; table with no matches in the &lt;em&gt;Sales.SalesOrderDetail&lt;/em&gt; table, the &lt;em&gt;Sales.SalesOrderHeader&lt;/em&gt; row will not show up in the results.&lt;/p&gt;
+
+&lt;p&gt;Because the column name, &lt;em&gt;SalesOrderID&lt;/em&gt;, is the same in both tables, it must be fully qualified with the table name anywhere it is used in the query.&lt;/p&gt;
+
+&lt;p&gt;Here is another example form the small Training database :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT vend_name, prod_name, prod_price
+FROM Vendors, Products
+WHERE Vendors.vend_id = Products.vend_id;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;The WHERE clause acts as a filter to only include rows that match the specified filter condition—the join condition, in this case. Without the WHERE clause, every row in the first table will be paired with every row in the second table, regardless of if they logically go together or not.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&#34;admonition warning&#34;&gt;
+&lt;p class=&#34;admonition-title&#34;&gt;Cartesian Product&lt;/p&gt;
+&lt;p&gt;The results returned by a table relationship without a join condition. The number of rows retrieved will be the number of rows in the first table multiplied by the number of rows in the second table.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT vend_name, prod_name, prod_price
+FROM Vendors, Products;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;admonition note&#34;&gt;
+&lt;p class=&#34;admonition-title&#34;&gt;Cross Joins&lt;/p&gt;
+&lt;p&gt;Sometimes you’ll hear the type of join that returns a Cartesian Product referred to as a cross join.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;inner-join&#34;&gt;Inner Join&lt;/h2&gt;
+
+&lt;p&gt;The join you have been using so far is called an &lt;strong&gt;equijoin&lt;/strong&gt;—a join based on the testing of equality between two tables. This kind of join is also called an inner join. In fact, you may use a slightly different syntax for these joins, specifying the type of join explicitly. The following SELECT statement returns the exact same data as the preceding example :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT vend_name, prod_name, prod_price
+FROM Vendors INNER JOIN Products
+ ON Vendors.vend_id = Products.vend_id;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;The &lt;strong&gt;SELECT&lt;/strong&gt; in the statement is the same as the preceding &lt;strong&gt;SELECT&lt;/strong&gt; statement, but the FROM clause is different. Here the relationship between the two tables is part of the FROM clause specified as &lt;strong&gt;INNER JOIN&lt;/strong&gt;. When using this syntax the join condition is specified using the special ON clause instead of a WHERE clause. The actual condition passed to ON is the same as would be passed to &lt;strong&gt;WHERE&lt;/strong&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&#34;joining-multiple-tables&#34;&gt;Joining Multiple Tables&lt;/h3&gt;
+
+&lt;p&gt;SQL imposes no limit to the number of tables that may be joined in a SELECT statement. The basic rules for creating the join remain the same. First list all the tables, and then define the relationship between each. Here is an example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT prod_name, vend_name, prod_price, quantity
+FROM OrderItems, Products, Vendors
+WHERE Products.vend_id = Vendors.vend_id
+AND OrderItems.prod_id = Products.prod_id
+AND order_num = 20007;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;joining-on-a-different-column-name&#34;&gt;Joining on a Different Column Name&lt;/h3&gt;
+
+&lt;p&gt;You can join tables even if they have different column names. The data only needs to be related, e.g the Person.Person and Sales.Customer are related on the BusinessEntityID and CustomerID columns.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/join-different-columns.PNG&#34; alt=&#34;Joining on different column names&#34; /&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT c.CustomerID, c.PersonID, p.BusinessEntityID, p.LastName
+FROM Sales.Customer AS c
+INNER JOIN Person.Person AS p ON c.PersonID = p.BusinessEntityID;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;joining-on-more-than-one-column&#34;&gt;Joining on More Than One Column&lt;/h3&gt;
+
+&lt;p&gt;Although a JOIN frequently involves joining on a single column, sometimes you might need to join on multiple columns.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/joining-multiple-columns.PNG&#34; alt=&#34;Joining in multiple columns&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The &lt;em&gt;Sales.SpecialOfferProduct&lt;/em&gt; table has a composite primary key composed of &lt;em&gt;SpecialOfferID&lt;/em&gt; plus &lt;em&gt;ProductID&lt;/em&gt;. To identify a row in this table, you must use both columns. When joining &lt;em&gt;Sales.SalesOrderDetail&lt;/em&gt; to the &lt;em&gt;Sales.SpecialOfferProduct&lt;/em&gt; table, you specify both columns in the join.&lt;/p&gt;
+
+&lt;p&gt;To determine which row matches the rows from Sales.SalesOrderDetail, both columns are used in the join condition. If the join contained only one of the columns, the results would be similar to the incorrect results&lt;/p&gt;
+
+&lt;h3 id=&#34;joining-three-or-more-tables&#34;&gt;Joining Three or More Tables&lt;/h3&gt;
+
+&lt;p&gt;You would join more than two tables in situations that involve a many to many relationship.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/joining-multiple-tables.PNG&#34; alt=&#34;Joining multiple tables&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Here is the syntax to add more tables to the JOIN clause :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT &amp;lt;SELECT list&amp;gt; FROM &amp;lt;table1&amp;gt;
+[INNER] JOIN &amp;lt;table2&amp;gt; ON &amp;lt;table1&amp;gt;.&amp;lt;col1&amp;gt; = &amp;lt;table2&amp;gt;.&amp;lt;col2&amp;gt;
+[INNER] JOIN &amp;lt;table3&amp;gt; ON &amp;lt;table2&amp;gt;.&amp;lt;col2&amp;gt; = &amp;lt;table3&amp;gt;.&amp;lt;col3&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here is an example query joining multiple tables :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT soh.SalesOrderID, soh.OrderDate, p.ProductID, p.Name
+FROM Sales.SalesOrderHeader as soh
+INNER JOIN Sales.SalesOrderDetail AS sod ON soh.SalesOrderID = sod.SalesOrderID
+INNER JOIN Production.Product AS p ON sod.ProductID = p.ProductID
+ORDER BY soh.SalesOrderID;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Notice that even though the query joins three tables, the query displays columns from only two of the tables.&lt;/p&gt;
+
+&lt;h3 id=&#34;exercises&#34;&gt;Exercises&lt;/h3&gt;
+
+&lt;p&gt;Use the AdventureWorks database to complete this exercise.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;The &lt;em&gt;HumanResources.Employee&lt;/em&gt; table does not contain the employee names. Join that table to the _Person.Person _table on the &lt;em&gt;BusinessEntityID&lt;/em&gt; column. Display the &lt;em&gt;job title, birth date, first name, and last name&lt;/em&gt;.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;The customer names also appear in the &lt;em&gt;Person.Person&lt;/em&gt; table. Join the_ Sales.Customer_ table to the &lt;em&gt;Person.Person&lt;/em&gt; table. The &lt;em&gt;BusinessEntityID&lt;/em&gt; column in the &lt;em&gt;Person.Person&lt;/em&gt; table matches the &lt;em&gt;PersonID&lt;/em&gt; column in the &lt;em&gt;Sales.Customer&lt;/em&gt; table. Display the_ CustomerID, StoreID_, and &lt;em&gt;TerritoryID&lt;/em&gt; columns along with the name columns.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Extend the query written in question 2 to include the &lt;em&gt;Sales.SalesOrderHeader&lt;/em&gt; table. Display the &lt;em&gt;SalesOrderID&lt;/em&gt; column along with the columns already specified. The &lt;em&gt;Sales.SalesOrderHeader&lt;/em&gt; table joins the Sales.Customer table on &lt;em&gt;CustomerID&lt;/em&gt;.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Write a query that joins the &lt;em&gt;Sales.SalesOrderHeader&lt;/em&gt; table to the &lt;em&gt;Sales.SalesPerson&lt;/em&gt; table. Join the &lt;em&gt;BusinessEntityID&lt;/em&gt; column from the &lt;em&gt;Sales.SalesPerson&lt;/em&gt; table to the &lt;em&gt;SalesPersonID&lt;/em&gt; column in the &lt;em&gt;Sales.SalesOrderHeader&lt;/em&gt; table. Display the &lt;em&gt;SalesOrderID&lt;/em&gt; along with the &lt;em&gt;SalesQuota&lt;/em&gt; and Bonus.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Add the name columns to the query written in question 4 by joining on the Person.Person table. See whether you can figure out which columns will be used to write the join.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;The catalog description for each product is stored in the &lt;em&gt;Production.ProductModel&lt;/em&gt; table. Display the columns that describe the product such as the color and size, along with the catalog description for each product.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Write a query that displays the names of the customers along with the product names they have purchased. Hint: Five tables will be required to write this query!&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;solution&#34;&gt;Solution&lt;/h3&gt;
+
+&lt;p&gt;Use the AdventureWorks database to complete this exercise.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;1.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The HumanResources.Employee table does not contain the employee names. Join that table to the Person.Person table on the BusinessEntityID column. Display the job title, birth date, first name, and last name.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT E.JobTitle, E.BirthDate, P.FirstName, P.LastName
+FROM HumanResources.Employee AS E
+INNER JOIN Person.Person AS P ON
+          E.BusinessEntityID = P.BusinessEntityID;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;2.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The customer names also appear in the Person.Person table. Join the Sales.Customer table to the Person.Person table. The BusinessEntityID column in the Person.Person table matches the PersonID column in the Sales.Customer table. Display the CustomerID, StoreID, and TerritoryID columns along with the name columns.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT C.CustomerID, C.StoreID, C.TerritoryID,
+          P.FirstName, P.MiddleName, P.LastName
+FROM Sales.Customer AS C
+INNER JOIN Person.Person AS P
+          ON C.PersonID = P.BusinessEntityID;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;3.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Extend the query written in question 2 to include the Sales.SalesOrderHeader table. Display the SalesOrderID column along with the columns already specified. The Sales.SalesOrderHeader table joins the Sales.Customer table on CustomerID.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT C.CustomerID, C.StoreID, C.TerritoryID,
+          P.FirstName, P.MiddleName,
+          P.LastName, S.SalesOrderID
+FROM Sales.Customer AS C
+INNER JOIN Person.Person AS P
+          ON C.PersonID = P.BusinessEntityID
+INNER JOIN Sales.SalesOrderHeader AS S
+          ON S.CustomerID = C.CustomerID;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;4.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Write a query that joins the Sales.SalesOrderHeader table to the Sales.SalesPerson table. Join the BusinessEntityID column from the Sales.SalesPerson table to the SalesPersonID column in the Sales.SalesOrderHeader table. Display the SalesOrderID along with the SalesQuota and Bonus.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT S.SalesOrderID, SP.SalesQuota, SP.Bonus
+FROM Sales.SalesOrderHeader AS S
+INNER JOIN Sales.SalesPerson AS SP
+          ON S.SalesPersonID = SP.BusinessEntityID;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;5.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Add the name columns to the query written in question 4 by joining on the Person.Person table. See whether you can figure out which columns will be used to write the join.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT SalesOrderID, SalesQuota, Bonus, FirstName,
+          MiddleName, LastName
+FROM Sales.SalesOrderHeader AS S
+INNER JOIN Sales.SalesPerson AS SP
+          ON S.SalesPersonID = SP.BusinessEntityID
+INNER JOIN Person.Person AS P
+          ON SP.BusinessEntityID = P.BusinessEntityID;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;6.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The catalog description for each product is stored in the Production.ProductModel table. Display the columns that describe the product such as the color and size, along with the catalog description for each product.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT PM.CatalogDescription, P.Color, P.Size
+FROM Production.Product AS P
+INNER JOIN Production.ProductModel AS PM
+          ON P.ProductModelID = PM.ProductModelID;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;7.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Write a query that displays the names of the customers along with the product names that they have purchased. Hint: Five tables will be required to write this query!&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT FirstName, MiddleName, LastName, Prod.Name
+FROM Sales.Customer AS C
+INNER JOIN Person.Person AS P
+          ON C.PersonID = P.BusinessEntityID
+INNER JOIN Sales.SalesOrderHeader AS SOH
+          ON C.CustomerID = SOH.CustomerID
+INNER JOIN Sales.SalesOrderDetail AS SOD
+          ON SOH.SalesOrderID = SOD.SalesOrderID
+INNER JOIN Production.Product AS Prod
+          ON SOD.ProductID = Prod.ProductID;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;subqueries-vs-joins&#34;&gt;Subqueries vs Joins&lt;/h3&gt;
+
+&lt;p&gt;From the last section we ran the following query :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT cust_name, cust_contact
+FROM Customers
+WHERE cust_id IN (SELECT cust_id
+                  FROM Orders
+                  WHERE order_num IN (SELECT order_num
+                                      FROM OrderItems
+                                      WHERE prod_id =
+                                            &#39;RGAN01&#39;));
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;this query can be re-written using a JOIN as follows :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT cust_name, cust_contact
+FROM Customers, Orders, OrderItems
+WHERE Customers.cust_id = Orders.cust_id
+AND OrderItems.order_num = Orders.order_num
+AND prod_id = &#39;RGAN01&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;using-table-aliases&#34;&gt;Using Table Aliases&lt;/h2&gt;
+
+&lt;p&gt;You are allowed to aliases table names in addition to aliasing columns as well. The advantages of table aliases is :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;To shorten the SQL syntax&lt;/li&gt;
+&lt;li&gt;To enable multiple uses of the same table within a single SELECT statement&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Here is an example of using a table alias :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT cust_name, cust_contact
+FROM Customers AS C, Orders AS O, OrderItems AS OI
+WHERE C.cust_id = O.cust_id
+ AND OI.order_num = O.order_num
+ AND prod_id = &#39;RGAN01&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;using-different-join-types&#34;&gt;Using Different Join Types&lt;/h2&gt;
+
+&lt;p&gt;They are other types of joins in addition to the equi-join/ INNER JOIN :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;SELF JOIN&lt;/li&gt;
+&lt;li&gt;CROSS JOIN&lt;/li&gt;
+&lt;li&gt;NATURAL JOIN&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;self-joins&#34;&gt;Self Joins&lt;/h2&gt;
+
+&lt;p&gt;A self-join is a special type of query that joins a table back to itself.&lt;/p&gt;
+
+&lt;p&gt;Suppose you wanted to send a mailing to all the customer contacts who work for the same company for which Jim Jones works. This query requires that you first find out which company Jim Jones works for, and next which customers work for that company. The following is one way to approach this problem:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT cust_id, cust_name, cust_contact
+FROM Customers
+WHERE cust_name = (SELECT cust_name
+                   FROM Customers
+                   WHERE cust_contact = &#39;Jim Jones&#39;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This first solution uses subqueries. The inner SELECT statement does a simple retrieval to return the cust_name of the company that Jim Jones works for. That name is the one used in the WHERE clause of the outer query so that all employees who work for that company are retrieved. The same query can be accomplished used an inner join :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT c1.cust_id, c1.cust_name, c1.cust_contact
+FROM Customers AS c1, Customers AS c2
+WHERE c1.cust_name = c2.cust_name
+ AND c2.cust_contact = &#39;Jim Jones&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;admonition note&#34;&gt;
+&lt;p class=&#34;admonition-title&#34;&gt;Self-Joins Instead of Subqueries&lt;/p&gt;
+&lt;p&gt;Self-joins are often used to replace statements using subqueries that retrieve data from the same table as the outer statement. Although the end result is the same, many DBMSs process joins far more quickly than they do subqueries. It is usually worth experimenting with both to determine which performs better.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;natural-joins&#34;&gt;Natural Joins&lt;/h2&gt;
+
+&lt;p&gt;Whenever tables are joined, at least one column will appear in more than one table (the columns being used to create the join). Standard joins (the inner joins that you learned about in the last lesson) return all data, even multiple occurrences of the same column. A natural join simply eliminates those multiple occurrences so that only one of each column is returned.&lt;/p&gt;
+
+&lt;p&gt;A natural join is a join in which you select only columns that are unique. This is typically done using a wildcard (SELECT *) for one table and explicit subsets of the columns for all other tables. The following is an example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;SELECT C.*, O.order_num, O.order_date,
+       OI.prod_id, OI.quantity, OI.item_price
+FROM Customers AS C, Orders AS O,
+     OrderItems AS OI
+WHERE C.cust_id = O.cust_id
+ AND OI.order_num = O.order_num
+ AND prod_id = &#39;RGAN01&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;The truth is, every inner join you have created thus far is actually a natural join, and you will probably never need an inner join that is not a natural join.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&#34;outer-joins&#34;&gt;Outer Joins&lt;/h2&gt;
+
+&lt;p&gt;Most joins relate rows in one table with rows in another. But occasionally, you want to include rows that have no related rows. For example, you might use joins to accomplish the following tasks:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Count how many orders were placed by each customer, including customers that have yet to place an order.&lt;/li&gt;
+&lt;li&gt;List all products with order quantities, including products not ordered by anyone.&lt;/li&gt;
+&lt;li&gt;Calculate average sale sizes, taking into account customers that have not yet placed an order.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;using-left-outer-join&#34;&gt;Using LEFT OUTER JOIN&lt;/h3&gt;
+
+&lt;p&gt;When writing &lt;strong&gt;OUTER JOI&lt;/strong&gt;N, you must specify either &lt;strong&gt;LEFT&lt;/strong&gt; or &lt;strong&gt;RIGHT&lt;/strong&gt;. If the main table, the table you want to see all the rows from even if there is not a match, is on the left side of the join, you will specify LEFT.&lt;/p&gt;
+
+&lt;p&gt;The syntax for the LEFT OUTER JOIN is as follows :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT &amp;lt;SELECT list&amp;gt;
+FROM &amp;lt;table1&amp;gt;
+LEFT [OUTER] JOIN &amp;lt;table2&amp;gt; ON &amp;lt;table1&amp;gt;.&amp;lt;col1&amp;gt; = &amp;lt;table2&amp;gt;.&amp;lt;col2&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here is an example of the LEFT OUTER JOIN :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT c.CustomerID, s.SalesOrderID, s.OrderDate
+FROM Sales.Customer AS c
+LEFT OUTER JOIN Sales.SalesOrderHeader AS s ON c.CustomerID = s.CustomerID
+WHERE c.CustomerID IN (11028,11029,1,2,3,4);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;All the rows from the table on the left side of the join, the Sales.Customer table, that meet the criteria in the WHERE clause show up in the results. The query returns rows from the right side of the join, the Sales.SalesOrderHeader table, only if they match on CustomerID.&lt;/p&gt;
+
+&lt;p&gt;To retrieve a list of all customers including those who have placed no orders, you can do the following from the Training database.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT Customers.cust_id, Orders.order_num
+FROM Customers LEFT OUTER JOIN Orders
+ ON Customers.cust_id = Orders.cust_id;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here is a diagram showing the relation between the tables in the AdventureWorks database :&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/left-outer-join.jpg&#34; alt=&#34;Left outer join&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The tan area of the Venn diagram illustrates how all the CustomerID values in the Sales.Customer table will be returned whether or not there is a matching CustomerID value in the Sales.SalesOrderHeader table.&lt;/p&gt;
+
+&lt;p&gt;When using &lt;strong&gt;OUTER JOIN&lt;/strong&gt; syntax you must use the &lt;strong&gt;RIGHT&lt;/strong&gt; or LEFT keywords to specify the table from which to include all rows (RIGHT for the one on the right of &lt;strong&gt;OUTER JOIN&lt;/strong&gt;, and &lt;strong&gt;LEFT&lt;/strong&gt; for the one on the left). The previous example uses &lt;strong&gt;LEFT OUTER JOIN&lt;/strong&gt; to select all the rows from the table on the left in the FROM clause (the Customers table).&lt;/p&gt;
+
+&lt;h3 id=&#34;using-right-outer-join&#34;&gt;Using RIGHT OUTER JOIN&lt;/h3&gt;
+
+&lt;p&gt;RIGHT OUTER JOIN differs from LEFT OUTER JOIN in just the location of the tables. If the main table, the table in which you want to see all the rows, even if there is not a match, is on the right side of the join, you will specify RIGHT. Here is the syntax:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT &amp;lt;SELECT list&amp;gt;
+FROM &amp;lt;table2&amp;gt;
+RIGHT [OUTER] JOIN &amp;lt;table1&amp;gt; ON &amp;lt;table1&amp;gt;.&amp;lt;col1&amp;gt; = &amp;lt;table2&amp;gt;.&amp;lt;col2&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here is a query that will give the same result but with table position re-arranged :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT c.CustomerID, s.SalesOrderID, s.OrderDate
+FROM Sales.SalesOrderHeader AS s
+RIGHT OUTER JOIN Sales.Customer AS c ON c.CustomerID = s.CustomerID
+WHERE c.CustomerID IN (11028,11029,1,2,3,4);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The only difference between this query and the previous one is the order of the tables within the FROM clause and the direction keyword.&lt;/p&gt;
+
+&lt;p&gt;To select all the rows from the table on the right, you use a RIGHT OUTER JOIN as seen in this next example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT Customers.cust_id, Orders.order_num
+FROM Customers RIGHT OUTER JOIN Orders
+ON Orders.cust_id = Customers.cust_id;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;using-outer-join-to-find-rows-with-no-match&#34;&gt;Using OUTER JOIN to Find Rows with No Match&lt;/h3&gt;
+
+&lt;p&gt;Sometimes it’s useful to find all the rows in one table that don’t have corresponding rows in another table. For example, you may want to find all the customers who have never placed an order. Because the columns from the nonmatching rows contain NULL values, you can use OUTER JOIN to find rows with no match by checking for NULL. The syntax is as follows:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT &amp;lt;SELECT list&amp;gt;
+FROM &amp;lt;table1&amp;gt;
+LEFT [OUTER] JOIN &amp;lt;table2&amp;gt; ON &amp;lt;table1&amp;gt;.&amp;lt;col1&amp;gt; = &amp;lt;table2&amp;gt;.&amp;lt;col2&amp;gt;
+WHERE &amp;lt;col2&amp;gt; IS NULL
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here is the query that returns a list of all customers who have not placed an order :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT c.CustomerID, s.SalesOrderID, s.OrderDate
+FROM Sales.Customer AS c
+LEFT OUTER JOIN Sales.SalesOrderHeader AS s ON c.CustomerID = s.CustomerID
+WHERE s.SalesOrderID IS NULL;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;adding-a-table-to-the-right-side-of-a-left-join&#34;&gt;Adding a Table to the Right Side of a LEFT JOIN&lt;/h3&gt;
+
+&lt;p&gt;The next step is to understand what to do when additional tables are added to the query. For example, you might want to display all the customers and their orders even if an order has not been placed, along with the ProductID from those orders that were placed. To keep the customers with no orders from dropping out of the results, you must continue to use LEFT JOIN.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT C.CustomerID, SOH.SalesOrderID, SOD.SalesOrderDetailID, SOD.ProductID
+FROM Sales.Customer AS C
+LEFT OUTER JOIN Sales.SalesOrderHeader AS SOH ON C.CustomerID = SOH.CustomerID
+LEFT OUTER JOIN Sales.SalesOrderDetail AS SOD ON SOH.SalesOrderID = SOD.SalesOrderID
+WHERE C.CustomerID IN (11028,11029,1,2,3,4);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;full-outer-join&#34;&gt;Full outer join&lt;/h3&gt;
+
+&lt;p&gt;Retrieves all rows from both tables and relates those that can be related. Unlike a left outer join or right outer join, which includes unrelated rows from a single table, the full outer join includes unrelated rows from both tables.&lt;/p&gt;
+
+&lt;p&gt;Here is a query from the Training database :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT Customers.cust_id, Orders.order_num
+FROM Orders FULL OUTER JOIN Customers
+ ON Orders.cust_id = Customers.cust_id;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;using-joins-with-aggregate-functions&#34;&gt;Using Joins with Aggregate Functions&lt;/h2&gt;
+
+&lt;p&gt;Aggregate functions can be used with joins as well. To demonstrate this, let’s look at an example. You want to retrieve a list of all customers and the number of orders that each has placed. The following code uses the &lt;strong&gt;COUNT()&lt;/strong&gt; function to achieve this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT Customers.cust_id,
+       COUNT(Orders.order_num) AS num_ord
+FROM Customers INNER JOIN Orders
+ON Customers.cust_id = Orders.cust_id
+GROUP BY Customers.cust_id;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Aggregate functions can be used just as easily with other join types. See the following example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT Customers.cust_id,
+       COUNT(Orders.order_num) AS num_ord
+FROM Customers LEFT OUTER JOIN Orders
+ON Customers.cust_id = Orders.cust_id
+GROUP BY Customers.cust_id;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;exercise&#34;&gt;Exercise&lt;/h3&gt;
+
+&lt;p&gt;Use the AdventureWorks database to complete this exercise. You can find the solutions at the end of the chapter.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Write a query that displays all the products along with the &lt;em&gt;SalesOrderID&lt;/em&gt; even if an order has never been placed for that product. Join to the &lt;em&gt;Sales.SalesOrderDetail&lt;/em&gt; table using the &lt;em&gt;ProductID&lt;/em&gt; column.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Change the query written in question 1 so that only products that have not been ordered show up in the query.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Write a query that returns all the rows from the Sales.SalesPerson table joined to the &lt;em&gt;Sales.SalesOrderHeader&lt;/em&gt; table along with the &lt;em&gt;SalesOrderID&lt;/em&gt; column even if no orders match. Include the &lt;em&gt;SalesPersonID&lt;/em&gt;, &lt;em&gt;SalesYTD&lt;/em&gt; and &lt;em&gt;SalesOrderID&lt;/em&gt; columns in the results.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Change the query written in question 3 so that the salesperson’s name also displays from the &lt;em&gt;Person.Person&lt;/em&gt; table.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;The &lt;em&gt;Sales.SalesOrderHeader&lt;/em&gt; table contains foreign keys to the &lt;em&gt;Sales.CurrencyRate&lt;/em&gt; and &lt;em&gt;Purchasing.ShipMethod&lt;/em&gt; tables. Write a query joining all three tables, and make sure it contains all rows from &lt;em&gt;Sales.SalesOrderHeader&lt;/em&gt;. Include the &lt;em&gt;CurrencyRateID&lt;/em&gt;, &lt;em&gt;AverageRate&lt;/em&gt;, &lt;em&gt;SalesOrderID&lt;/em&gt;, and &lt;em&gt;ShipBase&lt;/em&gt; columns.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Write a query that returns the &lt;em&gt;BusinessEntityID&lt;/em&gt; column from the Sales.SalesPerson table along with every &lt;em&gt;ProductID&lt;/em&gt; from the &lt;em&gt;Production.Product&lt;/em&gt; table.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;solution-1&#34;&gt;Solution&lt;/h3&gt;
+
+&lt;p&gt;Use the AdventureWorks database to complete this exercise.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;1.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Write a query that displays all the products along with the SalesOrderID even if an order has never been placed for that product. Join to the Sales.SalesOrderDetail table using the ProductID column.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT SalesOrderID, P.ProductID, P.Name
+FROM Production.Product AS P
+LEFT OUTER JOIN Sales.SalesOrderDetail
+          AS SOD ON P.ProductID = SOD.ProductID;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;2.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Change the query written in question 1 so that only products that have not been ordered show up in the query.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT SalesOrderID, P.ProductID, P.Name
+FROM Production.Product AS P
+LEFT OUTER JOIN Sales.SalesOrderDetail
+         AS SOD ON P.ProductID = SOD.ProductID
+WHERE SalesOrderID IS NULL;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;3.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Write a query that returns all the rows from the Sales.SalesPerson table joined to the Sales.SalesOrderHeader table along with the SalesOrderID column even if no orders match. Include the SalesPersonID, SalesYTD and SalesOrderID  columns in the results.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT SalesOrderID, SalesPersonID, SalesYTD, SOH.SalesOrderID
+FROM Sales.SalesPerson AS SP
+LEFT OUTER JOIN Sales.SalesOrderHeader AS SOH
+      ON SP.BusinessEntityID = SOH.SalesPersonID;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;4.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Change the query written in question 3 so that the salesperson’s name also displays from the Person.Person table.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT SalesOrderID, SalesPersonID, SalesYTD, SOH.SalesOrderID,
+            FirstName, MiddleName, LastName
+FROM Sales.SalesPerson AS SP
+LEFT OUTER JOIN Sales.SalesOrderHeader AS SOH
+        ON SP.BusinessEntityID = SOH.SalesPersonID
+LEFT OUTER JOIN Person.Person AS P
+          ON P.BusinessEntityID = SP.BusinessEntityID;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;5.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The Sales.SalesOrderHeader table contains foreign keys to the Sales.CurrencyRate and Purchasing.ShipMethod tables. Write a query joining all three tables, and make sure it contains all rows from Sales.SalesOrderHeader. Include the CurrencyRateID, AverageRate, SalesOrderID, and ShipBase columns.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT CR.CurrencyRateID, CR.AverageRate,
+          SM.ShipBase, SalesOrderID
+FROM Sales.SalesOrderHeader AS SOH
+LEFT OUTER JOIN Sales.CurrencyRate AS CR
+          ON SOH.CurrencyRateID = CR.CurrencyRateID
+LEFT OUTER JOIN Purchasing.ShipMethod AS SM
+          ON SOH.ShipMethodID = SM.ShipMethodID;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;6.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Write a query that returns the BusinessEntityID column from the Sales.SalesPerson table along with every ProductID from the Production.Product table.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT SP.BusinessEntityID, P.ProductID
+FROM Sales.SalesPerson AS SP
+CROSS JOIN Production.Product AS P;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

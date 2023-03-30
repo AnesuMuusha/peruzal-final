@@ -1,0 +1,1574 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="Android Activities">
+      
+      
+        <link rel="canonical" href="https://guides.peruzal.com/xamarin-forms-guide/activities/">
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.0">
+    
+    
+      
+        <title>Activities - Android Mobile App Development Guide</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.0284f74d.css">
+      
+        <link rel="stylesheet" href="../assets/stylesheets/application-palette.01803549.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#ffa000">
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.74668098.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../assets/fonts/material-icons.css">
+    
+    
+    
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="amber" data-md-color-accent="deep-orange">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#activity-lifecycle-background" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://guides.peruzal.com/xamarin-forms-guide" title="Android Mobile App Development Guide" class="md-header-nav__button md-logo">
+          
+            <img src="../images/logo-lines.png" width="24" height="24">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              Android Mobile App Development Guide
+            </span>
+            <span class="md-header-nav__topic">
+              
+                Activities
+              
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/Peruzal/xamarin-forms-guide/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    Github
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://guides.peruzal.com/xamarin-forms-guide" title="Android Mobile App Development Guide" class="md-nav__button md-logo">
+      
+        <img src="../images/logo-lines.png" width="48" height="48">
+      
+    </a>
+    Android Mobile App Development Guide
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/Peruzal/xamarin-forms-guide/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    Github
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Getting Started" class="md-nav__link">
+      Getting Started
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../project-structure/" title="Android Project Structure" class="md-nav__link">
+      Android Project Structure
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../android-resources/" title="Understanding App Resources" class="md-nav__link">
+      Understanding App Resources
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Android Common View
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        Android Common View
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/view-attributes/" title="View Attributes" class="md-nav__link">
+      View Attributes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/textview/" title="TextView" class="md-nav__link">
+      TextView
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/button/" title="Button" class="md-nav__link">
+      Button
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/edittext/" title="EditText" class="md-nav__link">
+      EditText
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/image-view/" title="ImageView" class="md-nav__link">
+      ImageView
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/image-button/" title="ImageButton" class="md-nav__link">
+      ImageButton
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/radio-button/" title="RadioButton" class="md-nav__link">
+      RadioButton
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/view/" title="View" class="md-nav__link">
+      View
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/spinner/" title="Spinner" class="md-nav__link">
+      Spinner
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/checkbox/" title="CheckBox" class="md-nav__link">
+      CheckBox
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/switch/" title="Switch" class="md-nav__link">
+      Switch
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/seek-bar/" title="SeekBar" class="md-nav__link">
+      SeekBar
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/rating-bar/" title="RatingBar" class="md-nav__link">
+      RatingBar
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/progress-bar/" title="ProgressBar" class="md-nav__link">
+      ProgressBar
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/search-view/" title="SearchView" class="md-nav__link">
+      SearchView
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Layouts
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        Layouts
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../layouts/overview/" title="Layouts Overview" class="md-nav__link">
+      Layouts Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../layouts/linear-layout/" title="Linear Layout" class="md-nav__link">
+      Linear Layout
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../layouts/relative-layout/" title="Relative Layout" class="md-nav__link">
+      Relative Layout
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../layouts/frame-layout/" title="Frame Layout" class="md-nav__link">
+      Frame Layout
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../layouts/layout-prformance/" title="Optimizing Layout Performance" class="md-nav__link">
+      Optimizing Layout Performance
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Activities
+      </label>
+    
+    <a href="./" title="Activities" class="md-nav__link md-nav__link--active">
+      Activities
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#activity-lifecycle-background" title="Activity Lifecycle Background" class="md-nav__link">
+    Activity Lifecycle Background
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#activity-lifecycle" title="Activity Lifecycle" class="md-nav__link">
+    Activity Lifecycle
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#handling-configuration-changes" title="Handling Configuration Changes" class="md-nav__link">
+    Handling Configuration Changes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#calling-the-super-class" title="Calling the super class" class="md-nav__link">
+    Calling the super class
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#handling-configuration-changes_1" title="Handling Configuration Changes" class="md-nav__link">
+    Handling Configuration Changes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#saving-and-restoring-activity-state" title="Saving and Restoring Activity State" class="md-nav__link">
+    Saving and Restoring Activity State
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#saving-and-restoring-fragment-state" title="Saving and Restoring Fragment State" class="md-nav__link">
+    Saving and Restoring Fragment State
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#locking-screen-orientation" title="Locking Screen Orientation" class="md-nav__link">
+    Locking Screen Orientation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#manually-managing-configuration-changes" title="Manually Managing Configuration Changes" class="md-nav__link">
+    Manually Managing Configuration Changes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#migrating-to-the-appcompat-library" title="Migrating to the AppCompat Library" class="md-nav__link">
+    Migrating to the AppCompat Library
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#search-and-replacing-changes" title="Search and replacing changes" class="md-nav__link">
+    Search and replacing changes
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#activities-changes" title="Activities Changes" class="md-nav__link">
+    Activities Changes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fragment-changes" title="Fragment Changes" class="md-nav__link">
+    Fragment Changes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#actionbar-changes" title="ActionBar Changes" class="md-nav__link">
+    ActionBar Changes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alertdialog-changes" title="AlertDialog Changes" class="md-nav__link">
+    AlertDialog Changes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#theme-xml-changes" title="Theme XML Changes" class="md-nav__link">
+    Theme XML Changes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#menu-xml-changes" title="Menu XML Changes" class="md-nav__link">
+    Menu XML Changes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changes-to-menu-options" title="Changes to Menu Options" class="md-nav__link">
+    Changes to Menu Options
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changing-targetsdkversion" title="Changing targetSDKVersion" class="md-nav__link">
+    Changing targetSDKVersion
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#known-issues" title="Known issues" class="md-nav__link">
+    Known issues
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      Navigation
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        Navigation
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../navigation/common-navigation-patterns/" title="Common Navigation Patterns" class="md-nav__link">
+      Common Navigation Patterns
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../navigation/intents/" title="Navigation with Intents" class="md-nav__link">
+      Navigation with Intents
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../navigation/swipe-tabbed-navigation/" title="Swipe and Tabbed Navigation" class="md-nav__link">
+      Swipe and Tabbed Navigation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../navigation/navigation-drawer/" title="Navigation Drawer" class="md-nav__link">
+      Navigation Drawer
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../navigation/bottom-navigation/" title="Bottom Navigation" class="md-nav__link">
+      Bottom Navigation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../navigation/task-stacks/" title="Navigation and Task Stacks" class="md-nav__link">
+      Navigation and Task Stacks
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../navigation/common-intents/" title="Common Intents" class="md-nav__link">
+      Common Intents
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../fragments/" title="Fragments" class="md-nav__link">
+      Fragments
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../common-intents/" title="Common Intents" class="md-nav__link">
+      Common Intents
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../android-permissions/" title="Understanding Android Permissions" class="md-nav__link">
+      Understanding Android Permissions
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../networking/" title="Networking" class="md-nav__link">
+      Networking
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#activity-lifecycle-background" title="Activity Lifecycle Background" class="md-nav__link">
+    Activity Lifecycle Background
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#activity-lifecycle" title="Activity Lifecycle" class="md-nav__link">
+    Activity Lifecycle
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#handling-configuration-changes" title="Handling Configuration Changes" class="md-nav__link">
+    Handling Configuration Changes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#calling-the-super-class" title="Calling the super class" class="md-nav__link">
+    Calling the super class
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#handling-configuration-changes_1" title="Handling Configuration Changes" class="md-nav__link">
+    Handling Configuration Changes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#saving-and-restoring-activity-state" title="Saving and Restoring Activity State" class="md-nav__link">
+    Saving and Restoring Activity State
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#saving-and-restoring-fragment-state" title="Saving and Restoring Fragment State" class="md-nav__link">
+    Saving and Restoring Fragment State
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#locking-screen-orientation" title="Locking Screen Orientation" class="md-nav__link">
+    Locking Screen Orientation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#manually-managing-configuration-changes" title="Manually Managing Configuration Changes" class="md-nav__link">
+    Manually Managing Configuration Changes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#migrating-to-the-appcompat-library" title="Migrating to the AppCompat Library" class="md-nav__link">
+    Migrating to the AppCompat Library
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#search-and-replacing-changes" title="Search and replacing changes" class="md-nav__link">
+    Search and replacing changes
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#activities-changes" title="Activities Changes" class="md-nav__link">
+    Activities Changes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fragment-changes" title="Fragment Changes" class="md-nav__link">
+    Fragment Changes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#actionbar-changes" title="ActionBar Changes" class="md-nav__link">
+    ActionBar Changes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alertdialog-changes" title="AlertDialog Changes" class="md-nav__link">
+    AlertDialog Changes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#theme-xml-changes" title="Theme XML Changes" class="md-nav__link">
+    Theme XML Changes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#menu-xml-changes" title="Menu XML Changes" class="md-nav__link">
+    Menu XML Changes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changes-to-menu-options" title="Changes to Menu Options" class="md-nav__link">
+    Changes to Menu Options
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changing-targetsdkversion" title="Changing targetSDKVersion" class="md-nav__link">
+    Changing targetSDKVersion
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#known-issues" title="Known issues" class="md-nav__link">
+    Known issues
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/Peruzal/xamarin-forms-guide/edit/master/docs/activities.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                  <h1>Activities</h1>
+                
+                <h2 id="activity-lifecycle-background">Activity Lifecycle Background<a class="headerlink" href="#activity-lifecycle-background" title="Permanent link">&para;</a></h2>
+<p>As a user navigates throughout an app, Android maintains the visited activities in a stack, with the currently visible activity always placed at the top of the stack. </p>
+<p>At any point in time a particular activity can be in one of the following 4 states:</p>
+<table>
+<thead>
+<tr>
+<th>Activity State</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Running</td>
+<td>Activity is visible and interacting with the user</td>
+</tr>
+<tr>
+<td>Paused</td>
+<td>Activity is still visible, but no longer interacting with the user</td>
+</tr>
+<tr>
+<td>Stopped</td>
+<td>Activity is no longer visible</td>
+</tr>
+<tr>
+<td>Killed</td>
+<td>Activity has been killed by the system (low memory) or its <code>finish()</code> method has been called</td>
+</tr>
+</tbody>
+</table>
+<h2 id="activity-lifecycle">Activity Lifecycle<a class="headerlink" href="#activity-lifecycle" title="Permanent link">&para;</a></h2>
+<p>The following diagram shows the important state paths of an Activity. The square rectangles represent callback methods you can implement to perform operations when the Activity moves between states. These are described further in the table below the diagram.</p>
+<p><img alt="Imgur" src="https://i.imgur.com/aUd1KA1.png" /></p>
+<table>
+<thead>
+<tr>
+<th>Lifecycle Method</th>
+<th>Description</th>
+<th>Common Uses</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>onCreate()</code></td>
+<td>The activity is starting (but not visible to the user)</td>
+<td>Most of the activity initialization code goes here. This is where you <a href="http://developer.android.com/reference/android/app/Activity.html#setContentView(int)">setContentView()</a> for the activity, initialize views, set up any adapters, etc.</td>
+</tr>
+<tr>
+<td><code>onStart()</code></td>
+<td>The activity is now visible (but not ready for user interaction)</td>
+<td>This lifecycle method isn't used much, but can come in handy to register a BroadcastReceiver to monitor for changes that impact the UI (since the UI is now visible to the user).</td>
+</tr>
+<tr>
+<td><code>onResume()</code></td>
+<td>The activity is now in the foreground and ready for user interaction</td>
+<td>This is a good place to start animations, open exclusive-access devices like the camera, etc.</td>
+</tr>
+<tr>
+<td><code>onPause()</code></td>
+<td>Counterpart to <code>onResume()</code>. The activity is about to go into the background and has stopped interacting with the user. This can happen when another activity is launched in front of the current activity.</td>
+<td>It's common to undo anything that was done in onResume() and to save any global state (such as writing to a file).</td>
+</tr>
+<tr>
+<td><code>onStop()</code></td>
+<td>Counterpart to <code>onStart()</code>. The activity is no longer visible to the user.</td>
+<td>It's common to undo anything that was done in <code>onStart()</code>.</td>
+</tr>
+<tr>
+<td><code>onDestroy()</code></td>
+<td>Counterpart to <code>onCreate(...)</code>. This can be triggered because <code>finish()</code> was called on the activity or the system needed to free up some memory.</td>
+<td>It's common to do any cleanup here. For example, if the activity has a thread running in the background to download data from the network, it may create that thread in onCreate() and then stop the thread here in onDestroy()</td>
+</tr>
+<tr>
+<td><code>onRestart()</code></td>
+<td>Called when the activity has been stopped, before it is started again</td>
+<td>It isn't very common to need to implement this callback.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="handling-configuration-changes">Handling Configuration Changes<a class="headerlink" href="#handling-configuration-changes" title="Permanent link">&para;</a></h3>
+<p>The Activity lifecycle is especially important because whenever an activity leaves the screen, <strong>the activity can be destroyed</strong>. When an activity is destroyed, when the user returns to the activity, the activity will be re-created and the lifecycle methods will be called again. Activities are also <strong>re-created whenever the orientation changes</strong> (i.e the screen is rotated). In order to ensure your application is robust to recreation amongst a wide variety of situations, be sure to review the [[handling configuration changes|Handling-Configuration-Changes]].</p>
+<h3 id="calling-the-super-class">Calling the super class<a class="headerlink" href="#calling-the-super-class" title="Permanent link">&para;</a></h3>
+<p>When overriding any of the methods, you may need to call the superclass implementation.  The rule of thumb is that during initialization, you should always call the superclass first:</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">()</span> <span class="o">{</span>
+   <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">();</span>
+   <span class="c1">// do work after super class function</span>
+   <span class="c1">// setContentView(R.layout.main);</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>During de-initialization, you should do the work first before calling the super class:</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kt">void</span> <span class="nf">onPause</span><span class="o">()</span> <span class="o">{</span>
+   <span class="c1">// do work here first before super class function</span>
+   <span class="c1">// LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);</span>
+   <span class="kd">super</span><span class="o">.</span><span class="na">onPause</span><span class="o">();</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>See this <a href="http://stackoverflow.com/questions/16925579/android-implementation-of-lifecycle-methods-can-call-the-superclass-implementati">Stack Overflow article</a> for more context.</p>
+<h2 id="handling-configuration-changes_1">Handling Configuration Changes<a class="headerlink" href="#handling-configuration-changes_1" title="Permanent link">&para;</a></h2>
+<p>There are various situations such as when the screen orientation is rotated where the Activity can actually be destroyed and removed from memory and then re-created from scratch again. In these situations, the best practice is to prepare for cases where the Activity is re-created by properly saving and restoring the state.</p>
+<h2 id="saving-and-restoring-activity-state">Saving and Restoring Activity State<a class="headerlink" href="#saving-and-restoring-activity-state" title="Permanent link">&para;</a></h2>
+<p>As your activity begins to stop, the system calls <code>onSaveInstanceState()</code> so your activity can save state information with a collection of key-value pairs. The default implementation of this method <strong>automatically saves</strong> information about the state of the activity's <strong>view hierarchy</strong>, such as the text in an <code>EditText</code> widget or the scroll position of a <code>ListView</code>.</p>
+<p>To save additional state information for your activity, you must implement <code>onSaveInstanceState()</code> and add key-value pairs to the Bundle object. For example:</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span> <span class="kd">extends</span> <span class="n">Activity</span> <span class="o">{</span>
+    <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">SOME_VALUE</span> <span class="o">=</span> <span class="s">&quot;int_value&quot;</span><span class="o">;</span>
+    <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">SOME_OTHER_VALUE</span> <span class="o">=</span> <span class="s">&quot;string_value&quot;</span><span class="o">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onSaveInstanceState</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// Save custom values into the bundle</span>
+        <span class="n">savedInstanceState</span><span class="o">.</span><span class="na">putInt</span><span class="o">(</span><span class="n">SOME_VALUE</span><span class="o">,</span> <span class="n">someIntValue</span><span class="o">);</span>
+        <span class="n">savedInstanceState</span><span class="o">.</span><span class="na">putString</span><span class="o">(</span><span class="n">SOME_OTHER_VALUE</span><span class="o">,</span> <span class="n">someStringValue</span><span class="o">);</span>
+        <span class="c1">// Always call the superclass so it can save the view hierarchy state</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onSaveInstanceState</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>The system will call that method before an Activity is destroyed. Then later the system will call <code>onRestoreInstanceState</code> where we can restore state from the bundle:</p>
+<div class="codehilite"><pre><span></span><span class="nd">@Override</span>
+<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onRestoreInstanceState</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// Always call the superclass so it can restore the view hierarchy</span>
+    <span class="kd">super</span><span class="o">.</span><span class="na">onRestoreInstanceState</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+    <span class="c1">// Restore state members from saved instance</span>
+    <span class="n">someIntValue</span> <span class="o">=</span> <span class="n">savedInstanceState</span><span class="o">.</span><span class="na">getInt</span><span class="o">(</span><span class="n">SOME_VALUE</span><span class="o">);</span>
+    <span class="n">someStringValue</span> <span class="o">=</span> <span class="n">savedInstanceState</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="n">SOME_OTHER_VALUE</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>Instance state can also be restored in the standard <code>Activity#onCreate</code> method but it is convenient to do it in <code>onRestoreInstanceState</code> which ensures all of the initialization has been done and allows subclasses to decide whether to use the default implementation. Read <a href="http://stackoverflow.com/a/14676555/313399">this stackoverflow post</a> for details.</p>
+<p>Note that <code>onSaveInstanceState</code> and <code>onRestoreInstanceState</code> are not guaranteed to be called together. Android invokes <code>onSaveInstanceState()</code> when there's a chance the activity might be destroyed. However, there are cases where <code>onSaveInstanceState</code> is called but the activity is not destroyed and as a result <code>onRestoreInstanceState</code> is not invoked.</p>
+<p>Read more on the <a href="http://developer.android.com/training/basics/activity-lifecycle/recreating.html">Recreating an Activity</a> guide.</p>
+<h2 id="saving-and-restoring-fragment-state">Saving and Restoring Fragment State<a class="headerlink" href="#saving-and-restoring-fragment-state" title="Permanent link">&para;</a></h2>
+<p>Fragments also have a <code>onSaveInstanceState()</code> method which is called when their state needs to be saved:</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MySimpleFragment</span> <span class="kd">extends</span> <span class="n">Fragment</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">someStateValue</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">SOME_VALUE_KEY</span> <span class="o">=</span> <span class="s">&quot;someValueToSave&quot;</span><span class="o">;</span>
+
+    <span class="c1">// Fires when a configuration change occurs and fragment needs to save state</span>
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onSaveInstanceState</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">outState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">outState</span><span class="o">.</span><span class="na">putInt</span><span class="o">(</span><span class="n">SOME_VALUE_KEY</span><span class="o">,</span> <span class="n">someStateValue</span><span class="o">);</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onSaveInstanceState</span><span class="o">(</span><span class="n">outState</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>Then we can pull data out of this saved state in <code>onCreateView</code>:</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MySimpleFragment</span> <span class="kd">extends</span> <span class="n">Fragment</span> <span class="o">{</span>
+   <span class="c1">// ...</span>
+
+   <span class="c1">// Inflate the view for the fragment based on layout XML</span>
+   <span class="nd">@Override</span>
+   <span class="kd">public</span> <span class="n">View</span> <span class="nf">onCreateView</span><span class="o">(</span><span class="n">LayoutInflater</span> <span class="n">inflater</span><span class="o">,</span> <span class="n">ViewGroup</span> <span class="n">container</span><span class="o">,</span> <span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">View</span> <span class="n">view</span> <span class="o">=</span> <span class="n">inflater</span><span class="o">.</span><span class="na">inflate</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">my_simple_fragment</span><span class="o">,</span> <span class="n">container</span><span class="o">,</span> <span class="kc">false</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">savedInstanceState</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">someStateValue</span> <span class="o">=</span> <span class="n">savedInstanceState</span><span class="o">.</span><span class="na">getInt</span><span class="o">(</span><span class="n">SOME_VALUE_KEY</span><span class="o">);</span>
+            <span class="c1">// Do something with value if needed</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">view</span><span class="o">;</span>
+   <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>For the fragment state to be saved properly, we need to be sure that we aren't <strong>unnecessarily recreating the fragment</strong> on configuration changes. This means being careful not to reinitialize existing fragments when they already exist. Any fragments being initialized in an Activity need to be <strong>looked up by tag</strong> after a configuration change:</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ParentActivity</span> <span class="kd">extends</span> <span class="n">AppCompatActivity</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">MySimpleFragment</span> <span class="n">fragmentSimple</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">SIMPLE_FRAGMENT_TAG</span> <span class="o">=</span> <span class="s">&quot;myfragmenttag&quot;</span><span class="o">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">savedInstanceState</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// saved instance state, fragment may exist</span>
+           <span class="c1">// look up the instance that already exists by tag</span>
+           <span class="n">fragmentSimple</span> <span class="o">=</span> <span class="o">(</span><span class="n">MySimpleFragment</span><span class="o">)</span>  
+              <span class="n">getSupportFragmentManager</span><span class="o">().</span><span class="na">findFragmentByTag</span><span class="o">(</span><span class="n">SIMPLE_FRAGMENT_TAG</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">fragmentSimple</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span> 
+           <span class="c1">// only create fragment if they haven&#39;t been instantiated already</span>
+           <span class="n">fragmentSimple</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MySimpleFragment</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>This requires us to be careful to <strong>include a tag for lookup</strong> whenever putting a fragment into the activity within a transaction:</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ParentActivity</span> <span class="kd">extends</span> <span class="n">AppCompatActivity</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">MySimpleFragment</span> <span class="n">fragmentSimple</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">SIMPLE_FRAGMENT_TAG</span> <span class="o">=</span> <span class="s">&quot;myfragmenttag&quot;</span><span class="o">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// ... fragment lookup or instantation from above...</span>
+        <span class="c1">// Always add a tag to a fragment being inserted into container</span>
+        <span class="k">if</span> <span class="o">(!</span><span class="n">fragmentSimple</span><span class="o">.</span><span class="na">isInLayout</span><span class="o">())</span> <span class="o">{</span>
+            <span class="n">getSupportFragmentManager</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">beginTransaction</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">replace</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">container</span><span class="o">,</span> <span class="n">fragmentSimple</span><span class="o">,</span> <span class="n">SIMPLE_FRAGMENT_TAG</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">commit</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>With this simple pattern, we can properly re-use fragments and restore their state across configuration changes.</p>
+<h2 id="locking-screen-orientation">Locking Screen Orientation<a class="headerlink" href="#locking-screen-orientation" title="Permanent link">&para;</a></h2>
+<p>If you want to lock the screen orientation change of any screen (activity) of your android application you just need to set the <code>android:screenOrientation</code> property of an <code>&lt;activity&gt;</code> within the <code>AndroidManifest.xml</code>:</p>
+<div class="codehilite"><pre><span></span><span class="nt">&lt;activity</span>
+    <span class="na">android:name=</span><span class="s">&quot;com.techblogon.screenorientationexample.MainActivity&quot;</span>
+    <span class="na">android:screenOrientation=</span><span class="s">&quot;portrait&quot;</span>
+    <span class="na">android:label=</span><span class="s">&quot;@string/app_name&quot;</span> <span class="nt">&gt;</span>
+    <span class="c">&lt;!-- ... --&gt;</span>
+<span class="nt">&lt;/activity&gt;</span>
+</pre></div>
+
+
+<p>Now that activity is forced to always be displayed in "portrait" mode. </p>
+<h2 id="manually-managing-configuration-changes">Manually Managing Configuration Changes<a class="headerlink" href="#manually-managing-configuration-changes" title="Permanent link">&para;</a></h2>
+<p>If your application doesn't need to update resources during a specific configuration change and you have a performance limitation that requires you to avoid the activity restart, then you can declare that your activity handles the configuration change itself, which prevents the system from restarting your activity. </p>
+<p>However, this technique should be considered <strong>a last resort</strong> when you must avoid restarts due to a configuration change and is not recommended for most applications. To take this approach, we must add the <code>android:configChanges</code> node to the activity within the <code>AndroidManifest.xml</code>:</p>
+<div class="codehilite"><pre><span></span><span class="nt">&lt;activity</span> <span class="na">android:name=</span><span class="s">&quot;.MyActivity&quot;</span>
+          <span class="na">android:configChanges=</span><span class="s">&quot;orientation|screenSize|keyboardHidden&quot;</span>
+          <span class="na">android:label=</span><span class="s">&quot;@string/app_name&quot;</span><span class="nt">&gt;</span>
+</pre></div>
+
+
+<p>Now, when one of these configurations change, the activity does not restart but instead receives a call to <code>onConfigurationChanged()</code>:</p>
+<div class="codehilite"><pre><span></span><span class="c1">// Within the activity which receives these changes</span>
+<span class="c1">// Checks the current device orientation, and toasts accordingly</span>
+<span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onConfigurationChanged</span><span class="o">(</span><span class="n">Configuration</span> <span class="n">newConfig</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">super</span><span class="o">.</span><span class="na">onConfigurationChanged</span><span class="o">(</span><span class="n">newConfig</span><span class="o">);</span>
+
+    <span class="c1">// Checks the orientation of the screen</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">newConfig</span><span class="o">.</span><span class="na">orientation</span> <span class="o">==</span> <span class="n">Configuration</span><span class="o">.</span><span class="na">ORIENTATION_LANDSCAPE</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Toast</span><span class="o">.</span><span class="na">makeText</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="s">&quot;landscape&quot;</span><span class="o">,</span> <span class="n">Toast</span><span class="o">.</span><span class="na">LENGTH_SHORT</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">newConfig</span><span class="o">.</span><span class="na">orientation</span> <span class="o">==</span> <span class="n">Configuration</span><span class="o">.</span><span class="na">ORIENTATION_PORTRAIT</span><span class="o">){</span>
+        <span class="n">Toast</span><span class="o">.</span><span class="na">makeText</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="s">&quot;portrait&quot;</span><span class="o">,</span> <span class="n">Toast</span><span class="o">.</span><span class="na">LENGTH_SHORT</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>See the <a href="http://developer.android.com/guide/topics/resources/runtime-changes.html#HandlingTheChange">Handling the Change</a> docs. For more about which configuration changes you can handle in your activity, see the <a href="http://developer.android.com/guide/topics/manifest/activity-element.html#config">android:configChanges</a> documentation and the <a href="http://developer.android.com/reference/android/content/res/Configuration.html">Configuration</a> class.</p>
+<h2 id="migrating-to-the-appcompat-library">Migrating to the AppCompat Library<a class="headerlink" href="#migrating-to-the-appcompat-library" title="Permanent link">&para;</a></h2>
+<p>The <a href="https://developer.android.com/tools/support-library/features.html#v7">AppCompat</a> support library enables the use of the ActionBar and Material Design specific implementations such as <a href="https://developer.android.com/reference/android/support/v7/widget/Toolbar.html">Toolbar</a> for older devices down to Android v2.1.   Currently, new projects created through Android Studio incorporate this library by default.  You can confirm by looking at the <code>build.gradle</code> file to see the AppCompat library being set:</p>
+<div class="codehilite"><pre><span></span><span class="n">android</span> <span class="err">{</span>
+    <span class="n">compileSdkVersion</span> <span class="mi">25</span>
+    <span class="n">buildToolsVersion</span> <span class="ss">&quot;25.0.2&quot;</span>
+<span class="err">}</span>
+
+<span class="n">dependencies</span> <span class="err">{</span>
+    <span class="n">compile</span> <span class="s1">&#39;com.android.support:appcompat-v7:25.2.0&#39;</span>
+<span class="err">}</span>
+</pre></div>
+
+
+<p>Note that the AppCompat library has an implicit dependency on the support-v4 library.  The support-v4 declaration however does not necessarily need to be declared.  Since the release of the support-v4 version 24.2.0, the library has been <a href="https://developer.android.com/topic/libraries/support-library/revisions.html">divided into separate modules</a>: <code>support-compat</code>, <code>support-core-utils</code>, <code>support-core-ui</code>, <code>support-media-compat</code>, and <code>support-fragment</code>.  However, because the AppCompat library usually depends on <code>support-fragment</code>, which still contains a dependency to all the other modules, you currently cannot take advantage of this change to reduce the number of overall dependencies.</p>
+<p>Also notice that once you upgrade to AppCompat v7 v24, you will also be forced to update your Build Tools and <code>compileSDKVersion</code> to API 24 too.</p>
+<p>There is a current <a href="https://code.google.com/p/android/issues/detail?id=183149">bug</a> that precludes you from compiling to lower versions.   Once you are using this API version 23 or higher, be aware that the Apache HTTP Client library has been <a href="https://developer.android.com/preview/behavior-changes.html#behavior-apache-http-client">removed</a>.</p>
+<h2 id="search-and-replacing-changes">Search and replacing changes<a class="headerlink" href="#search-and-replacing-changes" title="Permanent link">&para;</a></h2>
+<p>Older projects may not include this library, so migrating requires changing the theme references and many of the main imports described in this <a href="http://android-developers.blogspot.com/2014/10/appcompat-v21-material-design-for-pre.html">blog post</a>.  Because the support class declarations are not compatible with the standard Android ones, you need to make sure you are using the imports from the support library entirely.  Otherwise your app is likely to crash.</p>
+<p>The simplest is often to do a search-and-replace to start changing the following statements to start using the support libraries.</p>
+<h4 id="activities-changes">Activities Changes<a class="headerlink" href="#activities-changes" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code>import android.app.Activity</code> -&gt; <code>import android.support.v7.app.AppCompatActivity</code></li>
+<li><code>extends Activity</code> -&gt; <code>extends AppCompatActivity</code></li>
+</ul>
+<h4 id="fragment-changes">Fragment Changes<a class="headerlink" href="#fragment-changes" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code>extends FragmentActivity</code> -&gt; <code>extends AppCompatActivity</code></li>
+<li><code>import android.support.v4.app.FragmentActivity</code> -&gt; <code>import android.support.v7.app.AppCompatActivity</code> </li>
+<li><code>import android.app.Fragment</code> -&gt; <code>import android.support.v4.app.Fragment</code></li>
+<li><code>getFragmentManager()</code> -&gt; <code>getSupportFragmentManager()</code></li>
+</ul>
+<h4 id="actionbar-changes">ActionBar Changes<a class="headerlink" href="#actionbar-changes" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code>import android.app.ActionBar</code> -&gt; <code>import android.support.v7.app.ActionBar</code></li>
+<li><code>getActionBar()</code> -&gt; <code>getSupportActionBar()</code></li>
+</ul>
+<h4 id="alertdialog-changes">AlertDialog Changes<a class="headerlink" href="#alertdialog-changes" title="Permanent link">&para;</a></h4>
+<p>Your AlertDialogs should import from the AppCompat support library instead, which takes advantage of the new Material Design theme.</p>
+<p><img src="https://blog.xamarin.com/wp-content/uploads/2015/05/alertdialogs.png"/></p>
+<ul>
+<li><code>import android.app.AlertDialog</code> -&gt; <code>import android.support.v7.app.AlertDialog</code></li>
+</ul>
+<h4 id="theme-xml-changes">Theme XML Changes<a class="headerlink" href="#theme-xml-changes" title="Permanent link">&para;</a></h4>
+<p>If you were migrating from the Holo theme, your new theme  would inherit from <code>Theme.AppCompat</code> instead of <code>android:Theme.Holo.Light</code>:</p>
+<div class="codehilite"><pre><span></span>    <span class="nt">&lt;style</span> <span class="na">name=</span><span class="s">&quot;AppTheme&quot;</span> <span class="na">parent=</span><span class="s">&quot;Theme.AppCompat.Light.DarkActionBar&quot;</span><span class="nt">&gt;</span>
+</pre></div>
+
+
+<p>If you wish to have a style that disables the ActionBar in certain Activity screens but still wish to use many of the ones you custom defined, you can inherit from <code>AppTheme</code> and apply the same styles declared in <code>Theme.AppCompat.NoActionBar</code>:</p>
+<div class="codehilite"><pre><span></span>    <span class="nt">&lt;style</span> <span class="na">name=</span><span class="s">&quot;AppTheme.NoActionBar&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;item</span> <span class="na">name=</span><span class="s">&quot;windowActionBar&quot;</span><span class="nt">&gt;</span>false<span class="nt">&lt;/item&gt;</span>
+        <span class="nt">&lt;item</span> <span class="na">name=</span><span class="s">&quot;windowNoTitle&quot;</span><span class="nt">&gt;</span>true<span class="nt">&lt;/item&gt;</span>
+    <span class="nt">&lt;/style&gt;</span>
+</pre></div>
+
+
+<p>If you see <code>AppCompat does not support the current theme features</code>, it's likely the <code>windowNoTitle</code> setting has not been set or is set to false.  There is more strict enforcement on what this value must be set on newer AppCompat libraries.  See this <a href="http://stackoverflow.com/questions/29790070/upgraded-to-appcompat-v22-1-0-and-now-getting-illegalargumentexception-appcompa">Stack Overflow</a> article for more context.</p>
+<h4 id="menu-xml-changes">Menu XML Changes<a class="headerlink" href="#menu-xml-changes" title="Permanent link">&para;</a></h4>
+<p>For your menu/ layout files, add an <code>app:</code> namespace .  For menu items, the <code>showAsAction</code> must be from the <code>app</code> namespace instead of <code>android</code> namespace.  It is considered a custom attribute of the support library and will no otherwise be processed correctly without making this change.</p>
+<div class="codehilite"><pre><span></span><span class="nt">&lt;menu</span> <span class="na">xmlns:android=</span><span class="s">&quot;http://schemas.android.com/apk/res/android&quot;</span> <span class="na">xmlns:app=</span><span class="s">&quot;http://schemas.android.com/apk/res-auto&quot;</span><span class="nt">&gt;</span>
+ <span class="nt">&lt;item</span> <span class="na">android:id=</span><span class="s">&quot;@+id/myMenuItem&quot;</span>
+       <span class="na">android:title=</span><span class="s">&quot;@string/select&quot;</span>
+       <span class="na">android:showAsAction=</span><span class="s">&quot;ifRoom&quot;</span>
+       <span class="na">app:showAsAction=</span><span class="s">&quot;ifRoom&quot;</span>
+</pre></div>
+
+
+<p>If you are using widgets such as the SearchView, you must also use <code>android.support.v7.widget.SearchView</code> instead of <code>android.widget.SearchView</code>.  Note that the <code>app</code> namespace must also be used.</p>
+<div class="codehilite"><pre><span></span>+<span class="nt">&lt;menu</span> <span class="na">xmlns:android=</span><span class="s">&quot;http://schemas.android.com/apk/res/android&quot;</span> <span class="na">xmlns:app=</span><span class="s">&quot;http://schemas.android.com/apk/res-auto&quot;</span><span class="nt">&gt;</span>
+
+     <span class="nt">&lt;item</span> <span class="na">android:id=</span><span class="s">&quot;@+id/contentSearch&quot;</span>
+           <span class="na">android:orderInCategory=</span><span class="s">&quot;2&quot;</span>
+           <span class="na">android:title=</span><span class="s">&quot;@string/search&quot;</span>
+           <span class="na">app:showAsAction=</span><span class="s">&quot;ifRoom&quot;</span>
+           <span class="na">app:actionViewClass=</span><span class="s">&quot;android.support.v7.widget.SearchView&quot;</span><span class="nt">&gt;</span>
+</pre></div>
+
+
+<h4 id="changes-to-menu-options">Changes to Menu Options<a class="headerlink" href="#changes-to-menu-options" title="Permanent link">&para;</a></h4>
+<p>The <code>MenuItemCompat</code> helper class has a few static methods that should be used in lieu of <code>MenuItem</code>:</p>
+<div class="codehilite"><pre><span></span>  <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreateOptionsMenu</span><span class="o">(</span><span class="n">Menu</span> <span class="n">menu</span><span class="o">,</span> <span class="n">MenuInflater</span> <span class="n">inflater</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">inflater</span><span class="o">.</span><span class="na">inflate</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">menu</span><span class="o">.</span><span class="na">my_menu</span><span class="o">,</span> <span class="n">menu</span><span class="o">);</span>
+        <span class="n">mSearchView</span> <span class="o">=</span> <span class="o">(</span><span class="n">SearchView</span><span class="o">)</span> <span class="n">MenuItemCompat</span><span class="o">.</span><span class="na">getActionView</span><span class="o">(</span><span class="n">menu</span><span class="o">.</span><span class="na">findItem</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">contentSearch</span><span class="o">));</span>
+</pre></div>
+
+
+<h4 id="changing-targetsdkversion">Changing targetSDKVersion<a class="headerlink" href="#changing-targetsdkversion" title="Permanent link">&para;</a></h4>
+<p>In addition, setting the <code>targetSdkVersion</code> to the latest SDK version ensures that the  AppCompat library will attempt to apply the Material Design assuming the device itself can support it. The support library will still check to see if the minimum SDK version is being used on the device.</p>
+<div class="codehilite"><pre><span></span><span class="n">android</span> <span class="err">{</span>
+    <span class="n">targetSdkVersion</span> <span class="mi">24</span>
+</pre></div>
+
+
+<h3 id="known-issues">Known issues<a class="headerlink" href="#known-issues" title="Permanent link">&para;</a></h3>
+<p>The AppCompat library has issues with Samsung v4.2.2 devices.  See <a href="https://code.google.com/p/android/issues/detail?id=78377">this issue</a> for more details.</p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../layouts/layout-prformance/" title="Optimizing Layout Performance" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Optimizing Layout Performance
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../navigation/common-navigation-patterns/" title="Common Navigation Patterns" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Common Navigation Patterns
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset" style="background-color: #ff9900; color: #fff">
+    <div class="md-grid" style="display: flex;">
+      <div style="flex: 1;">
+        <h2>Consulting</h2>
+        <ul style="list-style: none; margin-left: -15px;">
+          <li><a href="https://www.peruzal.com/mobile-app-development" target="_blank">Mobile App Development</a></li>
+          <li><a href="https://www.peruzal.com/mobile-app-device-security-and-penetration-testing" target="_blank">Mobile App Security and Penetration Testing</a></li>
+          <li><a href="https://www.peruzal.com/database-and-web-application-performance-tuning-and-consulting" target="_blank">Database Performance Tuning</a></li>
+        </ul>
+      </div>
+      <div style="flex: 1;">
+        <h2>Training</h2>
+        <ul style="list-style: none; margin-left: -15px;">
+          <li><a href="https://training.peruzal.com/courses/mobile/android-mobile-app-development-training-certification" target="_blank">Android Mobile App Development Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/mobile/ios-mobile-app-development-training-with-swift" target="_blank">iOS Mobile App Development Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/mobile/xamarin/xamarin-forms-mobile-app-development-training" target="_blank">Xamarin Forms Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/mobile/xamarin/android-mobile-app-development-training-with-xamarin" target="_blank">Xamarin Android Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/mobile/xamarin/ios-mobile-app-development-training-with-xamarin" target="_blank">Xamarin iOS Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/web/reactjs-front-end-web-application-development" target="_blank">ReactJS Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/web/reactjs-front-end-web-application-development" target="_blank">React Native Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/gaming/unity-certified-game-development-training-south-africa" target="_blank">Unity Game Development Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/database/mysql-database-administration-training-certification-south-africa" target="_blank">MySQL Database Adminstration Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/programming/java-programming-training-certification" target="_blank">Java Programming Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/programming/ruby-programming-training-certification" target="_blank">Ruby Programming Training</a></li>
+        </ul>
+      </div>
+      <div style="flex: 1">
+        <h2>Resources</h2>
+        <ul style="list-style: none; margin-left: -15px;">
+          <li><a href="http://guides.peruzal.com/xamarin-forms-guide" target="_blank">Xamarin Forms Guide</a></li>
+          <li><a href="http://guides.peruzal.com/v1/android-guides" target="_blank">Android Development Guides</a></li>
+          <li><a href="http://guides.peruzal.com/xamarin-ios" target="_blank">iOS Development Guides</a></li>
+          <li><a href="http://xamarin-android-guide.peruzal.com/" target="_blank">Xamarin Android Guides</a></li>
+          <li><a href="http://xamarin-ios-guide.peruzal.com/" target="_blank">Xamarin iOS Guide</a></li>
+          <li><a href="http://unity-certified-associate-guide.peruzal.com/" target="_blank">Unity Game Development Guide</a></li>
+          <li><a href="https://josephkandi.gitbooks.io/mysql-5-6-database-administration-certification-g/content/" target="_blank">MySQL Database Adminstration Guide</a></li>
+          <li><a href="https://josephkandi.gitbooks.io/learn-java-by-developing-an-android-app/content/" target="_blank">Java Programming Guide</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="md-footer-meta__inner" style="background-color: rgba(0,0,0,.87)">
+      <div style="text-align: center; font-size: 0.7rem">
+          <div class="md-footer-copyright__highlight">
+            <a href="https://www.peruzal.com" target="_blank">Copyright &copy 2019 - Peruzal</a>
+          </div>
+      </div>
+      
+  <div style="text-align: center">
+    <link rel="stylesheet" href="../assets/fonts/font-awesome.css">
+    
+      <a href="https://github.com/peruzal" target="_blank" class="md-footer-social__link fa fa-github"></a>
+    
+      <a href="https://twitter.com/peruzal" target="_blank" class="md-footer-social__link fa fa-twitter"></a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-40772582-8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-40772582-8');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-6342782466521705",
+          enable_page_level_ads: true
+     });
+</script>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application.245445c6.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
+      
+        <script src="../assets/js/utils.js"></script>
+      
+        <script src="../assets/js/mixpanel.js"></script>
+      
+        <script src="../assets/js/track.js"></script>
+      
+        <script src="../assets/js/drift.js"></script>
+      
+    
+  </body>
+</html>

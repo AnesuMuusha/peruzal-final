@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+  
+  
+  
+  
+   <html class="no-js"> 
+
+  <head lang="en-us">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=10" />
+    <title>Cursor Cost Analysis - SQL Server Performance and Tuning</title>
+    <meta name="generator" content="Hugo 0.18.1" />
+
+    
+    <meta name="description" content="SQL Server Performance and Tuning">
+    
+    <link rel="canonical" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/cursor-cost-analysis/">
+    
+    <meta name="author" content="Peruzal">
+    
+
+    <meta property="og:url" content="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/cursor-cost-analysis/">
+    <meta property="og:title" content="SQL Server Performance and Tuning">
+    <meta property="og:image" content="http://guides.peruzal.com/images/logo.png">
+    <meta name="apple-mobile-web-app-title" content="SQL Server Performance and Tuning">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="shortcut icon" type="image/x-icon" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/images/favicon.ico">
+
+    <style>
+      @font-face {
+        font-family: 'Icon';
+        src: url('http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/fonts/icon.eot');
+        src: url('http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/fonts/icon.eot')
+               format('embedded-opentype'),
+             url('http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/fonts/icon.woff')
+               format('woff'),
+             url('http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/fonts/icon.ttf')
+               format('truetype'),
+             url('http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/fonts/icon.svg')
+               format('svg');
+        font-weight: normal;
+        font-style: normal;
+      }
+    </style>
+
+    <link rel="stylesheet" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/stylesheets/application.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/stylesheets/temporary.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/stylesheets/palettes.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/stylesheets/highlight/highlight.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/github-gist.min.css">
+
+    
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ubuntu:400,700|Ubuntu&#43;Mono">
+    <style>
+      body, input {
+        font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+      }
+      pre, code {
+        font-family: 'Ubuntu Mono', 'Courier New', 'Courier', monospace;
+      }
+    </style>
+
+    
+    <script src="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/javascripts/modernizr.js"></script>
+
+    
+
+  </head>
+  <body class="palette-primary-deep-orange palette-accent-light-blue">
+
+
+
+
+<div class="backdrop">
+	<div class="backdrop-paper"></div>
+</div>
+
+<input class="toggle" type="checkbox" id="toggle-drawer">
+<input class="toggle" type="checkbox" id="toggle-search">
+<label class="toggle-button overlay" for="toggle-drawer"></label>
+
+<header class="header">
+	<nav aria-label="Header">
+  <div class="bar default">
+    <div class="button button-menu" role="button" aria-label="Menu">
+      <label class="toggle-button icon icon-menu" for="toggle-drawer">
+        <span></span>
+      </label>
+    </div>
+    <div class="stretch">
+      <div class="title">
+        Cursor Cost Analysis
+      </div>
+    </div>
+
+    
+    <div class="button button-twitter" role="button" aria-label="Twitter">
+       <a href="https://twitter.com/peruzal" title="@peruzal on Twitter" target="_blank" class="toggle-button icon icon-twitter"></a>
+    </div>
+    
+
+    
+    <div class="button button-github" role="button" aria-label="GitHub">
+      <a href="https://github.com/peruzal" title="@peruzal on GitHub" target="_blank" class="toggle-button icon icon-github"></a>
+    </div>
+    
+    
+        
+  </div>
+  <div class="bar search">
+    <div class="button button-close" role="button" aria-label="Close">
+      <label class="toggle-button icon icon-back" for="toggle-search"></label>
+    </div>
+    <div class="stretch">
+      <div class="field">
+        <input class="query" type="text" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck>
+      </div>
+    </div>
+    <div class="button button-reset" role="button" aria-label="Search">
+      <button class="toggle-button icon icon-close" id="reset-search"></button>
+    </div>
+  </div>
+</nav>
+</header>
+
+<main class="main">
+	<div class="drawer">
+		<nav aria-label="Navigation">
+  <a href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization" class="project">
+    <div class="banner">
+      
+        <div class="logo">
+          <img src="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/images/logo.png">
+        </div>
+      
+      <div class="name">
+        <strong>SQL Server Performance and Tuning <span class="version">1.0.0</span></strong>
+        
+      </div>
+    </div>
+  </a>
+
+  <div class="scrollable">
+    <div class="wrapper">
+      
+
+      <div class="toc">
+        
+        <ul>
+          
+
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Introduction" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/">
+	
+	Introduction
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Performance Tuning Overview" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/performance-tuning-overview/">
+	
+	Performance Tuning Overview
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="SQL Performance Analysis" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/sql-performance-analysis/">
+	
+	SQL Performance Analysis
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="SQL Query Performance Analysis" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/sql-query-performance-analysis/">
+	
+	SQL Query Performance Analysis
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Index Analysis" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/index-analysis/">
+	
+	Index Analysis
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Database Tuning Advisor" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/database-tuning-advisor/">
+	
+	Database Tuning Advisor
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Boomark Lookup Analysis" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/bookmark-lookup-analysis/">
+	
+	Boomark Lookup Analysis
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Statistics Analysis" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/statistics-analysis/">
+	
+	Statistics Analysis
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Index Fragmentation Analysis" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/index-fragmentation-analysis/">
+	
+	Index Fragmentation Analysis
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Execution Plan Cache Analysis" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/execution-plan-cache-analysis/">
+	
+	Execution Plan Cache Analysis
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Query Recompilation" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/query-recompilation/">
+	
+	Query Recompilation
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Query Design Analysis" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/query-design-analysis/">
+	
+	Query Design Analysis
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Blocking Analysis" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/blocking-analysis/">
+	
+	Blocking Analysis
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Deadlock Analysis" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/deadlock-analysis/">
+	
+	Deadlock Analysis
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a class="current" title="Cursor Cost Analysis" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/cursor-cost-analysis/">
+	
+	Cursor Cost Analysis
+</a>
+
+
+<ul id="scrollspy">
+</ul>
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Database Performance Stress Testing" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/database-performance-stress-testing/">
+	
+	Database Performance Stress Testing
+</a>
+
+
+
+  
+</li>
+
+
+        </ul>
+        
+
+        
+        <hr>
+        <span class="section">The author</span>
+        
+        <ul>
+          
+          <li>
+            <a href="https://twitter.com/peruzal" target="_blank" title="@peruzal on Twitter">
+              @peruzal on Twitter
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="https://github.com/peruzal" target="_blank" title="@peruzal on GitHub">
+              @peruzal on GitHub
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="mailto:hello@peruzal.com" title="Email of hello@peruzal.com">
+              Contact via email
+            </a>
+          </li>
+          
+        </ul>
+        
+      </div>
+    </div>
+  </div>
+</nav>
+
+	</div>
+
+	<article class="article">
+		<div class="wrapper">
+			<h1>Cursor Cost Analysis </h1>
+
+			
+
+<h2 id="cursor-fundamentals">Cursor Fundamentals</h2>
+
+<p>When a query is executed by an application, SQL Server returns a set of data consisting of rows. Generally, applications can’t process multiple rows together; instead, they process one row at a time by walking through the result set returned by SQL Server. This functionality is provided by a cursor, which is a mechanism to work with one row at a time out of a multirow result set.</p>
+
+<p>T-SQL cursor processing usually involves the following steps:</p>
+
+<ol>
+<li>Declare the cursor to associate it with a SELECT statement and define the characteristics of the cursor.</li>
+<li>Open the cursor to access the result set returned by the SELECT statement.</li>
+<li>Retrieve a row from the cursor. Optionally, modify the row through the cursor.</li>
+<li>Once all the rows in the result set are processed, close the cursor and release the resources assigned to the cursor.</li>
+</ol>
+
+<p>The following is an example of a server cursor processing of query results from a table:</p>
+
+<pre><code class="language-sql">--Associate a SELECT statement to a cursor and define the
+--cursor's characteristics
+USE AdventureWorks2012;
+GO
+SET NOCOUNT ON
+DECLARE MyCursor CURSOR /*&lt;cursor characteristics&gt;*/
+FOR
+SELECT  adt.AddressTypeID,
+        adt.Name,
+        adt.ModifiedDate
+FROM    Person.AddressType adt;
+
+--Open the cursor to access the result set returned by the
+--SELECT statement
+OPEN MyCursor;
+
+--Retrieve one row at a time from the result set returned by
+--the SELECT statement
+DECLARE @AddressTypeId INT,
+    @Name VARCHAR(50),
+    @ModifiedDate DATETIME;
+
+FETCH NEXT FROM MyCursor INTO @AddressTypeId,@Name,@ModifiedDate;
+
+WHILE @@FETCH_STATUS = 0
+    BEGIN
+        PRINT 'NAME =   ' + @Name;
+
+--Optionally, modify the row through the cursor
+        UPDATE  Person.AddressType
+        SET     Name = Name + 'z'
+        WHERE CURRENT OF MyCursor;
+
+        FETCH NEXT FROM MyCursor
+            INTO @AddressTypeId,@Name,@ModifiedDate;
+    END
+
+--Close the cursor and release all resources assigned to the
+--cursor
+CLOSE MyCursor;
+DEALLOCATE MyCursor;
+</code></pre>
+
+<h2 id="cursor-cost-comparison">Cursor Cost Comparison</h2>
+
+<h2 id="default-result-set">Default Result Set</h2>
+
+<h2 id="analyzing-sql-server-overhead-with-cursors">Analyzing SQL Server Overhead with Cursors</h2>
+
+<p>he T-SQL cursors implemented using T-SQL statements are always executed on SQL Server because they need the SQL Server engine to process their T-SQL statements.</p>
+
+<p>In most cases, you can avoid cursor operations by rewriting the functionality using SQL queries, concentrating on set-based methods of accessing the data. For example, you can rewrite the preceding stored procedure using SQL queries (instead of the cursor operations) as follows (nocursor.sql in the download):</p>
+
+<pre><code class="language-sql">IF (SELECT  OBJECT_ID('dbo.TotalLoss')
+   ) IS NOT NULL
+    DROP PROC dbo.TotalLoss;
+GO
+CREATE PROC dbo.TotalLoss
+AS
+SELECT  CASE  --Determine status based on following computation
+             WHEN SUM(MoneyLostPerProduct) &gt; 5000 THEN 'We are bankrupt!'
+             ELSE 'We are safe!'
+        END AS Status
+FROM    (--Calculate total money lost for all discarded products
+         SELECT SUM(wo.ScrappedQty * p.ListPrice) AS MoneyLostPerProduct
+         FROM   Production.WorkOrder AS wo
+         JOIN   Production.ScrapReason AS sr
+                ON wo.ScrapReasonID = sr.ScrapReasonID
+         JOIN   Production.Product AS p
+                ON wo.ProductID = p.ProductID
+         GROUP BY p.ProductID
+        ) DiscardedProducts;
+GO
+</code></pre>
+
+<h2 id="cursor-recommendations">Cursor Recommendations</h2>
+
+<p>An ineffective use of cursors can degrade the application performance by introducing extra network round-trips and load on server resources. To keep the cursor cost low, try to follow these recommendations:</p>
+
+<ul>
+<li>Use set-based SQL statements over T-SQL cursors, since SQL Server is designed to work with sets of data.</li>
+<li>Use the least expensive cursor.</li>
+<li>When using SQL Server cursors, use the FAST FORWARD cursor type.</li>
+<li>When using the API cursors implemented by ADO, OLEDB, or ODBC, use the default cursor type, which is generally referred to as the default result set.</li>
+<li>When using ADO.NET, use the DataReader object.</li>
+<li>Minimize impact on server resources.</li>
+<li>Use a client-side cursor for API cursors.</li>
+<li>Do not perform actions on the underlying tables through the cursor.</li>
+<li>Always deallocate the cursor as soon as possible. This helps free resources, especially in tempdb.</li>
+<li>Redesign the cursor’s SELECT statement (or the application) to return the minimum set of rows and columns.</li>
+<li>Avoid T-SQL cursors entirely by rewriting the logic of the cursor as set-based statements, which are generally more efficient than cursors.</li>
+<li>Use a ROWVERSION column for dynamic cursors to benefit from the efficient, version-based concurrency control instead of relying upon the value-based technique.</li>
+<li>Minimize impact on tempdb.</li>
+<li>Minimize resource contention in tempdb by avoiding the static and keyset-driven cursor types.</li>
+<li>Static and key-set cursors put additional load on tempdb, so take that into account if you must use them, or avoid them if your tempdb is under stress.</li>
+<li>Minimize blocking.</li>
+<li>Use the default result set, fast-forward-only cursor, or static cursor.</li>
+<li>Process all cursor rows as quickly as possible.</li>
+<li>Avoid scroll locks or pessimistic locking.</li>
+<li>Minimize network round-trips while using API cursors.</li>
+<li>Use the CacheSize property of ADO to fetch multiple rows in one round-trip.</li>
+<li>Use client-side cursors.</li>
+</ul>
+
+
+			<aside class="copyright" role="note">
+				
+				&copy; 2017 Copyright 2017 Peruzal &ndash;
+				
+				Documentation built with
+				<a href="https://www.gohugo.io" target="_blank">Hugo</a>
+				using the
+				<a href="http://github.com/digitalcraftsman/hugo-material-docs" target="_blank">Material</a> theme.
+			</aside>
+
+			<footer class="footer">
+				
+
+<nav class="pagination" aria-label="Footer">
+  <div class="previous">
+  
+      <a href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/deadlock-analysis/" title="Deadlock Analysis">
+        <span class="direction">
+          Previous
+        </span>
+        <div class="page">
+          <div class="button button-previous" role="button" aria-label="Previous">
+            <i class="icon icon-back"></i>
+          </div>
+          <div class="stretch">
+            <div class="title">
+              Deadlock Analysis
+            </div>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+
+  <div class="next">
+  
+      <a href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/database-performance-stress-testing/" title="Database Performance Stress Testing">
+        <span class="direction">
+          Next
+        </span>
+        <div class="page">
+          <div class="stretch">
+            <div class="title">
+              Database Performance Stress Testing
+            </div>
+          </div>
+          <div class="button button-next" role="button" aria-label="Next">
+            <i class="icon icon-forward"></i>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+</nav>
+
+
+
+
+
+			</footer>
+		</div>
+	</article>
+
+	<div class="results" role="status" aria-live="polite">
+		<div class="scrollable">
+			<div class="wrapper">
+				<div class="meta"></div>
+				<div class="list"></div>
+			</div>
+		</div>
+	</div>
+</main>
+
+    <script>
+    
+      var base_url = '';
+      var repo_id  = '';
+    
+    </script>
+
+    <script src="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/javascripts/application.js"></script>
+    
+
+    <script>
+      /* Add headers to scrollspy */
+      var headers   = document.getElementsByTagName("h2");
+      var scrollspy = document.getElementById('scrollspy');
+
+      if(scrollspy) {
+        if(headers.length > 0) {
+          for(var i = 0; i < headers.length; i++) {
+            var li = document.createElement("li");
+            li.setAttribute("class", "anchor");
+
+            var a  = document.createElement("a");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", headers[i].innerHTML);
+            a.innerHTML = headers[i].innerHTML;
+
+            li.appendChild(a)
+            scrollspy.appendChild(li);
+          }
+        } else {
+          scrollspy.parentElement.removeChild(scrollspy)
+        }
+
+
+        /* Add permanent link next to the headers */
+        var headers = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+
+        for(var i = 0; i < headers.length; i++) {
+            var a = document.createElement("a");
+            a.setAttribute("class", "headerlink");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", "Permanent link")
+            a.innerHTML = "#";
+            headers[i].appendChild(a);
+        }
+      }
+    </script>
+
+    
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>
+

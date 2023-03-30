@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Persistence-rsses on Xamarin iOS Guides</title>
+    <link>http://guides.peruzal.com/ios-guides/persistence/index.xml</link>
+    <description>Recent content in Persistence-rsses on Xamarin iOS Guides</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Peruzal</copyright>
+    <lastBuildDate>Mon, 21 Nov 2016 23:25:42 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/ios-guides/persistence/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Persistence</title>
+      <link>http://guides.peruzal.com/ios-guides/persistence/</link>
+      <pubDate>Mon, 21 Nov 2016 23:25:42 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/ios-guides/persistence/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

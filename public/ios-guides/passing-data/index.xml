@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Passing-data-rsses on Xamarin iOS Guides</title>
+    <link>http://guides.peruzal.com/ios-guides/passing-data/index.xml</link>
+    <description>Recent content in Passing-data-rsses on Xamarin iOS Guides</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Peruzal</copyright>
+    <lastBuildDate>Mon, 12 Dec 2016 02:03:30 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/ios-guides/passing-data/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Passing Data between View Controllers</title>
+      <link>http://guides.peruzal.com/ios-guides/passing-data/</link>
+      <pubDate>Mon, 12 Dec 2016 02:03:30 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/ios-guides/passing-data/</guid>
+      <description>
+
+&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+
+&lt;p&gt;While your application runs, as &lt;a href=&#34;https://developer.apple.com/library/ios/documentation/General/Conceptual/Devpedia-CocoaApp/MainEventLoop.html&#34;&gt;events are triggered and
+processed&lt;/a&gt;, you&amp;rsquo;ll need a way for objects in your
+application to propagate these events and to get the data they need from
+each other in order to respond properly.&lt;/p&gt;
+
+&lt;p&gt;In iOS, there are quite a few standard ways to pass data and propagate
+events between objects:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Delegate pattern&lt;/li&gt;
+&lt;li&gt;Passing blocks (closures) around&lt;/li&gt;
+&lt;li&gt;Target-Action pattern&lt;/li&gt;
+&lt;li&gt;Publish/Subscribe message bus with &lt;code&gt;NSNotificationCenter&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This guide gives an high-level overview of each of these mechanisms with
+a focus on passing data and propagating events between two different
+view controllers and between view controllers and views.  Generally when
+working with view controllers and views, the following steps are typical&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;A view controller &lt;code&gt;VC1&lt;/code&gt; configures a view or another view controller
+&lt;code&gt;V2&lt;/code&gt;.  This can be done by calling an initializer or by
+obtaining a reference to and setting properties on &lt;code&gt;V2&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;The second view or view controller &lt;code&gt;V2&lt;/code&gt; is loaded and shown on the
+screen.  Additionally &lt;code&gt;V2&lt;/code&gt; may request more information from &lt;code&gt;VC1&lt;/code&gt;
+while it&amp;rsquo;s on the screen.&lt;/li&gt;
+&lt;li&gt;The user triggers an event in &lt;code&gt;V2&lt;/code&gt; that needs to be handled in &lt;code&gt;VC1&lt;/code&gt;.
+This means that &lt;code&gt;V2&lt;/code&gt; will need to propagate the event and possibly
+send some information about it&amp;rsquo;s current state to &lt;code&gt;VC1&lt;/code&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;basic-example&#34;&gt;Basic example&lt;/h2&gt;
+
+&lt;p&gt;To demonstrate this basic use case, we&amp;rsquo;ll use a standard example
+throughout. We&amp;rsquo;ll build a demo app that lets the user change the
+background color of the main view controller by opening up a secondary
+color picker view controller.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://imgur.com/XgIWavY&#34;&gt;&lt;img src=&#34;http://i.imgur.com/XgIWavY.gif&#34; title=&#34;source: imgur.com&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;delegate-pattern&#34;&gt;Delegate Pattern&lt;/h2&gt;
+
+&lt;p&gt;The &lt;a href=&#34;https://developer.apple.com/library/ios/documentation/General/Conceptual/DevPedia-CocoaCore/Delegation.html&#34;&gt;delegate pattern&lt;/a&gt; is a common pattern in iOS. It can be used to communicate events between multiple
+view controllers, between view controllers and views, etc. If you&amp;rsquo;ve implemented a TableView, then you&amp;rsquo;ve used the delegate pattern when you implemented &lt;a href=&#34;https://developer.apple.com/library/ios/documentation/UIKit/Reference/UITableViewDataSource_Protocol&#34;&gt;UITableViewDataSource&lt;/a&gt; and &lt;a href=&#34;https://developer.apple.com/library/ios/documentation/UIKit/Reference/UITableViewDelegate_Protocol&#34;&gt;UITableViewDelegate&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;It can be really useful to create your own delegate. To do so, requires the following 4 steps:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Create a &lt;a href=&#34;http://guides.codepath.com/ios/Understanding-Swift#protocols&#34;&gt;protocol&lt;/a&gt; that has methods for each event:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;protocol ColorPickerDelegate: class {
+    func colorPicker(picker: ColorPickerViewController, didPickColor color: UIColor?)
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;In the source class, create a property to hold a reference to the listener.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;class ColorPickerViewController: UIViewController {
+    weak var delegate: ColorPickerDelegate?
+
+    // ... Rest of class ...
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;In the source class, call the appropriate delegate method when an event occurs.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;class ColorPickerViewController: UIViewController {
+
+    weak var delegate: ColorPickerDelegate?
+
+    @IBOutlet weak var colorsSegmentedControl: UISegmentedControl!
+
+    let colors = [(&amp;quot;Cyan&amp;quot;, UIColor.cyanColor()),  (&amp;quot;Magenta&amp;quot;, UIColor.magentaColor()), (&amp;quot;Yellow&amp;quot;, UIColor.yellowColor())]
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // initialize segmented control and select the starting color if it is one of our segments
+        colorsSegmentedControl.removeAllSegments()
+        var selectedIndex = UISegmentedControlNoSegment
+
+        for (index, color) in colors.enumerate() {
+            if color.1.isEqual(initialColor) {
+                selectedIndex = index
+            }
+            colorsSegmentedControl.insertSegmentWithTitle(color.0, atIndex: index, animated: false)
+        }
+        colorsSegmentedControl.selectedSegmentIndex = selectedIndex
+    }
+
+    func colorFromSelection() -&amp;gt; UIColor? {
+        let selectedIndex = colorsSegmentedControl.selectedSegmentIndex
+        if selectedIndex != UISegmentedControlNoSegment {
+            return colors[selectedIndex].1
+        }
+        return nil
+    }
+
+    @IBAction func doneButtonTapped(sender: AnyObject) {
+        delegate?.colorPicker(self, didPickColor: colorFromSelection())
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;In the listening class, implement the protocol.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;class ViewController: UIViewController, ColorPickerDelegate {
+    @IBAction func openColorPickerTapped(sender: AnyObject) {
+        let storyboard = UIStoryboard(name: &amp;quot;Main&amp;quot;, bundle: NSBundle.mainBundle())
+        let colorPickerVC = storyboard.instantiateViewControllerWithIdentifier(&amp;quot;ColorPicker&amp;quot;) as ColorPickerViewController
+        colorPickerVC.delegate = self
+        presentViewController(colorPickerVC, animated: true, completion: nil)
+    }
+
+    func colorPicker(picker: ColorPickerViewController, didPickColor color: UIColor?) {
+        if let selectedColor = color {
+            view.backgroundColor = selectedColor
+        }
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;passing-blocks&#34;&gt;Passing blocks&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Closures.html&#34;&gt;Closures in Swift&lt;/a&gt; and &lt;a href=&#34;https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/WorkingwithBlocks/WorkingwithBlocks.html&#34;&gt;blocks in
+Objective-C&lt;/a&gt; are first class concepts.  This means
+that you can pass closures as parameters and assign them to variables to
+be exectuted later.  These concepts allow you to implement a basic
+callback mechanism that can be used to propagate and pass on the
+responsibility of handling an event.&lt;/p&gt;
+
+&lt;p&gt;Passing blocks is common in iOS frameworks and libraries where a single
+callback (as opposed to a protocol containing many methods used with
+delegates) is required.  It also provides the advantage of being able to
+define the closure inline so that it &lt;a href=&#34;http://en.wikipedia.org/wiki/Closure_%28computer_programming%29&#34;&gt;closes over&lt;/a&gt; the
+current environment and hence you will have access to any variables that
+are currently in scope.&lt;/p&gt;
+
+&lt;p&gt;An example of an iOS library that uses blocks is
+&lt;a href=&#34;Network-Programming#nsurlconnection&#34;&gt;&lt;code&gt;NSURLConnection&lt;/code&gt;&lt;/a&gt;.  It allows you
+to specify a block that will be executed asynchronously when a network
+request returns.  Another example is the
+&lt;a href=&#34;https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSNotificationCenter_Class/#//apple_ref/occ/instm/NSNotificationCenter/addObserverForName:object:queue:usingBlock:&#34;&gt;&lt;code&gt;NSNotificationCenter.addObserverForName:object:queue:usingBlock:&lt;/code&gt;&lt;/a&gt;
+method called &lt;a href=&#34;#broadcasting-messages-with-nsnotificationcenter&#34;&gt;below&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;One downside to using blocks is that it may be difficult to get
+the type definitions correct for complicated closures having optionals,
+collection types, or other closures as parameters or return values.&lt;/p&gt;
+
+&lt;p&gt;We can see block callbacks in action continuing with our &lt;a href=&#34;#basic-example&#34;&gt;running
+example&lt;/a&gt;.  We still have our &lt;code&gt;ViewController&lt;/code&gt;
+instantiate and configure the &lt;code&gt;ColorPickerViewController&lt;/code&gt;.  The
+&lt;code&gt;ColorPickerViewController&lt;/code&gt; now has a &lt;code&gt;doneHandler&lt;/code&gt; which we set to be a
+block that calls our method &lt;code&gt;didPickColor&lt;/code&gt;.  We present the
+&lt;code&gt;ColorPickerViewController&lt;/code&gt; to the user after finishing our
+configuration.&lt;/p&gt;
+
+&lt;p&gt;As before, the method &lt;code&gt;didPickColor&lt;/code&gt; updates our background color and
+dismisses the &lt;code&gt;ColorPickerViewController&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;class ViewController: UIViewController {
+    @IBAction func openColorPickerTapped(sender: AnyObject) {
+        let storyboard = UIStoryboard(name: &amp;quot;Main&amp;quot;, bundle: NSBundle.mainBundle())
+        let colorPickerVC = storyboard.instantiateViewControllerWithIdentifier(&amp;quot;ColorPicker&amp;quot;) as ColorPickerViewController
+        colorPickerVC.doneHandler = {(color: UIColor?) -&amp;gt; Void in
+            self.didPickColor(color)
+        }
+
+        presentViewController(colorPickerVC, animated: true, completion: nil)
+    }
+
+    func didPickColor(color: UIColor?) {
+        if let selectedColor = color {
+            view.backgroundColor = selectedColor
+        }
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In &lt;code&gt;ColorPickerViewController&lt;/code&gt; we propagate the action of the user
+clicking on the &amp;ldquo;Done&amp;rdquo; button to &lt;code&gt;ViewController&lt;/code&gt; by executing the
+&lt;code&gt;doneHandler&lt;/code&gt; that was set.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;class ColorPickerViewController: UIViewController {
+    @IBOutlet weak var colorsSegmentedControl: UISegmentedControl!
+
+    let colors = [(&amp;quot;Cyan&amp;quot;, UIColor.cyanColor()),  (&amp;quot;Magenta&amp;quot;, UIColor.magentaColor()), (&amp;quot;Yellow&amp;quot;, UIColor.yellowColor())]
+    var doneHandler: ((UIColor?) -&amp;gt; Void)?
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // initalize segmented control and select the starting color if it is one of our segments
+        colorsSegmentedControl.removeAllSegments()
+        var selectedIndex = UISegmentedControlNoSegment
+
+        for (index, color) in enumerate(colors) {
+            if color.1.isEqual(initialColor) {
+                selectedIndex = index
+            }
+            colorsSegmentedControl.insertSegmentWithTitle(color.0, atIndex: index, animated: false)
+        }
+        colorsSegmentedControl.selectedSegmentIndex = selectedIndex
+    }
+
+    func colorFromSelection() -&amp;gt; UIColor? {
+        let selectedIndex = colorsSegmentedControl.selectedSegmentIndex
+        if selectedIndex != UISegmentedControlNoSegment {
+            return colors[selectedIndex].1
+        }
+        return nil
+    }
+
+    @IBAction func doneButtonTapped(sender: AnyObject) {
+        doneHandler?(colorFromSelection())
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;the-target-action-pattern&#34;&gt;The target-action pattern&lt;/h2&gt;
+
+&lt;p&gt;An another construct used to propagate events in iOS is the
+&lt;a href=&#34;https://developer.apple.com/library/ios/documentation/General/Conceptual/Devpedia-CocoaApp/TargetAction.html&#34;&gt;target-action&lt;/a&gt; pattern.  This is an older Objective-C
+pattern that allows a class to register a method (&lt;em&gt;action&lt;/em&gt; or
+&lt;em&gt;selector&lt;/em&gt;) to be executed on some object (&lt;em&gt;target&lt;/em&gt;) at some point
+later.  This pattern is used throughout many iOS libraries for example
+the following code tells the &lt;code&gt;button&lt;/code&gt; to call &lt;code&gt;self.onButtonTap()&lt;/code&gt; when
+it is tapped.&lt;/p&gt;
+
+&lt;p&gt;This pattern is pretty much the same as creating an &lt;code&gt;@IBAction&lt;/code&gt;
+from the interface builder in XCode; however, this is done in code.
+It&amp;rsquo;s used when you have to dynamically create view objects in code
+and add actions to it based on control events.&lt;/p&gt;
+
+&lt;p&gt;In the following example, you&amp;rsquo;re creating a button dynamically in
+code.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;class CodePathViewController: UIViewController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        let button = UIButton()
+        button.addTarget(self, action: &amp;quot;onButtonTap&amp;quot;, forControlEvents: .TouchUpInside)
+        button.frame = CGRectMake(0, 0, 300, 500)
+
+        //Add button to the view
+        self.view.addSubview(letterButton)
+    }
+
+    func onButtonTap() {
+        print(&amp;quot;Button Tapped!&amp;quot;)
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Let&amp;rsquo;s take a look at the parameters of &lt;code&gt;addTarget&lt;/code&gt; method:
+* target - (&lt;strong&gt;Who to tell&lt;/strong&gt;) The target parameter is the object that is going to respond to the control event.
+           In this case, the event is &lt;code&gt;.TouchUpInside&lt;/code&gt; (Tap). Usually, the target is the
+           object of the ViewController class in which the button was created.
+           In the example, we reference the object of the ViewController class with the
+           keyword &lt;code&gt;self&lt;/code&gt;.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;action - (&lt;strong&gt;What to tell them&lt;/strong&gt;) The action parameter is simply the name of the method that needs to be invoked in
+       the target object.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;forControlEvents - (&lt;strong&gt;When to tell them&lt;/strong&gt;) This is where you pass the type of event for your button.
+                 Here&amp;rsquo;s a list of &lt;a href=&#34;https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIControl_Class/index.html#//apple_ref/doc/constant_group/Control_Events&#34;&gt;events&lt;/a&gt; you can use for UIButton.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;To simplify, in the above example, we let the button know that it has to call the instance
+method &lt;code&gt;onButtonTap&lt;/code&gt; of the class &lt;code&gt;CodePathViewController&lt;/code&gt; when it is tapped.&lt;/p&gt;
+
+&lt;p&gt;One downside is that its is not easy to use the target-action pattern to invoke methods
+that require two or more parameters.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;TODO: rewrite example in Objective-C to use target-action pattern&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;broadcasting-messages-with-nsnotificationcenter&#34;&gt;Broadcasting messages with &lt;code&gt;NSNotificationCenter&lt;/code&gt;&lt;/h2&gt;
+
+&lt;p&gt;Finally, iOS provides a mechanism for implementing a basic
+subcribe/publish message queue via &lt;a href=&#34;https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/Notifications/Articles/NotificationCenters.html&#34;&gt;notification
+centers&lt;/a&gt;.  The basic usage is&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Define an identifer to name this particular type of notification&lt;/li&gt;
+&lt;li&gt;Subscribe to this kind of notification by adding an observer to a
+notification center for notifications with the given name.  You can
+instatiate new notification centers, but it is common to use
+&lt;code&gt;NSNotificationCenter.defaultCenter&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Publish notifications to the notification center.  You might include
+additional data in a &lt;code&gt;userInfo&lt;/code&gt; dictionary.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;The &lt;code&gt;NSNotificationCenter&lt;/code&gt; API is normally used to handle app-wide
+events that may be relevant to multiple interested&amp;mdash;possibly
+unrelated&amp;mdash;view controllers (e.g. the logged in state of a user).
+It is not normally used to pass information between two specific view
+controllers.  Nevertheless, we can adapt it our &lt;a href=&#34;#basic-example&#34;&gt;running
+example&lt;/a&gt; as follows.&lt;/p&gt;
+
+&lt;p&gt;We define &lt;code&gt;ColorPickerNotification&lt;/code&gt; as an identifier that will be used
+as the name for notifications from our &lt;code&gt;ColorPickerViewController&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;In &lt;code&gt;ViewController&lt;/code&gt;, before presenting the &lt;code&gt;ColorPickerViewController&lt;/code&gt;,
+we register an observer for notifications with this name.  In the block
+that is triggered when the notification fires, we extract the selected
+color from the &lt;code&gt;userInfo&lt;/code&gt; dictionary and call &lt;code&gt;didPickColor&lt;/code&gt;.  The
+&lt;code&gt;didPickColor&lt;/code&gt; method sets the background color and dismisses the
+&lt;code&gt;ColorPickerViewController&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;class ViewController: UIViewController {
+
+    @IBAction func openColorPickerTapped(sender: AnyObject) {
+        let storyboard = UIStoryboard(name: &amp;quot;Main&amp;quot;, bundle: NSBundle.mainBundle())
+        let colorPickerVC = storyboard.instantiateViewControllerWithIdentifier(&amp;quot;ColorPicker&amp;quot;) as ColorPickerViewController
+        colorPickerVC.initialColor = view.backgroundColor
+
+        NSNotificationCenter.defaultCenter().addObserverForName(ColorPickerNotification, object: nil, queue: NSOperationQueue.mainQueue()) { (notification: NSNotification!) -&amp;gt; Void in
+            let userInfo = notification?.userInfo
+            let selectedColor: UIColor? = userInfo?[ColorPickerSelectedColorKey] as? UIColor
+            self.didPickColor(selectedColor)
+
+        }
+
+        presentViewController(colorPickerVC, animated: true, completion: nil)
+    }
+
+    func didPickColor(color: UIColor?) {
+        if let selectedColor = color {
+            view.backgroundColor = selectedColor
+        }
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In &lt;code&gt;ColorPickerViewController&lt;/code&gt;, when the &amp;ldquo;Done&amp;rdquo; button is tapped we
+construct a &lt;code&gt;userInfo&lt;/code&gt; dictionary containing the currently selected
+color.  Then we fire a notification with the key
+&lt;code&gt;ColorPickerNotification&lt;/code&gt; let all subscribers know that the a color has
+been picked by the user.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let ColorPickerNotification = &amp;quot;com.codepath.ColorPickerViewController.didPickColor&amp;quot;
+let ColorPickerSelectedColorKey = &amp;quot;com.codepath.ColorPickerViewController.selectedColor&amp;quot;
+
+class ColorPickerViewController: UIViewController {
+    @IBOutlet weak var colorsSegmentedControl: UISegmentedControl!
+
+    let colors = [(&amp;quot;Cyan&amp;quot;, UIColor.cyanColor()),  (&amp;quot;Magenta&amp;quot;, UIColor.magentaColor()), (&amp;quot;Yellow&amp;quot;, UIColor.yellowColor())]
+    var initialColor: UIColor?
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // initalize segmented control and select the starting color if it is one of our segments
+        colorsSegmentedControl.removeAllSegments()
+        var selectedIndex = UISegmentedControlNoSegment
+
+        for (index, color) in enumerate(colors) {
+            if color.1.isEqual(initialColor) {
+                selectedIndex = index
+            }
+            colorsSegmentedControl.insertSegmentWithTitle(color.0, atIndex: index, animated: false)
+        }
+        colorsSegmentedControl.selectedSegmentIndex = selectedIndex
+    }
+
+    func colorFromSelection() -&amp;gt; UIColor? {
+        let selectedIndex = colorsSegmentedControl.selectedSegmentIndex
+        if selectedIndex != UISegmentedControlNoSegment {
+            return colors[selectedIndex].1
+        }
+        return nil
+    }
+
+    @IBAction func doneButtonTapped(sender: AnyObject) {
+        var selectionInfo: [NSObject : AnyObject] = [:]
+        if let selectedColor = colorFromSelection() {
+            selectionInfo[ColorPickerSelectedColorKey] = selectedColor
+        }
+        NSNotificationCenter.defaultCenter().postNotificationName(ColorPickerNotification, object: self, userInfo: selectionInfo)
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

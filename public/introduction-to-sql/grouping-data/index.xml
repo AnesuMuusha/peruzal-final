@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Grouping-data on Introduction to SQL</title>
+    <link>http://guides.peruzal.com/introduction-to-sql/grouping-data/index.xml</link>
+    <description>Recent content in Grouping-data on Introduction to SQL</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Copyright 2017 Peruzal</copyright>
+    <lastBuildDate>Tue, 28 Feb 2017 21:50:40 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/introduction-to-sql/grouping-data/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Grouping Data</title>
+      <link>http://guides.peruzal.com/introduction-to-sql/grouping-data/</link>
+      <pubDate>Tue, 28 Feb 2017 21:50:40 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/introduction-to-sql/grouping-data/</guid>
+      <description>
+
+&lt;h2 id=&#34;understanding-data-grouping&#34;&gt;Understanding Data Grouping&lt;/h2&gt;
+
+&lt;p&gt;Grouping lets you divide data into logical sets so that you can perform aggregate calculations on each group.&lt;/p&gt;
+
+&lt;h2 id=&#34;creating-groups&#34;&gt;Creating Groups&lt;/h2&gt;
+
+&lt;p&gt;Groups are created using the GROUP BY clause in your SELECT statement. The best way to understand this is to look at an example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT vend_id, COUNT(*) AS num_prods
+FROM Products
+GROUP BY vend_id;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The above &lt;strong&gt;SELECT&lt;/strong&gt; statement specifies two columns, _vend&lt;em&gt;id&lt;/em&gt;, which contains the ID of a product’s vendor, and _num&lt;em&gt;prods&lt;/em&gt;, which is a calculated field (created using the &lt;strong&gt;COUNT(*)&lt;/strong&gt; function). The &lt;strong&gt;GROUP BY&lt;/strong&gt; clause instructs the DBMS to sort the data and group it by vend_id. This causes num_prods to be calculated once per vend_id rather than once for the entire table. As you can see in the output, vendor &lt;em&gt;BRS01&lt;/em&gt; has 3 products listed, vendor &lt;em&gt;DLL01&lt;/em&gt; has 4 products listed, and vendor &lt;em&gt;FNG01&lt;/em&gt; has 2 products listed.&lt;/p&gt;
+
+&lt;p&gt;Because you used &lt;strong&gt;GROUP BY&lt;/strong&gt;, you did not have to specify each group to be evaluated and calculated. That was done automatically. The &lt;strong&gt;GROUP BY&lt;/strong&gt; clause instructs the DBMS to group the data and then perform the aggregate on each group rather than on the entire result set.&lt;/p&gt;
+
+&lt;h2 id=&#34;filtering-groups&#34;&gt;Filtering Groups&lt;/h2&gt;
+
+&lt;p&gt;In addition to being able to group data using GROUP BY, SQL also allows you to filter which groups to include and which to exclude. The &lt;strong&gt;HAVING&lt;/strong&gt; clause is used, it works similar to the &lt;strong&gt;WHERE&lt;/strong&gt; keyword but for groups.&lt;/p&gt;
+
+&lt;p&gt;Look at the following example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT cust_id, COUNT(*) AS orders
+FROM Orders
+GROUP BY cust_id
+HAVING COUNT(*) &amp;gt;= 2;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The first three lines of this &lt;strong&gt;SELECT&lt;/strong&gt; statement are similar to the statements seen above. The final line adds a &lt;strong&gt;HAVING&lt;/strong&gt; clause that filters on those groups with a _COUNT(*) &amp;gt;= 2_—two or more orders.&lt;/p&gt;
+
+&lt;p&gt;As you can see, a &lt;strong&gt;WHERE&lt;/strong&gt; clause does not work here because the filtering is based on the group aggregate value, not on the values of specific rows.&lt;/p&gt;
+
+&lt;div class=&#34;admonition note&#34;&gt;
+&lt;p class=&#34;admonition-title&#34;&gt;The Difference Between HAVING and WHERE&lt;/p&gt;
+&lt;p&gt;Here’s another way to look it: WHERE filters before data is grouped, and HAVING filters after data is grouped. This is an important distinction; rows that are eliminated by a WHERE clause will not be included in the group. This could change the calculated values which in turn could affect which groups are filtered based on the use of those values in the HAVING clause.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;using-both-where-and-having&#34;&gt;Using both WHERE and HAVING&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT vend_id, COUNT(*) AS num_prods
+FROM Products
+WHERE prod_price &amp;gt;= 4
+GROUP BY vend_id
+HAVING COUNT(*) &amp;gt;= 2;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The first line is a basic &lt;strong&gt;SELECT&lt;/strong&gt; using an aggregate function—much like the examples thus far. The &lt;strong&gt;WHERE&lt;/strong&gt; clause filters all rows with a prod_price of at least 4. Data is then grouped by vend_id, and then a &lt;strong&gt;HAVING&lt;/strong&gt; clause filters just those groups with a count of 2 or more. Without the &lt;strong&gt;WHERE&lt;/strong&gt; clause an extra row would have been retrieved (vendor &lt;em&gt;DLL01&lt;/em&gt; who sells four products all priced under 4) as seen here:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT vend_id, COUNT(*) AS num_prods
+FROM Products
+GROUP BY vend_id
+HAVING COUNT(*) &amp;gt;= 2;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;grouping-and-sorting&#34;&gt;Grouping and Sorting&lt;/h2&gt;
+
+&lt;p&gt;Lets look at ordering the results from a grouping. The following statement retrieves the order number and number of items ordered for all orders containing three or more items:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT order_num, COUNT(*) AS items
+FROM OrderItems
+GROUP BY order_num
+HAVING COUNT(*) &amp;gt;= 3;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To sort the output by number of items ordered, all you need to do is add an ORDER BY clause, as follows:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT order_num, COUNT(*) AS items
+FROM OrderItems
+GROUP BY order_num
+HAVING COUNT(*) &amp;gt;= 3
+ORDER BY items, order_num;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

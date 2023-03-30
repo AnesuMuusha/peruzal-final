@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Android-security-models on Mobile Device Security and Penetration Testing Guide</title>
+    <link>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-security-model/</link>
+    <description>Recent content in Android-security-models on Mobile Device Security and Penetration Testing Guide</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Peruzal Mobile Device Security and Penetration Testing Guide</copyright>
+    <lastBuildDate>Sun, 01 Jan 2017 11:48:14 +0200</lastBuildDate>
+    
+	<atom:link href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-security-model/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Android Security Model</title>
+      <link>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-security-model/</link>
+      <pubDate>Sun, 01 Jan 2017 11:48:14 +0200</pubDate>
+      
+      <guid>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-security-model/</guid>
+      <description>App Sandboxing On Android each app does only have access to its own data. Each app belongs to a single user. Each application has an entry in /data/data/&amp;lt;package-name&amp;gt;. The folder are not readable and writable by an other user other than the owner of the app.
+Only the root user have access to any part of the system. Once the device is rooted, an app with root permissions can access any data on the system.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,1721 @@
+<!DOCTYPE html>
+  
+  
+  
+  
+   <html class="no-js"> 
+
+  <head lang="en-us">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=10" />
+    <title>Navigation Controller - Xamarin iOS Guides</title>
+    <meta name="generator" content="Hugo 0.17" />
+
+    
+    <meta name="description" content="Xamrin iOS guides for the Peruzal Cross Platform Mobile App Development course">
+    
+    <link rel="canonical" href="http://guides.peruzal.com/ios-guides/navigation-controller/">
+    
+    <meta name="author" content="Peruzal">
+    
+
+    <meta property="og:url" content="http://guides.peruzal.com/ios-guides/navigation-controller/">
+    <meta property="og:title" content="Xamarin iOS Guides">
+    <meta property="og:image" content="http://guides.peruzal.com/ios-guides/images/logo.png">
+    <meta name="apple-mobile-web-app-title" content="Xamarin iOS Guides">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="shortcut icon" type="image/x-icon" href="http://guides.peruzal.com/ios-guides/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="http://guides.peruzal.com/ios-guides/images/favicon.ico">
+
+    <style>
+      @font-face {
+        font-family: 'Icon';
+        src: url('http://guides.peruzal.com/ios-guides/fonts/icon.eot?52m981');
+        src: url('http://guides.peruzal.com/ios-guides/fonts/icon.eot?#iefix52m981')
+               format('embedded-opentype'),
+             url('http://guides.peruzal.com/ios-guides/fonts/icon.woff?52m981')
+               format('woff'),
+             url('http://guides.peruzal.com/ios-guides/fonts/icon.ttf?52m981')
+               format('truetype'),
+             url('http://guides.peruzal.com/ios-guides/fonts/icon.svg?52m981#icon')
+               format('svg');
+        font-weight: normal;
+        font-style: normal;
+      }
+    </style>
+
+    <link rel="stylesheet" href="http://guides.peruzal.com/ios-guides/stylesheets/application.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/ios-guides/stylesheets/temporary.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/ios-guides/stylesheets/palettes.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/ios-guides/stylesheets/highlight/highlight.css">
+
+    
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ubuntu:400,700|Ubuntu&#43;Mono">
+    <style>
+      body, input {
+        font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+      }
+      pre, code {
+        font-family: 'Ubuntu Mono', 'Courier New', 'Courier', monospace;
+      }
+    </style>
+
+    
+    <script src="http://guides.peruzal.com/ios-guides/javascripts/modernizr.js"></script>
+
+    
+
+  </head>
+  <body class="palette-primary-red palette-accent-teal">
+
+
+
+
+<div class="backdrop">
+	<div class="backdrop-paper"></div>
+</div>
+
+<input class="toggle" type="checkbox" id="toggle-drawer">
+<input class="toggle" type="checkbox" id="toggle-search">
+<label class="toggle-button overlay" for="toggle-drawer"></label>
+
+<header class="header">
+	<nav aria-label="Header">
+  <div class="bar default">
+    <div class="button button-menu" role="button" aria-label="Menu">
+      <label class="toggle-button icon icon-menu" for="toggle-drawer">
+        <span></span>
+      </label>
+    </div>
+    <div class="stretch">
+      <div class="title">
+        Navigation Controller
+      </div>
+    </div>
+
+    
+
+    
+    <div class="button button-github" role="button" aria-label="GitHub">
+      <a href="https://github.com/peruzal" title="@peruzal on GitHub" target="_blank" class="toggle-button icon icon-github"></a>
+    </div>
+    
+    
+        
+  </div>
+  <div class="bar search">
+    <div class="button button-close" role="button" aria-label="Close">
+      <label class="toggle-button icon icon-back" for="toggle-search"></label>
+    </div>
+    <div class="stretch">
+      <div class="field">
+        <input class="query" type="text" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck>
+      </div>
+    </div>
+    <div class="button button-reset" role="button" aria-label="Search">
+      <button class="toggle-button icon icon-close" id="reset-search"></button>
+    </div>
+  </div>
+</nav>
+</header>
+
+<main class="main">
+	<div class="drawer">
+		<nav aria-label="Navigation">
+  <a href="http://guides.peruzal.com/ios-guides/" class="project">
+    <div class="banner">
+      
+        <div class="logo">
+          <img src="http://guides.peruzal.com/ios-guides/images/logo.png">
+        </div>
+      
+      <div class="name">
+        <strong>Xamarin iOS Guides <span class="version">1.0.0</span></strong>
+        
+      </div>
+    </div>
+  </a>
+
+  <div class="scrollable">
+    <div class="wrapper">
+      
+
+      <div class="toc">
+        
+        <ul>
+          
+
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="iOS with Swift and Objective-C" href="http://guides.peruzal.com/ios-guides/">
+	
+	iOS with Swift and Objective-C
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Getting Started" href="http://guides.peruzal.com/ios-guides/getting-started/">
+	
+	Getting Started
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Setting up a Project" href="http://guides.peruzal.com/ios-guides/setup/">
+	
+	Setting up a Project
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Swift Fundamentals" href="http://guides.peruzal.com/ios-guides/swift/">
+	
+	Swift Fundamentals
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Swift Objective-C Interoperability" href="http://guides.peruzal.com/ios-guides/swift-objective-c-interoperability/">
+	
+	Swift Objective-C Interoperability
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Objective-C Fundamentals" href="http://guides.peruzal.com/ios-guides/objective-c/">
+	
+	Objective-C Fundamentals
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Common Views" href="http://guides.peruzal.com/ios-guides/common-views/">
+	
+	Common Views
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Form Input" href="http://guides.peruzal.com/ios-guides/form-input/">
+	
+	Form Input
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Model View Controller(MVC)" href="http://guides.peruzal.com/ios-guides/mvc/">
+	
+	Model View Controller(MVC)
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Auto Layout and Size Classes" href="http://guides.peruzal.com/ios-guides/auto-layout-and-size-classes/">
+	
+	Auto Layout and Size Classes
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Table View" href="http://guides.peruzal.com/ios-guides/tableview/">
+	
+	Table View
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Collection View" href="http://guides.peruzal.com/ios-guides/collection-view/">
+	
+	Collection View
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Tab Bar" href="http://guides.peruzal.com/ios-guides/tabbar-controller/">
+	
+	Tab Bar
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Scroll View" href="http://guides.peruzal.com/ios-guides/scrollview/">
+	
+	Scroll View
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Search Bar" href="http://guides.peruzal.com/ios-guides/searchbar/">
+	
+	Search Bar
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Navigation Patterns" href="http://guides.peruzal.com/ios-guides/navigation/">
+	
+	Navigation Patterns
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Passing Data between View Controllers" href="http://guides.peruzal.com/ios-guides/passing-data/">
+	
+	Passing Data between View Controllers
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a class="current" title="Navigation Controller" href="http://guides.peruzal.com/ios-guides/navigation-controller/">
+	
+	Navigation Controller
+</a>
+
+
+<ul id="scrollspy">
+</ul>
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Location" href="http://guides.peruzal.com/ios-guides/location/">
+	
+	Location
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Maps and Location" href="http://guides.peruzal.com/ios-guides/maps-and-location/">
+	
+	Maps and Location
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="iOS Frameworks and Device Sensors" href="http://guides.peruzal.com/ios-guides/ios-frameworks-and-device-sensors/">
+	
+	iOS Frameworks and Device Sensors
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Networking and Threading" href="http://guides.peruzal.com/ios-guides/networking-and-threading/">
+	
+	Networking and Threading
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Animations and Gestures" href="http://guides.peruzal.com/ios-guides/animations-and-gestures/">
+	
+	Animations and Gestures
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Persistence" href="http://guides.peruzal.com/ios-guides/persistence/">
+	
+	Persistence
+</a>
+
+
+
+  
+</li>
+
+
+        </ul>
+        
+
+        
+        <hr>
+        <span class="section">The author</span>
+        
+        <ul>
+          
+
+          
+          <li>
+            <a href="https://github.com/peruzal" target="_blank" title="@peruzal on GitHub">
+              @peruzal on GitHub
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="mailto:info@peruzal.com" title="Email of info@peruzal.com">
+              Contact via email
+            </a>
+          </li>
+          
+        </ul>
+        
+      </div>
+    </div>
+  </div>
+</nav>
+
+	</div>
+
+	<article class="article">
+		<div class="wrapper">
+			<h1>Navigation Controller </h1>
+
+			
+
+<h2 id="overview">Overview</h2>
+
+<p>In a typical iOS project you will create one view controller for each
+&ldquo;screen&rdquo; in your application.  This means you need a way to coordinate
+the interaction of these view controllers and the presentation of their
+associated views.</p>
+
+<p>In this lesson we will show you how to
+- Take the user to another screen (view controllers) within your application
+- Pass data between view controllers
+- Create a navigation flow with or without a storyboard</p>
+
+<p><a href="http://imgur.com/7STmvxL"><img src="http://i.imgur.com/7STmvxL.gif" title="source: imgur.com" /></a></p>
+
+<h2 id="navigation-controller">Navigation Controller</h2>
+
+<p>A common way to manage a group of view controllers that are associated
+with a hierarchy of content is to use a
+<a href="https://developer.apple.com/library/prerelease/ios/documentation/UIKit/Reference/UINavigationController_Class/index.html"><code>UINavigationController</code></a>.  Navigation
+controllers maintain a <a href="http://en.wikipedia.org/wiki/Stack_%28abstract_data_type%29">stack</a> of view controllers that are pushed onto and
+popped off of the top of the stack as the user browses through the
+hierarchy.  Their behavior is somewhat similar to that of a web
+browser&rsquo;s history and &ldquo;back button&rdquo; functionality.</p>
+
+<p>The navigation controller is one example of a built-in UIKit <a href="https://developer.apple.com/library/ios/featuredarticles/ViewControllerPGforiPhoneOS/ImplementingaContainerViewController.html">container
+view controller</a>.  An in-depth guide by Apple covering
+navigation controllers and all other built-in container view controllers
+can be found <a href="https://developer.apple.com/library/ios/documentation/WindowsViews/Conceptual/ViewControllerCatalog/Introduction.html#//apple_ref/doc/uid/TP40011313-CH1-SW1">here</a>.</p>
+
+<h2 id="basic-use-of-the-navigation-controller">Basic use of the navigation controller</h2>
+
+<p>This guide covers the most common use cases for navigation controllers
+and how to pass data between view controllers managed by a navigation
+controller.  To demonstrate this functionality, we will build a demo
+application that presents the user with a table of names.  When the user
+selects a name in the table we will show a detail view controller that
+allows the user to edit the name.</p>
+
+<p>The process for using navigation controllers in storyboard applications
+actually quite different than when using them programmatically since the
+concept of a <em>segue</em> does not exist outside the storyboard.  We&rsquo;ll
+create the example first with storyboards.  Then we&rsquo;ll show how the same
+example would be built without using storyboards.</p>
+
+<h3 id="using-navigation-controllers-in-storyboards">Using navigation controllers in storyboards</h3>
+
+<p>First we&rsquo;ll set up our table to show the list of names.  Starting with
+the Xcode <code>Single View Application</code> template.  We add a table view to
+the initial view controller that Xcode has generated and add a single prototype cell that just uses the built-in <code>UITableViewCell</code>
+class.  We hook up our Table View&rsquo;s <code>dataSource</code> property to finish the
+initial setup.  If you are unfamiliar with table views please refer to
+the [[table view guide|Table View Guide]].</p>
+
+<p><a href="http://imgur.com/WBH4TcV"><img src="http://i.imgur.com/WBH4TcV.png" title="source: imgur.com" /></a></p>
+
+<pre><code class="language-swift">import UIKit
+
+class ViewController: UIViewController, UITableViewDataSource {
+
+    let names = [&quot;Brent Berg&quot;, &quot;Cody Preston&quot;, &quot;Kareem Dixon&quot;, &quot;Xander Clark&quot;,
+        &quot;Francis Frederick&quot;, &quot;Carson Hopkins&quot;, &quot;Anthony Nguyen&quot;, &quot;Dean Franklin&quot;,
+        &quot;Jeremy Davenport&quot;, &quot;Rigel Bradford&quot;, &quot;John Ball&quot;, &quot;Zachery Norman&quot;,
+        &quot;Valentine Lindsey&quot;, &quot;Slade Thornton&quot;, &quot;Jelani Dickson&quot;, &quot;Vance Hurley&quot;,
+        &quot;Wayne Ellison&quot;, &quot;Kasimir Mueller&quot;, &quot;Emery Pruitt&quot;, &quot;Lucius Lawrence&quot;,
+        &quot;Kenneth Mendez&quot;]
+
+    @IBOutlet weak var tableView: UITableView!
+
+    override func viewDidLoad() {
+        tableView.dataSource = self
+    }
+
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -&gt; Int {
+        return names.count
+    }
+
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -&gt; UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier(&quot;NameCell&quot;) as UITableViewCell
+        cell.textLabel?.text = names[indexPath.row]
+        return cell
+    }
+}
+
+</code></pre>
+
+<p><a href="http://imgur.com/OuawCqi"><img src="http://i.imgur.com/OuawCqil.png" title="source: imgur.com" /></a></p>
+
+<h4 id="adding-the-navigation-controller-and-setting-the-root-view-controller">Adding the navigation controller and setting the root view controller</h4>
+
+<p>Next we&rsquo;ll need to add a navigation controller.  When we instantiate a
+navigation controller, we must also set its <a href="https://developer.apple.com/library/prerelease/ios/documentation/UIKit/Reference/UINavigationController_Class/index.html#//apple_ref/occ/instm/UINavigationController/initWithRootViewController:"><em>root view
+controller</em></a>.  This is the first view controller that will be
+shown when the navigation controller is loaded.  Think of it as the
+&ldquo;home page&rdquo; in our web browser analogy.</p>
+
+<p>One way to add a navigation controller is by dragging a <code>Navigation
+Controller</code> from the object library into our storyboard.  You&rsquo;ll notice
+that if you do this, Xcode will automatically create a separate view
+controller to act as the root view controller.  We&rsquo;ll want to set the
+root view controller to the one with our table and delete the other one.
+This can be done by control dragging from the navigation controller to
+our view controller and selecting the <code>root view controller</code>
+Relationship Segue.  If you haven&rsquo;t worked with segues before, a segue
+(pronounced &ldquo;seg-way&rdquo;) is a storyboard&rsquo;s representation of a
+relationship or transition between different view controllers.  We&rsquo;ll
+also need to set the <em>initial view controller</em> to the navigation
+controller by dragging the arrow that was pointing to the view
+controller with our table.</p>
+
+<p><a href="http://imgur.com/83IhGlK"><img src="http://i.imgur.com/83IhGlK.gif" title="source: imgur.com" /></a></p>
+
+<p>In most cases if we have a view controller already set up that we want
+to act as our root view controller, we can accomplish all the above
+steps simply by selecting the menu item <code>Editor -&gt; Embed In -&gt;
+Navigation Controller</code>.  Running the app, we can see our navigation
+controller&rsquo;s translucent grey navigation bar at the top of the screen.</p>
+
+<p><a href="http://imgur.com/5WtqwmM"><img src="http://i.imgur.com/5WtqwmMl.png" title="source: imgur.com" /></a></p>
+
+<h4 id="pushing-a-view-controller-onto-the-navigation-stack">Pushing a view controller onto the navigation stack</h4>
+
+<p>We&rsquo;ll need to create another view controller class to display and allow
+the user to edit an individual name.  We do this by dragging another
+view controller from the Object Library onto our storyboard.  We add two
+text fields to this view controller to store the first and last parts of
+the name the user will be editing.  We create a new subclass of
+<code>UIViewController</code> called <code>NameController</code> and set the new view
+controller&rsquo;s <code>Custom Class</code> property to be <code>NameController</code> in our
+storyboard.  Once the custom class is set, we can go ahead and create
+outlets in our <code>NameController</code> class corresponding to the two text
+fields.</p>
+
+<p><a href="http://imgur.com/UgE77Nm"><img src="http://i.imgur.com/UgE77Nm.png" title="source: imgur.com" /></a></p>
+
+<pre><code class="language-swift">import UIKit
+
+class NameController: UIViewController {
+
+    @IBOutlet weak var firstNameTextField: UITextField!
+    @IBOutlet weak var lastNameTextField: UITextField!
+}
+</code></pre>
+
+<p>When the user selects name by tapping on a row in the table, we want to
+display the <code>NameController</code> by pushing it onto the navigation stack.
+This can be done by control-dragging from the prototype cell to our name
+controller and selecting <code>show</code> under <code>Selection Segue</code>.  Once this is
+done, notice how our name controller now also shows the grey navigation
+bar to indicate that it will be shown as part of the navigation stack.</p>
+
+<p><a href="http://imgur.com/WqWi2kL"><img src="http://i.imgur.com/WqWi2kL.gif" title="source: imgur.com" /></a></p>
+
+<p>It is important that we select the <code>show</code> segue since this corresponds
+to the navigation controller pushing a new view controller onto the
+stack.  The other segues correspond to other ways of transitioning to a
+new view controller including presenting it modally.</p>
+
+<p>Since we initiated our control-drag from the prototype cell, the
+<code>Selection Segue</code> group was available.  Selecting a segue under this
+group means &ldquo;respond to the selection event with this transition.&rdquo; Other
+events could be available depending on the control that initiates the segue.
+For example control-dragging from a button will show possible <code>Action
+Segues</code>.  Running our application right now shows the following.</p>
+
+<p><a href="http://imgur.com/CmFK6Bw"><img src="http://i.imgur.com/CmFK6Bw.gif" title="source: imgur.com" /></a></p>
+
+<h4 id="configuring-a-view-controller-before-it-is-pushed">Configuring a view controller before it is pushed</h4>
+
+<p>You&rsquo;ll notice at least one problem immediately with the current behavior:
+the name we selected is not populated in first and last name fields of
+our <code>NameController</code>.  We&rsquo;ll need to configure the name controller
+before it gets displayed on the screen.  We do this by first providing
+an identifier to our selection segue.  Next we write some code  in our
+<em>root view controller</em>&rsquo;s <a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIViewController_Class/index.html#//apple_ref/occ/instm/UIViewController/prepareForSegue:sender:"><code>prepareForSegue</code></a> method to
+respond should a segue with this identifier be triggered.</p>
+
+<p>We give the segue an identifier by selecting the storyboard and using
+the Attributes Inspector.  Notice that our prototype cell is also
+highlighted to indicate that segue will be trigged by selecting a cell.</p>
+
+<p><a href="http://imgur.com/Q71yKws"><img src="http://i.imgur.com/Q71yKws.png" title="source: imgur.com" /></a></p>
+
+<p>In our root view controller&rsquo;s <code>prepareForSegue</code> method, we check to see
+if the segue that was triggered matches the identifier we gave our segue
+in the storyboard.  If it does we know that the segue was trigged in
+response a user selecting a cell, and thus the <code>sender</code> parameter will
+be the cell.  If for example the segue had been triggered by a button
+tap, the <code>sender</code> would be the button.</p>
+
+<p>The <code>segue</code> parameter of <code>prepareForSegue</code> gives us access to the
+<code>destinationViewController</code> so that we can configure the new view
+controller before it is displayed.  In this case we know that for this
+particular segue the <code>destinationViewController</code> will be a
+<code>NameController</code>.  We&rsquo;ll have to update our <code>NameController</code> to have the
+ability to set the name and have it displayed properly when the view is
+loaded.  Finally, we also deselect the row since we won&rsquo;t want it to be
+selected once we go back from the name controller.</p>
+
+<pre><code class="language-swift">class ViewController: UIViewController, UITableViewDataSource {
+    ...
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == &quot;showNameControllerSegue&quot; {
+            let cell = sender as UITableViewCell
+            if let indexPath = tableView.indexPathForCell(cell) {
+                let nameController = segue.destinationViewController as NameController
+                nameController.fullName = names[indexPath.row]
+                tableView.deselectRowAtIndexPath(indexPath, animated: true)
+            }
+        }
+    }
+ }
+</code></pre>
+
+<pre><code class="language-swift">class NameController: UIViewController {
+    @IBOutlet weak var firstNameTextField: UITextField!
+    @IBOutlet weak var lastNameTextField: UITextField!
+
+    var fullName: String?
+
+    override func viewDidLoad() {
+        if let fullName = self.fullName? {
+            let firstLast = fullName.componentsSeparatedByString(&quot; &quot;)
+            firstNameTextField.text = firstLast[0]
+            lastNameTextField.text = firstLast[1]
+        }
+    }
+}
+
+</code></pre>
+
+<p><a href="http://imgur.com/qWis8Ya"><img src="http://i.imgur.com/qWis8Ya.gif" title="source: imgur.com" /></a></p>
+
+<h4 id="unwind-segues-and-passing-information-back-up-the-hierarchy">Unwind segues and passing information back up the hierarchy</h4>
+
+<p>Next we&rsquo;ll need a way for the user to save any changes to a name back to
+our table.  We&rsquo;ll do this by making use of an <em>unwind segue</em>.  An unwind
+segue is a way for a view controller to respond to an event by
+navigating back to the view controller that caused it to be loaded.  In
+the the context of navigation controllers, this means the view
+controller that is one below the current view controller on the
+navigation stack.</p>
+
+<p>First off, we&rsquo;ll need a way for the user to indicate they want to save
+the change.  We can add a button to the right side of the navigation bar
+in our name controller by dragging a <code>Navigation Item</code> and then a <code>Bar
+Button Item</code> from the Object Library.</p>
+
+<p><a href="http://imgur.com/ScyeS2O"><img src="http://i.imgur.com/ScyeS2O.gif" title="source: imgur.com" /></a></p>
+
+<p>To implement an unwind segue we create an <code>@IBAction</code> method in the view
+controller that will be <em>unwound to</em> taking a single <code>UIStoryboardSegue</code>
+parameter.  In our case this means we added the below <code>saveName</code> method
+to our <em>root view controller</em>.</p>
+
+<pre><code class="language-swift">class ViewController: UIViewController, UITableViewDataSource {
+    ...
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == &quot;showNameControllerSegue&quot; {
+            let cell = sender as UITableViewCell
+            if let indexPath = tableView.indexPathForCell(cell) {
+                let nameController = segue.destinationViewController as NameController
+                nameController.fullName = names[indexPath.row]
+                tableView.deselectRowAtIndexPath(indexPath, animated: true)
+            }
+        }
+    }
+
+    @IBAction func saveName(segue: UIStoryboardSegue) {
+        // add logic here to handle a transition back from the
+        // name controller resulting from a user tapping on Save
+    }
+}
+</code></pre>
+
+<p>Next we&rsquo;ll have to hook up our <code>Save</code> button to this segue by
+control-dragging from the button to the <code>Exit</code> outlet and selecting the
+<code>@IBAction</code> we just created.  The <code>Exit</code> outlet is the red exit door
+that appears above of your active view controller in the storyboard.</p>
+
+<p><a href="http://imgur.com/QusMqmi"><img src="http://i.imgur.com/QusMqmi.gif" title="source: imgur.com" /></a></p>
+
+<p>Finally we&rsquo;ll need to write the code in our root view controller to
+handle updating the name once the <code>saveName</code> method is called.</p>
+
+<pre><code class="language-swift">class ViewController: UIViewController, UITableViewDataSource {
+
+    var names = [&quot;Brent Berg&quot;, &quot;Cody Preston&quot;, &quot;Kareem Dixon&quot;, &quot;Xander Clark&quot;,
+        &quot;Francis Frederick&quot;, &quot;Carson Hopkins&quot;, &quot;Anthony Nguyen&quot;, &quot;Dean Franklin&quot;,
+        &quot;Jeremy Davenport&quot;, &quot;Rigel Bradford&quot;, &quot;John Ball&quot;, &quot;Zachery Norman&quot;,
+        &quot;Valentine Lindsey&quot;, &quot;Slade Thornton&quot;, &quot;Jelani Dickson&quot;, &quot;Vance Hurley&quot;,
+        &quot;Wayne Ellison&quot;, &quot;Kasimir Mueller&quot;, &quot;Emery Pruitt&quot;, &quot;Lucius Lawrence&quot;,
+        &quot;Kenneth Mendez&quot;]
+    var selectedIndexPath: NSIndexPath?
+
+    @IBOutlet weak var tableView: UITableView!
+
+    ...
+
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == &quot;showNameControllerSegue&quot; {
+            let cell = sender as UITableViewCell
+            if let indexPath = tableView.indexPathForCell(cell) {
+                let namesController = segue.destinationViewController as NameController
+                namesController.fullName = names[indexPath.row]
+                tableView.deselectRowAtIndexPath(indexPath, animated: true)
+                selectedIndexPath = indexPath
+            }
+        }
+    }
+
+    @IBAction func saveName(segue: UIStoryboardSegue) {
+        let nameController = segue.sourceViewController as NameController
+        let name = nameController.firstNameTextField.text + &quot; &quot; + nameController.lastNameTextField.text;
+
+        if let indexPath = selectedIndexPath? {
+            names[indexPath.row] = name
+            tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            selectedIndexPath = nil
+        }
+    }
+}
+</code></pre>
+
+<p>Notice that we were able to obtain a reference to the name controller in
+<code>saveName</code> by using <code>segue.sourceViewController</code>.  This makes sense
+because the name controller is the source of the <em>unwind segue</em>, whereas
+the destination controller is the root view controller.  The other thing
+to note is that we had to maintain an additional state variable
+<code>selectedIndexPath</code> to help us remember which name it was we were
+editing.  Putting everything together we get the following
+functionality:</p>
+
+<p><a href="http://imgur.com/t1krDPG"><img src="http://i.imgur.com/t1krDPG.gif" title="source: imgur.com" /></a></p>
+
+<h3 id="using-navigation-controllers-without-storyboards">Using navigation controllers without storyboards</h3>
+
+<p>We will now show how the same example would be built in a non-storyboard
+application.  Conceptually, some of the steps will be the same.
+However, since segues do not exist outside a storyboard, we will have to
+set up more code ourselves to handle events and interface between view
+controllers.</p>
+
+<p>As above we&rsquo;ll first set up our table to show the list of names.  We&rsquo;ll
+start again with the Xcode <code>Single View Application</code> template.  Xcode 6
+and above will automatically create a <code>Main.storyboard</code> file and include
+it in our build settings.  We will go ahead and remove this file and
+update <code>Info.plist</code> file (under <code>Supporting Files</code>) to remove the
+reference to it by clicking on the minus sign after selecting <code>Main
+storyboard file base name</code>.</p>
+
+<p><a href="http://imgur.com/wTiqnWZ"><img src="http://i.imgur.com/wTiqnWZ.png" title="source: imgur.com" /></a></p>
+
+<p>Without the storyboard, we&rsquo;ll have to set up our window and root view
+controller manually by changing the <code>didFinishLaunchingWithOptions</code>
+method in our <code>AppDelegate</code>.  More on the <code>AppDelegate</code> can be found in
+the [[basic application architecture guide|Application Architecture]].</p>
+
+<pre><code class="language-swift">import UIKit
+
+@UIApplicationMain
+class AppDelegate: UIResponder, UIApplicationDelegate {
+
+    var window: UIWindow?
+
+    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -&gt; Bool {
+        window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        window?.rootViewController = ViewController()
+        window?.makeKeyAndVisible()
+        return true
+    }
+    ...
+}
+</code></pre>
+
+<p>Notice that we made use of the main <code>ViewController</code> class that Xcode
+generated for us.  Now we can add our table of names to this view
+controller.  We do everything programmatically here, but we could have
+just as easily set up a separate <code>.xib</code> file for this view controller.
+If you are unfamiliar with table views please refer to
+the [[table view guide|Table View Guide]].</p>
+
+<pre><code class="language-swift">import UIKit
+
+class ViewController: UIViewController, UITableViewDataSource {
+    let names = [&quot;Brent Berg&quot;, &quot;Cody Preston&quot;, &quot;Kareem Dixon&quot;, &quot;Xander Clark&quot;,
+        &quot;Francis Frederick&quot;, &quot;Carson Hopkins&quot;, &quot;Anthony Nguyen&quot;, &quot;Dean Franklin&quot;,
+        &quot;Jeremy Davenport&quot;, &quot;Rigel Bradford&quot;, &quot;John Ball&quot;, &quot;Zachery Norman&quot;,
+        &quot;Valentine Lindsey&quot;, &quot;Slade Thornton&quot;, &quot;Jelani Dickson&quot;, &quot;Vance Hurley&quot;,
+        &quot;Wayne Ellison&quot;, &quot;Kasimir Mueller&quot;, &quot;Emery Pruitt&quot;, &quot;Lucius Lawrence&quot;,
+        &quot;Kenneth Mendez&quot;]
+
+    var tableView: UITableView!
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tableView = UITableView(frame: view.frame)
+        tableView.dataSource = self
+        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: &quot;NameCell&quot;)
+        view.addSubview(tableView)
+    }
+
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -&gt; Int {
+        return names.count
+    }
+
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -&gt; UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier(&quot;NameCell&quot;) as UITableViewCell
+        cell.textLabel?.text = names[indexPath.row]
+        return cell
+    }
+}
+</code></pre>
+
+<p>Running the app at this point gives us:</p>
+
+<p><a href="http://imgur.com/OuawCqi"><img src="http://i.imgur.com/OuawCqil.png" title="source: imgur.com" /></a></p>
+
+<h4 id="adding-the-navigation-controller-and-setting-its-root-view-controller">Adding the navigation controller and setting its root view controller</h4>
+
+<p>Next we&rsquo;ll need to add a navigation controller and set its <a href="https://developer.apple.com/library/prerelease/ios/documentation/UIKit/Reference/UINavigationController_Class/index.html#//apple_ref/occ/instm/UINavigationController/initWithRootViewController:"><em>root view
+controller</em></a>&mdash;the first view controller that will be shown
+when the navigation controller is loaded&mdash;to be our main view
+controller with the table.</p>
+
+<p>We can do this all in code by simply instantiating a
+<code>UINavigationController</code> and setting its properties.  Since we want the
+navigation controller to be the first view controller shown when the app is
+loaded, we can do this in our <code>AppDelegate</code>&rsquo;s
+<code>didFinishLaunchingWithOptions</code> method where we also set the
+<em>application window</em>&rsquo;s root view controller to be the navigation
+controller.</p>
+
+<pre><code class="language-swift">@UIApplicationMain
+class AppDelegate: UIResponder, UIApplicationDelegate {
+
+    var window: UIWindow?
+
+    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -&gt; Bool {
+        window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        let mainVC = ViewController()
+        let navigationVC = UINavigationController(rootViewController: mainVC)
+        window?.rootViewController = navigationVC
+        window?.makeKeyAndVisible()
+        return true
+    }
+    ...
+}
+</code></pre>
+
+<p>Running the application at this point will show the same table with a
+grey navigation bar at the top.</p>
+
+<p><a href="http://imgur.com/5WtqwmM"><img src="http://i.imgur.com/5WtqwmMl.png" title="source: imgur.com" /></a></p>
+
+<h4 id="initializing-and-pushing-a-view-controller-onto-the-stack">Initializing and pushing a view controller onto the stack</h4>
+
+<p>As in our storyboard example, we&rsquo;ll need to create another view
+controller class to display and allow the user to edit an individual
+name.  Instead of laying out our view programmatically as we did in the
+main <code>ViewController</code> class, we&rsquo;ll create new class <code>NameController</code> and
+associated <code>.xib</code> by selecting <code>File -&gt; New -&gt; File... -&gt; iOS -&gt; Source
+-&gt; Cocoa Touch Class</code>.  Be sure to tick in the <code>Also Create XIB file</code>.</p>
+
+<p><a href="http://imgur.com/2LNtYpi"><img src="http://i.imgur.com/2LNtYpi.png" title="source: imgur.com" /></a></p>
+
+<p><em>NB: Most of the time you&rsquo;ll want to be consistent and use only one
+method of laying out your views (programmatic, separate <code>.xib</code>s, or have
+your app entirely within storyboards).  Here we use both <code>.xib</code> and
+programmatic layout to emphasize the point that anything outside a
+storyboard cannot use segues and thus must programmatically manipulate
+the navigation view controller.</em></p>
+
+<p>We can now open up <code>NameController.xib</code> in Interface Builder. As before,
+we&rsquo;ll add two text fields to this view controller to store the first and
+last parts of the name the user will be editing. Using the Assistant
+Editor (tuxedo) view we also create outlets in our <code>NameController</code>
+class corresponding to the two text fields by controlling dragging the
+fields into the code view.</p>
+
+<p><a href="http://imgur.com/bEH8mLO"><img src="http://i.imgur.com/bEH8mLO.gif" title="source: imgur.com" /></a></p>
+
+<p>We&rsquo;ll go ahead and add the code that will allow us to configure the
+<code>NameController</code> to with the <code>fullName</code> that it will display when
+loaded.</p>
+
+<pre><code class="language-swift">import UIKit
+
+class NameController: UIViewController {
+
+    @IBOutlet weak var lastNameTextField: UITextField!
+    @IBOutlet weak var firstNameTextField: UITextField!
+
+    var fullName: String?
+
+    override func viewDidLoad() {
+        if let fullName = self.fullName? {
+            let firstLast = fullName.componentsSeparatedByString(&quot; &quot;)
+            firstNameTextField.text = firstLast[0]
+            lastNameTextField.text = firstLast[1]
+        }
+    }
+}
+</code></pre>
+
+<p><em>NB: The following only affects Swift projects:</em></p>
+
+<p><em>Previously when initializing a view controller class named <code>Foo</code> via the
+default (argumentless) initializer, UIKit will look for a matching
+<code>Foo.xib</code> and load the UI elements from this file.  In the latest
+versions of Xcode Apple has changed this behavior (for Swift classes
+only) to look for an associated <code>.xib</code> named <code>YourProjectName.Foo.xib</code>.</em></p>
+
+<p><em>There are a few ways to work around this behavior discussed
+<a href="http://stackoverflow.com/a/25152545">here</a> and <a href="http://stackoverflow.com/a/25539016">here</a>.  In this example we simply
+renamed our <code>NameController.xib</code> file to
+<code>NavigationNoStoryboard.NameController.xib</code> where
+<code>NavigationNoStoryboard</code> was the the name of our project.</em></p>
+
+<p>Remember that we want to show the <code>NameController</code> and add it to the
+navigation stack when the user selects a name in our main
+<code>ViewController</code> containing the table of names.  By having our main
+<code>ViewController</code> implement the <code>UITableViewDelegate</code> protocol we have a
+convenient hook to respond to the row selection event by overriding the
+<a href="https://developer.apple.com/library/prerelease/ios/documentation/UIKit/Reference/UITableViewDelegate_Protocol/index.html#//apple_ref/occ/intfm/UITableViewDelegate/tableView:didSelectRowAtIndexPath:"><code>didSelectRowAtIndexPath</code></a> method.  Again, you should
+refer to the [[table view guide|Table View Guide]] if you are unfamiliar with this aspect of
+table views.</p>
+
+<pre><code class="language-swift">class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    ...
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tableView = UITableView(frame: view.frame)
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: &quot;NameCell&quot;)
+        view.addSubview(tableView)
+    }
+
+    ...
+
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let nameVC = NameController()
+        nameVC.fullName = names[indexPath.row]
+
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        self.navigationController?.pushViewController(nameVC, animated: true)
+    }
+}
+</code></pre>
+
+<p>Notice that we are able to obtain a reference to the navigation
+controller via <code>self.navigationController</code>.  This is set automatically
+for us by UIKit when any view controller comes onto the navigation
+stack.  In this case, it happened when we set this view controller as
+our navigation controller&rsquo;s root view controller in the <code>AppDelegate</code>
+above.</p>
+
+<p>We push <code>nameVC</code> onto the navigation stack and display it as the top
+view controller with <code>pushViewController</code>.  After this call is made, the
+<code>nameVC.navigationController</code> property will also be automatically set to
+the same navigation controller.</p>
+
+<p><em>NB: Technically in Swift, prefixing a property with <code>self.</code> is not
+required and is specifically recommended against by both
+<a href="https://github.com/github/swift-style-guide#only-explicitly-refer-to-self-when-required">github&rsquo;s</a> and <a href="https://github.com/raywenderlich/swift-style-guide#use-of-self">Ray
+Wenderlich&rsquo;s</a> style guides.  We include it here
+to emphasize that this is a built-in property on the view controller.</em></p>
+
+<p>Running the application at this stage gives us the following behavior.</p>
+
+<h4 id="passing-information-back-up-the-stack-with-a-delegate">Passing information back up the stack with a delegate</h4>
+
+<p>We still need to implement the ability to save changes to a name in
+<code>NameController</code> back to the table view in the main <code>ViewController</code>.
+Since there&rsquo;s no such thing as an <em>unwind segue</em> without a storyboard,
+we&rsquo;ll have to implement our own mechanism for sending the new name back
+to the main <code>ViewController</code>.</p>
+
+<p>The typical pattern to accomplish this in iOS programmatically is to use a
+<a href="https://developer.apple.com/library/ios/documentation/General/Conceptual/DevPedia-CocoaCore/Delegation.html">delegate</a>.  What this means in this case is that the
+<code>NameController</code> needs to keep a reference to the main <code>ViewController</code>
+so that it can inform the main <code>ViewController</code> when the user has saved
+changes to a name and what the new name is.</p>
+
+<p>However, since we defined our <code>NameController</code> outside of a storyboard,
+there is no way in general, to tell what view controller has
+instantiated it and pushed it onto the navigation stack (if there is
+even a navigation stack).  For example, later on, we might want to reuse
+<code>NameController</code> to edit names a different situation where we
+instantiated it and presented it from a view controller class we haven&rsquo;t
+even created at this time.</p>
+
+<p>Thus maintaining a reference to something of type <code>ViewController</code> would
+unnecessarily couple the <code>ViewController</code> and <code>NameController</code> classes.
+To solve this problem we can introduce a protocol (sometimes called
+interface in other programming environments) <code>NameControllerDelegate</code> to
+represent something that is able to respond events from
+<code>NameController</code>.   We&rsquo;ll make our main <code>ViewController</code> implement
+<code>NameControllerDelegate</code> similar to how it implemented
+<code>UITableViewDelegate</code> in order to respond to events from the
+<code>UITableView</code>.</p>
+
+<p>Our <code>NameControllerDelegate</code> protocol defines a single method
+<code>didSaveName</code> that will be called when the user has initiated a save
+action in our <code>NameController</code>.  In order to call this method, we&rsquo;ll need
+to keep a reference to the <code>delegate</code> in our <code>NameController</code>.</p>
+
+<p>Lastly, we need to add a save button to our navigation bar and set its
+action to call a method <code>saveButtonTapped</code> in our <code>NameController</code> that
+will propagate the event to our <code>NameControllerDelegate</code>.</p>
+
+<p>After putting everything together the code looks like this:</p>
+
+<pre><code class="language-swift">import UIKit
+
+protocol NameControllerDelegate: class {
+    func nameController(nameVC: NameController, didSaveName name: String)
+}
+
+class NameController: UIViewController {
+
+    @IBOutlet weak var lastNameTextField: UITextField!
+    @IBOutlet weak var firstNameTextField: UITextField!
+
+    weak var delegate: NameControllerDelegate?
+    var fullName: String?
+
+    override func viewDidLoad() {
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: &quot;Save&quot;, style: .Plain, target: self, action: &quot;saveButtonTapped&quot;)
+        self.navigationItem.title = &quot;Edit Name&quot;
+
+        if let fullName = self.fullName? {
+            let firstLast = fullName.componentsSeparatedByString(&quot; &quot;)
+            firstNameTextField.text = firstLast[0]
+            lastNameTextField.text = firstLast[1]
+        }
+    }
+
+    func saveButtonTapped() {
+        let name = firstNameTextField.text + &quot; &quot; + lastNameTextField.text
+        delegate?.nameController(self, didSaveName: name)
+    }
+}
+</code></pre>
+
+<pre><code class="language-swift">import UIKit
+
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NameControllerDelegate {
+    var names = [&quot;Brent Berg&quot;, &quot;Cody Preston&quot;, &quot;Kareem Dixon&quot;, &quot;Xander Clark&quot;,
+        &quot;Francis Frederick&quot;, &quot;Carson Hopkins&quot;, &quot;Anthony Nguyen&quot;, &quot;Dean Franklin&quot;,
+        &quot;Jeremy Davenport&quot;, &quot;Rigel Bradford&quot;, &quot;John Ball&quot;, &quot;Zachery Norman&quot;,
+        &quot;Valentine Lindsey&quot;, &quot;Slade Thornton&quot;, &quot;Jelani Dickson&quot;, &quot;Vance Hurley&quot;,
+        &quot;Wayne Ellison&quot;, &quot;Kasimir Mueller&quot;, &quot;Emery Pruitt&quot;, &quot;Lucius Lawrence&quot;,
+        &quot;Kenneth Mendez&quot;]
+
+    var tableView: UITableView!
+    var selectedIndexPath: NSIndexPath?
+
+    ...
+
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let nameVC = NameController()
+        nameVC.fullName = names[indexPath.row]
+        nameVC.delegate = self
+
+        selectedIndexPath = indexPath
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        self.navigationController?.pushViewController(nameVC, animated: true)
+    }
+
+    func nameController(nameVC: NameController, didSaveName name: String) {
+        if let indexPath = selectedIndexPath? {
+            names[indexPath.row] = name
+            tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+        }
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+}
+</code></pre>
+
+<p><a href="http://imgur.com/t1krDPG"><img src="http://i.imgur.com/t1krDPG.gif" title="source: imgur.com" /></a></p>
+
+<p>There are quite a few things to note in the above code.</p>
+
+<ul>
+<li><p>We restrict that only class types (as opposed to structs) can
+implement our <code>NameControllerDelegate</code> protocol by including the
+<code>class</code> keyword in the declaration in the inherited protocols list after
+the colon.  This is so we can declare our <code>delegate</code> property as a
+<code>weak</code> reference (since structs cannot be weak references).  This point
+is language specific to Swift.</p></li>
+
+<li><p>The reason we need our <code>delegate</code> property to be a <code>weak</code> reference is
+due to the fact that iOS manages (and frees) memory by using a
+technique called <a href="http://en.wikipedia.org/wiki/Automatic_Reference_Counting">automatic reference counting</a> (ARC).  Since
+delegates commonly refer back to objects that instantiated them (or
+objects referred to by these objects), <strong>we&rsquo;ll always want to declare
+our delegate properties as <code>weak</code></strong> in order to avoid strong reference
+cycles that lead to memory leaks.  An extensive discussion of ARC can be
+found <a href="https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/AutomaticReferenceCounting.html">here</a>.</p></li>
+
+<li><p>The <code>navigationItem</code> property of <code>NameController</code> is used by the
+navigation controller to determine what to display in the
+navigation bar when <code>NameController</code> is on top of the navigation stack.
+This provides us with a convenient hook to customize the content of the
+navigation bar.  More on this can be found below in discussion of
+customizing the navigation bar&rsquo;s appearance
+<a href="#customizing-the-appearance-of-navigation-bar">below</a>.</p></li>
+
+<li><p>When creating the <code>Save</code> button by instantiating a <code>UIBarButtonItem</code>
+we specified how to respond to the button being tapped with the
+<code>target</code> and <code>action</code> parameters.  This is an example of <a href="https://developer.apple.com/library/ios/documentation/General/Conceptual/Devpedia-CocoaApp/TargetAction.html">target-action
+pattern</a> (sometimes called target-selector).  This
+invocation basically means &ldquo;call the method identified by <code>action</code> on
+the <code>target</code> object when the button is tapped&rdquo;.</p></li>
+</ul>
+
+<p><em>NB:  In Objective-C the <code>action</code> parameter has to a be
+<a href="https://developer.apple.com/library/mac/documentation/General/Conceptual/DevPedia-CocoaCore/Selector.html"><code>selector</code></a>.  In Swift, strings are automatically converted
+to selectors when necessary.</em></p>
+
+<ul>
+<li><p>As before in our storyboard example, we need to maintain an additional
+state variable <code>selectedIndexPath</code> so that when the delegate method
+<code>didSaveName</code> is called, we can know which name to update.</p></li>
+
+<li><p>Notice that we set <code>nameVC.delegate = self</code> when configuring the
+<code>NameController</code> in <code>didSelectRowAtIndexPath</code> since we implement
+<code>NameControllerDelegate</code> in <code>ViewController</code>.  It is a common mistake
+to forget to set the delegate.</p></li>
+
+<li><p>We deselect the row in <code>didSelectRowAtIndexPath</code> since we won&rsquo;t want
+it to be selected once we go back from the <code>NameController</code>.</p></li>
+
+<li><p>We follow delegate method <a href="https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/CodingGuidelines/Articles/NamingMethods.html#//apple_ref/doc/uid/20001282-1001803-BCIDAIJE">naming conventions</a> by
+passing the delegating object (<code>NameController</code>) back as the first
+argument in our <code>didSaveName</code> method.</p></li>
+
+<li><p>Without an <em>unwind segue</em> we have to manually pop top the view
+controller in <code>didSaveName</code>.  When this method is called, this will be
+the <code>NameController</code>.  Notice that we didn&rsquo;t have to set up this action
+for the <code>Back</code> button due to a built-in behavior.</p></li>
+</ul>
+
+<h2 id="customizing-the-appearance-of-navigation-bar">Customizing the appearance of navigation bar</h2>
+
+<p>There are several ways to customize the appearance of the navigation bar
+and control what items appear in it.</p>
+
+<h3 id="understanding-navigation-bars-and-navigation-items">Understanding navigation bars and navigation items</h3>
+
+<p>In order to know which object&rsquo;s properties we need to change to get the
+desired appearance, we first need to understand a bit about how
+navigation bars and navigation items work.</p>
+
+<p>Each <code>UINavigationController</code> has a <a href="https://developer.apple.com/library/prerelease/ios/documentation/UIKit/Reference/UINavigationController_Class/index.html#//apple_ref/occ/instp/UINavigationController/navigationBar"><code>navigationBar</code></a> of
+type <a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UINavigationBar_Class/index.html"><code>UINavigationBar</code></a>.  Each <code>UIViewController</code> has
+an associated <a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIViewController_Class/index.html#//apple_ref/occ/instp/UIViewController/navigationItem"><code>navigationItem</code></a> of type
+<a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UINavigationItem_Class/index.html"><code>UINavigationItem</code></a>.</p>
+
+<p>The navigation bar associated with a navigation controller maintains a
+<a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UINavigationBar_Class/index.html#//apple_ref/occ/instp/UINavigationBar/items">stack of <code>UINavigationItems</code></a> that is parallel to the
+navigation stack of view controllers.  When a view controller is pushed
+onto the navigation stack its <code>navigationItem</code> gets pushed onto the
+navigation bar&rsquo;s stack of navigation items.</p>
+
+<p>The <a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UINavigationBar_Class/index.html#//apple_ref/occ/instp/UINavigationBar/topItem">top</a> and <a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UINavigationBar_Class/index.html#//apple_ref/occ/instp/UINavigationBar/backItem">second from top</a> <code>UINavigationItems</code>
+in the navigation bar&rsquo;s item stack are used to determine which
+components are added to navigation bar.  Specifically the top navigation
+item determines the title view and button(s) on the right hand side of
+the nav bar.  It can also determine the button(s) on the left hand side
+of the nav bar, but if no left-side button is set, the navigation bar
+will use the <em>second from top navigation item</em> in order to determine
+what &ldquo;Back&rdquo; button to show.</p>
+
+<p>In some rarer cases you may want to use a <code>UINavigationBar</code> without the
+backing of a <code>UINavigationController</code>.  In these instances, you may have
+to manually manage the <code>UINavigationBar</code>&rsquo;s navigation item stack by
+<a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UINavigationBar_Class/index.html#//apple_ref/occ/instm/UINavigationBar/pushNavigationItem:animated:">pushing</a>/<a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UINavigationBar_Class/index.html#//apple_ref/occ/instm/UINavigationBar/popNavigationItemAnimated:">popping</a> navigation items in order
+to achieve the appearance you want.</p>
+
+<h3 id="customization-inside-a-storyboard">Customization inside a storyboard</h3>
+
+<p>When working in a project with storyboards, many of the things you might
+want to change about a navigation bar&rsquo;s appearance can be edited in the
+Attributes Inspector by selecting the navigation bar associated with
+your navigation controller.</p>
+
+<p><a href="http://imgur.com/judIATc"><img src="http://i.imgur.com/judIATc.png" title="source: imgur.com" /></a></p>
+
+<p>The navigation item with your view controller can also be edited
+directly in the storyboard.  For example, to add more buttons to the
+navigation item, you can simply drag buttons from the Object Library as
+we did in our storyboard example
+<a href="#unwind-segues-and-passing-information-back-up-the-hierarchy">above</a>.
+Note that a view controller&rsquo;s the navigation item will not be an element
+in your storyboard by default.  You must drag a navigation item from the
+Object Library to your view controller (as we did in our storyboard
+example above) in order to have access to it&mdash;although, embedding
+your view controller in a navigation controller will automatically add
+the navigation item.</p>
+
+<h3 id="navigation-bar-colors-background-image-and-text-attributes">Navigation bar colors, background image, and text attributes</h3>
+
+<p>There are a <a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UINavigationBar_Class/index.html#//apple_ref/doc/uid/TP40006887-CH3-SW16">few properties</a> that you can manipulate in
+order to control the appearance of a navigation bar.  Since a navigation
+controller is associated with a single navigation bar, <strong>any change here
+will be visible across all view controllers in a navigation controller&rsquo;s
+stack.</strong>  Apple has been changing the behavior of these properties
+somewhat frequently in recent iOS versions, so you may have to
+experiment a bit to achieve the effect you want.</p>
+
+<p>Continuing with our example from above we can customize our navigation
+bar as follows.</p>
+
+<pre><code class="language-swift">class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NameControllerDelegate {
+    ...
+
+    override func viewDidLoad() {
+        ...
+
+        self.navigationItem.title = &quot;Names&quot;
+        if let navigationBar = navigationController?.navigationBar {
+            navigationBar.setBackgroundImage(UIImage(named: &quot;codepath-logo&quot;), forBarMetrics: .Default)
+            navigationBar.tintColor = UIColor(red: 1.0, green: 0.25, blue: 0.25, alpha: 0.8)
+
+            let shadow = NSShadow()
+            shadow.shadowColor = UIColor.grayColor().colorWithAlphaComponent(0.5)
+            shadow.shadowOffset = CGSizeMake(2, 2);
+            shadow.shadowBlurRadius = 4;
+            navigationBar.titleTextAttributes = [
+                NSFontAttributeName : UIFont.boldSystemFontOfSize(22),
+                NSForegroundColorAttributeName : UIColor(red: 0.5, green: 0.15, blue: 0.15, alpha: 0.8),
+                NSShadowAttributeName : shadow
+            ]
+        }
+    }
+</code></pre>
+
+<p><a href="http://imgur.com/AJjy8Nq"><img src="http://i.imgur.com/AJjy8Nq.gif" title="source: imgur.com" /></a></p>
+
+<h3 id="title-text-and-view-of-a-navigation-item">Title text and view of a navigation item</h3>
+
+<p>Notice that above we were able to set the navigation bar&rsquo;s title text by
+setting <code>navigationItem.title</code> on our <em>view controller</em>&rsquo;s navigation
+item.  Since the navigation item is distinct per view controller, we can
+set separate titles for each view controller.</p>
+
+<p>In rare cases you may wish to replace a navigation item&rsquo;s entire
+<a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UINavigationItem_Class/index.html#//apple_ref/occ/instp/UINavigationItem/titleView"><code>titleView</code></a>.  This is useful for example if you need
+customized styling of the title text only for a specific view
+controller.  Continuing with our previous example</p>
+
+<pre><code class="language-swift">class NameController: UIViewController {
+    ...
+
+    override func viewDidLoad() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: &quot;Save&quot;, style: .Plain, target: self, action: &quot;saveButtonTapped&quot;)
+
+        let titleLabel = UILabel()
+
+        let shadow = NSShadow()
+        shadow.shadowColor = UIColor.redColor().colorWithAlphaComponent(0.5)
+        shadow.shadowOffset = CGSizeMake(2, 2);
+        shadow.shadowBlurRadius = 4;
+
+        let titleText = NSAttributedString(string: &quot;Edit Name&quot;, attributes: [
+            NSFontAttributeName : UIFont.boldSystemFontOfSize(28),
+            NSForegroundColorAttributeName : UIColor(red: 0.5, green: 0.25, blue: 0.15, alpha: 0.8),
+            NSShadowAttributeName : shadow
+            ])
+
+        titleLabel.attributedText = titleText
+        titleLabel.sizeToFit()
+        navigationItem.titleView = titleLabel
+
+        ...
+    }
+
+}
+</code></pre>
+
+<p><a href="http://imgur.com/BYV6p9s"><img src="http://i.imgur.com/BYV6p9s.gif" title="source: imgur.com" /></a></p>
+
+<h3 id="setting-bar-button-items-for-a-navigation-item">Setting bar button items for a navigation item</h3>
+
+<p>You can also configure the button(s) that appear to the
+<a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UINavigationItem_Class/index.html">left</a> and <a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UINavigationItem_Class/index.html#//apple_ref/occ/instp/UINavigationItem/rightBarButtonItems">right</a> of the title in a navigation
+item by providing your own <code>UIBarButtonItem</code> or array of
+<code>UIBarButtonItems</code>.  The <a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIBarButtonItem_Class/index.html"><code>UIBarButtonItem</code></a> also has a
+number of properties you can use to customize it.  Of particular note is
+the fact that you can provide an arbitrary <code>UIView</code> as a custom view.</p>
+
+<pre><code class="language-swift">class NameController: UIViewController {
+    ...
+
+    override func viewDidLoad() {
+        let saveButton = UIBarButtonItem(title: &quot;Save&quot;, style: .Plain, target: self, action: &quot;saveButtonTapped&quot;)
+
+        let segmentedControl = UISegmentedControl(items: [&quot;Foo&quot;, &quot;Bar&quot;])
+        segmentedControl.sizeToFit()
+        let segmentedButton = UIBarButtonItem(customView: segmentedControl)
+
+        let dummyButton = UIBarButtonItem(title: &quot;Dummy&quot;, style: .Plain, target: nil, action: nil)
+
+        navigationItem.rightBarButtonItems = [saveButton, segmentedButton]
+        navigationItem.leftBarButtonItem = dummyButton
+        ...
+   }
+   ...
+}
+</code></pre>
+
+<p><a href="http://imgur.com/FptSf6y"><img src="http://i.imgur.com/FptSf6yl.png" title="source: imgur.com" /></a></p>
+
+<h4 id="the-back-button">The Back button</h4>
+
+<p>Notice that above when we set the top navigation item&rsquo;s
+<code>leftBarButtonItem</code>, the &ldquo;Back&rdquo; button no longer appeared.  In order to
+customize the back button we have the <code>leftBarButtonItem</code> and
+<code>leftBarButtonItems</code> properties set to <code>nil</code> for top navigation item.
+We must manipulate the navigation item that is <em>second from the top</em> in
+the stack.  This will generally be the navigation item associated with
+the view controller that just pushed the current view controller on top
+of the stack.</p>
+
+<p>By default the navigation bar will use the second from top navigation
+item&rsquo;s title text as the back button text for the top view controller.
+We can customize this, for example, by having the back button say &ldquo;Cancel&rdquo;
+instead.</p>
+
+<pre><code class="language-swift">class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NameControllerDelegate {
+     ...
+     override func viewDidLoad() {
+        ...
+
+        self.navigationItem.title = &quot;Names&quot;
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: &quot;Cancel&quot;, style: .Plain, target: nil, action: nil)
+        ...
+    }
+
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let nameVC = NameController()
+        nameVC.fullName = names[indexPath.row]
+        nameVC.delegate = self
+
+        selectedIndexPath = indexPath
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        self.navigationController?.pushViewController(nameVC, animated: true)
+
+    }
+    ...
+}
+</code></pre>
+
+<p><a href="http://imgur.com/W4XwDwF"><img src="http://i.imgur.com/W4XwDwF.gif" title="source: imgur.com" /></a></p>
+
+<!-- TODO: ## Example: implementing a search bar in the navigation bar -->
+
+
+			<aside class="copyright" role="note">
+				
+				&copy; 2016 Peruzal &ndash;
+				
+				Xamarin iOS Guides by 
+				<a href="https://www.peruzal.com" target="_blank">Peruzal</a>
+			</aside>
+
+			<footer class="footer">
+				
+
+<nav class="pagination" aria-label="Footer">
+  <div class="previous">
+  
+      <a href="http://guides.peruzal.com/ios-guides/passing-data/" title="Passing Data between View Controllers">
+        <span class="direction">
+          Previous
+        </span>
+        <div class="page">
+          <div class="button button-previous" role="button" aria-label="Previous">
+            <i class="icon icon-back"></i>
+          </div>
+          <div class="stretch">
+            <div class="title">
+              Passing Data between View Controllers
+            </div>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+
+  <div class="next">
+  
+      <a href="http://guides.peruzal.com/ios-guides/swift-objective-c-interoperability/" title="Swift and Objective-C in the Same Project">
+        <span class="direction">
+          Next
+        </span>
+        <div class="page">
+          <div class="stretch">
+            <div class="title">
+              Swift and Objective-C in the Same Project
+            </div>
+          </div>
+          <div class="button button-next" role="button" aria-label="Next">
+            <i class="icon icon-forward"></i>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+</nav>
+
+
+
+
+
+			</footer>
+		</div>
+	</article>
+
+	<div class="results" role="status" aria-live="polite">
+		<div class="scrollable">
+			<div class="wrapper">
+				<div class="meta"></div>
+				<div class="list"></div>
+			</div>
+		</div>
+	</div>
+</main>
+
+    <script>
+    
+      var base_url = '';
+      var repo_id  = '';
+    
+    </script>
+
+    <script src="http://guides.peruzal.com/ios-guides/javascripts/application.js"></script>
+    
+
+    <script>
+      /* Add headers to scrollspy */
+      var headers   = document.getElementsByTagName("h2");
+      var scrollspy = document.getElementById('scrollspy');
+
+      if(scrollspy) {
+        if(headers.length > 0) {
+          for(var i = 0; i < headers.length; i++) {
+            var li = document.createElement("li");
+            li.setAttribute("class", "anchor");
+
+            var a  = document.createElement("a");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", headers[i].innerHTML);
+            a.innerHTML = headers[i].innerHTML;
+            
+            li.appendChild(a)
+            scrollspy.appendChild(li);
+          }
+        } else {
+          scrollspy.parentElement.removeChild(scrollspy)
+        }
+        
+
+        /* Add permanent link next to the headers */
+        var headers = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+
+        for(var i = 0; i < headers.length; i++) {
+            var a = document.createElement("a");
+            a.setAttribute("class", "headerlink");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", "Permanent link")
+            a.innerHTML = "#";
+            headers[i].appendChild(a);
+        }
+      }
+    </script>
+
+    
+
+    <script src="//gohugo.io/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/cs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/json.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/swift.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/xml.min.js"></script>    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/objectivec.min.js"></script>
+  </body>
+</html>

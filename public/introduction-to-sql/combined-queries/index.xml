@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Combined-queries on Introduction to SQL</title>
+    <link>http://guides.peruzal.com/introduction-to-sql/combined-queries/index.xml</link>
+    <description>Recent content in Combined-queries on Introduction to SQL</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Copyright 2017 Peruzal</copyright>
+    <lastBuildDate>Sat, 11 Mar 2017 14:05:08 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/introduction-to-sql/combined-queries/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Combined Queries</title>
+      <link>http://guides.peruzal.com/introduction-to-sql/combined-queries/</link>
+      <pubDate>Sat, 11 Mar 2017 14:05:08 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/introduction-to-sql/combined-queries/</guid>
+      <description>
+
+&lt;p&gt;The &lt;strong&gt;UNION&lt;/strong&gt; operator is used for combined queries. You can run multiple SELECT queries and combine the results, the columns selected needs to be the same.&lt;/p&gt;
+
+&lt;h2 id=&#34;union-operator&#34;&gt;UNION Operator&lt;/h2&gt;
+
+&lt;p&gt;All you do is specify each &lt;strong&gt;SELECT&lt;/strong&gt; statement and place the keyword &lt;strong&gt;UNION&lt;/strong&gt; between each.
+Let’s look at an example. You need a report on all your customers in Illinois, Indiana, and Michigan. You also want to include all &lt;em&gt;Fun4All&lt;/em&gt; locations, regardless of state. Of course, you can create a &lt;strong&gt;WHERE&lt;/strong&gt; clause that will do this, but this time you’ll use a UNION instead.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT cust_name, cust_contact, cust_email
+FROM Customers
+WHERE cust_state IN (&#39;IL&#39;,&#39;IN&#39;,&#39;MI&#39;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and the second query :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT cust_name, cust_contact, cust_email
+FROM Customers
+WHERE cust_name = &#39;Fun4All&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The first SELECT retrieves all rows in Illinois, Indiana, and Michigan by passing those state abbreviations to the IN clause. The second SELECT uses a simple equality test to find all Fun4All locations.&lt;/p&gt;
+
+&lt;p&gt;To combine these two statements, do the following:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT cust_name, cust_contact, cust_email
+FROM Customers
+WHERE cust_state IN (&#39;IL&#39;,&#39;IN&#39;,&#39;MI&#39;)
+UNION
+SELECT cust_name, cust_contact, cust_email
+FROM Customers
+WHERE cust_name = &#39;Fun4All&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;As a point of reference, here is the same query using multiple WHERE clauses instead of a UNION:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT cust_name, cust_contact, cust_email
+FROM Customers
+WHERE cust_state IN (&#39;IL&#39;,&#39;IN&#39;,&#39;MI&#39;)
+OR cust_name = &#39;Fun4All&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;### UNION Rules&lt;/p&gt;
+
+&lt;p&gt;As you can see, unions are very easy to use. But there are a few rules governing exactly which can be combined:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;A &lt;strong&gt;UNION&lt;/strong&gt; must be composed of two or more &lt;strong&gt;SELECT&lt;/strong&gt; statements, each separated by the keyword &lt;strong&gt;UNION&lt;/strong&gt; (so, if combining four &lt;strong&gt;SELECT&lt;/strong&gt; statements there would be three &lt;strong&gt;UNION&lt;/strong&gt; keywords used).&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Each query in a &lt;strong&gt;UNION&lt;/strong&gt; must contain the same columns, expressions, or aggregate functions (and some DBMSs even require that columns be listed in the same order).&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Column datatypes must be compatible: They need not be the exact same type, but they must be of a type that the DBMS can implicitly convert (for example, different numeric types or different date types).&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;h2 id=&#34;including-or-eliminating-duplicate-rows&#34;&gt;Including or Eliminating Duplicate Rows&lt;/h2&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The UNION automatically removes any duplicate rows from the query result set (in other words, it behaves just as do multiple WHERE clause conditions in a single SELECT would). Using the &lt;strong&gt;UNION ALL&lt;/strong&gt; will return the results with the duplicates.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT cust_name, cust_contact, cust_email
+FROM Customers
+WHERE cust_state IN (&#39;IL&#39;,&#39;IN&#39;,&#39;MI&#39;)
+UNION ALL
+SELECT cust_name, cust_contact, cust_email
+FROM Customers
+WHERE cust_name = &#39;Fun4All&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;sorting-combined-query-results&#34;&gt;Sorting Combined Query Results&lt;/h2&gt;
+
+&lt;p&gt;When combining queries with a UNION only one ORDER BY clause may be used, and it must occur after the final SELECT statement. There is very little point in sorting part of a result set one way and part another way, and so multiple ORDER BY clauses are not allowed.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT cust_name, cust_contact, cust_email
+FROM Customers
+WHERE cust_state IN (&#39;IL&#39;,&#39;IN&#39;,&#39;MI&#39;)
+UNION
+SELECT cust_name, cust_contact, cust_email
+FROM Customers
+WHERE cust_name = &#39;Fun4All&#39;
+ORDER BY cust_name, cust_contact;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

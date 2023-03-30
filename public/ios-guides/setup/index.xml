@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Setup-rsses on Xamarin iOS Guides</title>
+    <link>http://guides.peruzal.com/ios-guides/setup/index.xml</link>
+    <description>Recent content in Setup-rsses on Xamarin iOS Guides</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Peruzal</copyright>
+    <lastBuildDate>Mon, 12 Dec 2016 00:33:52 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/ios-guides/setup/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Starting a New Project in Xcode</title>
+      <link>http://guides.peruzal.com/ios-guides/setup/</link>
+      <pubDate>Mon, 12 Dec 2016 00:33:52 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/ios-guides/setup/</guid>
+      <description>
+
+&lt;h2 id=&#34;1-create-the-project&#34;&gt;1. Create the Project&lt;/h2&gt;
+
+&lt;p&gt;Click on File -&amp;gt; New -&amp;gt; Project and create a &amp;ldquo;Single View&amp;rdquo; project, and click &lt;em&gt;Next&lt;/em&gt;. You&amp;rsquo;ll be presented with a number of options.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Product Name&lt;/strong&gt; - The product name is just the name of your app, e.g., &amp;ldquo;Flicks&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Organization Name&lt;/strong&gt; - This is the name of your company, e.g. &amp;ldquo;Peruzal&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Company Identifier&lt;/strong&gt; - With the above values, this becomes &lt;code&gt;com.peruzal.Flicks&lt;/code&gt;. By convention, iOS uses &lt;a href=&#34;http://en.wikipedia.org/wiki/Reverse_domain_name_notation&#34;&gt;reverse domain name notation&lt;/a&gt; for identifiers.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Devices&lt;/strong&gt; - This determines if your app is for the iPhone, iPad, or Universal (both). Use Universal.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Language&lt;/strong&gt; - Use Swift or Objective-C&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Use Core Data&lt;/strong&gt; - It will add the boilerplate Core Data setup code for you. Leave it unchecked.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;When you click &lt;em&gt;Next&lt;/em&gt;, you&amp;rsquo;ll be prompted for a location to save it. Enable &amp;ldquo;Create a Git respository.&amp;rdquo;&lt;/p&gt;
+
+&lt;h2 id=&#34;2-add-gitignores&#34;&gt;2. Add .gitignores&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;.DS_Store
+xcuserdata
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;.DS_Store&lt;/code&gt; files are used by OS X to remember information about the current folder&amp;rsquo;s window location.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code&gt;xcuserdata&lt;/code&gt; folder stores you local Xcode data, such as the breakpoints you&amp;rsquo;ve set.&lt;/p&gt;
+
+&lt;h2 id=&#34;3-use-a-shared-scheme&#34;&gt;3. Use a shared scheme&lt;/h2&gt;
+
+&lt;p&gt;As you change build configurations, you want those changes shared with your team. Click the Application icon drop-down, and choose &lt;em&gt;Manage Schemes&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;In the new window, there is one scheme bundled with your app. Check the &lt;em&gt;Shared&lt;/em&gt; box.&lt;/p&gt;
+
+&lt;p&gt;You will now have an &lt;code&gt;MyProjectName.xcodeproj/xcshareddata&lt;/code&gt; folder in your app. Add this file to git.&lt;/p&gt;
+
+&lt;h2 id=&#34;setup-up-cocoapods&#34;&gt;Setup up CocoaPods&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://cocoapods.org/&#34;&gt;Cocoapods&lt;/a&gt;, enables easy addition of libraries into your iOS project. You can use Cocoapods for both managing
+Swift and Objective-C libraries in the same project.&lt;/p&gt;
+
+&lt;h3 id=&#34;install-cocoapods&#34;&gt;Install Cocoapods&lt;/h3&gt;
+
+&lt;p&gt;To install Cocoapods Ruby is required. By default OS X comes with Ruby installed.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Open &lt;code&gt;terminal&lt;/code&gt;. You can serach for terminal from the Spotlight.&lt;/li&gt;
+&lt;li&gt;Run the following command &lt;code&gt;sudo gem install cocoapods&lt;/code&gt;. Enter your system password and press &lt;code&gt;Enter&lt;/code&gt; to continue.&lt;/li&gt;
+&lt;li&gt;Once finished, navigate to the project root directory and run &lt;code&gt;pod init&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;A &lt;code&gt;Podfile&lt;/code&gt; will be created together with a  folder &lt;code&gt;Pods&lt;/code&gt; that will holds the installed Cocoapods.&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;You can add CocoaPods to be installed by editing the Podfile e.g. to install &lt;code&gt;SDWebImage&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;    # Uncomment the next line to define a global platform for your project
+    source &#39;https://github.com/CocoaPods/Specs.git&#39;
+    platform :ios, &#39;9.0&#39;
+
+    target &#39;Rotten Tomatoes&#39; do
+    # Uncomment the next line if you&#39;re using Swift or would like to use dynamic frameworks
+    use_frameworks!
+    pod &#39;SDWebImage&#39;, &#39;~&amp;gt;3.8&#39;
+    end
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Run the command &lt;code&gt;pod install&lt;/code&gt; to install the Cocoapods.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;setting-up-cocoapods-for-the-first-time&#34;&gt;Setting up Cocoapods for the first time&lt;/h2&gt;
+
+&lt;p&gt;It might take a while to setup Cocoapods for the first time since the gem need to clone the whole CocoaPods repo.
+The quickest way to setup CocoaPods is to use the following commands :&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Open the terminal&lt;/li&gt;
+&lt;li&gt;Run &lt;code&gt;sudo gem install cocoapods&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;pod setup&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Ctrl+C&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;pod repo remove master&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;cd ~/.cocoapods/repos&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;git clone --depth 1 https://github.com/CocoaPods/Specs.git master&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;This should not take long to download the required setup to be able to install new Cocoapods.&lt;/p&gt;
+
+&lt;h2 id=&#34;references&#34;&gt;References&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://stackoverflow.com/questions/21022638/pod-install-is-staying-on-setting-up-cocoapods-master-repo&#34;&gt;http://stackoverflow.com/questions/21022638/pod-install-is-staying-on-setting-up-cocoapods-master-repo&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

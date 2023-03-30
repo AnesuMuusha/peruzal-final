@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Navigation-rsses on Xamarin iOS Guides</title>
+    <link>http://guides.peruzal.com/ios-guides/navigation/index.xml</link>
+    <description>Recent content in Navigation-rsses on Xamarin iOS Guides</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Peruzal</copyright>
+    <lastBuildDate>Mon, 21 Nov 2016 23:24:47 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/ios-guides/navigation/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Navigation Patterns</title>
+      <link>http://guides.peruzal.com/ios-guides/navigation/</link>
+      <pubDate>Mon, 21 Nov 2016 23:24:47 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/ios-guides/navigation/</guid>
+      <description>
+
+&lt;h3 id=&#34;overview&#34;&gt;Overview&lt;/h3&gt;
+
+&lt;p&gt;There are three basic types of Navigation mechanism in iOS :&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Push Navigation&lt;/li&gt;
+&lt;li&gt;Modal Navigation&lt;/li&gt;
+&lt;li&gt;Tab Navigation&lt;/li&gt;
+&lt;li&gt;Page Navigation&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;push-navigation&#34;&gt;Push Navigation&lt;/h3&gt;
+
+&lt;p&gt;A push Segue is adding another VC to the navigation stack. This assumes that VC that originates the push is part of the same navigation controller that the VC that is being added to the stack belongs to. Memory management is not an issue with navigation controllers and a deep stack. As long as you are taking care of objects you might be passing from one VC to another, the compiler will take care of the navigation stack.&lt;/p&gt;
+
+&lt;h3 id=&#34;modal-navigation&#34;&gt;Modal Navigation&lt;/h3&gt;
+
+&lt;p&gt;A modal Segue is just one VC presenting another VC modally. The VCs don&amp;rsquo;t have to be part of a navigation controller and the VC being presented modally is generally considered to be a &amp;ldquo;child&amp;rdquo; of the presenting (parent) VC. The modally presented VC is usually sans any navigation bars or tab bars. The presenting VC is also responsible for dismissing the modal VC it created and presented.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://i.imgur.com/KpX7FcB.gif&#34; alt=&#34;Modal&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;tab-bar-navigation&#34;&gt;Tab Bar Navigation&lt;/h3&gt;
+
+&lt;p&gt;Tab bar controllers are simple to use navigation controllers. They are generally used, when there are different logical flow in your app and you want to switch from one controller to another.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://i.imgur.com/WhoidE5.gif&#34; alt=&#34;Tab bar&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

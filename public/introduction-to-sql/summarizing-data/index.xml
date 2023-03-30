@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Summarizing-data on Introduction to SQL</title>
+    <link>http://guides.peruzal.com/introduction-to-sql/summarizing-data/index.xml</link>
+    <description>Recent content in Summarizing-data on Introduction to SQL</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Copyright 2017 Peruzal</copyright>
+    <lastBuildDate>Tue, 28 Feb 2017 22:35:56 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/introduction-to-sql/summarizing-data/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Summarizing Data</title>
+      <link>http://guides.peruzal.com/introduction-to-sql/summarizing-data/</link>
+      <pubDate>Tue, 28 Feb 2017 22:35:56 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/introduction-to-sql/summarizing-data/</guid>
+      <description>
+
+&lt;h2 id=&#34;using-aggregate-functions&#34;&gt;Using Aggregate Functions&lt;/h2&gt;
+
+&lt;p&gt;Functions that operate on a set of rows to calculate and return a single value. You would use these functions to do the calculations on the server and only return the required value to the client, saving network bandwidth.&lt;/p&gt;
+
+&lt;p&gt;The following are common aggregate functions in SQL :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;AVG&lt;/li&gt;
+&lt;li&gt;COUNT&lt;/li&gt;
+&lt;li&gt;MAX&lt;/li&gt;
+&lt;li&gt;MIN&lt;/li&gt;
+&lt;li&gt;SUM&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;avg-function&#34;&gt;AVG() function&lt;/h3&gt;
+
+&lt;p&gt;AVG() is used to return the average value of a specific column by counting both the number of rows in the table and the sum of their values.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT AVG(prod_price)
+FROM Products;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;average-for-specific-condition&#34;&gt;Average for specific condition&lt;/h3&gt;
+
+&lt;p&gt;We can use WHERE clause to filter the rows and find the average for the specific condition.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT AVG(prod_price) AS avg_price
+FROM Products
+WHERE vend_id = &#39;DLL01&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Column rows containing NULL values are ignored by the AVG() function.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&#34;count-function&#34;&gt;Count() function&lt;/h3&gt;
+
+&lt;p&gt;Counts the number of rows.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;count(*)&lt;/code&gt; - Count the number of rows in a table, whether columns contain values or NULL values.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;count(column)&lt;/code&gt; - Count number of rows that have values in a specific column, ignoring NULL values.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The following will return a count of rows including NULL values.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT COUNT(*) AS num_cust
+FROM Customers;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The following will only count the rows for the specific column ignoring NULL values.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT COUNT(cust_email) AS num_cust
+FROM Customers;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;max-function&#34;&gt;MAX() function&lt;/h3&gt;
+
+&lt;p&gt;Returns the highest value specified in a column.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT MAX(prod_price) AS max_price
+FROM Products;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Column rows with NULL values in them are ignored by the MAX() function.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&#34;min-function&#34;&gt;MIN() function&lt;/h3&gt;
+
+&lt;p&gt;Finds the minimum value.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT MIN(prod_price) AS min_price
+FROM Products;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;sum-function&#34;&gt;SUM() function&lt;/h3&gt;
+
+&lt;p&gt;Returns the sum total of the values in a specific column.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT SUM(quantity)
+FROM OrderItems
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;aggregates-on-distinct-values&#34;&gt;Aggregates on Distinct Values&lt;/h2&gt;
+
+&lt;p&gt;The aggregate functions can also be used with distinct values. By default they use all the values when performing the calculations.&lt;/p&gt;
+
+&lt;h3 id=&#34;calculate-average-on-distinct-values&#34;&gt;Calculate average on distinct values&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT AVG(DISTINCT prod_price) AS avg_price
+FROM Products
+WHERE vend_id = &#39;DLL01&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;DISTINCT may only be used with COUNT() if a column name is specified. DISTINCT may not be used with COUNT(*). Similarly, DISTINCT must be used with a column name and not with a calculation or expression&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&#34;combining-aggregate-functions&#34;&gt;Combining Aggregate Functions&lt;/h2&gt;
+
+&lt;p&gt;The aggregate functions can all be combined in a single select statement.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT COUNT(*) AS num_items,
+       MIN(prod_price) AS price_min,
+       MAX(prod_price) AS price_max,
+       AVG(prod_price) AS price_avg
+FROM Products;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Stored-procedures on Introduction to SQL</title>
+    <link>http://guides.peruzal.com/introduction-to-sql/stored-procedures/index.xml</link>
+    <description>Recent content in Stored-procedures on Introduction to SQL</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Copyright 2017 Peruzal</copyright>
+    <lastBuildDate>Tue, 28 Feb 2017 21:53:10 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/introduction-to-sql/stored-procedures/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Stored Procedures</title>
+      <link>http://guides.peruzal.com/introduction-to-sql/stored-procedures/</link>
+      <pubDate>Tue, 28 Feb 2017 21:53:10 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/introduction-to-sql/stored-procedures/</guid>
+      <description>
+
+&lt;h2 id=&#34;understanding-stored-procedures&#34;&gt;Understanding Stored Procedures&lt;/h2&gt;
+
+&lt;p&gt;Stored procedures are simply collections of one or more SQL statements saved for future use. You can think of them as batch files, although in truth they are more than that.&lt;/p&gt;
+
+&lt;h2 id=&#34;why-to-use-stored-procedures&#34;&gt;Why to Use Stored Procedures&lt;/h2&gt;
+
+&lt;p&gt;Stored procedures provides the following benefits :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Simplicity&lt;/li&gt;
+&lt;li&gt;Security&lt;/li&gt;
+&lt;li&gt;Performance&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;In brief, store procedures can be used to :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;To simplify complex operations (as seen in the previous example) by encapsulating processes into a single easy-to-use unit.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;To ensure data consistency by not requiring that a series of steps be created over and over. If all developers and applications use the same stored procedure, then the same code will be used by all. An extension of this is to prevent errors. The more steps that need to be performed, the more likely it is that errors will be introduced. Preventing errors ensures data consistency.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;To simplify change management. If tables, column names, or business logic (or just about anything) changes, then only the stored procedure code needs to be updated, and no one else will need even to be aware that changes were made. An extension of this is security. Restricting access to underlying data via stored procedures reduces the chance of data corruption (unintentional or otherwise).&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Because stored procedures are usually stored in a compiled form, the DBMS has to do less work to process the command. This results in improved performance.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;There are SQL language elements and features that are available only within single requests. Stored procedures can use these to write code that is more powerful and flexible.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;executing-stored-procedures&#34;&gt;Executing Stored Procedures&lt;/h2&gt;
+
+&lt;p&gt;Stored procedures are executed far more often than they are written, so we’ll start there. The SQL statement to execute a stored procedure is simply &lt;strong&gt;EXECUTE&lt;/strong&gt;. &lt;strong&gt;EXECUTE&lt;/strong&gt; takes the name of the stored procedure and any parameters that need to be passed to it.&lt;/p&gt;
+
+&lt;p&gt;Here is an example :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;exec sp_who2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;or using the longer version of the keyword :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;EXECUTE sp_who2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;creating-stored-procedures&#34;&gt;Creating Stored Procedures&lt;/h2&gt;
+
+&lt;p&gt;Lets create a stored procedure that counts the number of customers in a mailing list who have e-mail addresses.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;CREATE PROCEDURE MailingListCount
+AS
+DECLARE @cnt INTEGER
+SELECT @cnt = COUNT(*)
+FROM Customers
+WHERE NOT cust_email IS NULL;
+RETURN @cnt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This stored procedure takes no parameters at all. The calling application retrieves the value by using SQL Server’s return code support. Here a local variable named &lt;em&gt;@cnt&lt;/em&gt; is declared using the &lt;strong&gt;DECLARE&lt;/strong&gt; statement (all local variables in SQL Server are named starting with a_ @_). This variable is then used in the &lt;strong&gt;SELECT&lt;/strong&gt; statement so that it contains the value returned by the &lt;strong&gt;COUNT(&lt;/strong&gt;) function. Finally, the RETURN statement is used to return the count to the calling application as RETURN &lt;em&gt;@cnt&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;To invoke the SQL Server example you could do the following:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;DECLARE @ReturnValue INT
+EXECUTE @ReturnValue=MailingListCount;
+SELECT @ReturnValue;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This code declares a variable to hold whatever the stored procedure returns, executes the store procedure, and then uses a &lt;strong&gt;SELECT&lt;/strong&gt; to display the returned value.&lt;/p&gt;
+
+&lt;p&gt;Here’s another example, this time to insert a new order in the Orders table :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;CREATE PROCEDURE NewOrder @cust_id CHAR(10)
+AS
+-- Declare variable for order number
+DECLARE @order_num INTEGER
+-- Get current highest order number
+SELECT @order_num=MAX(order_num)
+FROM Orders
+-- Determine next order number
+SELECT @order_num=@order_num + 1
+-- Insert new order
+INSERT INTO Orders(order_num, order_date, cust_id)
+VALUES(@order_num, GETDATE(), @cust_id)
+-- Return order number
+RETURN @order_num;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This stored procedure creates a new order in the Orders table. It takes a single parameter, the &lt;em&gt;ID&lt;/em&gt; of the customer placing the order. The other two table columns, the order number and order date, are generated automatically within the stored procedure itself. The code first declares a local variable to store the order number. Next, the current highest order number is retrieved (using a &lt;strong&gt;MAX()&lt;/strong&gt; function) and incremented (using a &lt;strong&gt;SELECT&lt;/strong&gt; statement). Then the order is inserted with an INSERT statement using the newly generated order number, the current system date (retrieved using the &lt;strong&gt;GETDATE()&lt;/strong&gt; function), and the passed customer &lt;strong&gt;ID&lt;/strong&gt;. Finally, the order number (which is needed to process order items) is returned as &lt;strong&gt;RETURN @order_num&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Here’s a quite different version of the same SQL Server code:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;CREATE PROCEDURE NewOrder @cust_id CHAR(10)
+AS
+-- Insert new order
+INSERT INTO Orders(cust_id)
+VALUES(@cust_id)
+-- Return order number
+SELECT order_num = @@IDENTITY;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

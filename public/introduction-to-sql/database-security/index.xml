@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Database-securities on Introduction to SQL</title>
+    <link>http://guides.peruzal.com/introduction-to-sql/database-security/index.xml</link>
+    <description>Recent content in Database-securities on Introduction to SQL</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Copyright 2017 Peruzal</copyright>
+    <lastBuildDate>Wed, 15 Mar 2017 07:24:03 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/introduction-to-sql/database-security/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Database Security</title>
+      <link>http://guides.peruzal.com/introduction-to-sql/database-security/</link>
+      <pubDate>Wed, 15 Mar 2017 07:24:03 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/introduction-to-sql/database-security/</guid>
+      <description>
+
+&lt;h2 id=&#34;sql-server-security-modes&#34;&gt;SQL Server Security Modes&lt;/h2&gt;
+
+&lt;p&gt;You can change the SQL Server authentication modes by right clicking on the &lt;strong&gt;Properties&lt;/strong&gt; on the server and choosing security.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/sql-security-modes.PNG&#34; alt=&#34;Authentication Modes&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;server-instance-vs-the-database&#34;&gt;Server Instance vs. the Database&lt;/h2&gt;
+
+&lt;p&gt;Databases within SQL Server are their own unique entities. SQL Server databases are designed to be easily detached from one server environment and reattached to another server without any extra work being done by a DBA.&lt;/p&gt;
+
+&lt;p&gt;Databases have their own users called &lt;strong&gt;database users&lt;/strong&gt; and their own roles called &lt;strong&gt;database roles&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;To authorize a SQL Server login access to a particular database, DBAs need to create a database user within the requested database, which maps to a SQL Server login. Database users are not shared among any databases on the server instance, but a single SQL Server login can map to one or more database users with each database user being in a different database.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/sql-server-logins.PNG&#34; alt=&#34;SQL Server Logins&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;database-logins&#34;&gt;Database Logins&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/database-logins.PNG&#34; alt=&#34;Database Logins&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;server-roles&#34;&gt;Server Roles&lt;/h3&gt;
+
+&lt;p&gt;At the server instance level, there are nine fixed server roles that you can assign to a SQL Server login. Fixed means that you, as a DBA, cannot create your own server roles; rather, you have only the nine to choose from. In SQL Server 2012, database administrators can create their own server level roles.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/server-roles.PNG&#34; alt=&#34;Server Roles&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/server-roles-detail.jpg&#34; alt=&#34;Server Roles Details&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Before you start assigning logins to various roles, it is important to know that, in reality, you probably will use very few of these roles. The most popular is the sysadmin role. The functionality of these roles has been superceded with the introduction of server permissions. Server roles are still relevant to learn and use, because in some cases, it is not possible to create a SQL Server login with enough server permissions to mimic a server role.&lt;/p&gt;
+
+&lt;h2 id=&#34;database-security&#34;&gt;DATABASE SECURITY&lt;/h2&gt;
+
+&lt;p&gt;Database users are similar to SQL Server logins in that they are principals within the scope of a database. These users can be granted or denied specific permissions such as SELECT on a specific table. They can also be included in database roles. All database users are members of the public role. Thus, any permissions that are given to the public role will be in effect given to every database user.&lt;/p&gt;
+
+&lt;h3 id=&#34;database-users&#34;&gt;Database Users&lt;/h3&gt;
+
+&lt;p&gt;When you create a database, a few database users are created for you. One of them is &lt;strong&gt;dbo&lt;/strong&gt;, which is the database owner; as the name implies, the role has permission to perform all activities within the database. Any member of the &lt;strong&gt;sysadmin&lt;/strong&gt; fixed server role, who accesses a database is automatically mapped to the dbo user.&lt;/p&gt;
+
+&lt;p&gt;The &lt;strong&gt;guest&lt;/strong&gt; database user is also always created. When SQL Server users log into a database where they do not have mappings, they are automatically mapped to the guest account. guest is created and is disabled by default. Thus, the default behavior for SQL Server logins that have no specific mapping is to not have any access at all to the database.&lt;/p&gt;
+
+&lt;h3 id=&#34;schemas&#34;&gt;Schemas&lt;/h3&gt;
+
+&lt;p&gt;When a database user is created, the user is assigned to a default schema. A schema is a logical collection of database objects. By grouping objects in a schema, a DBA can grant permissions to the schema that in turn would affect all the objects within the schema. If the user does not have a default schema, but the user is a member of a group that has a default schema, the default schema of the group will be used.&lt;/p&gt;
+
+&lt;h2 id=&#34;server-permissions&#34;&gt;Server Permissions&lt;/h2&gt;
+
+&lt;p&gt;Before server permissions, if you wanted a login to be able to shut down the server, you needed to assign that login to the serveradmin role. Yet serveradmin imparts a number of other capabilities that you may not want to give that other user, such as the ability to change server-wide settings. With server permissions, you can now grant just the SHUTDOWN permission to a specific login, as shown in the following code:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;USE master
+GO
+GRANT SHUTDOWN TO &amp;lt;login&amp;gt;
+GO
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

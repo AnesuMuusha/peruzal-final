@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+  
+  
+  
+  
+   <html class="no-js"> 
+
+  <head lang="en-us">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=10" />
+    <title>SQL Server AlwaysOn Step by Step Setup - Introduction to SQL</title>
+    <meta name="generator" content="Hugo 0.19" />
+
+    
+    <meta name="description" content="Introduction to SQL Guide">
+    
+    <link rel="canonical" href="http://guides.peruzal.com/introduction-to-sql/sql-server-alwayson/">
+    
+    <meta name="author" content="Peruzal">
+    
+
+    <meta property="og:url" content="http://guides.peruzal.com/introduction-to-sql/sql-server-alwayson/">
+    <meta property="og:title" content="Introduction to SQL">
+    <meta property="og:image" content="http://guides.peruzal.com/images/logo.png">
+    <meta name="apple-mobile-web-app-title" content="Introduction to SQL">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="shortcut icon" type="image/x-icon" href="http://guides.peruzal.com/introduction-to-sql/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="http://guides.peruzal.com/introduction-to-sql/images/favicon.ico">
+
+    <style>
+      @font-face {
+        font-family: 'Icon';
+        src: url('http://guides.peruzal.com/introduction-to-sql/fonts/icon.eot');
+        src: url('http://guides.peruzal.com/introduction-to-sql/fonts/icon.eot')
+               format('embedded-opentype'),
+             url('http://guides.peruzal.com/introduction-to-sql/fonts/icon.woff')
+               format('woff'),
+             url('http://guides.peruzal.com/introduction-to-sql/fonts/icon.ttf')
+               format('truetype'),
+             url('http://guides.peruzal.com/introduction-to-sql/fonts/icon.svg')
+               format('svg');
+        font-weight: normal;
+        font-style: normal;
+      }
+    </style>
+
+    <link rel="stylesheet" href="http://guides.peruzal.com/introduction-to-sql/stylesheets/application.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/introduction-to-sql/stylesheets/temporary.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/introduction-to-sql/stylesheets/palettes.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/introduction-to-sql/stylesheets/highlight/highlight.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/github-gist.min.css">
+
+    
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ubuntu:400,700|Ubuntu&#43;Mono">
+    <style>
+      body, input {
+        font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+      }
+      pre, code {
+        font-family: 'Ubuntu Mono', 'Courier New', 'Courier', monospace;
+      }
+    </style>
+
+    
+    <script src="http://guides.peruzal.com/introduction-to-sql/javascripts/modernizr.js"></script>
+
+    
+
+  </head>
+  <body class="palette-primary-deep-orange palette-accent-light-blue">
+
+
+
+
+<div class="backdrop">
+	<div class="backdrop-paper"></div>
+</div>
+
+<input class="toggle" type="checkbox" id="toggle-drawer">
+<input class="toggle" type="checkbox" id="toggle-search">
+<label class="toggle-button overlay" for="toggle-drawer"></label>
+
+<header class="header">
+	<nav aria-label="Header">
+  <div class="bar default">
+    <div class="button button-menu" role="button" aria-label="Menu">
+      <label class="toggle-button icon icon-menu" for="toggle-drawer">
+        <span></span>
+      </label>
+    </div>
+    <div class="stretch">
+      <div class="title">
+        SQL Server AlwaysOn Step by Step Setup
+      </div>
+    </div>
+
+    
+    <div class="button button-twitter" role="button" aria-label="Twitter">
+       <a href="https://twitter.com/peruzal" title="@peruzal on Twitter" target="_blank" class="toggle-button icon icon-twitter"></a>
+    </div>
+    
+
+    
+    <div class="button button-github" role="button" aria-label="GitHub">
+      <a href="https://github.com/peruzal" title="@peruzal on GitHub" target="_blank" class="toggle-button icon icon-github"></a>
+    </div>
+    
+    
+        
+  </div>
+  <div class="bar search">
+    <div class="button button-close" role="button" aria-label="Close">
+      <label class="toggle-button icon icon-back" for="toggle-search"></label>
+    </div>
+    <div class="stretch">
+      <div class="field">
+        <input class="query" type="text" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck>
+      </div>
+    </div>
+    <div class="button button-reset" role="button" aria-label="Search">
+      <button class="toggle-button icon icon-close" id="reset-search"></button>
+    </div>
+  </div>
+</nav>
+</header>
+
+<main class="main">
+	<div class="drawer">
+		<nav aria-label="Navigation">
+  <a href="http://guides.peruzal.com/introduction-to-sql" class="project">
+    <div class="banner">
+      
+        <div class="logo">
+          <img src="http://guides.peruzal.com/introduction-to-sql/images/logo.png">
+        </div>
+      
+      <div class="name">
+        <strong>Introduction to SQL <span class="version">1.0.0</span></strong>
+        
+      </div>
+    </div>
+  </a>
+
+  <div class="scrollable">
+    <div class="wrapper">
+      
+
+      <div class="toc">
+        
+        <ul>
+          
+
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Understanding SQL" href="http://guides.peruzal.com/introduction-to-sql/understanding-sql/">
+	
+	Understanding SQL
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Retrieving Data" href="http://guides.peruzal.com/introduction-to-sql/retrieving-data/">
+	
+	Retrieving Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Sorting Data" href="http://guides.peruzal.com/introduction-to-sql/sorting-data/">
+	
+	Sorting Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Filtering Data" href="http://guides.peruzal.com/introduction-to-sql/filtering-data/">
+	
+	Filtering Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Functions Data" href="http://guides.peruzal.com/introduction-to-sql/functions/">
+	
+	Functions Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Grouping Data" href="http://guides.peruzal.com/introduction-to-sql/grouping-data/">
+	
+	Grouping Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Sub Queries" href="http://guides.peruzal.com/introduction-to-sql/subqueries/">
+	
+	Sub Queries
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Joining Tables" href="http://guides.peruzal.com/introduction-to-sql/joining-tables/">
+	
+	Joining Tables
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Inserting Data" href="http://guides.peruzal.com/introduction-to-sql/inserting-data/">
+	
+	Inserting Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Updating Data" href="http://guides.peruzal.com/introduction-to-sql/updating-data/">
+	
+	Updating Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Deleting Data" href="http://guides.peruzal.com/introduction-to-sql/deleting-data/">
+	
+	Deleting Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Working with Tables" href="http://guides.peruzal.com/introduction-to-sql/working-with-tables/">
+	
+	Working with Tables
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Views" href="http://guides.peruzal.com/introduction-to-sql/views/">
+	
+	Views
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Stored Procedures" href="http://guides.peruzal.com/introduction-to-sql/stored-procedures/">
+	
+	Stored Procedures
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Transaction" href="http://guides.peruzal.com/introduction-to-sql/transactions/">
+	
+	Transaction
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Advanced SQL Features" href="http://guides.peruzal.com/introduction-to-sql/advanced-sql-features/">
+	
+	Advanced SQL Features
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Calculated Fields" href="http://guides.peruzal.com/introduction-to-sql/calculated-fields/">
+	
+	Calculated Fields
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Installing SQL Server" href="http://guides.peruzal.com/introduction-to-sql/installing-sql-server/">
+	
+	Installing SQL Server
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="SQL Server Architecture" href="http://guides.peruzal.com/introduction-to-sql/sql-server-architecture/">
+	
+	SQL Server Architecture
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Database Recovery" href="http://guides.peruzal.com/introduction-to-sql/database-recovery/">
+	
+	Database Recovery
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Security" href="http://guides.peruzal.com/introduction-to-sql/database-security/">
+	
+	Security
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a class="current" title="AlwaysOn Availability Groups" href="http://guides.peruzal.com/introduction-to-sql/sql-server-alwayson/">
+	
+	AlwaysOn Availability Groups
+</a>
+
+
+<ul id="scrollspy">
+</ul>
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Intro to SQL" href="http://guides.peruzal.com/introduction-to-sql/">
+	
+	Intro to SQL
+</a>
+
+
+
+  
+</li>
+
+
+        </ul>
+        
+
+        
+        <hr>
+        <span class="section">The author</span>
+        
+        <ul>
+          
+          <li>
+            <a href="https://twitter.com/peruzal" target="_blank" title="@peruzal on Twitter">
+              @peruzal on Twitter
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="https://github.com/peruzal" target="_blank" title="@peruzal on GitHub">
+              @peruzal on GitHub
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="mailto:hello@peruzal.com" title="Email of hello@peruzal.com">
+              Contact via email
+            </a>
+          </li>
+          
+        </ul>
+        
+      </div>
+    </div>
+  </div>
+</nav>
+
+	</div>
+
+	<article class="article">
+		<div class="wrapper">
+			<h1>SQL Server AlwaysOn Step by Step Setup </h1>
+
+			
+
+<p>This guide will walk you through step by step to setup SQL Server AlwaysOn on SQL Server Server 2016 running on Windos Server 2016.</p>
+
+<h3 id="prerequisites">Prerequisites</h3>
+
+<ul>
+<li><p>Windows Server 2016</p></li>
+
+<li><p>SQL Server Developer/Standard Edition</p></li>
+
+<li><p>Three machines running Windows 2016 (WESTEROS, CASTLE-BLACK, WITNESS)</p></li>
+</ul>
+
+<h2 id="step-1-enable-failover-clustering">Step 1 - Enable Failover Clustering</h2>
+
+<p>AlwaysOn requires Failover Clustering feature to be added to machine that will have SQL Server installed. You can add this feature through the server manager :</p>
+
+<h3 id="open-server-manager">Open Server Manager</h3>
+
+<p><img src="http://guides.peruzal.com/introduction-to-sql/images/cluster/add-roles-step-1.PNG" alt="Open Server Manager" /></p>
+
+<h3 id="select-installation-type">Select Installation Type</h3>
+
+<p><img src="http://guides.peruzal.com/introduction-to-sql/images/cluster/add-roles-installation-type.PNG" alt="Add Roles Installation Type" /></p>
+
+<h3 id="choose-the-server-to-install-the-feature-on">Choose the Server to Install the Feature on</h3>
+
+<p>You will need to repeat this process for each on the servers, that is for <strong>WESTEROS</strong> and <strong>CASTLE-BLACK</strong> which will be nodes in the cluster.</p>
+
+<p><img src="http://guides.peruzal.com/introduction-to-sql/images/cluster/server-selection.PNG" alt="Choose Server" /></p>
+
+<h3 id="don-t-choose-any-server-roles">Don&rsquo;t choose any Server Roles</h3>
+
+<p>Click next on the Server Roles, we are not adding anything from this page, we are adding features that are found on the next screen.</p>
+
+<p><img src="http://guides.peruzal.com/introduction-to-sql/images/cluster/server-role.PNG" alt="Choose Server Roles" /></p>
+
+<h3 id="add-the-failover-clustering">Add the Failover Clustering</h3>
+
+<p><img src="http://guides.peruzal.com/introduction-to-sql/images/cluster/failover-clustering.png" alt="Failover clustering features" /></p>
+
+<h3 id="add-the-feature">Add the feature</h3>
+
+<p>Installation will start and the results will be displayed once install is complete.</p>
+
+<p><img src="http://guides.peruzal.com/introduction-to-sql/images/cluster/confirm-and-finish.PNG" alt="Failover Clustering" /></p>
+
+<h3 id="creating-the-cluster">Creating the Cluster</h3>
+
+<p>The next step is to create the cluster and add the nodes to it. This step can be performed from any one of the nodes.</p>
+
+<p><img src="http://guides.peruzal.com/introduction-to-sql/images/cluster/create-cluster-wizard-select-servers.PNG" alt="Create Cluster" /></p>
+
+<p>Add the nodes and run the validation tests. Once the tests are done you will have a cluster created.</p>
+
+<h3 id="add-a-file-share-quorum-witness">Add a File Share Quorum Witness</h3>
+
+<p>Since we only have two nodes, we need a third node to vote so that the server can stay online with a majority vote of two.</p>
+
+<p><img src="http://guides.peruzal.com/introduction-to-sql/images/cluster/cluster-configuration-quorum-witness.PNG" alt="Quorum Witness Wizard" /></p>
+
+<h3 id="choose-quorum-option">Choose Quorum Option</h3>
+
+<p>Select the File Witness quorum option as we need to use a shared folder as a witness.</p>
+
+<p><img src="http://guides.peruzal.com/introduction-to-sql/images/cluster/qorum-options.PNG" alt="Quorum Option" /></p>
+
+<h3 id="configure-file-share-witness">Configure File Share Witness</h3>
+
+<p><img src="http://guides.peruzal.com/introduction-to-sql/images/cluster/quorum-witness.PNG" alt="Configure File Share Witness" /></p>
+
+<h3 id="choose-the-shared-folder-path">Choose the Shared Folder Path</h3>
+
+<p><img src="http://guides.peruzal.com/introduction-to-sql/images/cluster/file-share-witness.PNG" alt="Choose the Shared Folder Path" /></p>
+
+<p>The quorum should now a witness and it will be brought online.</p>
+
+<h2 id="step-2-enable-alwayson">Step 2 - Enable AlwaysOn</h2>
+
+<p>Now that we have a working cluster, we can now enable AlwaysOn in the SQL Server Configuration Tool.</p>
+
+<p><img src="http://guides.peruzal.com/introduction-to-sql/images/cluster/enable-alwayson-sql-server-configuration.PNG" alt="Enable AlwaysOn" /></p>
+
+<h2 id="step-3-create-alwayson-availability-groups">Step 3 - Create AlwaysOn Availability Groups</h2>
+
+<p>AlwaysOn Availability Groups is a set of database that are always failed over to another server in the cluster together.</p>
+
+<p><img src="http://guides.peruzal.com/introduction-to-sql/images/cluster/create always on availability group1.png" alt="New Availability Group" /></p>
+
+<h3 id="sepcify-the-name-of-the-ag">Sepcify the Name of the AG</h3>
+
+<p><img src="http://guides.peruzal.com/introduction-to-sql/images/cluster/create always on availability group3.png" alt="Give the AG a Name" /></p>
+
+<h3 id="add-database-to-the-ag">Add Database to the AG</h3>
+
+<p><img src="http://guides.peruzal.com/introduction-to-sql/images/cluster/create always on availability group4.png" alt="Add Database to the AG" /></p>
+
+<h3 id="choose-replica-servers">Choose Replica Servers</h3>
+
+<p><img src="http://guides.peruzal.com/introduction-to-sql/images/cluster/create always on availability group5.png" alt="Replica Server" /></p>
+
+<h3 id="change-backup-preferences">Change Backup Preferences</h3>
+
+<p><img src="http://guides.peruzal.com/introduction-to-sql/images/cluster/create always on availability group9.png" alt="Backup Preferences" /></p>
+
+<h3 id="add-the-ag-listener">Add the AG Listener</h3>
+
+<p>This is the hostname used to connect to the availability group.</p>
+
+<p><img src="http://guides.peruzal.com/introduction-to-sql/images/cluster/create always on availability group10.png" alt="Availability Group Listener" /></p>
+
+<h3 id="choose-synchronization-option">Choose Synchronization Option</h3>
+
+<p>Select how the initial synchronization of the database would happen, the easiest is to use a file share.</p>
+
+
+			<aside class="copyright" role="note">
+				
+				&copy; 2017 Copyright 2017 Peruzal &ndash;
+				
+				Documentation built with
+				<a href="https://www.gohugo.io" target="_blank">Hugo</a>
+				using the
+				<a href="http://github.com/digitalcraftsman/hugo-material-docs" target="_blank">Material</a> theme.
+			</aside>
+
+			<footer class="footer">
+				
+
+<nav class="pagination" aria-label="Footer">
+  <div class="previous">
+  
+      <a href="http://guides.peruzal.com/introduction-to-sql/database-security/" title="Database Security">
+        <span class="direction">
+          Previous
+        </span>
+        <div class="page">
+          <div class="button button-previous" role="button" aria-label="Previous">
+            <i class="icon icon-back"></i>
+          </div>
+          <div class="stretch">
+            <div class="title">
+              Database Security
+            </div>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+
+  <div class="next">
+  
+      <a href="http://guides.peruzal.com/introduction-to-sql/maintenance-tasks/" title="Monitoring and Maintenance">
+        <span class="direction">
+          Next
+        </span>
+        <div class="page">
+          <div class="stretch">
+            <div class="title">
+              Monitoring and Maintenance
+            </div>
+          </div>
+          <div class="button button-next" role="button" aria-label="Next">
+            <i class="icon icon-forward"></i>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+</nav>
+
+
+
+
+
+			</footer>
+		</div>
+	</article>
+
+	<div class="results" role="status" aria-live="polite">
+		<div class="scrollable">
+			<div class="wrapper">
+				<div class="meta"></div>
+				<div class="list"></div>
+			</div>
+		</div>
+	</div>
+</main>
+
+    <script>
+    
+      var base_url = '';
+      var repo_id  = '';
+    
+    </script>
+
+    <script src="http://guides.peruzal.com/introduction-to-sql/javascripts/application.js"></script>
+    
+
+    <script>
+      /* Add headers to scrollspy */
+      var headers   = document.getElementsByTagName("h2");
+      var scrollspy = document.getElementById('scrollspy');
+
+      if(scrollspy) {
+        if(headers.length > 0) {
+          for(var i = 0; i < headers.length; i++) {
+            var li = document.createElement("li");
+            li.setAttribute("class", "anchor");
+
+            var a  = document.createElement("a");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", headers[i].innerHTML);
+            a.innerHTML = headers[i].innerHTML;
+
+            li.appendChild(a)
+            scrollspy.appendChild(li);
+          }
+        } else {
+          scrollspy.parentElement.removeChild(scrollspy)
+        }
+
+
+        /* Add permanent link next to the headers */
+        var headers = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+
+        for(var i = 0; i < headers.length; i++) {
+            var a = document.createElement("a");
+            a.setAttribute("class", "headerlink");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", "Permanent link")
+            a.innerHTML = "#";
+            headers[i].appendChild(a);
+        }
+      }
+    </script>
+
+    
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>
+

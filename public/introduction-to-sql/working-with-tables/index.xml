@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Working-with-tables on Introduction to SQL</title>
+    <link>http://guides.peruzal.com/introduction-to-sql/working-with-tables/index.xml</link>
+    <description>Recent content in Working-with-tables on Introduction to SQL</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Copyright 2017 Peruzal</copyright>
+    <lastBuildDate>Tue, 28 Feb 2017 21:52:47 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/introduction-to-sql/working-with-tables/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Working with Tables</title>
+      <link>http://guides.peruzal.com/introduction-to-sql/working-with-tables/</link>
+      <pubDate>Tue, 28 Feb 2017 21:52:47 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/introduction-to-sql/working-with-tables/</guid>
+      <description>
+
+&lt;h2 id=&#34;creating-tables&#34;&gt;Creating Tables&lt;/h2&gt;
+
+&lt;p&gt;SQL statements can be used to also create tables tables in addition to manipulating the table data.&lt;/p&gt;
+
+&lt;p&gt;There are generally two ways to create database tables:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Most DBMSs come with an administration tool that can be used to create and manage database tables interactively.&lt;/li&gt;
+&lt;li&gt;Tables may also be manipulated directly with SQL statements.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The &lt;code&gt;CREATE TABLE&lt;/code&gt; is used to create a table with SQL statements.&lt;/p&gt;
+
+&lt;p&gt;Basic Table Creation
+To create a table using CREATE TABLE, you must specify the following information:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The name of the new table specified after the keywords CREATE TABLE.&lt;/li&gt;
+&lt;li&gt;The name and definition of the table columns separated by commas.&lt;/li&gt;
+&lt;li&gt;Some DBMSs require that you also specify the table location.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The following SQL statement creates the Products table used throughout this book:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;CREATE TABLE Products
+(
+    prod_id      CHAR(10)        NOT NULL,
+    vend_id      CHAR(10)        NOT NULL,
+    prod_name    CHAR(254)       NOT NULL,
+    prod_price   DECIMAL(8,2)    NOT NULL,
+    prod_desc    VARCHAR(1000)   NULL
+);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;As you can see in the above statement, the table name is specified immediately following the CREATE TABLE keywords. The actual table definition (all the columns) is enclosed within parentheses. The columns themselves are separated by commas. This particular table is made up of five columns. Each column definition starts with the column name (which must be unique within the table), followed by the column’s datatype.&lt;/p&gt;
+
+&lt;h3 id=&#34;working-with-null-values&#34;&gt;Working with NULL Values&lt;/h3&gt;
+
+&lt;p&gt;To require a value in a column we use the &lt;strong&gt;NOT NULL&lt;/strong&gt; keyword. This means a a value is required when an data is inserted into the table. The default value is NULL when no keyword is specified for a table column.&lt;/p&gt;
+
+&lt;h3 id=&#34;specifying-default-values&#34;&gt;Specifying Default Values&lt;/h3&gt;
+
+&lt;p&gt;SQL enables you to specify default values to be used if no value is specified when a row is inserted. Default values are specified using the DEFAULT keyword in the column definitions in the CREATE TABLE statement.
+Look at the following example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;CREATE TABLE OrderItems
+(
+    order_num     INTEGER         NOT NULL,
+    order_item    INTEGER         NOT NULL,
+    prod_id       CHAR(10)        NOT NULL,
+    quantity      INTEGER         NOT NULL    DEFAULT 1,
+    item_price    DECIMAL(8,2)    NOT NULL
+);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can also use a function to generate the default value, e.g. using the current date when a row is inserted, you would use  &lt;strong&gt;DEFAULT GETDATE()&lt;/strong&gt; to automatically have the current date as the default value.&lt;/p&gt;
+
+&lt;div class=&#34;admonition note&#34;&gt;
+&lt;p class=&#34;admonition-title&#34;&gt;Tip: Using DEFAULT Instead of NULL Values&lt;/p&gt;
+&lt;p&gt;Many database developers use DEFAULT values instead of NULL columns, especially in columns that will be used in calculations or data groupings.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;updating-tables&#34;&gt;Updating Tables&lt;/h2&gt;
+
+&lt;p&gt;The &lt;strong&gt;ALTER TABLE&lt;/strong&gt; statement is used to alter the schema of the tables. You should avoid altering the schema of the table after its been created. Try to anticipate how the table will be used and plan accordingly.&lt;/p&gt;
+
+&lt;h3 id=&#34;adding-a-column&#34;&gt;Adding a column&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;ALTER TABLE Vendors
+ADD vend_phone CHAR(20);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This statement adds a column named vend_phone to the Vendors table. The &lt;em&gt;datatype&lt;/em&gt; must be specified.&lt;/p&gt;
+
+&lt;h3 id=&#34;dropping-a-column&#34;&gt;Dropping a column&lt;/h3&gt;
+
+&lt;p&gt;We can also remove the entire column from a table as in the following statement :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;ALTER TABLE Vendors
+DROP COLUMN vend_phone
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;deleting-tables&#34;&gt;Deleting Tables&lt;/h2&gt;
+
+&lt;p&gt;Deleting tables (actually removing the entire table, not just the contents) is very easy—arguably too easy. Tables are deleted using the DROP TABLE statement:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;DROP TABLE CustCopy;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This statement deletes the &lt;em&gt;CustCopy&lt;/em&gt; table.&lt;/p&gt;
+
+&lt;div class=&#34;admonition note&#34;&gt;
+&lt;p class=&#34;admonition-title&#34;&gt;Tip: Using Relational Rules to Prevent Accidental Deletion&lt;/p&gt;
+&lt;p&gt;Many DBMSs allow you to enforce rules that prevent the dropping of tables that are related to other tables. When these rules are enforced, if you issue a DROP TABLE statement against a table that is part of a relationship, the DBMS blocks the operation until the relationship was removed. It is a good idea to enable these options, if available, to prevent the accidental dropping of needed tables.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;renaming-tables&#34;&gt;Renaming Tables&lt;/h2&gt;
+
+&lt;p&gt;You can rename tables in Microsoft SQL databases using a store procedure called &lt;strong&gt;sp_rename&lt;/strong&gt;. The stored procedure changes the name of a user-created object in the current database. This object can be a table, index, column, alias data type, or Microsoft .NET Framework common language runtime (CLR) user-defined type&lt;/p&gt;
+
+&lt;h3 id=&#34;syntax&#34;&gt;Syntax&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;sp_rename [ @objname = ] &#39;object_name&#39; , [ @newname = ] &#39;new_name&#39;
+    [ , [ @objtype = ] &#39;object_type&#39; ]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;renaming-a-table&#34;&gt;Renaming a table&lt;/h3&gt;
+
+&lt;p&gt;To rename a table called new_orders to old_orders we can use the following statement :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;sp_rename &#39;new_orders&#39;, &#39;old_orders&#39;, &#39;object&#39;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

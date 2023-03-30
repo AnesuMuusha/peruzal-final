@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+  
+  
+  
+  
+   <html class="no-js"> 
+
+  <head lang="en-us">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=10" />
+    <title>SQL Server Performance and Tuning</title>
+    <meta name="generator" content="Hugo 0.18.1" />
+
+    
+    <meta name="description" content="SQL Server Performance and Tuning">
+    
+    <link rel="canonical" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/">
+    
+    <meta name="author" content="Peruzal">
+    
+
+    <meta property="og:url" content="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/">
+    <meta property="og:title" content="SQL Server Performance and Tuning">
+    <meta property="og:image" content="http://guides.peruzal.com/images/logo.png">
+    <meta name="apple-mobile-web-app-title" content="SQL Server Performance and Tuning">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="shortcut icon" type="image/x-icon" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/images/favicon.ico">
+
+    <style>
+      @font-face {
+        font-family: 'Icon';
+        src: url('http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/fonts/icon.eot');
+        src: url('http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/fonts/icon.eot')
+               format('embedded-opentype'),
+             url('http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/fonts/icon.woff')
+               format('woff'),
+             url('http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/fonts/icon.ttf')
+               format('truetype'),
+             url('http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/fonts/icon.svg')
+               format('svg');
+        font-weight: normal;
+        font-style: normal;
+      }
+    </style>
+
+    <link rel="stylesheet" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/stylesheets/application.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/stylesheets/temporary.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/stylesheets/palettes.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/stylesheets/highlight/highlight.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/github-gist.min.css">
+
+    
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ubuntu:400,700|Ubuntu&#43;Mono">
+    <style>
+      body, input {
+        font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+      }
+      pre, code {
+        font-family: 'Ubuntu Mono', 'Courier New', 'Courier', monospace;
+      }
+    </style>
+
+    
+    <script src="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/javascripts/modernizr.js"></script>
+
+    
+    <link href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/index.xml" rel="alternate" type="application/rss+xml" title="SQL Server Performance and Tuning" />
+    <link href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/index.xml" rel="feed" type="application/rss+xml" title="SQL Server Performance and Tuning" />
+    
+
+  </head>
+  <body class="palette-primary-deep-orange palette-accent-light-blue">
+
+
+
+
+<div class="backdrop">
+	<div class="backdrop-paper"></div>
+</div>
+
+<input class="toggle" type="checkbox" id="toggle-drawer">
+<input class="toggle" type="checkbox" id="toggle-search">
+<label class="toggle-button overlay" for="toggle-drawer"></label>
+
+<header class="header">
+	<nav aria-label="Header">
+  <div class="bar default">
+    <div class="button button-menu" role="button" aria-label="Menu">
+      <label class="toggle-button icon icon-menu" for="toggle-drawer">
+        <span></span>
+      </label>
+    </div>
+    <div class="stretch">
+      <div class="title">
+        SQL Server Performance and Tuning
+      </div>
+    </div>
+
+    
+    <div class="button button-twitter" role="button" aria-label="Twitter">
+       <a href="https://twitter.com/peruzal" title="@peruzal on Twitter" target="_blank" class="toggle-button icon icon-twitter"></a>
+    </div>
+    
+
+    
+    <div class="button button-github" role="button" aria-label="GitHub">
+      <a href="https://github.com/peruzal" title="@peruzal on GitHub" target="_blank" class="toggle-button icon icon-github"></a>
+    </div>
+    
+    
+        
+  </div>
+  <div class="bar search">
+    <div class="button button-close" role="button" aria-label="Close">
+      <label class="toggle-button icon icon-back" for="toggle-search"></label>
+    </div>
+    <div class="stretch">
+      <div class="field">
+        <input class="query" type="text" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck>
+      </div>
+    </div>
+    <div class="button button-reset" role="button" aria-label="Search">
+      <button class="toggle-button icon icon-close" id="reset-search"></button>
+    </div>
+  </div>
+</nav>
+</header>
+
+<main class="main">
+	<div class="drawer">
+		<nav aria-label="Navigation">
+  <a href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization" class="project">
+    <div class="banner">
+      
+        <div class="logo">
+          <img src="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/images/logo.png">
+        </div>
+      
+      <div class="name">
+        <strong>SQL Server Performance and Tuning <span class="version">1.0.0</span></strong>
+        
+      </div>
+    </div>
+  </a>
+
+  <div class="scrollable">
+    <div class="wrapper">
+      
+
+      <div class="toc">
+        
+        <ul>
+          
+
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Introduction" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/">
+	
+	Introduction
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Performance Tuning Overview" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/performance-tuning-overview/">
+	
+	Performance Tuning Overview
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="SQL Performance Analysis" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/sql-performance-analysis/">
+	
+	SQL Performance Analysis
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="SQL Query Performance Analysis" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/sql-query-performance-analysis/">
+	
+	SQL Query Performance Analysis
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Index Analysis" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/index-analysis/">
+	
+	Index Analysis
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Database Tuning Advisor" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/database-tuning-advisor/">
+	
+	Database Tuning Advisor
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Boomark Lookup Analysis" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/bookmark-lookup-analysis/">
+	
+	Boomark Lookup Analysis
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Statistics Analysis" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/statistics-analysis/">
+	
+	Statistics Analysis
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Index Fragmentation Analysis" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/index-fragmentation-analysis/">
+	
+	Index Fragmentation Analysis
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Execution Plan Cache Analysis" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/execution-plan-cache-analysis/">
+	
+	Execution Plan Cache Analysis
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Query Recompilation" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/query-recompilation/">
+	
+	Query Recompilation
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Query Design Analysis" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/query-design-analysis/">
+	
+	Query Design Analysis
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Blocking Analysis" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/blocking-analysis/">
+	
+	Blocking Analysis
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Deadlock Analysis" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/deadlock-analysis/">
+	
+	Deadlock Analysis
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Cursor Cost Analysis" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/cursor-cost-analysis/">
+	
+	Cursor Cost Analysis
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Database Performance Stress Testing" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/database-performance-stress-testing/">
+	
+	Database Performance Stress Testing
+</a>
+
+
+
+  
+</li>
+
+
+        </ul>
+        
+
+        
+        <hr>
+        <span class="section">The author</span>
+        
+        <ul>
+          
+          <li>
+            <a href="https://twitter.com/peruzal" target="_blank" title="@peruzal on Twitter">
+              @peruzal on Twitter
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="https://github.com/peruzal" target="_blank" title="@peruzal on GitHub">
+              @peruzal on GitHub
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="mailto:hello@peruzal.com" title="Email of hello@peruzal.com">
+              Contact via email
+            </a>
+          </li>
+          
+        </ul>
+        
+      </div>
+    </div>
+  </div>
+</nav>
+
+	</div>
+
+	<article class="article">
+		<div class="wrapper">
+			
+				<h1>Welcome </h1>
+
+				
+
+<h2 id="what-is-performance">What is Performance</h2>
+
+<p>Performance means different things to different people, in this guide when we refer to performance we mean the following :</p>
+
+<ul>
+<li><strong>Response time</strong> - Refers to the interval between the time when a request is submitted and when the first character of the response is received</li>
+<li><strong>Throughput</strong> - Refers to the number of transactions that can be processed in a fixed unit of time</li>
+<li><strong>Scalability</strong> - Refers to how the throughput and/or the response time changes as we add more hardware resources. In simple terms, scalability means that if you are hitting a hardware bottleneck, you can alleviate it simply by adding more resources</li>
+</ul>
+
+			
+
+			<aside class="copyright" role="note">
+				
+				&copy; 2017 Copyright 2017 Peruzal &ndash;
+				
+				Documentation built with
+				<a href="https://www.gohugo.io" target="_blank">Hugo</a>
+				using the
+				<a href="http://github.com/digitalcraftsman/hugo-material-docs" target="_blank">Material</a> theme.
+			</aside>
+
+			<footer class="footer">
+				
+
+
+
+<nav class="pagination" aria-label="Footer">
+  <div class="previous">
+  </div>
+
+  
+  
+  <div class="next">
+      <a href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/welcome/" title="Welcomes">
+        <span class="direction">
+          Next
+        </span>
+        <div class="page">
+          <div class="stretch">
+            <div class="title">
+              Welcomes
+            </div>
+          </div>
+          <div class="button button-next" role="button" aria-label="Next">
+            <i class="icon icon-forward"></i>
+          </div>
+        </div>
+      </a>
+  </div>
+</nav>
+
+
+
+			</footer>
+		</div>
+	</article>
+
+	<div class="results" role="status" aria-live="polite">
+		<div class="scrollable">
+			<div class="wrapper">
+				<div class="meta"></div>
+				<div class="list"></div>
+			</div>
+		</div>
+	</div>
+</main>
+
+    <script>
+    
+      var base_url = '';
+      var repo_id  = '';
+    
+    </script>
+
+    <script src="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/javascripts/application.js"></script>
+    
+
+    <script>
+      /* Add headers to scrollspy */
+      var headers   = document.getElementsByTagName("h2");
+      var scrollspy = document.getElementById('scrollspy');
+
+      if(scrollspy) {
+        if(headers.length > 0) {
+          for(var i = 0; i < headers.length; i++) {
+            var li = document.createElement("li");
+            li.setAttribute("class", "anchor");
+
+            var a  = document.createElement("a");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", headers[i].innerHTML);
+            a.innerHTML = headers[i].innerHTML;
+
+            li.appendChild(a)
+            scrollspy.appendChild(li);
+          }
+        } else {
+          scrollspy.parentElement.removeChild(scrollspy)
+        }
+
+
+        /* Add permanent link next to the headers */
+        var headers = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+
+        for(var i = 0; i < headers.length; i++) {
+            var a = document.createElement("a");
+            a.setAttribute("class", "headerlink");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", "Permanent link")
+            a.innerHTML = "#";
+            headers[i].appendChild(a);
+        }
+      }
+    </script>
+
+    
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>
+

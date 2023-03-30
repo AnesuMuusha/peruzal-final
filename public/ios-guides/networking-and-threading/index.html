@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+  
+  
+  
+  
+   <html class="no-js"> 
+
+  <head lang="en-us">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=10" />
+    <title>Networking and Multithreading - Xamarin iOS Guides</title>
+    <meta name="generator" content="Hugo 0.17" />
+
+    
+    <meta name="description" content="Xamrin iOS guides for the Peruzal Cross Platform Mobile App Development course">
+    
+    <link rel="canonical" href="http://guides.peruzal.com/ios-guides/networking-and-threading/">
+    
+    <meta name="author" content="Peruzal">
+    
+
+    <meta property="og:url" content="http://guides.peruzal.com/ios-guides/networking-and-threading/">
+    <meta property="og:title" content="Xamarin iOS Guides">
+    <meta property="og:image" content="http://guides.peruzal.com/ios-guides/images/logo.png">
+    <meta name="apple-mobile-web-app-title" content="Xamarin iOS Guides">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="shortcut icon" type="image/x-icon" href="http://guides.peruzal.com/ios-guides/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="http://guides.peruzal.com/ios-guides/images/favicon.ico">
+
+    <style>
+      @font-face {
+        font-family: 'Icon';
+        src: url('http://guides.peruzal.com/ios-guides/fonts/icon.eot?52m981');
+        src: url('http://guides.peruzal.com/ios-guides/fonts/icon.eot?#iefix52m981')
+               format('embedded-opentype'),
+             url('http://guides.peruzal.com/ios-guides/fonts/icon.woff?52m981')
+               format('woff'),
+             url('http://guides.peruzal.com/ios-guides/fonts/icon.ttf?52m981')
+               format('truetype'),
+             url('http://guides.peruzal.com/ios-guides/fonts/icon.svg?52m981#icon')
+               format('svg');
+        font-weight: normal;
+        font-style: normal;
+      }
+    </style>
+
+    <link rel="stylesheet" href="http://guides.peruzal.com/ios-guides/stylesheets/application.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/ios-guides/stylesheets/temporary.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/ios-guides/stylesheets/palettes.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/ios-guides/stylesheets/highlight/highlight.css">
+
+    
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ubuntu:400,700|Ubuntu&#43;Mono">
+    <style>
+      body, input {
+        font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+      }
+      pre, code {
+        font-family: 'Ubuntu Mono', 'Courier New', 'Courier', monospace;
+      }
+    </style>
+
+    
+    <script src="http://guides.peruzal.com/ios-guides/javascripts/modernizr.js"></script>
+
+    
+
+  </head>
+  <body class="palette-primary-red palette-accent-teal">
+
+
+
+
+<div class="backdrop">
+	<div class="backdrop-paper"></div>
+</div>
+
+<input class="toggle" type="checkbox" id="toggle-drawer">
+<input class="toggle" type="checkbox" id="toggle-search">
+<label class="toggle-button overlay" for="toggle-drawer"></label>
+
+<header class="header">
+	<nav aria-label="Header">
+  <div class="bar default">
+    <div class="button button-menu" role="button" aria-label="Menu">
+      <label class="toggle-button icon icon-menu" for="toggle-drawer">
+        <span></span>
+      </label>
+    </div>
+    <div class="stretch">
+      <div class="title">
+        Networking and Multithreading
+      </div>
+    </div>
+
+    
+
+    
+    <div class="button button-github" role="button" aria-label="GitHub">
+      <a href="https://github.com/peruzal" title="@peruzal on GitHub" target="_blank" class="toggle-button icon icon-github"></a>
+    </div>
+    
+    
+        
+  </div>
+  <div class="bar search">
+    <div class="button button-close" role="button" aria-label="Close">
+      <label class="toggle-button icon icon-back" for="toggle-search"></label>
+    </div>
+    <div class="stretch">
+      <div class="field">
+        <input class="query" type="text" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck>
+      </div>
+    </div>
+    <div class="button button-reset" role="button" aria-label="Search">
+      <button class="toggle-button icon icon-close" id="reset-search"></button>
+    </div>
+  </div>
+</nav>
+</header>
+
+<main class="main">
+	<div class="drawer">
+		<nav aria-label="Navigation">
+  <a href="http://guides.peruzal.com/ios-guides/" class="project">
+    <div class="banner">
+      
+        <div class="logo">
+          <img src="http://guides.peruzal.com/ios-guides/images/logo.png">
+        </div>
+      
+      <div class="name">
+        <strong>Xamarin iOS Guides <span class="version">1.0.0</span></strong>
+        
+      </div>
+    </div>
+  </a>
+
+  <div class="scrollable">
+    <div class="wrapper">
+      
+
+      <div class="toc">
+        
+        <ul>
+          
+
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="iOS with Swift and Objective-C" href="http://guides.peruzal.com/ios-guides/">
+	
+	iOS with Swift and Objective-C
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Getting Started" href="http://guides.peruzal.com/ios-guides/getting-started/">
+	
+	Getting Started
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Setting up a Project" href="http://guides.peruzal.com/ios-guides/setup/">
+	
+	Setting up a Project
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Swift Fundamentals" href="http://guides.peruzal.com/ios-guides/swift/">
+	
+	Swift Fundamentals
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Swift Objective-C Interoperability" href="http://guides.peruzal.com/ios-guides/swift-objective-c-interoperability/">
+	
+	Swift Objective-C Interoperability
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Objective-C Fundamentals" href="http://guides.peruzal.com/ios-guides/objective-c/">
+	
+	Objective-C Fundamentals
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Common Views" href="http://guides.peruzal.com/ios-guides/common-views/">
+	
+	Common Views
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Form Input" href="http://guides.peruzal.com/ios-guides/form-input/">
+	
+	Form Input
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Model View Controller(MVC)" href="http://guides.peruzal.com/ios-guides/mvc/">
+	
+	Model View Controller(MVC)
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Auto Layout and Size Classes" href="http://guides.peruzal.com/ios-guides/auto-layout-and-size-classes/">
+	
+	Auto Layout and Size Classes
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Table View" href="http://guides.peruzal.com/ios-guides/tableview/">
+	
+	Table View
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Collection View" href="http://guides.peruzal.com/ios-guides/collection-view/">
+	
+	Collection View
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Tab Bar" href="http://guides.peruzal.com/ios-guides/tabbar-controller/">
+	
+	Tab Bar
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Scroll View" href="http://guides.peruzal.com/ios-guides/scrollview/">
+	
+	Scroll View
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Search Bar" href="http://guides.peruzal.com/ios-guides/searchbar/">
+	
+	Search Bar
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Navigation Patterns" href="http://guides.peruzal.com/ios-guides/navigation/">
+	
+	Navigation Patterns
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Passing Data between View Controllers" href="http://guides.peruzal.com/ios-guides/passing-data/">
+	
+	Passing Data between View Controllers
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Navigation Controller" href="http://guides.peruzal.com/ios-guides/navigation-controller/">
+	
+	Navigation Controller
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Location" href="http://guides.peruzal.com/ios-guides/location/">
+	
+	Location
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Maps and Location" href="http://guides.peruzal.com/ios-guides/maps-and-location/">
+	
+	Maps and Location
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="iOS Frameworks and Device Sensors" href="http://guides.peruzal.com/ios-guides/ios-frameworks-and-device-sensors/">
+	
+	iOS Frameworks and Device Sensors
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a class="current" title="Networking and Threading" href="http://guides.peruzal.com/ios-guides/networking-and-threading/">
+	
+	Networking and Threading
+</a>
+
+
+<ul id="scrollspy">
+</ul>
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Animations and Gestures" href="http://guides.peruzal.com/ios-guides/animations-and-gestures/">
+	
+	Animations and Gestures
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Persistence" href="http://guides.peruzal.com/ios-guides/persistence/">
+	
+	Persistence
+</a>
+
+
+
+  
+</li>
+
+
+        </ul>
+        
+
+        
+        <hr>
+        <span class="section">The author</span>
+        
+        <ul>
+          
+
+          
+          <li>
+            <a href="https://github.com/peruzal" target="_blank" title="@peruzal on GitHub">
+              @peruzal on GitHub
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="mailto:info@peruzal.com" title="Email of info@peruzal.com">
+              Contact via email
+            </a>
+          </li>
+          
+        </ul>
+        
+      </div>
+    </div>
+  </div>
+</nav>
+
+	</div>
+
+	<article class="article">
+		<div class="wrapper">
+			<h1>Networking and Multithreading </h1>
+
+			
+
+<p>Many iOS application are clients of a REST API.  This guide gives an
+overview of common ways to accomplish tasks associated with making
+<em>HTTP</em> requests and handling responses.  Low level socket programming,
+although possible to do in iOS is out of the scope of this guide.</p>
+
+<h2 id="overview-of-popular-network-programming-methods">Overview of popular network programming methods</h2>
+
+<p>There is a wide variety of ways to make HTTP requests in iOS with which
+you might at least want to be familiar.</p>
+
+<p><strong><a href="https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/URLLoadingSystem/Tasks/UsingNSURLConnection.html">NSURLConnection</a></strong> is a lower level mechanism
+to make URL requests and is part of Apple&rsquo;s Foundation Framework.</p>
+
+<ul>
+<li>simplest way to make URL request</li>
+<li>provides synchronous and asynchronous requests via with completion
+handler blocks and delegates</li>
+<li>does not have much support for authentication or a session concept</li>
+<li>does not have an &ldquo;operation&rdquo; or &ldquo;task&rdquo; concept associated with
+requests so there&rsquo;s no convenient way to handle queue of requests or
+to pause/resume</li>
+<li>does not handle parsing of common content types</li>
+<li>not much built in support for HTTP error codes / request parameters</li>
+</ul>
+
+<p><strong><a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/URLLoadingSystem/Articles/UsingNSURLSession.html">NSURLSession</a></strong> a higher level library that is part
+of Apple&rsquo;s Foundation Framework.</p>
+
+<ul>
+<li>built on top of NSURLConnection</li>
+<li>better support for authentication and has a session concept</li>
+<li>concept of &ldquo;task&rdquo; enables pausing/resuming requests</li>
+<li>can perform requests while your app is in the background</li>
+<li>does not handle parsing of common content types</li>
+<li>not much built in support for HTTP error codes / request parameters</li>
+</ul>
+
+<p><strong><a href="https://github.com/AFNetworking/AFNetworking/">AFNetworking</a></strong> is the most popular library for and is
+the de facto gold standard for networking tasks in the iOS world.
+<strong>Chances are you will want to use this library if accessing an API
+and making network requests is a key part of your application.</strong></p>
+
+<ul>
+<li>built on top of NSURLSession</li>
+<li>built-in support for parsing common content-types</li>
+<li>great support for common HTTP operations including handling of request
+params, headers, error codes</li>
+<li>great integration with UIKit components making complex behavior like
+loading remote images asynchronously very easy</li>
+</ul>
+
+<p><strong><a href="https://github.com/Alamofire/Alamofire">AlamoFire</a></strong> is another networking library by the same
+author as AFNetworking.  It is written in Swift.</p>
+
+<ul>
+<li>Swift only</li>
+<li>many of the same features as AFNetworking</li>
+<li>easy to use/read syntax for making common requests</li>
+<li>no integration with UIKit</li>
+</ul>
+
+<h2 id="a-note-about-threading-and-network-requests">A note about threading and network requests</h2>
+
+<p>In iOS much of the code that runs in your application is triggered by an
+event on the <a href="https://developer.apple.com/library/ios/documentation/General/Conceptual/Devpedia-CocoaApp/MainEventLoop.html">main event loop</a>.  The main event loop is
+responsible for executing code to respond to things like user
+interaction (e.g triggering an <code>@IBAction</code>) or events in a view
+controller&rsquo;s lifecycle (e.g.  <code>viewDidLoad</code>).  Code executed from the
+main event loop is run on the <em>main thread</em>.  This is convenient for us
+because <strong>any updates to an application&rsquo;s UI elements must happen on the
+main thread</strong>.  We&rsquo;ll want to keep this rule in mind when working with
+network requests.</p>
+
+<p>iOS provides a couple of higher level libraries for concurrent
+programming: <a href="https://developer.apple.com/library/mac/documentation/Performance/Reference/GCD_libdispatch_Ref/index.html">Grand Central Dispatch</a> and
+<a href="https://developer.apple.com/library/mac/documentation/General/Conceptual/ConcurrencyProgrammingGuide/OperationObjects/OperationObjects.html">NSOperationQueue</a>.  You&rsquo;ll be able use either to
+ensure you that a piece of code does or does not run on the main thread.</p>
+
+<p>You should never make a synchronous network request on the main thread
+since this will block thread and UI will appear frozen while our request
+is pending.  You&rsquo;ll rarely run into instances where you&rsquo;ll need
+to make synchronous requests</p>
+
+<p>When we make an asynchronous request, any of the above libraries will
+execute the request on a background (i.e. not the main) thread.  Some
+methods will allow us to specify the dispatch queue on which we want the
+response handler to run, others will provide no guarantees.  <strong>If we
+need to update the UI in our response handler we must ensure that the
+code that manipulates the UI is run on the main thread.</strong>  This can be
+tricky because we may call into a method that calls into another method
+that after a long stack of calls eventually updates a UI element.</p>
+
+<p>One simple way to ensure a block of code is run on the main thread using
+Grand Central Dispatch is as follows</p>
+
+<pre><code class="language-swift">dispatch_async(dispatch_get_main_queue(), {
+  // this code will be executed on the main thread
+})
+</code></pre>
+
+<h2 id="making-a-get-and-parsing-a-json-response">Making a GET and parsing a JSON response</h2>
+
+<p>In order to provide you with the flavor of each of the major ways of
+making network requests we discussed above, we&rsquo;ll go through an example of each one.</p>
+
+<h3 id="nsurlconnection-deprecated-in-ios-9">NSURLConnection (deprecated in iOS 9)</h3>
+
+<p>Notice that we are forced to specify a operation queue on which the
+completion handler will run.</p>
+
+<pre><code class="language-swift">import UIKit
+
+private let apiKey = &quot;53eb9541b4374660d6f3c0001d6249ca:19:70900879&quot;
+private let resourceUrl = NSURL(string: &quot;http://api.nytimes.com/svc/topstories/v1/home.json?api-key=\(apiKey)&quot;)!
+
+class Story {
+    var headline: String?
+    var thumbnailUrl: String?
+
+    init(jsonResult: NSDictionary) {
+        ...
+    }
+
+    class func fetchStories(successCallback: ([Story]) -&gt; Void, error: ((NSError?) -&gt; Void)?) {
+        let request = NSURLRequest(URL: resourceUrl)
+        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()) { (response, data, requestError) -&gt; Void in
+            if let requestError = requestError? {
+                error?(requestError)
+            } else {
+                if let data = data? {
+                    let json = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as NSDictionary
+                    if let results = json[&quot;results&quot;] as? NSArray {
+                        var stories: [Story] = []
+                        for result in results as [NSDictionary] {
+                            stories.append(Story(jsonResult: result))
+                        }
+                        successCallback(stories)
+                    }
+                } else {
+                    // unexpected error happened
+                    error?(nil)
+                }
+            }
+        }
+    }
+}
+</code></pre>
+
+<h3 id="nsurlsession">NSURLSession</h3>
+
+<p><a href="https://developer.apple.com/library/ios/documentation/Foundation/Reference/NSURLSession_class">NSURLSession</a> is now the preferred built-in method of performing network requests on iOS.</p>
+
+<h4 id="swift">Swift</h4>
+
+<pre><code class="language-swift">class Post {
+
+    // ... 
+
+    class func fetchPosts(successCallback: (NSDictionary) -&gt; Void, errorCallback: ((NSError?) -&gt; Void)?) {
+        let clientId = &quot;Put_Your_Client_Id_Here&quot;
+        let url = NSURL(string:&quot;https://api.instagram.com/v1/media/popular?client_id=\(clientId)&quot;)
+        let request = NSURLRequest(URL: url!)
+        let session = NSURLSession(
+            configuration: NSURLSessionConfiguration.defaultSessionConfiguration(),
+            delegate:nil,
+            delegateQueue:NSOperationQueue.mainQueue()
+        )
+        
+        let task : NSURLSessionDataTask = session.dataTaskWithRequest(request,
+            completionHandler: { (dataOrNil, responseOrNil, errorOrNil) in
+                if let requestError = errorOrNil {
+                    errorCallback?(requestError)
+                } else {
+                    if let data = dataOrNil {
+                        if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
+                            data, options:[]) as? NSDictionary {
+                                NSLog(&quot;response: \(responseDictionary)&quot;)
+                                successCallback(responseDictionary)
+                        }
+                    }
+                }
+        });
+        task.resume()
+    }
+}
+</code></pre>
+
+<h4 id="objective-c">Objective-C</h4>
+
+<pre><code>NSString *clientId = @&quot;Put_Your_Client_Id_Here&quot;;
+NSString *urlString =
+[@&quot;https://api.instagram.com/v1/media/popular?client_id=&quot; stringByAppendingString:clientId];
+
+NSURL *url = [NSURL URLWithString:urlString];
+NSURLRequest *request = [NSURLRequest requestWithURL:url];
+
+NSURLSession *session =
+[NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]
+                              delegate:nil
+                         delegateQueue:[NSOperationQueue mainQueue]];
+
+NSURLSessionDataTask *task = [session dataTaskWithRequest:request
+                                        completionHandler:^(NSData * _Nullable data,
+                                                            NSURLResponse * _Nullable response,
+                                                            NSError * _Nullable error) {
+                                            if (!error) {
+                                                NSError *jsonError = nil;
+                                                NSDictionary *responseDictionary =
+                                                [NSJSONSerialization JSONObjectWithData:data
+                                                                                options:kNilOptions
+                                                                                  error:&amp;jsonError];
+                                                NSLog(@&quot;Response: %@&quot;, responseDictionary);
+                                            } else {
+                                                NSLog(@&quot;An error occurred: %@&quot;, error.description);
+                                            }
+                                        }];
+[task resume];
+</code></pre>
+
+<h3 id="afnetworking">AFNetworking</h3>
+
+<p>This code starts to look a little cleaner with AFNetworking.
+AFNetworking does some error handling for us and gives us a way to
+provide a failure handler.  Also note that we no longer have to parse
+the JSON result ourselves since AFNetworking does this automatically
+based on the content type.  Finally note that we were able to supply our
+GET parameters as a Swift dictionary.  This is not particularly useful
+here, but becomes very nice to have if there is a large number of
+parameters.</p>
+
+<pre><code class="language-swift">private let params = [&quot;api-key&quot;: &quot;53eb9541b4374660d6f3c0001d6249ca:19:70900879&quot;]
+private let resourceUrl = &quot;http://api.nytimes.com/svc/topstories/v1/home.json&quot;
+
+class Story {
+    var headline: String?
+    var thumbnailUrl: String?
+
+    init(jsonResult: NSDictionary) {
+       ...
+    }
+
+    class func fetchStories(successCallback: ([Story]) -&gt; Void, error: ((NSError?) -&gt; Void)?) {
+        let manager = AFHTTPRequestOperationManager()
+        manager.GET(resourceUrl, parameters: params, success: { (operation ,responseObject) -&gt; Void in
+            if let results = responseObject[&quot;results&quot;] as? NSArray {
+                var stories: [Story] = []
+                for result in results as [NSDictionary] {
+                    stories.append(Story(jsonResult: result))
+                }
+                successCallback(stories)
+            }
+        }, failure: { (operation, requestError) -&gt; Void in
+            if let errorCallback = error? {
+                errorCallback(requestError)
+            }
+        })
+    }
+}
+</code></pre>
+
+
+			<aside class="copyright" role="note">
+				
+				&copy; 2016 Peruzal &ndash;
+				
+				Xamarin iOS Guides by 
+				<a href="https://www.peruzal.com" target="_blank">Peruzal</a>
+			</aside>
+
+			<footer class="footer">
+				
+
+<nav class="pagination" aria-label="Footer">
+  <div class="previous">
+  
+      <a href="http://guides.peruzal.com/ios-guides/persistence/" title="Persistence">
+        <span class="direction">
+          Previous
+        </span>
+        <div class="page">
+          <div class="button button-previous" role="button" aria-label="Previous">
+            <i class="icon icon-back"></i>
+          </div>
+          <div class="stretch">
+            <div class="title">
+              Persistence
+            </div>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+
+  <div class="next">
+  
+      <a href="http://guides.peruzal.com/ios-guides/ios-frameworks-and-device-sensors/" title="iOS Frameworks and Device Sensors">
+        <span class="direction">
+          Next
+        </span>
+        <div class="page">
+          <div class="stretch">
+            <div class="title">
+              iOS Frameworks and Device Sensors
+            </div>
+          </div>
+          <div class="button button-next" role="button" aria-label="Next">
+            <i class="icon icon-forward"></i>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+</nav>
+
+
+
+
+
+			</footer>
+		</div>
+	</article>
+
+	<div class="results" role="status" aria-live="polite">
+		<div class="scrollable">
+			<div class="wrapper">
+				<div class="meta"></div>
+				<div class="list"></div>
+			</div>
+		</div>
+	</div>
+</main>
+
+    <script>
+    
+      var base_url = '';
+      var repo_id  = '';
+    
+    </script>
+
+    <script src="http://guides.peruzal.com/ios-guides/javascripts/application.js"></script>
+    
+
+    <script>
+      /* Add headers to scrollspy */
+      var headers   = document.getElementsByTagName("h2");
+      var scrollspy = document.getElementById('scrollspy');
+
+      if(scrollspy) {
+        if(headers.length > 0) {
+          for(var i = 0; i < headers.length; i++) {
+            var li = document.createElement("li");
+            li.setAttribute("class", "anchor");
+
+            var a  = document.createElement("a");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", headers[i].innerHTML);
+            a.innerHTML = headers[i].innerHTML;
+            
+            li.appendChild(a)
+            scrollspy.appendChild(li);
+          }
+        } else {
+          scrollspy.parentElement.removeChild(scrollspy)
+        }
+        
+
+        /* Add permanent link next to the headers */
+        var headers = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+
+        for(var i = 0; i < headers.length; i++) {
+            var a = document.createElement("a");
+            a.setAttribute("class", "headerlink");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", "Permanent link")
+            a.innerHTML = "#";
+            headers[i].appendChild(a);
+        }
+      }
+    </script>
+
+    
+
+    <script src="//gohugo.io/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/cs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/json.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/swift.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/xml.min.js"></script>    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/objectivec.min.js"></script>
+  </body>
+</html>

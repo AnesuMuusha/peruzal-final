@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Inserting-data on Introduction to SQL</title>
+    <link>http://guides.peruzal.com/introduction-to-sql/inserting-data/index.xml</link>
+    <description>Recent content in Inserting-data on Introduction to SQL</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Copyright 2017 Peruzal</copyright>
+    <lastBuildDate>Tue, 28 Feb 2017 21:51:54 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/introduction-to-sql/inserting-data/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Inserting Data</title>
+      <link>http://guides.peruzal.com/introduction-to-sql/inserting-data/</link>
+      <pubDate>Tue, 28 Feb 2017 21:51:54 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/introduction-to-sql/inserting-data/</guid>
+      <description>
+
+&lt;h2 id=&#34;understanding-data-insertion&#34;&gt;Understanding Data Insertion&lt;/h2&gt;
+
+&lt;p&gt;INSERT is used to insert (add) rows to a database table. Insert can be used in several ways:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Inserting a single complete row&lt;/li&gt;
+&lt;li&gt;Inserting a single partial row&lt;/li&gt;
+&lt;li&gt;Inserting the results of a query&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;inserting-complete-rows&#34;&gt;Inserting Complete Rows&lt;/h2&gt;
+
+&lt;p&gt;The simplest way to insert data into a table is to use the basic INSERT syntax, which requires that you specify the table name and the values to be inserted into the new row. Here is an example of this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;INSERT INTO Customers
+VALUES(&#39;1000000006&#39;,
+       &#39;Toy Land&#39;,
+       &#39;123 Any Street&#39;,
+       &#39;New York&#39;,
+       &#39;NY&#39;,
+       &#39;11111&#39;,
+       &#39;USA&#39;,
+       NULL,
+       NULL); 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The above example inserts a new customer into the Customers table. The data to be stored in each table column is specified in the &lt;strong&gt;VALUES&lt;/strong&gt; clause, and a value must be provided for every column. If a column has no value (for example, the &lt;em&gt;cust_contact&lt;/em&gt; and &lt;em&gt;cust_email&lt;/em&gt; columns above), the NULL value should be used (assuming the table allows no value to be specified for that column). The columns must be populated in the order in which they appear in the table definition.&lt;/p&gt;
+
+&lt;div class=&#34;admonition warning&#34;&gt;
+&lt;p class=&#34;admonition-title&#34;&gt;Warning&lt;/p&gt;
+&lt;p&gt;Although this syntax is indeed simple, it is not at all safe and should generally be avoided at all costs. The above SQL statement is highly dependent on the order in which the columns are defined in the table.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The safer (and unfortunately more cumbersome) way to write the INSERT statement is as follows:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;INSERT INTO Customers(cust_id,
+                      cust_name,
+                      cust_address,
+                      cust_city,
+                      cust_state,
+                      cust_zip,
+                      cust_country,
+                      cust_contact,
+                      cust_email)
+VALUES(&#39;1000000006&#39;,
+       &#39;Toy Land&#39;,
+       &#39;123 Any Street&#39;,
+       &#39;New York&#39;,
+       &#39;NY&#39;,
+       &#39;11111&#39;,
+       &#39;USA&#39;,
+       NULL,
+       NULL);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This example does the exact same thing as the previous INSERT statement, but this time the column names are explicitly stated in parentheses after the table name. When the row is inserted the DBMS will match each item in the columns list with the appropriate value in the VALUES list. The first entry in VALUES corresponds to the first specified column name. The second value corresponds to the second column name, and so on.&lt;/p&gt;
+
+&lt;p&gt;The advantage of this is that, even if the table layout changes, the INSERT statement will still work correctly.&lt;/p&gt;
+
+&lt;p&gt;The following INSERT statement populates all the row columns (just as before), but it does so in a different order. Because the column names are specified, the insertion will work correctly:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;INSERT INTO Customers(cust_id,
+                      cust_contact,
+                      cust_email,
+                      cust_name,
+                      cust_address,
+                      cust_city,
+                      cust_state,
+                      cust_zip)
+VALUES(&#39;1000000006&#39;,
+       NULL,
+       NULL,
+       &#39;Toy Land&#39;,
+       &#39;123 Any Street&#39;,
+       &#39;New York&#39;,
+       &#39;NY&#39;,
+       &#39;11111&#39;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;inserting-partial-rows&#34;&gt;Inserting Partial Rows&lt;/h2&gt;
+
+&lt;p&gt;The recommended way to use INSERT is to explicitly specify table column names. Using this syntax, you can also omit columns. This means you only provide values for some columns, but not for others.
+Look at the following example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;INSERT INTO Customers(cust_id,
+                      cust_name,
+                      cust_address,
+                      cust_city,
+                      cust_state,
+                      cust_zip,
+                      cust_country)
+VALUES(&#39;1000000006&#39;,
+       &#39;Toy Land&#39;,
+       &#39;123 Any Street&#39;,
+       &#39;New York&#39;,
+       &#39;NY&#39;,
+       &#39;11111&#39;,
+       &#39;USA&#39;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In the examples given earlier in this lesson, values were not provided for two of the columns, cust_contact and cust_email. This means there is no reason to include those columns in the INSERT statement. This INSERT statement, therefore, omits the two columns and the two corresponding values.&lt;/p&gt;
+
+&lt;h2 id=&#34;inserting-retrieved-data&#34;&gt;Inserting Retrieved Data&lt;/h2&gt;
+
+&lt;p&gt;You can use the &lt;strong&gt;INSERT SELECT&lt;/strong&gt; statement to insert data retrieved from another table.&lt;/p&gt;
+
+&lt;p&gt;Suppose you want to merge a list of customers from another table into your Customers table. Instead of reading one row at a time and inserting it with INSERT, you can do the following:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;INSERT INTO Customers(cust_id,
+                      cust_contact,
+                      cust_email,
+                      cust_name,
+                      cust_address,
+                      cust_city,
+                      cust_state,
+                      cust_zip,
+                      cust_country)
+SELECT cust_id,
+       cust_contact,
+       cust_email,
+       cust_name,
+       cust_address,
+       cust_city,
+       cust_state,
+       cust_zip,
+       cust_country
+FROM CustNew;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;copying-from-one-table-to-another&#34;&gt;Copying from One Table to Another&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;SELECT INTO&lt;/strong&gt; copies data into a new table.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT *
+INTO CustCopy
+FROM Customers;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This SELECT statement creates a new table named &lt;em&gt;CustCopy&lt;/em&gt; and copies the entire contents of the Customers table into it. Because SELECT * was used, every column in the Customers table will be created (and populated) in the CustCopy table. To copy only a subset of the available columns, explicit column names can be specified instead of the * wildcard character.&lt;/p&gt;
+
+&lt;p&gt;Here are some things to consider when using SELECT INTO:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Any SELECT options and clauses may be used including WHERE and GROUP BY.&lt;/li&gt;
+&lt;li&gt;Joins may be used to insert data from multiple tables.&lt;/li&gt;
+&lt;li&gt;Data may only be inserted into a single table regardless of how many tables the data was retrieved from.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

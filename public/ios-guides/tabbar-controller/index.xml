@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tabbar-controller-rsses on Xamarin iOS Guides</title>
+    <link>http://guides.peruzal.com/ios-guides/tabbar-controller/index.xml</link>
+    <description>Recent content in Tabbar-controller-rsses on Xamarin iOS Guides</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Peruzal</copyright>
+    <lastBuildDate>Tue, 22 Nov 2016 07:10:34 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/ios-guides/tabbar-controller/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Tab Bar Controller</title>
+      <link>http://guides.peruzal.com/ios-guides/tabbar-controller/</link>
+      <pubDate>Tue, 22 Nov 2016 07:10:34 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/ios-guides/tabbar-controller/</guid>
+      <description>
+
+&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://imgur.com/WhoidE5&#34;&gt;&lt;img src=&#34;http://i.imgur.com/WhoidE5.gif&#34; title=&#34;source: imgur.com&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Tab bars controllers provide a simple interface for a users to switch
+between a set of view controllers.  This quickstart covers the basic
+procedure for setting up a tab bar controller and setting up the view
+controllers for each tab.&lt;/p&gt;
+
+&lt;h2 id=&#34;storyboard-setup&#34;&gt;Storyboard setup&lt;/h2&gt;
+
+&lt;h3 id=&#34;step-1-add-tab-bar-controller-as-initial-view-controller&#34;&gt;Step 1: Add tab bar controller as initial view controller&lt;/h3&gt;
+
+&lt;p&gt;In Interface Builder drag a &lt;code&gt;Tab Bar Controller&lt;/code&gt; from the Object Library
+into your storyboard.  It will come preconfigured with two tabs
+corresponding to two view controllers.  Many times you will want your
+tab bar controller to be the initial view controller.  You can set this
+by selecting the tab bar controller and ticking &lt;code&gt;Is Initial View
+Controller&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://imgur.com/WgiEuBZ&#34;&gt;&lt;img src=&#34;http://i.imgur.com/WgiEuBZ.png&#34; title=&#34;source: imgur.com&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;step-2-add-a-view-controller-for-each-tab&#34;&gt;Step 2: Add a view controller for each tab&lt;/h3&gt;
+
+&lt;p&gt;The tab bar controller is configured with two tabs by default.  You can
+delete a tab by selecting the corresponding view controller and deleting
+it the storyboard.  To add a tab, first drag a new &lt;code&gt;View Controller&lt;/code&gt;
+object to the storybard.  Next control-drag from the tab bar controller
+to new view controller and select &lt;code&gt;view controllers&lt;/code&gt; under &lt;code&gt;Relationship
+Segue&lt;/code&gt;.  Your tab bar controller will update with a new tab.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://imgur.com/OOMB573&#34;&gt;&lt;img src=&#34;http://i.imgur.com/OOMB573.gif&#34; title=&#34;source: imgur.com&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;step-3-customize-the-bar-item-for-each-tab&#34;&gt;Step 3: Customize the bar item for each tab&lt;/h3&gt;
+
+&lt;p&gt;You can customize appearance and title of each button on the tab bar by
+selecting the tab bar item &lt;strong&gt;inside the corresponding view controller&lt;/strong&gt;.
+In particular, you&amp;rsquo;ll likely want to add an image for each tab bar item.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://imgur.com/nZ2g4fp&#34;&gt;&lt;img src=&#34;http://i.imgur.com/nZ2g4fp.png&#34; title=&#34;source: imgur.com&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;step-4-create-view-controller-classes-for-tabs&#34;&gt;Step 4: Create view controller classes for tabs&lt;/h3&gt;
+
+&lt;p&gt;You&amp;rsquo;ll need to create classes to contain the code for the view
+controllers corresponding to each tab.  Select &lt;code&gt;File -&amp;gt; New -&amp;gt; iOS -&amp;gt;
+Source -&amp;gt; Cocoa Touch Class&lt;/code&gt; and create a new subclass of
+&lt;code&gt;UIViewController&lt;/code&gt; for each kind of tab you will have.&lt;/p&gt;
+
+&lt;h3 id=&#34;step-5-set-custom-class-for-and-finish-design-of-tabs&#34;&gt;Step 5: Set custom class for and finish design of tabs&lt;/h3&gt;
+
+&lt;p&gt;For each tab in your storyboard select the corresponding view controller
+and set its custom class to one of the classes you just created.  You
+can now add other components to this tab and connect outlets to your
+view controller class as you would with any other view controller.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://imgur.com/5YWL3Vw&#34;&gt;&lt;img src=&#34;http://i.imgur.com/5YWL3Vw.png&#34; title=&#34;source: imgur.com&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;programmatic-setup&#34;&gt;Programmatic setup&lt;/h2&gt;
+
+&lt;p&gt;You can instantiate a tab bar controller programmatically and use it as
+you would any other view controller.  If you need it to be your root view
+controller the best place to do this is in the App Delegate. The example below creates a Tab Bar Controller with two simple View Controllers (each with a different background color).&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;// AppDelegate.swift
+
+@UIApplicationMain
+class AppDelegate: UIResponder, UIApplicationDelegate {
+    
+    var window: UIWindow?
+    
+    func application(application: UIApplication,
+        didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -&amp;gt; Bool {
+            window = UIWindow(frame: UIScreen.main.bounds)
+            
+            // Set up the first View Controller
+            let vc1 = UIViewController()
+            vc1.view.backgroundColor = UIColor.orangeColor()
+            vc1.tabBarItem.title = &amp;quot;Orange&amp;quot;
+            vc1.tabBarItem.image = UIImage(named: &amp;quot;heart&amp;quot;)
+            
+            // Set up the second View Controller
+            let vc2 = UIViewController()
+            vc2.view.backgroundColor = UIColor.purpleColor()
+            vc2.tabBarItem.title = &amp;quot;Purple&amp;quot;
+            vc2.tabBarItem.image = UIImage(named: &amp;quot;star&amp;quot;)
+            
+            // Set up the Tab Bar Controller to have two tabs
+            let tabBarController = UITabBarController()
+            tabBarController.viewControllers = [vc1, vc2]
+            
+            // Make the Tab Bar Controller the root view controller
+            window?.rootViewController = tabBarController
+            window?.makeKeyAndVisible()
+            
+            return true
+    }
+    
+    // ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;// AppDelegate.m
+
+// ...
+
+- (BOOL)application:(UIApplication *)application
+didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+    // Set up the first View Controller
+    UIViewController *vc1 = [[UIViewController alloc] init];
+    vc1.view.backgroundColor = [UIColor orangeColor];
+    vc1.tabBarItem.title = @&amp;quot;Orange&amp;quot;;
+    vc1.tabBarItem.image = [UIImage imageNamed:@&amp;quot;heart&amp;quot;];
+    
+    // Set up the second View Controller
+    UIViewController *vc2 = [[UIViewController alloc] init];
+    vc2.view.backgroundColor = [UIColor purpleColor];
+    vc2.tabBarItem.title = @&amp;quot;Purple&amp;quot;;
+    vc2.tabBarItem.image = [UIImage imageNamed:@&amp;quot;star&amp;quot;];
+    
+    // Set up the Tab Bar Controller to have two tabs
+    UITabBarController *tabBarController = [[UITabBarController alloc] init];
+    [tabBarController setViewControllers:@[vc1, vc2]];
+    
+    // Make the Tab Bar Controller the root view controller
+    self.window.rootViewController = tabBarController;
+    [self.window makeKeyAndVisible];
+    
+    return YES;
+}
+
+// ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://imgur.com/GhzQOTw&#34;&gt;&lt;img src=&#34;http://i.imgur.com/GhzQOTw.gif&#34; title=&#34;source: imgur.com&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;further-reading&#34;&gt;Further reading&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://developer.apple.com/library/ios/documentation/WindowsViews/Conceptual/ViewControllerCatalog/Chapters/TabBarControllers.html&#34;&gt;Official Tab Bar Guide from Apple&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

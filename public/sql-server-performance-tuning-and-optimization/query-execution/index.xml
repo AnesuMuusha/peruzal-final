@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Query-executions on SQL Server Performance and Tuning</title>
+    <link>http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/query-execution/index.xml</link>
+    <description>Recent content in Query-executions on SQL Server Performance and Tuning</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Copyright 2017 Peruzal</copyright>
+    <lastBuildDate>Wed, 29 Mar 2017 16:29:25 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/query-execution/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Query Execution</title>
+      <link>http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/query-execution/</link>
+      <pubDate>Wed, 29 Mar 2017 16:29:25 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/query-execution/</guid>
+      <description>
+
+&lt;h2 id=&#34;reading-query-plans&#34;&gt;Reading Query Plans&lt;/h2&gt;
+
+&lt;p&gt;SQL Server supports displaying the query plans as :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Graphical&lt;/li&gt;
+&lt;li&gt;Text&lt;/li&gt;
+&lt;li&gt;XML&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;display-graphical-query-plan&#34;&gt;Display Graphical Query Plan&lt;/h3&gt;
+
+&lt;p&gt;Using SQL Server Management Studio we can display two types of the execution plan :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Estimated Execution Plan&lt;/li&gt;
+&lt;li&gt;Actual Execution Plan&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/images/graphical-execution-plan.png&#34; alt=&#34;Graphical Execution Plans&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;sql-server-join-operators&#34;&gt;SQL Server Join Operators&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Hash joins&lt;/li&gt;
+&lt;li&gt;Merge joins&lt;/li&gt;
+&lt;li&gt;Nested loop joins&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;hash-join&#34;&gt;Hash Join&lt;/h3&gt;
+
+&lt;p&gt;Let&amp;rsquo;s use the following query to look at the Hash Join :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;USE AdventureWorks2012
+GO
+SELECT  p.*
+FROM  Production.Product p
+JOIN Production.ProductCategory pc
+ON p.ProductSubcategoryID = pc.ProductCategoryID;
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The query above will produce the following query plan :&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/images/hash-join-execution-plan.png&#34; alt=&#34;Hash Join Execution Plan&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The query optimizer uses hash joins to process large, unsorted, nonindexed inputs efficiently.&lt;/p&gt;
+
+&lt;h3 id=&#34;merge-join&#34;&gt;Merge Join&lt;/h3&gt;
+
+&lt;p&gt;n the previous case, input from the Product table is larger, and the table is not indexed on the joining column (ProductCategorylD). Using the following simple query, you can see different behavior:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT  pm.*
+FROM    Production.ProductModel pm
+JOIN    Production.ProductModelProductDescriptionCulture pmpd
+ON pm.ProductModelID = pmpd.ProductModelID ;
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Characteristics :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The optimizer chooses for medium workloads&lt;/li&gt;
+&lt;li&gt;Requires sorted inputs&lt;/li&gt;
+&lt;li&gt;Can use an index to provide sorted inputs&lt;/li&gt;
+&lt;li&gt;Reads the inputs only once&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;nested-loop-join&#34;&gt;Nested Loop Join&lt;/h3&gt;
+
+&lt;p&gt;The optimizer uses the Nested Join for workloads with a small resultset. Lets us the following query and see the query plan :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT  pm.*
+FROM    Production.ProductModel pm
+JOIN    Production.ProductModelProductDescriptionCulture pmpd
+ON pm.ProductModelID = pmpd.ProductModelID
+WHERE pm.Name = &#39;HL Mountain Front Wheel&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Characteristics&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Smaller results&lt;/li&gt;
+&lt;li&gt;The inner table is executed as many times as the row of the outer table&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;query-resource-cost&#34;&gt;Query Resource Cost&lt;/h3&gt;
+
+&lt;p&gt;Even though the execution plan for a query provides a detailed processing strategy and the estimated relative costs of the individual steps involved, it doesn’t provide the actual cost of the query in terms of CPU usage, reads/writes to disk, or query duration. You will need to do optimization to reduce the cost of the queires.&lt;/p&gt;
+
+&lt;h2 id=&#34;query-plans&#34;&gt;Query Plans&lt;/h2&gt;
+
+&lt;p&gt;SQL Server breaks an SQL query into blocks called &lt;em&gt;iterators&lt;/em&gt;. Each iterator represents a single function or operation. It then uses these iterators to build a &lt;em&gt;query tree&lt;/em&gt; known as an execution plan. A single statement can produce different execution plans. The SQL Server optimizer is responsible for costing the least expensive query plan for execution.&lt;/p&gt;
+
+&lt;h3 id=&#34;sys-dm-exec-requests-and-sys-dm-exec-sessions&#34;&gt;sys.dm_exec_requests and sys.dm_exec_sessions&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;sys.dm_exec_requests&lt;/code&gt; - displays the requests currently executing on SQL Server&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sys.dm_exec_sessions&lt;/code&gt; - shows the authenticated sessions on the instance.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Open a new query window and record your session id and replace it in the query :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;DBCC FREEPROCCACHE
+DBCC DROPCLEANBUFFERS
+GO
+SELECT cpu_time, reads, total_elapsed_time, logical_reads, row_count
+FROM sys.dm_exec_requests
+WHERE session_id = &amp;lt;session id&amp;gt;
+GO
+SELECT cpu_time, reads, total_elapsed_time, logical_reads, row_count
+FROM sys.dm_exec_sessions
+WHERE session_id = &amp;lt;session id&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and in another window run some queries and as you run, run the queries with the dmvs and observe. You will notice that the query stats are only available for the &lt;code&gt;sys.dm_exec_requests&lt;/code&gt; only whilst the query is running. The values in &lt;code&gt;sys.dm_exec_sessions&lt;/code&gt; keeps accumulating since they record for the session.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

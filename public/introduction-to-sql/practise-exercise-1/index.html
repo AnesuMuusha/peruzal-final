@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+  
+  
+  
+  
+   <html class="no-js"> 
+
+  <head lang="en-us">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=10" />
+    <title>Practise Exercises - Introduction to SQL</title>
+    <meta name="generator" content="Hugo 0.19" />
+
+    
+    <meta name="description" content="Introduction to SQL Guide">
+    
+    <link rel="canonical" href="http://guides.peruzal.com/introduction-to-sql/practise-exercise-1/">
+    
+    <meta name="author" content="Peruzal">
+    
+
+    <meta property="og:url" content="http://guides.peruzal.com/introduction-to-sql/practise-exercise-1/">
+    <meta property="og:title" content="Introduction to SQL">
+    <meta property="og:image" content="http://guides.peruzal.com/images/logo.png">
+    <meta name="apple-mobile-web-app-title" content="Introduction to SQL">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="shortcut icon" type="image/x-icon" href="http://guides.peruzal.com/introduction-to-sql/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="http://guides.peruzal.com/introduction-to-sql/images/favicon.ico">
+
+    <style>
+      @font-face {
+        font-family: 'Icon';
+        src: url('http://guides.peruzal.com/introduction-to-sql/fonts/icon.eot');
+        src: url('http://guides.peruzal.com/introduction-to-sql/fonts/icon.eot')
+               format('embedded-opentype'),
+             url('http://guides.peruzal.com/introduction-to-sql/fonts/icon.woff')
+               format('woff'),
+             url('http://guides.peruzal.com/introduction-to-sql/fonts/icon.ttf')
+               format('truetype'),
+             url('http://guides.peruzal.com/introduction-to-sql/fonts/icon.svg')
+               format('svg');
+        font-weight: normal;
+        font-style: normal;
+      }
+    </style>
+
+    <link rel="stylesheet" href="http://guides.peruzal.com/introduction-to-sql/stylesheets/application.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/introduction-to-sql/stylesheets/temporary.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/introduction-to-sql/stylesheets/palettes.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/introduction-to-sql/stylesheets/highlight/highlight.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/github-gist.min.css">
+
+    
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ubuntu:400,700|Ubuntu&#43;Mono">
+    <style>
+      body, input {
+        font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+      }
+      pre, code {
+        font-family: 'Ubuntu Mono', 'Courier New', 'Courier', monospace;
+      }
+    </style>
+
+    
+    <script src="http://guides.peruzal.com/introduction-to-sql/javascripts/modernizr.js"></script>
+
+    
+
+  </head>
+  <body class="palette-primary-deep-orange palette-accent-light-blue">
+
+
+
+
+<div class="backdrop">
+	<div class="backdrop-paper"></div>
+</div>
+
+<input class="toggle" type="checkbox" id="toggle-drawer">
+<input class="toggle" type="checkbox" id="toggle-search">
+<label class="toggle-button overlay" for="toggle-drawer"></label>
+
+<header class="header">
+	<nav aria-label="Header">
+  <div class="bar default">
+    <div class="button button-menu" role="button" aria-label="Menu">
+      <label class="toggle-button icon icon-menu" for="toggle-drawer">
+        <span></span>
+      </label>
+    </div>
+    <div class="stretch">
+      <div class="title">
+        Practise Exercises
+      </div>
+    </div>
+
+    
+    <div class="button button-twitter" role="button" aria-label="Twitter">
+       <a href="https://twitter.com/peruzal" title="@peruzal on Twitter" target="_blank" class="toggle-button icon icon-twitter"></a>
+    </div>
+    
+
+    
+    <div class="button button-github" role="button" aria-label="GitHub">
+      <a href="https://github.com/peruzal" title="@peruzal on GitHub" target="_blank" class="toggle-button icon icon-github"></a>
+    </div>
+    
+    
+        
+  </div>
+  <div class="bar search">
+    <div class="button button-close" role="button" aria-label="Close">
+      <label class="toggle-button icon icon-back" for="toggle-search"></label>
+    </div>
+    <div class="stretch">
+      <div class="field">
+        <input class="query" type="text" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck>
+      </div>
+    </div>
+    <div class="button button-reset" role="button" aria-label="Search">
+      <button class="toggle-button icon icon-close" id="reset-search"></button>
+    </div>
+  </div>
+</nav>
+</header>
+
+<main class="main">
+	<div class="drawer">
+		<nav aria-label="Navigation">
+  <a href="http://guides.peruzal.com/introduction-to-sql" class="project">
+    <div class="banner">
+      
+        <div class="logo">
+          <img src="http://guides.peruzal.com/introduction-to-sql/images/logo.png">
+        </div>
+      
+      <div class="name">
+        <strong>Introduction to SQL <span class="version">1.0.0</span></strong>
+        
+      </div>
+    </div>
+  </a>
+
+  <div class="scrollable">
+    <div class="wrapper">
+      
+
+      <div class="toc">
+        
+        <ul>
+          
+
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Understanding SQL" href="http://guides.peruzal.com/introduction-to-sql/understanding-sql/">
+	
+	Understanding SQL
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Retrieving Data" href="http://guides.peruzal.com/introduction-to-sql/retrieving-data/">
+	
+	Retrieving Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Sorting Data" href="http://guides.peruzal.com/introduction-to-sql/sorting-data/">
+	
+	Sorting Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Filtering Data" href="http://guides.peruzal.com/introduction-to-sql/filtering-data/">
+	
+	Filtering Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Functions Data" href="http://guides.peruzal.com/introduction-to-sql/functions/">
+	
+	Functions Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Grouping Data" href="http://guides.peruzal.com/introduction-to-sql/grouping-data/">
+	
+	Grouping Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Sub Queries" href="http://guides.peruzal.com/introduction-to-sql/subqueries/">
+	
+	Sub Queries
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Joining Tables" href="http://guides.peruzal.com/introduction-to-sql/joining-tables/">
+	
+	Joining Tables
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Inserting Data" href="http://guides.peruzal.com/introduction-to-sql/inserting-data/">
+	
+	Inserting Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Updating Data" href="http://guides.peruzal.com/introduction-to-sql/updating-data/">
+	
+	Updating Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Deleting Data" href="http://guides.peruzal.com/introduction-to-sql/deleting-data/">
+	
+	Deleting Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Working with Tables" href="http://guides.peruzal.com/introduction-to-sql/working-with-tables/">
+	
+	Working with Tables
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Views" href="http://guides.peruzal.com/introduction-to-sql/views/">
+	
+	Views
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Stored Procedures" href="http://guides.peruzal.com/introduction-to-sql/stored-procedures/">
+	
+	Stored Procedures
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Transaction" href="http://guides.peruzal.com/introduction-to-sql/transactions/">
+	
+	Transaction
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Advanced SQL Features" href="http://guides.peruzal.com/introduction-to-sql/advanced-sql-features/">
+	
+	Advanced SQL Features
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Calculated Fields" href="http://guides.peruzal.com/introduction-to-sql/calculated-fields/">
+	
+	Calculated Fields
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Installing SQL Server" href="http://guides.peruzal.com/introduction-to-sql/installing-sql-server/">
+	
+	Installing SQL Server
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="SQL Server Architecture" href="http://guides.peruzal.com/introduction-to-sql/sql-server-architecture/">
+	
+	SQL Server Architecture
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Database Recovery" href="http://guides.peruzal.com/introduction-to-sql/database-recovery/">
+	
+	Database Recovery
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Security" href="http://guides.peruzal.com/introduction-to-sql/database-security/">
+	
+	Security
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="AlwaysOn Availability Groups" href="http://guides.peruzal.com/introduction-to-sql/sql-server-alwayson/">
+	
+	AlwaysOn Availability Groups
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Intro to SQL" href="http://guides.peruzal.com/introduction-to-sql/">
+	
+	Intro to SQL
+</a>
+
+
+
+  
+</li>
+
+
+        </ul>
+        
+
+        
+        <hr>
+        <span class="section">The author</span>
+        
+        <ul>
+          
+          <li>
+            <a href="https://twitter.com/peruzal" target="_blank" title="@peruzal on Twitter">
+              @peruzal on Twitter
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="https://github.com/peruzal" target="_blank" title="@peruzal on GitHub">
+              @peruzal on GitHub
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="mailto:hello@peruzal.com" title="Email of hello@peruzal.com">
+              Contact via email
+            </a>
+          </li>
+          
+        </ul>
+        
+      </div>
+    </div>
+  </div>
+</nav>
+
+	</div>
+
+	<article class="article">
+		<div class="wrapper">
+			<h1>Practise Exercises </h1>
+
+			
+
+<h2 id="exercise-one">Exercise One</h2>
+
+<ol>
+<li><p>Write a <strong>SELECT</strong> statement that lists the customers along with their <em>ID</em> numbers. Include the <em>StoreID</em> and the <em>AccountNumber</em> from the <em>Sales.Customers</em> table.</p></li>
+
+<li><p>Write a <strong>SELECT</strong> statement that lists the name, product number, and color of each product from the _Production.Product _table.</p></li>
+
+<li><p>Write a <strong>SELECT</strong> statement that lists the customer ID numbers and sales order ID numbers from the <em>Sales.SalesOrderHeader</em> table.</p></li>
+
+<li><p>Answer this question: Why should you specify column names rather than an asterisk when writing the select-list? Give at least two reasons.</p></li>
+</ol>
+
+<h2 id="using-execution-plans">Using Execution Plans</h2>
+
+<p>Use the AdventureWorks2012 database to complete this exercise. Be sure to turn on the Include Actual Execution Plan setting before you begin. Type the following code into the query window, and then complete each question.</p>
+
+<pre><code class="language-sql">USE AdventureWorks2012;
+GO
+</code></pre>
+
+<p>1</p>
+
+<pre><code class="language-sql">SELECT LastName
+FROM Person.Person
+WHERE LastName = 'Smith';
+</code></pre>
+
+<p>2</p>
+
+<pre><code class="language-sql">SELECT LastName
+FROM Person.Person
+WHERE LastName LIKE 'Sm%';
+</code></pre>
+
+<p>3</p>
+
+<pre><code class="language-sql">SELECT LastName
+FROM Person.Person
+WHERE LastName LIKE '%mith';
+</code></pre>
+
+<p>4</p>
+
+<pre><code class="language-sql">SELECT ModifiedDate
+FROM Person.Person
+WHERE ModifiedDate BETWEEN '2005-01-01' and '2005-01-31';
+</code></pre>
+
+<ul>
+<li>Highlight and run queries 1 and 2. Explain why there is no difference in performance between the two queries.</li>
+<li>Highlight and run queries 2 and 3. Determine which query performs the best, and explain why you think so.</li>
+<li>Highlight and run queries 3 and 4. Determine which query performs the best, and explain why you think so.</li>
+</ul>
+
+<h2 id="working-with-nulls">Working with NULLs</h2>
+
+<p>Use the AdventureWorks2012 database to complete this exercise. You can find the solutions in the Appendix.</p>
+
+<ol>
+<li>Write a query that displays in the “AddressLine1 (City PostalCode)” format from the Person.Address table.</li>
+<li>Write a query using the Production.Product table displaying the product ID, color, and name columns. If the color column contains a NULL value, replace the color with No Color.</li>
+<li>Modify the query written in question 2 so that the description of the product is displayed in the “Name: Color” format. Make sure that all rows display a value even if the Color value is missing.</li>
+<li>Write a query using the Production.Product table displaying a description with the “ProductID: Name” format. Hint: You will need to use a function to write this query.</li>
+<li>Explain the difference between the ISNULL and COALESCE functions.</li>
+</ol>
+
+<h3 id="mathematical-operations">Mathematical Operations</h3>
+
+<p>Use the <em>AdventureWorks2012</em> database to complete this exercise.</p>
+
+<ol>
+<li>Write a query using the <em>Sales.SpecialOffer</em> table. Display the difference between the <em>MinQty</em> and <em>MaxQty</em> columns along with the <em>SpecialOfferID</em> and Description columns.</li>
+<li>Write a query using the <em>Sales.SpecialOffer</em> table. Multiply the <em>MinQty</em> column by the <em>DiscountPct</em> column. Include the <em>SpecialOfferID</em> and <em>Description</em> columns in the results.</li>
+<li>Write a query using the <em>Sales.SpecialOffer</em> table that multiplies the <em>MaxQty</em> column by the <em>DiscountPct</em> column. If the <em>MaxQty</em> value is NULL, replace it with the value 10. Include the <em>SpecialOfferID</em> and Description columns in the results.</li>
+<li>Describe the difference between division and modulo.</li>
+</ol>
+
+
+			<aside class="copyright" role="note">
+				
+				&copy; 2017 Copyright 2017 Peruzal &ndash;
+				
+				Documentation built with
+				<a href="https://www.gohugo.io" target="_blank">Hugo</a>
+				using the
+				<a href="http://github.com/digitalcraftsman/hugo-material-docs" target="_blank">Material</a> theme.
+			</aside>
+
+			<footer class="footer">
+				
+
+<nav class="pagination" aria-label="Footer">
+  <div class="previous">
+  
+      <a href="http://guides.peruzal.com/introduction-to-sql/maintenance-tasks/" title="Monitoring and Maintenance">
+        <span class="direction">
+          Previous
+        </span>
+        <div class="page">
+          <div class="button button-previous" role="button" aria-label="Previous">
+            <i class="icon icon-back"></i>
+          </div>
+          <div class="stretch">
+            <div class="title">
+              Monitoring and Maintenance
+            </div>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+
+  <div class="next">
+  
+      <a href="http://guides.peruzal.com/introduction-to-sql/getting-started-exercises/" title="Getting Started Exercises">
+        <span class="direction">
+          Next
+        </span>
+        <div class="page">
+          <div class="stretch">
+            <div class="title">
+              Getting Started Exercises
+            </div>
+          </div>
+          <div class="button button-next" role="button" aria-label="Next">
+            <i class="icon icon-forward"></i>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+</nav>
+
+
+
+
+
+			</footer>
+		</div>
+	</article>
+
+	<div class="results" role="status" aria-live="polite">
+		<div class="scrollable">
+			<div class="wrapper">
+				<div class="meta"></div>
+				<div class="list"></div>
+			</div>
+		</div>
+	</div>
+</main>
+
+    <script>
+    
+      var base_url = '';
+      var repo_id  = '';
+    
+    </script>
+
+    <script src="http://guides.peruzal.com/introduction-to-sql/javascripts/application.js"></script>
+    
+
+    <script>
+      /* Add headers to scrollspy */
+      var headers   = document.getElementsByTagName("h2");
+      var scrollspy = document.getElementById('scrollspy');
+
+      if(scrollspy) {
+        if(headers.length > 0) {
+          for(var i = 0; i < headers.length; i++) {
+            var li = document.createElement("li");
+            li.setAttribute("class", "anchor");
+
+            var a  = document.createElement("a");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", headers[i].innerHTML);
+            a.innerHTML = headers[i].innerHTML;
+
+            li.appendChild(a)
+            scrollspy.appendChild(li);
+          }
+        } else {
+          scrollspy.parentElement.removeChild(scrollspy)
+        }
+
+
+        /* Add permanent link next to the headers */
+        var headers = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+
+        for(var i = 0; i < headers.length; i++) {
+            var a = document.createElement("a");
+            a.setAttribute("class", "headerlink");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", "Permanent link")
+            a.innerHTML = "#";
+            headers[i].appendChild(a);
+        }
+      }
+    </script>
+
+    
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>
+

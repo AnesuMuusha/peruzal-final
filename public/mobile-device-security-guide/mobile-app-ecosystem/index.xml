@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Mobile-app-ecosystems on Mobile Device Security and Penetration Testing Guide</title>
+    <link>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/mobile-app-ecosystem/</link>
+    <description>Recent content in Mobile-app-ecosystems on Mobile Device Security and Penetration Testing Guide</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Peruzal Mobile Device Security and Penetration Testing Guide</copyright>
+    <lastBuildDate>Sun, 01 Jan 2017 11:56:05 +0200</lastBuildDate>
+    
+	<atom:link href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/mobile-app-ecosystem/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Mobile App Ecosystem</title>
+      <link>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/mobile-app-ecosystem/</link>
+      <pubDate>Sun, 01 Jan 2017 11:56:05 +0200</pubDate>
+      
+      <guid>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/mobile-app-ecosystem/</guid>
+      <description>The most popular mobile operating systems at the moment are
+ Android iOS Windows Mobile  Android has the largest market share by far, followed by iOS. Windows has only around 1-2% of the mobile ecosystem.
+Types of mobile apps They different ways available today to develop mobile apps.
+ Native mobile apps Hybrid mobile apps Web apps  Native mobile apps Native mobile apps are designed to be installed and run natively on the platform.</description>
+    </item>
+    
+  </channel>
+</rss>

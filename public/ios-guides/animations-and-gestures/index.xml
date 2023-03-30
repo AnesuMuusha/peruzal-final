@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Animations-and-gestures-rsses on Xamarin iOS Guides</title>
+    <link>http://guides.peruzal.com/ios-guides/animations-and-gestures/index.xml</link>
+    <description>Recent content in Animations-and-gestures-rsses on Xamarin iOS Guides</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Peruzal</copyright>
+    <lastBuildDate>Mon, 21 Nov 2016 23:25:54 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/ios-guides/animations-and-gestures/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Animations and Gestures</title>
+      <link>http://guides.peruzal.com/ios-guides/animations-and-gestures/</link>
+      <pubDate>Mon, 21 Nov 2016 23:25:54 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/ios-guides/animations-and-gestures/</guid>
+      <description>
+
+&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+
+&lt;p&gt;iOS was built from the ground up to support animation. It is absolutely required to maintain the illusion of a touch-based interface.&lt;/p&gt;
+
+&lt;p&gt;It&amp;rsquo;s best to start out using Springs-and-Struts layout. Later in the guide we&amp;rsquo;ll cover Auto-Layout, with requires a little more abstract thinking.&lt;/p&gt;
+
+&lt;h2 id=&#34;simple-animation-with-uikit&#34;&gt;Simple Animation with UIKit&lt;/h2&gt;
+
+&lt;p&gt;Most of the time, you will perform animation by working directly with UIKit. Say you have a view, &lt;code&gt;myView&lt;/code&gt;, and you want to animate its movement from its current position to a new position, the &lt;code&gt;myNewFrame&lt;/code&gt; rect. You simply call:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;UIView.animateWithDuration(0.35) {
+    self.myView.frame = myNewFrame
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Behind the scenes, it is making calls to a lower layer in the stack, &lt;strong&gt;Core Animation.&lt;/strong&gt; You work with Core Animation directly when you need to create complex animation, or do something performance intensive.&lt;/p&gt;
+
+&lt;p&gt;There are more complex animation methods available to avoid going lower. If you need to call code with the animation completes:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;UIView.animateWithDuration(0.35, animations: {
+    self.myView.frame = myNewFrame
+}, completion: { (finished) in
+    NSLog(&amp;quot;Animation completed.&amp;quot;)
+})
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If you want to pass even more options, such as the animation curve:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;UIView.animateWithDuration(0.35, delay: 0.5, options: .CurveEaseInOut, animations: {
+  self.myView.frame = myNewFrame
+}, completion: { (finished) in
+  NSLog(&amp;quot;Animation completed.&amp;quot;)
+})
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This style of animation, where you just specify new attributes and let Core Animation figure it out for you is &lt;strong&gt;implicit&lt;/strong&gt; animation. To create complex animation, you need to delve directly into layers.&lt;/p&gt;
+
+&lt;h2 id=&#34;understanding-layers&#34;&gt;Understanding Layers&lt;/h2&gt;
+
+&lt;p&gt;Core Animation is a misnomer for the framework. Its original name was &lt;em&gt;LayerKit.&lt;/em&gt; It is a framework for displaying a hierarchy of layers on screen.&lt;/p&gt;
+
+&lt;p&gt;A layer is a container for a bitmap image. Layers are rendered on screen via the GPU, which makes it super fast to render most animation.&lt;/p&gt;
+
+&lt;p&gt;UIKit&amp;rsquo;s view hierarchies are backed by a near-identical layer hierarchy. In fact, every UIView has a &lt;code&gt;.layer&lt;/code&gt; property for accessing its corresponding layer. Behind the scenes, UIView populates layer&amp;rsquo;s contents for you. So while a UILabel displays text, it is ultimately flattened to a bitmap and handed over to its associated layer.&lt;/p&gt;
+
+&lt;p&gt;Views are are so tightly associated to layers that many attributes are shared; for instance, if you change the layer&amp;rsquo;s &lt;code&gt;opacity&lt;/code&gt; value, then the view&amp;rsquo;s &lt;code&gt;alpha&lt;/code&gt; will also change.&lt;/p&gt;
+
+&lt;p&gt;The big difference between a view and a layer is a view can receive events. If you don&amp;rsquo;t need the overhead, you can managed your layer&amp;rsquo;s sublayers yourself. This might improve performance if you&amp;rsquo;re dealing with hundreds of layers on screen at once, such as if you&amp;rsquo;re building a particle system. Most of the time, this is overkill.&lt;/p&gt;
+
+&lt;h3 id=&#34;implicit-animation-in-layers&#34;&gt;Implicit Animation in Layers&lt;/h3&gt;
+
+&lt;p&gt;When layers exist by themselves, not attached to a view, most property changes are animated by default. However, layers attached to views have this default animation turned off. When you call &lt;code&gt;UIView&lt;/code&gt;&amp;rsquo;s &lt;code&gt;animatedWithDuration&lt;/code&gt;, implicit animation is turned on again.&lt;/p&gt;
+
+&lt;h3 id=&#34;transactions&#34;&gt;Transactions&lt;/h3&gt;
+
+&lt;p&gt;All animation changes are bundled together in a transaction. This is usually invisible, as there&amp;rsquo;s usually one created for you with every pass through the run loop. This lets you make a bunch of changes that are batched together at once in the end.&lt;/p&gt;
+
+&lt;p&gt;Imagine you make two changes to your layer:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;myLayer.opacity = 0.0
+myLayer.opacity = 1.0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The first change has no effect. There is no momentary &amp;ldquo;blip&amp;rdquo; of 0.0 opacity. Instead, after all your code is run, Core Animation looks at all the final values to create the animation.&lt;/p&gt;
+
+&lt;h2 id=&#34;explicit-animation&#34;&gt;Explicit Animation&lt;/h2&gt;
+
+&lt;p&gt;An explicit animation allows you to construct more complex animations, such as animating a view animate along a bezier path.&lt;/p&gt;
+
+&lt;p&gt;To construct a basic animation:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;myView.layer.position = endPosition
+let animation = CABasicAnimation(keyPath: &amp;quot;position&amp;quot;)
+animation.fromValue = NSValue(CGPoint:startPosition)
+animation.toValue = NSValue(CGPoint:endPosition)
+animation.duration = 1.0
+myView.layer.addAnimation(animation, forKey: &amp;quot;MyAnimationKey&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code&gt;position&lt;/code&gt; key is the name of the property you want animated. The key in the &lt;code&gt;addAnimation&lt;/code&gt; method is a made-up key you will use to identify the animation in flight.&lt;/p&gt;
+
+&lt;p&gt;One caveat from the above example is that we made sure to update the underlying &lt;code&gt;layer.position&lt;/code&gt; value in addition to applying the animation. Otherwise, the animation would have completed and then the layer would have immediately jumped back to initial position.&lt;/p&gt;
+
+&lt;h2 id=&#34;references&#34;&gt;References&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://developer.apple.com/library/ios/documentation/general/conceptual/devpedia-cocoaapp/Animation.html&#34;&gt;Cocoa Application Competencies for iOS: Animation&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

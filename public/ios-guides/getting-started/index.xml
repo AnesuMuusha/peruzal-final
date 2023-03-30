@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Getting-started-rsses on Xamarin iOS Guides</title>
+    <link>http://guides.peruzal.com/ios-guides/getting-started/index.xml</link>
+    <description>Recent content in Getting-started-rsses on Xamarin iOS Guides</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Peruzal</copyright>
+    <lastBuildDate>Mon, 21 Nov 2016 22:29:24 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/ios-guides/getting-started/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Project Basics</title>
+      <link>http://guides.peruzal.com/ios-guides/getting-started/</link>
+      <pubDate>Mon, 21 Nov 2016 22:29:24 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/ios-guides/getting-started/</guid>
+      <description>
+
+&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+
+&lt;p&gt;This page covers the basics of working with an Xcode project. By the end of it, you should know what every file in your project does, and the core files found in every app.&lt;/p&gt;
+
+&lt;h2 id=&#34;file-types&#34;&gt;File Types&lt;/h2&gt;
+
+&lt;h3 id=&#34;source-swift&#34;&gt;Source: .swift&lt;/h3&gt;
+
+&lt;p&gt;Each swift file ends in &lt;code&gt;.swift&lt;/code&gt;. Objective-C uses two files: &lt;code&gt;.h&lt;/code&gt; for headers, and &lt;code&gt;.m&lt;/code&gt; for the corresponding implementation.&lt;/p&gt;
+
+&lt;h3 id=&#34;images-xcassets&#34;&gt;Images: .xcassets&lt;/h3&gt;
+
+&lt;p&gt;Say you have a home button in your app that is 44x44 pixels. On a retina display, you would want one at twice the resolution. If you want to take advantage of the larger iPad screen, you would want one at yet another set of dimensions. In total there are four image assets&amp;ndash; iPhone, iPhone Retina, iPad, and iPad Retina.&lt;/p&gt;
+
+&lt;p&gt;This can be daunting to track in code, so instead, it&amp;rsquo;s managed by an &lt;strong&gt;Asset Catalogue.&lt;/strong&gt; You add one image, &amp;ldquo;Home&amp;rdquo;, which would contain four assets. At runtime, you would just ask for the &amp;ldquo;Home&amp;rdquo; image, and iOS will supply the appropriate asset for the current device.&lt;/p&gt;
+
+&lt;p&gt;The asset catalogue is the &lt;code&gt;Images.xcassets&lt;/code&gt; folder. If you select this folder in Xcode, it will bring up the &lt;em&gt;Asset Catalogue Editor&lt;/em&gt; for managing assets.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.imgur.com/gPEbazB.gif&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;ui-design-storyboard-xib&#34;&gt;UI  Design: .storyboard, .xib&lt;/h3&gt;
+
+&lt;p&gt;You can lay out your views with a drag and drop GUI, To save time and reduce boilerplate code. These designs are saved to a &lt;code&gt;.storyboard&lt;/code&gt; or &lt;code&gt;.xib&lt;/code&gt; file, which is loaded at runtime. The distinction between these file types is covered in a [[later guide||Storyboards]].&lt;/p&gt;
+
+&lt;h3 id=&#34;property-lists-plist&#34;&gt;Property Lists: .plist&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://en.wikipedia.org/wiki/Property_list&#34;&gt;plist&lt;/a&gt; is a human-readable format that predates JSON, going all the way back to &lt;a href=&#34;http://en.wikipedia.org/wiki/NeXTSTEP&#34;&gt;NeXTSTEP&lt;/a&gt;. It is the preferred file format of Apple.&lt;/p&gt;
+
+&lt;h2 id=&#34;core-files&#34;&gt;Core Files&lt;/h2&gt;
+
+&lt;h3 id=&#34;yourprojectname-xcodeproj&#34;&gt;YourProjectName.xcodeproj&lt;/h3&gt;
+
+&lt;p&gt;Your project file contains all the details of your project, such as the source files to compile and build settings.&lt;/p&gt;
+
+&lt;h3 id=&#34;info-plist&#34;&gt;Info.plist&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;Info.plist&lt;/code&gt; contains &lt;a href=&#34;https://developer.apple.com/library/iOs/documentation/General/Reference/InfoPlistKeyReference/Articles/iPhoneOSKeys.html&#34;&gt;configuration data&lt;/a&gt; read by iOS. For instance, you can set &lt;code&gt;UIInterfaceOrientation&lt;/code&gt; to tell iOS you only support landscape orientation, and it will launch the app in a landscape orientation.&lt;/p&gt;
+
+&lt;h3 id=&#34;appdelegate-swift&#34;&gt;AppDelegate.swift&lt;/h3&gt;
+
+&lt;p&gt;This is the entry point for critical events in the life of your app. For instance, fill in &lt;code&gt;application(application, didFinishLaunchingWithOptions:options)&lt;/code&gt; with any code you want run after your application finishes launching.&lt;/p&gt;
+
+&lt;p&gt;For more, read about [[App Architecture|Application-Architecture]]&lt;/p&gt;
+
+&lt;h3 id=&#34;main-storyboard&#34;&gt;Main.storyboard&lt;/h3&gt;
+
+&lt;p&gt;This determines the UI displayed on launch. If you would rather set up your UI programmatically, for reasons covered in the [[Interface Builder|Interface Builder]] guide, you can configure it in your &lt;code&gt;Info.plist&lt;/code&gt;, and write the setup code in &lt;code&gt;AppDelegate.swift&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;organization&#34;&gt;Organization&lt;/h2&gt;
+
+&lt;p&gt;The location of files in the project does not have to correlate with their location on disk. However, it&amp;rsquo;s a good idea to keep things at least rudimentarily organized. It will depend on your team&amp;rsquo;s conventions, but one layout might be:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;ProjectName.xcodeproj
+src/
+resources/
+config/
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If you move a file on disk, the filename will turn red within in the &lt;a href=&#34;https://developer.apple.com/library/mac/recipes/xcode_help-general/AbouttheNavigatorArea/AbouttheNavigatorArea.html&#34;&gt;Navigation Panel&lt;/a&gt;, because Xcode has lost track of it. You&amp;rsquo;ll need to relink the file. Click the filename, and within the &lt;a href=&#34;https://developer.apple.com/library/mac/recipes/xcode_help-general/AbouttheUtilityArea/AbouttheUtilityArea.html&#34;&gt;Utility  Panel&lt;/a&gt;, click the &amp;ldquo;Location&amp;rdquo; button, and navigate to the file&amp;rsquo;s new location on disk.&lt;/p&gt;
+
+&lt;h2 id=&#34;targets&#34;&gt;Targets&lt;/h2&gt;
+
+&lt;p&gt;A basic project just produces an app, so the default project Xcode generates for you will be fine. An advanced project may produce other targets, such as static libraries, system extensions, alternative apps, test suites, and more.&lt;/p&gt;
+
+&lt;p&gt;For example, your shipping apps will commonly have two app targets:  the app you will ship to the App Store, and an internal version of the app for testing.  When you click the &amp;ldquo;Run&amp;rdquo; button in the &lt;a href=&#34;https://developer.apple.com/library/mac/recipes/xcode_help-general/AbouttheWorkspaceWindowToolbar/AbouttheWorkspaceWindowToolbar.html&#34;&gt;toolbar&lt;/a&gt;, you want to launch the appropriate build. You can toggle this with the &amp;ldquo;Scheme Drop Down&amp;rdquo; to the right of the Run button.&lt;/p&gt;
+
+&lt;h1 id=&#34;further-reading&#34;&gt;Further Reading&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://developer.apple.com/library/mac/recipes/xcode_help-general/_index.html&#34;&gt;Xcode Basics&lt;/a&gt;: A quick overview of the Xcode UI&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://developer.apple.com/library/ios/documentation/ToolsLanguages/Conceptual/Xcode_Overview/index.html&#34;&gt;Xcode Overview&lt;/a&gt;: An in-depth look at Xcode&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://developer.apple.com/library/iOs/documentation/iPhone/Conceptual/iPhoneOSProgrammingGuide/Introduction/Introduction.html&#34;&gt;iOS App Programming Guide&lt;/a&gt;: A tour of all iOS fundamentals&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

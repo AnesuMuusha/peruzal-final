@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+  
+  
+  
+  
+   <html class="no-js"> 
+
+  <head lang="en-us">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=10" />
+    <title>Transactions - Introduction to SQL</title>
+    <meta name="generator" content="Hugo 0.19" />
+
+    
+    <meta name="description" content="Introduction to SQL Guide">
+    
+    <link rel="canonical" href="http://guides.peruzal.com/introduction-to-sql/transactions/">
+    
+    <meta name="author" content="Peruzal">
+    
+
+    <meta property="og:url" content="http://guides.peruzal.com/introduction-to-sql/transactions/">
+    <meta property="og:title" content="Introduction to SQL">
+    <meta property="og:image" content="http://guides.peruzal.com/images/logo.png">
+    <meta name="apple-mobile-web-app-title" content="Introduction to SQL">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="shortcut icon" type="image/x-icon" href="http://guides.peruzal.com/introduction-to-sql/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="http://guides.peruzal.com/introduction-to-sql/images/favicon.ico">
+
+    <style>
+      @font-face {
+        font-family: 'Icon';
+        src: url('http://guides.peruzal.com/introduction-to-sql/fonts/icon.eot');
+        src: url('http://guides.peruzal.com/introduction-to-sql/fonts/icon.eot')
+               format('embedded-opentype'),
+             url('http://guides.peruzal.com/introduction-to-sql/fonts/icon.woff')
+               format('woff'),
+             url('http://guides.peruzal.com/introduction-to-sql/fonts/icon.ttf')
+               format('truetype'),
+             url('http://guides.peruzal.com/introduction-to-sql/fonts/icon.svg')
+               format('svg');
+        font-weight: normal;
+        font-style: normal;
+      }
+    </style>
+
+    <link rel="stylesheet" href="http://guides.peruzal.com/introduction-to-sql/stylesheets/application.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/introduction-to-sql/stylesheets/temporary.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/introduction-to-sql/stylesheets/palettes.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/introduction-to-sql/stylesheets/highlight/highlight.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/github-gist.min.css">
+
+    
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ubuntu:400,700|Ubuntu&#43;Mono">
+    <style>
+      body, input {
+        font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+      }
+      pre, code {
+        font-family: 'Ubuntu Mono', 'Courier New', 'Courier', monospace;
+      }
+    </style>
+
+    
+    <script src="http://guides.peruzal.com/introduction-to-sql/javascripts/modernizr.js"></script>
+
+    
+
+  </head>
+  <body class="palette-primary-deep-orange palette-accent-light-blue">
+
+
+
+
+<div class="backdrop">
+	<div class="backdrop-paper"></div>
+</div>
+
+<input class="toggle" type="checkbox" id="toggle-drawer">
+<input class="toggle" type="checkbox" id="toggle-search">
+<label class="toggle-button overlay" for="toggle-drawer"></label>
+
+<header class="header">
+	<nav aria-label="Header">
+  <div class="bar default">
+    <div class="button button-menu" role="button" aria-label="Menu">
+      <label class="toggle-button icon icon-menu" for="toggle-drawer">
+        <span></span>
+      </label>
+    </div>
+    <div class="stretch">
+      <div class="title">
+        Transactions
+      </div>
+    </div>
+
+    
+    <div class="button button-twitter" role="button" aria-label="Twitter">
+       <a href="https://twitter.com/peruzal" title="@peruzal on Twitter" target="_blank" class="toggle-button icon icon-twitter"></a>
+    </div>
+    
+
+    
+    <div class="button button-github" role="button" aria-label="GitHub">
+      <a href="https://github.com/peruzal" title="@peruzal on GitHub" target="_blank" class="toggle-button icon icon-github"></a>
+    </div>
+    
+    
+        
+  </div>
+  <div class="bar search">
+    <div class="button button-close" role="button" aria-label="Close">
+      <label class="toggle-button icon icon-back" for="toggle-search"></label>
+    </div>
+    <div class="stretch">
+      <div class="field">
+        <input class="query" type="text" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck>
+      </div>
+    </div>
+    <div class="button button-reset" role="button" aria-label="Search">
+      <button class="toggle-button icon icon-close" id="reset-search"></button>
+    </div>
+  </div>
+</nav>
+</header>
+
+<main class="main">
+	<div class="drawer">
+		<nav aria-label="Navigation">
+  <a href="http://guides.peruzal.com/introduction-to-sql" class="project">
+    <div class="banner">
+      
+        <div class="logo">
+          <img src="http://guides.peruzal.com/introduction-to-sql/images/logo.png">
+        </div>
+      
+      <div class="name">
+        <strong>Introduction to SQL <span class="version">1.0.0</span></strong>
+        
+      </div>
+    </div>
+  </a>
+
+  <div class="scrollable">
+    <div class="wrapper">
+      
+
+      <div class="toc">
+        
+        <ul>
+          
+
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Understanding SQL" href="http://guides.peruzal.com/introduction-to-sql/understanding-sql/">
+	
+	Understanding SQL
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Retrieving Data" href="http://guides.peruzal.com/introduction-to-sql/retrieving-data/">
+	
+	Retrieving Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Sorting Data" href="http://guides.peruzal.com/introduction-to-sql/sorting-data/">
+	
+	Sorting Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Filtering Data" href="http://guides.peruzal.com/introduction-to-sql/filtering-data/">
+	
+	Filtering Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Functions Data" href="http://guides.peruzal.com/introduction-to-sql/functions/">
+	
+	Functions Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Grouping Data" href="http://guides.peruzal.com/introduction-to-sql/grouping-data/">
+	
+	Grouping Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Sub Queries" href="http://guides.peruzal.com/introduction-to-sql/subqueries/">
+	
+	Sub Queries
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Joining Tables" href="http://guides.peruzal.com/introduction-to-sql/joining-tables/">
+	
+	Joining Tables
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Inserting Data" href="http://guides.peruzal.com/introduction-to-sql/inserting-data/">
+	
+	Inserting Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Updating Data" href="http://guides.peruzal.com/introduction-to-sql/updating-data/">
+	
+	Updating Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Deleting Data" href="http://guides.peruzal.com/introduction-to-sql/deleting-data/">
+	
+	Deleting Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Working with Tables" href="http://guides.peruzal.com/introduction-to-sql/working-with-tables/">
+	
+	Working with Tables
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Views" href="http://guides.peruzal.com/introduction-to-sql/views/">
+	
+	Views
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Stored Procedures" href="http://guides.peruzal.com/introduction-to-sql/stored-procedures/">
+	
+	Stored Procedures
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a class="current" title="Transaction" href="http://guides.peruzal.com/introduction-to-sql/transactions/">
+	
+	Transaction
+</a>
+
+
+<ul id="scrollspy">
+</ul>
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Advanced SQL Features" href="http://guides.peruzal.com/introduction-to-sql/advanced-sql-features/">
+	
+	Advanced SQL Features
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Calculated Fields" href="http://guides.peruzal.com/introduction-to-sql/calculated-fields/">
+	
+	Calculated Fields
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Installing SQL Server" href="http://guides.peruzal.com/introduction-to-sql/installing-sql-server/">
+	
+	Installing SQL Server
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="SQL Server Architecture" href="http://guides.peruzal.com/introduction-to-sql/sql-server-architecture/">
+	
+	SQL Server Architecture
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Database Recovery" href="http://guides.peruzal.com/introduction-to-sql/database-recovery/">
+	
+	Database Recovery
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Security" href="http://guides.peruzal.com/introduction-to-sql/database-security/">
+	
+	Security
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="AlwaysOn Availability Groups" href="http://guides.peruzal.com/introduction-to-sql/sql-server-alwayson/">
+	
+	AlwaysOn Availability Groups
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Intro to SQL" href="http://guides.peruzal.com/introduction-to-sql/">
+	
+	Intro to SQL
+</a>
+
+
+
+  
+</li>
+
+
+        </ul>
+        
+
+        
+        <hr>
+        <span class="section">The author</span>
+        
+        <ul>
+          
+          <li>
+            <a href="https://twitter.com/peruzal" target="_blank" title="@peruzal on Twitter">
+              @peruzal on Twitter
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="https://github.com/peruzal" target="_blank" title="@peruzal on GitHub">
+              @peruzal on GitHub
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="mailto:hello@peruzal.com" title="Email of hello@peruzal.com">
+              Contact via email
+            </a>
+          </li>
+          
+        </ul>
+        
+      </div>
+    </div>
+  </div>
+</nav>
+
+	</div>
+
+	<article class="article">
+		<div class="wrapper">
+			<h1>Transactions </h1>
+
+			
+
+<h2 id="understanding-transaction-processing">Understanding Transaction Processing</h2>
+
+<p>Transaction processing is used to maintain database integrity by ensuring that batches of SQL operations execute completely or not at all.</p>
+
+<p>Common terms when working with transactions :</p>
+
+<ul>
+<li><strong>Transaction</strong> A block of SQL statements</li>
+<li><strong>Rollback</strong> The process of undoing specified SQL statements</li>
+<li><strong>Commit</strong> Writing unsaved SQL statements to the database tables</li>
+<li><strong>Savepoint</strong> A temporary placeholder in a transaction set to which you can issue a rollback (as opposed to rolling back an entire transaction)</li>
+</ul>
+
+<div class="admonition note">
+<p class="admonition-title">Tip: Which Statements Can You Roll Back?</p>
+<p>Transaction processing is used to manage <strong>INSERT</strong>, <strong>UPDATE</strong>, and <strong>DELETE</strong> statements. You cannot roll back <strong>SELECT</strong> statements. (There would not be much point in doing so anyway.) You cannot roll back <strong>CREATE</strong> or <strong>DROP</strong> operations. These statements may be used in a transaction block, but if you perform a rollback they will not be undone.</p>
+</div>
+
+<h2 id="controlling-transactions">Controlling Transactions</h2>
+
+<p>The key to managing transactions involves breaking your SQL statements into logical chunks and explicitly stating when data should be rolled back and when it should not. To start a transaction you use the <strong>BEGIN TRANSACTION</strong> and when you are done and need to commit the changes, you use the <strong>COMMIT TRANSACTION</strong>.</p>
+
+<p>In the following example, any SQL between the <strong>BEGIN TRANSACTION</strong> and <strong>COMMIT TRANSACTION</strong> statements must be executed entirely or not at all.</p>
+
+<pre><code class="language-sql">BEGIN TRANSACTION
+...
+COMMIT TRANSACTION
+</code></pre>
+
+<h3 id="using-rollback">Using ROLLBACK</h3>
+
+<p>The SQL <strong>ROLLBACK</strong> command is used to roll back (undo) SQL statements, as seen in this next statement:</p>
+
+<pre><code class="language-sql">DELETE FROM Orders;
+ROLLBACK;
+</code></pre>
+
+<p>In this example, a <strong>DELETE</strong> operation is performed and then undone using a <strong>ROLLBACK</strong> statement. Although not the most useful example, it does demonstrate that, within a transaction block, <strong>DELETE</strong> operations (like <strong>INSERT</strong> and <strong>UPDATE</strong> operations) are never final.</p>
+
+<h2 id="using-commit">Using COMMIT</h2>
+
+<p>Usually SQL statements are executed and written directly to the database tables. This is known as an implicit commit—the commit (write or save) operation happens automatically.</p>
+
+<p>To force an explicit commit, the COMMIT statement is used. The following is a SQL Server example:</p>
+
+<pre><code class="language-sql">BEGIN TRANSACTION
+DELETE OrderItems WHERE order_num = 12345
+DELETE Orders WHERE order_num = 12345
+COMMIT TRANSACTION
+</code></pre>
+
+<p>In this SQL Server example, order number <em>12345</em> is deleted entirely from the system. Because this involves updating two database tables, Orders and <em>OrderItems</em>, a transaction block is used to ensure that the order is not partially deleted. The final <strong>COMMIT</strong> statement writes the change only if no error occurred. If the first <strong>DELETE</strong> worked, but the second failed, the <strong>DELETE</strong> would not be committed.</p>
+
+<p>Using Savepoints</p>
+
+<p>Simple ROLLBACK and COMMIT statements enable you to write or undo an entire transaction. Although this works for simple transactions, more complex transactions might require partial commits or rollbacks.</p>
+
+<p>For example, the process of adding an order described previously is a single transaction. If an error occurs, you only want to roll back to the point before the Orders row was added. You do not want to roll back the addition to the Customers table (if there was one).</p>
+
+<p>To support the rollback of partial transactions, you must be able to put placeholders at strategic locations in the transaction block. Then, if a rollback is required, you can roll back to one of the placeholders.</p>
+
+<p>In SQL, these placeholders are called savepoints.</p>
+
+<pre><code class="language-sql">SAVEPOINT delete1;
+</code></pre>
+
+<p>In SQL Server you do the following:</p>
+
+<pre><code class="language-sql">SAVE TRANSACTION delete1;
+</code></pre>
+
+<p>Each savepoint takes a unique name that identifies it so that, when you roll back, the DBMS knows where you are rolling back to. To roll back to this savepoint, do the following in SQL Server:</p>
+
+<pre><code class="language-sql">ROLLBACK TRANSACTION delete1;
+</code></pre>
+
+<p>The following is a complete SQL Server example:</p>
+
+<pre><code class="language-sql">BEGIN TRANSACTION
+INSERT INTO Customers(cust_id, cust_name)
+VALUES('1000000010', 'Toys Emporium');
+SAVE TRANSACTION StartOrder;
+INSERT INTO Orders(order_num, order_date, cust_id)
+VALUES(20100,'2001/12/1','1000000010');
+IF @@ERROR &lt;&gt; 0 ROLLBACK TRANSACTION StartOrder;
+INSERT INTO OrderItems(order_num, order_item, prod_id, quantity, item_price)
+VALUES(20100, 1, 'BR01', 100, 5.49);
+IF @@ERROR &lt;&gt; 0 ROLLBACK TRANSACTION StartOrder;
+INSERT INTO OrderItems(order_num, order_item, prod_id, quantity, item_price)
+VALUES(20100, 2, 'BR03', 100, 10.99);
+IF @@ERROR &lt;&gt; 0 ROLLBACK TRANSACTION StartOrder;
+COMMIT TRANSACTION
+</code></pre>
+
+<p>Here are a set of four <strong>INSERT</strong> statements enclosed within a transaction block. A <em>savepoint</em> is defined after the first <strong>INSERT</strong> so that, if any of the subsequent <strong>INSERT</strong> operations fail, the transaction is only rolled back that far. In SQL Server, a variable named <strong>@@ERROR</strong> can be inspected to see if an operation succeeded</p>
+
+
+			<aside class="copyright" role="note">
+				
+				&copy; 2017 Copyright 2017 Peruzal &ndash;
+				
+				Documentation built with
+				<a href="https://www.gohugo.io" target="_blank">Hugo</a>
+				using the
+				<a href="http://github.com/digitalcraftsman/hugo-material-docs" target="_blank">Material</a> theme.
+			</aside>
+
+			<footer class="footer">
+				
+
+<nav class="pagination" aria-label="Footer">
+  <div class="previous">
+  
+      <a href="http://guides.peruzal.com/introduction-to-sql/advanced-sql-features/" title="Advanced SQL Features">
+        <span class="direction">
+          Previous
+        </span>
+        <div class="page">
+          <div class="button button-previous" role="button" aria-label="Previous">
+            <i class="icon icon-back"></i>
+          </div>
+          <div class="stretch">
+            <div class="title">
+              Advanced SQL Features
+            </div>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+
+  <div class="next">
+  
+      <a href="http://guides.peruzal.com/introduction-to-sql/stored-procedures/" title="Stored Procedures">
+        <span class="direction">
+          Next
+        </span>
+        <div class="page">
+          <div class="stretch">
+            <div class="title">
+              Stored Procedures
+            </div>
+          </div>
+          <div class="button button-next" role="button" aria-label="Next">
+            <i class="icon icon-forward"></i>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+</nav>
+
+
+
+
+
+			</footer>
+		</div>
+	</article>
+
+	<div class="results" role="status" aria-live="polite">
+		<div class="scrollable">
+			<div class="wrapper">
+				<div class="meta"></div>
+				<div class="list"></div>
+			</div>
+		</div>
+	</div>
+</main>
+
+    <script>
+    
+      var base_url = '';
+      var repo_id  = '';
+    
+    </script>
+
+    <script src="http://guides.peruzal.com/introduction-to-sql/javascripts/application.js"></script>
+    
+
+    <script>
+      /* Add headers to scrollspy */
+      var headers   = document.getElementsByTagName("h2");
+      var scrollspy = document.getElementById('scrollspy');
+
+      if(scrollspy) {
+        if(headers.length > 0) {
+          for(var i = 0; i < headers.length; i++) {
+            var li = document.createElement("li");
+            li.setAttribute("class", "anchor");
+
+            var a  = document.createElement("a");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", headers[i].innerHTML);
+            a.innerHTML = headers[i].innerHTML;
+
+            li.appendChild(a)
+            scrollspy.appendChild(li);
+          }
+        } else {
+          scrollspy.parentElement.removeChild(scrollspy)
+        }
+
+
+        /* Add permanent link next to the headers */
+        var headers = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+
+        for(var i = 0; i < headers.length; i++) {
+            var a = document.createElement("a");
+            a.setAttribute("class", "headerlink");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", "Permanent link")
+            a.innerHTML = "#";
+            headers[i].appendChild(a);
+        }
+      }
+    </script>
+
+    
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>
+

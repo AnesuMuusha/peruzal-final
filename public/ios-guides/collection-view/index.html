@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+  
+  
+  
+  
+   <html class="no-js"> 
+
+  <head lang="en-us">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=10" />
+    <title>Collection View - Xamarin iOS Guides</title>
+    <meta name="generator" content="Hugo 0.17" />
+
+    
+    <meta name="description" content="Xamrin iOS guides for the Peruzal Cross Platform Mobile App Development course">
+    
+    <link rel="canonical" href="http://guides.peruzal.com/ios-guides/collection-view/">
+    
+    <meta name="author" content="Peruzal">
+    
+
+    <meta property="og:url" content="http://guides.peruzal.com/ios-guides/collection-view/">
+    <meta property="og:title" content="Xamarin iOS Guides">
+    <meta property="og:image" content="http://guides.peruzal.com/ios-guides/images/logo.png">
+    <meta name="apple-mobile-web-app-title" content="Xamarin iOS Guides">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="shortcut icon" type="image/x-icon" href="http://guides.peruzal.com/ios-guides/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="http://guides.peruzal.com/ios-guides/images/favicon.ico">
+
+    <style>
+      @font-face {
+        font-family: 'Icon';
+        src: url('http://guides.peruzal.com/ios-guides/fonts/icon.eot?52m981');
+        src: url('http://guides.peruzal.com/ios-guides/fonts/icon.eot?#iefix52m981')
+               format('embedded-opentype'),
+             url('http://guides.peruzal.com/ios-guides/fonts/icon.woff?52m981')
+               format('woff'),
+             url('http://guides.peruzal.com/ios-guides/fonts/icon.ttf?52m981')
+               format('truetype'),
+             url('http://guides.peruzal.com/ios-guides/fonts/icon.svg?52m981#icon')
+               format('svg');
+        font-weight: normal;
+        font-style: normal;
+      }
+    </style>
+
+    <link rel="stylesheet" href="http://guides.peruzal.com/ios-guides/stylesheets/application.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/ios-guides/stylesheets/temporary.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/ios-guides/stylesheets/palettes.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/ios-guides/stylesheets/highlight/highlight.css">
+
+    
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ubuntu:400,700|Ubuntu&#43;Mono">
+    <style>
+      body, input {
+        font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+      }
+      pre, code {
+        font-family: 'Ubuntu Mono', 'Courier New', 'Courier', monospace;
+      }
+    </style>
+
+    
+    <script src="http://guides.peruzal.com/ios-guides/javascripts/modernizr.js"></script>
+
+    
+
+  </head>
+  <body class="palette-primary-red palette-accent-teal">
+
+
+
+
+<div class="backdrop">
+	<div class="backdrop-paper"></div>
+</div>
+
+<input class="toggle" type="checkbox" id="toggle-drawer">
+<input class="toggle" type="checkbox" id="toggle-search">
+<label class="toggle-button overlay" for="toggle-drawer"></label>
+
+<header class="header">
+	<nav aria-label="Header">
+  <div class="bar default">
+    <div class="button button-menu" role="button" aria-label="Menu">
+      <label class="toggle-button icon icon-menu" for="toggle-drawer">
+        <span></span>
+      </label>
+    </div>
+    <div class="stretch">
+      <div class="title">
+        Collection View
+      </div>
+    </div>
+
+    
+
+    
+    <div class="button button-github" role="button" aria-label="GitHub">
+      <a href="https://github.com/peruzal" title="@peruzal on GitHub" target="_blank" class="toggle-button icon icon-github"></a>
+    </div>
+    
+    
+        
+  </div>
+  <div class="bar search">
+    <div class="button button-close" role="button" aria-label="Close">
+      <label class="toggle-button icon icon-back" for="toggle-search"></label>
+    </div>
+    <div class="stretch">
+      <div class="field">
+        <input class="query" type="text" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck>
+      </div>
+    </div>
+    <div class="button button-reset" role="button" aria-label="Search">
+      <button class="toggle-button icon icon-close" id="reset-search"></button>
+    </div>
+  </div>
+</nav>
+</header>
+
+<main class="main">
+	<div class="drawer">
+		<nav aria-label="Navigation">
+  <a href="http://guides.peruzal.com/ios-guides/" class="project">
+    <div class="banner">
+      
+        <div class="logo">
+          <img src="http://guides.peruzal.com/ios-guides/images/logo.png">
+        </div>
+      
+      <div class="name">
+        <strong>Xamarin iOS Guides <span class="version">1.0.0</span></strong>
+        
+      </div>
+    </div>
+  </a>
+
+  <div class="scrollable">
+    <div class="wrapper">
+      
+
+      <div class="toc">
+        
+        <ul>
+          
+
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="iOS with Swift and Objective-C" href="http://guides.peruzal.com/ios-guides/">
+	
+	iOS with Swift and Objective-C
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Getting Started" href="http://guides.peruzal.com/ios-guides/getting-started/">
+	
+	Getting Started
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Setting up a Project" href="http://guides.peruzal.com/ios-guides/setup/">
+	
+	Setting up a Project
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Swift Fundamentals" href="http://guides.peruzal.com/ios-guides/swift/">
+	
+	Swift Fundamentals
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Swift Objective-C Interoperability" href="http://guides.peruzal.com/ios-guides/swift-objective-c-interoperability/">
+	
+	Swift Objective-C Interoperability
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Objective-C Fundamentals" href="http://guides.peruzal.com/ios-guides/objective-c/">
+	
+	Objective-C Fundamentals
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Common Views" href="http://guides.peruzal.com/ios-guides/common-views/">
+	
+	Common Views
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Form Input" href="http://guides.peruzal.com/ios-guides/form-input/">
+	
+	Form Input
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Model View Controller(MVC)" href="http://guides.peruzal.com/ios-guides/mvc/">
+	
+	Model View Controller(MVC)
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Auto Layout and Size Classes" href="http://guides.peruzal.com/ios-guides/auto-layout-and-size-classes/">
+	
+	Auto Layout and Size Classes
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Table View" href="http://guides.peruzal.com/ios-guides/tableview/">
+	
+	Table View
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a class="current" title="Collection View" href="http://guides.peruzal.com/ios-guides/collection-view/">
+	
+	Collection View
+</a>
+
+
+<ul id="scrollspy">
+</ul>
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Tab Bar" href="http://guides.peruzal.com/ios-guides/tabbar-controller/">
+	
+	Tab Bar
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Scroll View" href="http://guides.peruzal.com/ios-guides/scrollview/">
+	
+	Scroll View
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Search Bar" href="http://guides.peruzal.com/ios-guides/searchbar/">
+	
+	Search Bar
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Navigation Patterns" href="http://guides.peruzal.com/ios-guides/navigation/">
+	
+	Navigation Patterns
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Passing Data between View Controllers" href="http://guides.peruzal.com/ios-guides/passing-data/">
+	
+	Passing Data between View Controllers
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Navigation Controller" href="http://guides.peruzal.com/ios-guides/navigation-controller/">
+	
+	Navigation Controller
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Location" href="http://guides.peruzal.com/ios-guides/location/">
+	
+	Location
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Maps and Location" href="http://guides.peruzal.com/ios-guides/maps-and-location/">
+	
+	Maps and Location
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="iOS Frameworks and Device Sensors" href="http://guides.peruzal.com/ios-guides/ios-frameworks-and-device-sensors/">
+	
+	iOS Frameworks and Device Sensors
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Networking and Threading" href="http://guides.peruzal.com/ios-guides/networking-and-threading/">
+	
+	Networking and Threading
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Animations and Gestures" href="http://guides.peruzal.com/ios-guides/animations-and-gestures/">
+	
+	Animations and Gestures
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Persistence" href="http://guides.peruzal.com/ios-guides/persistence/">
+	
+	Persistence
+</a>
+
+
+
+  
+</li>
+
+
+        </ul>
+        
+
+        
+        <hr>
+        <span class="section">The author</span>
+        
+        <ul>
+          
+
+          
+          <li>
+            <a href="https://github.com/peruzal" target="_blank" title="@peruzal on GitHub">
+              @peruzal on GitHub
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="mailto:info@peruzal.com" title="Email of info@peruzal.com">
+              Contact via email
+            </a>
+          </li>
+          
+        </ul>
+        
+      </div>
+    </div>
+  </div>
+</nav>
+
+	</div>
+
+	<article class="article">
+		<div class="wrapper">
+			<h1>Collection View </h1>
+
+			
+
+<h2 id="overview">Overview</h2>
+
+<p><a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UICollectionView_class/">Collection views</a> are used to display <em>cells</em> in customizable layouts. Here are some examples:</p>
+
+<p><img src="http://i.imgur.com/3A0KT3F.jpg" alt="Imgur" /></p>
+
+<p><em>Left to right: Marvin, Flickr, Storehouse</em></p>
+
+<p>This guide is a quick intro to setting up and using a simple collection view with Interface Builder.</p>
+
+<h2 id="collection-view-setup">Collection View Setup</h2>
+
+<p>We&rsquo;ll be creating a grid of colors with labels showing their RGB values.</p>
+
+<p><img src="http://i.imgur.com/p1fzY7j.jpg" alt="Imgur" /></p>
+
+<h3 id="step-1-determine-what-data-to-display-in-the-collection-view">Step 1: Determine what data to display in the collection view</h3>
+
+<p>Decide what kind of data you&rsquo;d like to show. For simple text, you might use an array of strings. In our example, we&rsquo;ll use a function that takes an index path and returns a corresponding UIColor. Type this code into your view controller&rsquo;s class definition:</p>
+
+<pre><code class="language-swift">let totalColors: Int = 100
+func colorForIndexPath(indexPath: NSIndexPath) -&gt; UIColor {
+    if indexPath.row &gt;= totalColors {
+        return UIColor.blackColor()	// return black if we get an unexpected row index
+    }
+    
+    var hueValue: CGFloat = CGFloat(indexPath.row) / CGFloat(totalColors)
+    return UIColor(hue: hueValue, saturation: 1.0, brightness: 1.0, alpha: 1.0)
+}
+</code></pre>
+
+<h3 id="step-2-add-collection-view-to-view-controller">Step 2: Add collection view to view controller</h3>
+
+<p>In your Storyboard, drag a <code>Collection View</code> (not <code>Collection View Controller</code>) from the Object Library into your view controller. Use the Assistant Editor to add an outlet for the collection view in your view controller.</p>
+
+<p><img src="http://i.imgur.com/27p0zyU.gif" alt="Imgur" /></p>
+
+<h3 id="step-3-create-custom-class-for-prototype-cell">Step 3: Create custom class for prototype cell</h3>
+
+<p>The <code>Collection View</code> comes with a <code>Collection View Cell</code> prototype. Create a new class to use as a template for these cells.</p>
+
+<p>Select <code>File -&gt; New -&gt; File... -&gt; iOS -&gt; Source -&gt; Cocoa Touch Class</code>
+and create a new subclass of <code>UICollectionViewCell</code>. Name it <code>ColorCell</code>. Back in your Storyboard, select your prototype cell, and in the Identity Inspector, set its custom class property to the new class you just created.</p>
+
+<p><img src="http://i.imgur.com/4fmsHFi.jpg" alt="Imgur" /></p>
+
+<h3 id="step-4-configure-prototype-cell">Step 4: Configure prototype cell</h3>
+
+<p>Change the background color of the Collection View to white. Add a <code>Label</code> from the Object Library to the prototype cell, and change its placeholder text to <code>Color</code>. Use the Assistant Editor to add an outlet for the label in the <code>ColorCell</code> class. Name it <code>colorLabel</code>.</p>
+
+<p><img src="http://i.imgur.com/mjYstAJ.gif" alt="Imgur" /></p>
+
+<p>Your ColorCell class should have the following code:</p>
+
+<pre><code class="language-swift">class ColorCell: UICollectionViewCell {
+    @IBOutlet weak var colorLabel: UILabel!
+}
+</code></pre>
+
+<h3 id="step-5-set-prototype-cell-s-reuse-identifier">Step 5: Set prototype cell&rsquo;s reuse identifier</h3>
+
+<p>Select the cell in the Storyboard and give it a unique identifier in the Attributes Inspector. This allows the Collection View to reuse instances of our prototype cell.</p>
+
+<p><img src="http://i.imgur.com/XdSDDEO.jpg" alt="Imgur" /></p>
+
+<h3 id="step-6-set-the-collection-view-s-data-source">Step 6: Set the collection view&rsquo;s data source</h3>
+
+<p>In your view controller&rsquo;s <code>viewDidLoad</code> method, set the collection view&rsquo;s data source:</p>
+
+<pre><code class="language-swift">class ViewController: UIViewController {
+    @IBOutlet weak var collectionView: UICollectionView!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        collectionView.dataSource = self
+    }
+</code></pre>
+
+<p>Add an extension that implements the <code>UICollectionViewDataSource</code> protocol. Implement the <code>collectionView(_:numberOfItemsInSection:)</code> and <code>collectionView(_:cellForItemAtIndexPath:)</code> methods.</p>
+
+<pre><code class="language-swift">extension ViewController: UICollectionViewDataSource {
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -&gt; Int {
+        return totalColors
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -&gt; UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(&quot;com.codepath.ColorCell&quot;, forIndexPath: indexPath) as! ColorCell
+        let cellColor = colorForIndexPath(indexPath)
+        cell.backgroundColor = cellColor
+        
+        if CGColorGetNumberOfComponents(cellColor.CGColor) == 4 {
+            let redComponent = CGColorGetComponents(cellColor.CGColor)[0] * 255
+            let greenComponent = CGColorGetComponents(cellColor.CGColor)[1] * 255
+            let blueComponent = CGColorGetComponents(cellColor.CGColor)[2] * 255
+            cell.colorLabel.text = String(format: &quot;%.0f, %.0f, %.0f&quot;, redComponent, greenComponent, blueComponent)
+        }
+        
+        return cell
+    }
+}
+</code></pre>
+
+<p>Build and run the demo app. Your collection view should show 100 colored cells, each with a different hue and a label of its RGB value.</p>
+
+<h2 id="configuring-the-layout">Configuring the Layout</h2>
+
+<p>In the <code>UICollectionView</code> setup demo, we&rsquo;re left with gaps between each cell. In order to adjust that, we need to change the <code>UICollectionViewLayout</code>.</p>
+
+<p><a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UICollectionViewLayout_class/index.html"><code>UICollectionViewLayout</code></a> is where the <code>UICollectionView</code> defines how it will layout its data. <code>UICollectionView</code> are not constrained to a strict, single column, vertical format, unlike <code>UITableView</code>. <code>UICollectionView</code> can display items in any fashion, provided they are specified by a <code>UICollectionViewLayout</code>. In order to do this, a developer needs to subclass <code>UICollectionViewLayout</code> and specify the layout rules inside.</p>
+
+<h3 id="flow-layout">Flow Layout</h3>
+
+<p>By default, Apple provides developers with a subclass of <code>UICollectionViewLayout</code> called <code>UICollectionViewFlowLayout</code>. When you add a <code>UICollectionView</code> in the storyboard, it comes with a <code>UICollectionViewFlowLayout</code> already included.</p>
+
+<p><a href="https://developer.apple.com/library/ios/documentation/WindowsViews/Conceptual/CollectionViewPGforIOS/UsingtheFlowLayout/UsingtheFlowLayout.html"><code>UICollectionViewFlowLayout</code></a> is a layout that displays items in a grid format, with any number of cells in each section, and in vertical or horizontal directions. The items in a single section can be surrounded with header or footer views. It commonly covers most basic cases for the layout of <code>UICollectionView</code>.</p>
+
+<p><code>UICollectionViewFlowLayout</code> can be configured in a number of ways:</p>
+
+<ul>
+<li>Specifying the size of items</li>
+<li>Specifying the space between items and lines</li>
+<li>Using section insets to adjust the margins of content</li>
+</ul>
+
+<h4 id="modifying-a-flow-layout">Modifying a Flow Layout</h4>
+
+<p>When adding a <code>UICollectionView</code> to a view controller in the storyboard, a <code>UICollectionViewCell</code> and <code>UICollectionViewFlowLayout</code> are included by default. You can modify the layout of your <code>UICollectionView</code> by:</p>
+
+<ul>
+<li>Editing attributes and dimensions of the Collection View Flow Layout in the storyboard</li>
+<li>Programmatically changing values and defining behavior</li>
+</ul>
+
+<p>If your collection view only requires cells of the same static, non-proportional size, then use storyboard to adjust values. If you need a more varied layout, then see <a href="#customizing-the-cells-and-spacing-uicollectionviewdelegateflowlayout">customizing the cells and spacing</a></p>
+
+<h4 id="configuring-the-flow-layout-with-the-storyboard">Configuring the Flow Layout with the Storyboard</h4>
+
+<p>By default, a <code>UICollectionViewFlowLayout</code> is provided to you in the storyboard. If you select the Collection View Flow Layout, under your collection view, in the Utilities pane, you can alter attributes and dimensions.</p>
+
+<h4 id="configuring-the-flow-layout-programmatically">Configuring the Flow Layout programmatically</h4>
+
+<p>In the code, you can configure the Flow Layout&rsquo;s properties and define rules for dimensions to change according to.</p>
+
+<p>To access the properties of the layout of your <code>UICollectionView</code>, you can make an outlet for <code>UICollectionViewFlowLayout</code> like how you made one for <code>UICollectionView</code>. You can then directly set values, like in the storyboard.</p>
+
+<pre><code class="language-swift">class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
+    
+	override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        collectionView.delegate = self
+        collectionView.dataSource = self
+
+        flowLayout.scrollDirection = .Horizontal
+        flowLayout.minimumLineSpacing = 0
+        flowLayout.minimumInteritemSpacing = 0
+        flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 10)
+    }
+}
+</code></pre>
+
+<h4 id="customizing-the-cells-and-spacing-uicollectionviewdelegateflowlayout">Customizing the cells and spacing (UICollectionViewDelegateFlowLayout)</h4>
+
+<p>If you need to customize cells and spacing, changing the direct properties of the Flow Layout will not suffice. You will need to implement the <code>UICollectionViewDelegateFlowLayout</code> protocol. With the <code>UICollectionViewDelegateFlowLayout</code> protocol, item sizes, section insets, line spacing and interitem spacing can all be made to change dynamically according to their position in the collection view.</p>
+
+<p><a href="https://developer.apple.com/library/ios/documentation/WindowsViews/Conceptual/CollectionViewPGforIOS/UsingtheFlowLayout/UsingtheFlowLayout.html"><img src="https://developer.apple.com/library/ios/documentation/WindowsViews/Conceptual/CollectionViewPGforIOS/Art/flow_horiz_layout_uneven_2x.png" title="Different sized cells" /></a></p>
+
+<p>To define dynamic rules to layout a UICollectionView, we add the <a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UICollectionViewDelegateFlowLayout_protocol/index.html"><code>UICollectionViewDelegateFlowLayout</code></a> protocol.</p>
+
+<pre><code class="language-swift">class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+	...
+}
+</code></pre>
+
+<h4 id="small-example-of-configuring-the-flow-layout">Small Example of configuring the Flow Layout</h4>
+
+<p>Here is a small example of configuring the cell size according to the row. Calculating how large each cell should be, to have three cells per row, and changing the height depending on whether the row is even or odd.</p>
+
+<p><a href="http://imgur.com/ehSq2LS"><img src="http://i.imgur.com/ehSq2LS.png" title="Different sized cells example" /></a></p>
+
+<pre><code class="language-swift">class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+
+    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+		...
+        
+        flowLayout.scrollDirection = .Horizontal
+        flowLayout.minimumLineSpacing = 0
+        flowLayout.minimumInteritemSpacing = 0
+        flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0)
+    }
+	
+	...
+    
+    // MARK: UICollectionViewDelegateFlowLayout methods 
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -&gt; CGSize {
+        let totalwidth = collectionView.bounds.size.width;
+        let numberOfCellsPerRow = 3
+        let oddEven = indexPath.row / numberOfCellsPerRow % 2
+        let dimensions = CGFloat(Int(totalwidth) / numberOfCellsPerRow)
+        if (oddEven == 0) {
+            return CGSizeMake(dimensions, dimensions)
+        } else {
+            return CGSizeMake(dimensions, dimensions / 2)
+        }
+    }
+</code></pre>
+
+<h4 id="do-you-need-a-more-custom-layout">Do you need a more custom layout?</h4>
+
+<p>You don&rsquo;t always want to use a <code>UICollectionViewFlowLayout</code> and sometimes, you may want something more customized.</p>
+
+<p>Apple provides a <a href="https://developer.apple.com/library/ios/documentation/WindowsViews/Conceptual/CollectionViewPGforIOS/UsingtheFlowLayout/UsingtheFlowLayout.html#//apple_ref/doc/uid/TP40012334-CH3-SW4">good guide</a> on how to decide whether you need something more specific.</p>
+
+<h3 id="creating-a-custom-uicollectionviewlayout">Creating a custom UICollectionViewLayout</h3>
+
+<p>to be completed&hellip;</p>
+
+<h2 id="collection-view-usage">Collection view usage</h2>
+
+<h3 id="respond-to-cell-selection">Respond to cell selection</h3>
+
+<p>A common event you&rsquo;ll need to respond to is the user selecting a cell in the collection view.</p>
+
+<h4 id="segue-to-another-view-controller">Segue to another view controller</h4>
+
+<p>Often, you&rsquo;ll want a cell selection to push a new view controller with details about that cell. In your Storyboard, control-drag from the prototype cell onto a new view controller, and select the appropriate segue under the <code>Selection Segue</code> section.</p>
+
+<p><img src="http://i.imgur.com/xjuYPVd.gif" alt="Imgur" /></p>
+
+<h4 id="handling-cell-selection-progammatically">Handling cell selection progammatically</h4>
+
+<p>You can also respond programmatically by implementing the <code>UICollectionViewDelegate</code> <a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UICollectionViewDelegate_protocol/index.html#//apple_ref/occ/intfm/UICollectionViewDelegate/collectionView:didSelectItemAtIndexPath:"><code>collectionView(_:didSelectItemAtIndexPath:)</code></a> method.</p>
+
+<p>In your view controller&rsquo;s <code>viewDidLoad</code> method, add a line to set the collection view&rsquo;s delegate.</p>
+
+<pre><code class="language-swift">collectionView.delegate = self
+</code></pre>
+
+<p>Then, add an extension to your view controller that adopts the UICollectionViewDelegate protocol, and implement the above method. The following code prints a cell&rsquo;s row index when it is selected.</p>
+
+<pre><code class="language-swift">extension ViewController: UICollectionViewDelegate {
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        println(&quot;Selected cell number: \(indexPath.row)&quot;)
+    }
+}
+</code></pre>
+
+<h2 id="references">References</h2>
+
+<ul>
+<li><a href="https://developer.apple.com/library/ios/documentation/WindowsViews/Conceptual/CollectionViewPGforIOS/Introduction/Introduction.html">Apple&rsquo;s collection view programming guide</a></li>
+</ul>
+
+
+			<aside class="copyright" role="note">
+				
+				&copy; 2016 Peruzal &ndash;
+				
+				Xamarin iOS Guides by 
+				<a href="https://www.peruzal.com" target="_blank">Peruzal</a>
+			</aside>
+
+			<footer class="footer">
+				
+
+<nav class="pagination" aria-label="Footer">
+  <div class="previous">
+  
+      <a href="http://guides.peruzal.com/ios-guides/navigation/" title="Navigation Patterns">
+        <span class="direction">
+          Previous
+        </span>
+        <div class="page">
+          <div class="button button-previous" role="button" aria-label="Previous">
+            <i class="icon icon-back"></i>
+          </div>
+          <div class="stretch">
+            <div class="title">
+              Navigation Patterns
+            </div>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+
+  <div class="next">
+  
+      <a href="http://guides.peruzal.com/ios-guides/tableview/" title="Table Views">
+        <span class="direction">
+          Next
+        </span>
+        <div class="page">
+          <div class="stretch">
+            <div class="title">
+              Table Views
+            </div>
+          </div>
+          <div class="button button-next" role="button" aria-label="Next">
+            <i class="icon icon-forward"></i>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+</nav>
+
+
+
+
+
+			</footer>
+		</div>
+	</article>
+
+	<div class="results" role="status" aria-live="polite">
+		<div class="scrollable">
+			<div class="wrapper">
+				<div class="meta"></div>
+				<div class="list"></div>
+			</div>
+		</div>
+	</div>
+</main>
+
+    <script>
+    
+      var base_url = '';
+      var repo_id  = '';
+    
+    </script>
+
+    <script src="http://guides.peruzal.com/ios-guides/javascripts/application.js"></script>
+    
+
+    <script>
+      /* Add headers to scrollspy */
+      var headers   = document.getElementsByTagName("h2");
+      var scrollspy = document.getElementById('scrollspy');
+
+      if(scrollspy) {
+        if(headers.length > 0) {
+          for(var i = 0; i < headers.length; i++) {
+            var li = document.createElement("li");
+            li.setAttribute("class", "anchor");
+
+            var a  = document.createElement("a");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", headers[i].innerHTML);
+            a.innerHTML = headers[i].innerHTML;
+            
+            li.appendChild(a)
+            scrollspy.appendChild(li);
+          }
+        } else {
+          scrollspy.parentElement.removeChild(scrollspy)
+        }
+        
+
+        /* Add permanent link next to the headers */
+        var headers = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+
+        for(var i = 0; i < headers.length; i++) {
+            var a = document.createElement("a");
+            a.setAttribute("class", "headerlink");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", "Permanent link")
+            a.innerHTML = "#";
+            headers[i].appendChild(a);
+        }
+      }
+    </script>
+
+    
+
+    <script src="//gohugo.io/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/cs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/json.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/swift.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/xml.min.js"></script>    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/objectivec.min.js"></script>
+  </body>
+</html>

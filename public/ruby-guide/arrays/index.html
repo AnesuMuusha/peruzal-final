@@ -1,0 +1,1086 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="Arrays are a collection of items. In Ruby, arrays can take a collection of any type. An array is an ordered list of elements. Each element is a reference to some object.">
+      
+      
+        <link rel="canonical" href="https://guides.peruzal.com/ruby-programming-guide/arrays/">
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-0.17.3, mkdocs-material-2.7.3">
+    
+    
+      
+        <title>Arrays - Ruby Programming Guide</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.8d40d89b.css">
+      
+        <link rel="stylesheet" href="../assets/stylesheets/application-palette.6079476c.css">
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="amber" data-md-color-accent="deep-orange">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="drawer"></label>
+    
+      <a href="#arrays" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://guides.peruzal.com/ruby-programming-guide" title="Ruby Programming Guide" class="md-header-nav__button md-logo">
+          
+            <img src="../images/logo-lines.png" width="24" height="24">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                Ruby Programming Guide
+              </span>
+              <span class="md-header-nav__topic">
+                Arrays
+              </span>
+            
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="search"></label>
+            
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+
+  <a href="https://github.com/Peruzal/ruby-programming-guide/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      Github
+    </div>
+  </a>
+
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="drawer">
+    <span class="md-nav__button md-logo">
+      
+        <img src="../images/logo-lines.png" width="48" height="48">
+      
+    </span>
+    Ruby Programming Guide
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/Peruzal/ruby-programming-guide/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      Github
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../setting_up_development_environment/" title="Setting Up Environment" class="md-nav__link">
+      Setting Up Environment
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../overview/" title="Ruby Overview" class="md-nav__link">
+      Ruby Overview
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../ruby_documentation/" title="Ruby Documentation" class="md-nav__link">
+      Ruby Documentation
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../operators/" title="Operators" class="md-nav__link">
+      Operators
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../strings/" title="Strings" class="md-nav__link">
+      Strings
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+      
+    
+    
+    <a href="./" title="Arrays" class="md-nav__link md-nav__link--active">
+      Arrays
+    </a>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../hashes/" title="Hashes" class="md-nav__link">
+      Hashes
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../numbers/" title="Numbers" class="md-nav__link">
+      Numbers
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../booleans/" title="Booleans" class="md-nav__link">
+      Booleans
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../objects/" title="Objects" class="md-nav__link">
+      Objects
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../loops_and_iterators/" title="Loops and Iterators" class="md-nav__link">
+      Loops and Iterators
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../functions_and_methods/" title="Functions and Methods" class="md-nav__link">
+      Functions and Methods
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../classes_and_modules/" title="Classes and Modules" class="md-nav__link">
+      Classes and Modules
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../blocks_procs_and_lambdas/" title="Blocks, Procs and Lambdas" class="md-nav__link">
+      Blocks, Procs and Lambdas
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../errors_and_exceptions/" title="Errors and Exceptions" class="md-nav__link">
+      Errors and Exceptions
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../input_and_output/" title="Input/Output" class="md-nav__link">
+      Input/Output
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../files_and_directories/" title="Files and Directories" class="md-nav__link">
+      Files and Directories
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../sinatra/" title="Sinatra" class="md-nav__link">
+      Sinatra
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../rails/" title="Rails" class="md-nav__link">
+      Rails
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../testing_with_rspec/" title="Testing with RSpec" class="md-nav__link">
+      Testing with RSpec
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/Peruzal/ruby-programming-guide/edit/master/docs/arrays.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="arrays">Arrays<a class="headerlink" href="#arrays" title="Permanent link">&para;</a></h1>
+<p>Arrays are a collection of items. In Ruby, arrays can take a collection of any type. An array is an ordered list of elements. Each element is a reference to some object.</p>
+<h1 id="creating-arrays">Creating Arrays<a class="headerlink" href="#creating-arrays" title="Permanent link">&para;</a></h1>
+<p>To create an a array you use the <code>[]</code> symbols. We can create an empty array as follows :</p>
+<div class="codehilite"><pre><span></span><span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">001</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="n">array</span> <span class="o">=</span> <span class="o">[]</span>
+<span class="o">=&gt;</span> <span class="o">[]</span>
+<span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">002</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="n">array</span><span class="o">.</span><span class="n">class</span>
+<span class="o">=&gt;</span> <span class="nb">Array</span>
+</pre></div>
+
+
+<p>We can also create the array by calling <code>new</code> on the <code>Array</code> class as follows :</p>
+<div class="codehilite"><pre><span></span><span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">003</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="n">array</span> <span class="o">=</span> <span class="nb">Array</span><span class="o">.</span><span class="n">new</span>
+<span class="o">=&gt;</span> <span class="o">[]</span>
+<span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">004</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="n">array</span><span class="o">.</span><span class="n">class</span>
+<span class="o">=&gt;</span> <span class="nb">Array</span>
+</pre></div>
+
+
+<p>Create an array and specify an initial capacity :</p>
+<div class="codehilite"><pre><span></span><span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">005</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="n">array</span> <span class="o">=</span> <span class="nb">Array</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="kp">nil</span><span class="p">,</span> <span class="kp">nil</span><span class="o">]</span>
+</pre></div>
+
+
+<p>We can create the array and specify the capacity and initial values :</p>
+<div class="codehilite"><pre><span></span><span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">006</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="n">array</span> <span class="o">=</span> <span class="nb">Array</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="o">]</span>
+</pre></div>
+
+
+<p>Create an array with different types as follows :</p>
+<div class="codehilite"><pre><span></span><span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">00</span><span class="mi">8</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="n">array</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&quot;hello&quot;</span><span class="p">,</span> <span class="no">Module</span><span class="o">.</span><span class="n">new</span><span class="p">,</span> <span class="mi">3</span><span class="o">.</span><span class="mi">5</span><span class="o">]</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="s2">&quot;hello&quot;</span><span class="p">,</span> <span class="c1">#&lt;Module:0x007f844e0742f0&gt;, 3.5]</span>
+</pre></div>
+
+
+<p>Create an array that initialized with two hashes :</p>
+<div class="codehilite"><pre><span></span><span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">00</span><span class="mi">9</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="n">array</span> <span class="o">=</span> <span class="nb">Array</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="no">Hash</span><span class="o">.</span><span class="n">new</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="p">{},</span> <span class="p">{}</span><span class="o">]</span>
+</pre></div>
+
+
+<p>We can also use the <code>{}</code> to specify the object to initialize the array with as follows :</p>
+<div class="codehilite"><pre><span></span><span class="n">rb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">011</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="n">array</span> <span class="o">=</span> <span class="nb">Array</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="mi">2</span><span class="p">){</span><span class="nb">Array</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)}</span>
+<span class="o">=&gt;</span> <span class="o">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="o">]</span><span class="p">,</span> <span class="o">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="o">]]</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="sx">%w{1 2 3}</span> <span class="c1"># array of strings</span>
+<span class="o">%</span><span class="n">i</span><span class="p">{</span><span class="n">one</span> <span class="n">two</span> <span class="n">three</span><span class="p">}</span> <span class="c1"># arrays of symbols</span>
+</pre></div>
+
+
+<h2 id="accessing-array-elements">Accessing Array Elements<a class="headerlink" href="#accessing-array-elements" title="Permanent link">&para;</a></h2>
+<p>We use the <code>[]</code> to access the array elements. Retrieve the item at position 0 in the array as follows :</p>
+<div class="codehilite"><pre><span></span><span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">014</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="n">array</span> <span class="o">=</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="o">]</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="o">]</span>
+<span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">015</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="n">array</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span>
+<span class="o">=&gt;</span> <span class="mi">1</span>
+</pre></div>
+
+
+<p>Get the last item in the array :</p>
+<div class="codehilite"><pre><span></span><span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">017</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="n">array</span> <span class="o">=</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="o">]</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="o">]</span>
+<span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">01</span><span class="mi">8</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="n">array</span><span class="o">[-</span><span class="mi">1</span><span class="o">]</span>
+<span class="o">=&gt;</span> <span class="mi">5</span>
+</pre></div>
+
+
+<p>Retrieve multiple items using a range :</p>
+<div class="codehilite"><pre><span></span><span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">01</span><span class="mi">9</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="n">array</span> <span class="o">=</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="o">]</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="o">]</span>
+<span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">020</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="n">array</span><span class="o">[</span><span class="mi">0</span><span class="o">..</span><span class="mi">2</span><span class="o">]</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">]</span>
+</pre></div>
+
+
+<p>Using alternative syntax as follows :</p>
+<div class="codehilite"><pre><span></span><span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">024</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="n">array</span> <span class="o">=</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="o">]</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="o">]</span>
+<span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">025</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="n">array</span><span class="o">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="o">]</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">]</span>
+</pre></div>
+
+
+<p>Instead of using the <code>[]</code> we can use methods to access array elements as follows :</p>
+<div class="codehilite"><pre><span></span><span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">02</span><span class="mi">9</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="n">array</span> <span class="o">=</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="o">]</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="o">]</span>
+<span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">030</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="n">array</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="mi">1</span>
+</pre></div>
+
+
+<p>Returns <code>nil</code> if the item is not found as follows :</p>
+<div class="codehilite"><pre><span></span><span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">031</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="n">array</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="kp">nil</span>
+</pre></div>
+
+
+<p>The <code>at</code> method does not throw an error if the item is not found. Using <code>fetch</code> throws an error if the element is not found as follows :</p>
+<div class="codehilite"><pre><span></span><span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">032</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="n">array</span> <span class="o">=</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="o">]</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="o">]</span>
+<span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">033</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="n">array</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="mi">1</span>
+</pre></div>
+
+
+<p>Throws an error if the item is not found :</p>
+<div class="codehilite"><pre><span></span><span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">034</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="n">array</span> <span class="o">=</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="o">]</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="o">]</span>
+<span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">035</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="n">array</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="ss">IndexError</span><span class="p">:</span> <span class="n">index</span> <span class="mi">5</span> <span class="n">outside</span> <span class="n">of</span> <span class="n">array</span> <span class="ss">bounds</span><span class="p">:</span> <span class="o">-</span><span class="mi">5</span><span class="o">...</span><span class="mi">5</span>
+</pre></div>
+
+
+<h2 id="remove-elements-from-the-array">Remove Elements From The Array<a class="headerlink" href="#remove-elements-from-the-array" title="Permanent link">&para;</a></h2>
+<p>Using the <code>pop</code> method we can remove the element from the array as the end :</p>
+<div class="codehilite"><pre><span></span><span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">03</span><span class="mi">8</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="n">array</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="o">]</span>
+<span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">03</span><span class="mi">9</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="n">array</span><span class="o">.</span><span class="n">pop</span>
+<span class="o">=&gt;</span> <span class="mi">5</span>
+<span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">040</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="n">array</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="o">]</span>
+</pre></div>
+
+
+<p>The <code>shift</code> removes an element at the beginning of the array :</p>
+<div class="codehilite"><pre><span></span><span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">042</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="n">array</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="o">]</span>
+<span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">043</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="n">array</span><span class="o">.</span><span class="n">shift</span>
+<span class="o">=&gt;</span> <span class="mi">1</span>
+<span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">044</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="n">array</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="o">]</span>
+</pre></div>
+
+
+<h3 id="delete-a-specific-value">Delete a specific value<a class="headerlink" href="#delete-a-specific-value" title="Permanent link">&para;</a></h3>
+<p>Using the <code>delete</code> method we can delete a specific value from the array as follows :</p>
+<div class="codehilite"><pre><span></span><span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">060</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="n">array</span> <span class="o">=</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="o">]</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="o">]</span>
+<span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">061</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="n">array</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="mi">3</span>
+<span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">062</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="n">array</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="o">]</span>
+</pre></div>
+
+
+<h3 id="delete-a-value-at-a-position">Delete a value at a position<a class="headerlink" href="#delete-a-value-at-a-position" title="Permanent link">&para;</a></h3>
+<p>We can use the <code>delete_at</code> method to remove the value at a specific position as follows :</p>
+<div class="codehilite"><pre><span></span><span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">064</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="n">array</span> <span class="o">=</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="o">]</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="o">]</span>
+<span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">065</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="n">array</span><span class="o">.</span><span class="n">delete_at</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="mi">2</span>
+<span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">066</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="n">array</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="o">]</span>
+</pre></div>
+
+
+<h3 id="delete-nil-array-elements">Delete nil array elements<a class="headerlink" href="#delete-nil-array-elements" title="Permanent link">&para;</a></h3>
+<p>We can use the <code>compact</code> method to remove nil array elements as follows :</p>
+<div class="codehilite"><pre><span></span><span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">070</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="n">array</span> <span class="o">=</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span><span class="kp">nil</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="kp">nil</span><span class="p">,</span><span class="mi">5</span><span class="o">]</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="kp">nil</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="kp">nil</span><span class="p">,</span> <span class="mi">5</span><span class="o">]</span>
+<span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">071</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="n">array</span><span class="o">.</span><span class="n">compact</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="o">]</span>
+</pre></div>
+
+
+<h2 id="array-methods">Array Methods<a class="headerlink" href="#array-methods" title="Permanent link">&para;</a></h2>
+<p>Arrays contains a lot fo methods, here are some interesting ones :</p>
+<ul>
+<li><code>length</code></li>
+<li><code>size</code></li>
+<li><code>count</code></li>
+<li><code>first</code></li>
+<li><code>last</code></li>
+<li><code>sample</code></li>
+<li><code>empty?</code></li>
+<li><code>sort</code></li>
+<li><code>shuffle</code></li>
+</ul>
+<h3 id="adding-elements-at-the-end-of-the-array">Adding elements at the end of the array<a class="headerlink" href="#adding-elements-at-the-end-of-the-array" title="Permanent link">&para;</a></h3>
+<p>We can use the <code>push</code> method or the <code>&lt;&lt;</code> to add items to the end of the array as follows :</p>
+<div class="codehilite"><pre><span></span><span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">072</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="o">].</span><span class="n">push</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="o">]</span>
+</pre></div>
+
+
+<p>Using the shift operator :</p>
+<div class="codehilite"><pre><span></span><span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">073</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="o">]</span> <span class="o">&lt;&lt;</span> <span class="mi">4</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="o">]</span>
+</pre></div>
+
+
+<h3 id="add-elements-at-the-beginning">Add elements at the beginning<a class="headerlink" href="#add-elements-at-the-beginning" title="Permanent link">&para;</a></h3>
+<p>We can add elements to the beginning of the array using <code>unshift</code> and <code>insert</code> method as follows :</p>
+<div class="codehilite"><pre><span></span><span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">074</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="o">].</span><span class="n">unshift</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="o">]</span>
+</pre></div>
+
+
+<p>Use insert to place the item at a specific position as follows :</p>
+<div class="codehilite"><pre><span></span><span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">075</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="o">].</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="o">]</span>
+</pre></div>
+
+
+<h2 id="looping-through-an-array">Looping Through An Array<a class="headerlink" href="#looping-through-an-array" title="Permanent link">&para;</a></h2>
+<p>We can loop through the array using iterators and blocks. The <code>each</code> iterator method returns each item within the array :</p>
+<div class="codehilite"><pre><span></span><span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">076</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="o">].</span><span class="n">each</span> <span class="p">{</span><span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="nb">p</span> <span class="n">item</span> <span class="p">}</span>
+<span class="mi">1</span>
+<span class="mi">2</span>
+<span class="mi">3</span>
+<span class="mi">4</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="o">]</span>
+</pre></div>
+
+
+<h3 id="loop-in-reverse">Loop in reverse<a class="headerlink" href="#loop-in-reverse" title="Permanent link">&para;</a></h3>
+<p>We can use the <code>reverse_each</code> to loop in reverse as follows :</p>
+<div class="codehilite"><pre><span></span><span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">077</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="o">].</span><span class="n">reverse_each</span> <span class="p">{</span><span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="nb">p</span> <span class="n">item</span> <span class="p">}</span>
+<span class="mi">4</span>
+<span class="mi">3</span>
+<span class="mi">2</span>
+<span class="mi">1</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="o">]</span>
+</pre></div>
+
+
+<h3 id="produce-a-new-array-based-on-transformation">Produce a new array based on transformation<a class="headerlink" href="#produce-a-new-array-based-on-transformation" title="Permanent link">&para;</a></h3>
+<p>We can use the <code>collect</code> to produce a transformation of some other array along with a block that takes one element and transforms it :</p>
+<div class="codehilite"><pre><span></span><span class="o">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="o">].</span><span class="n">map</span> <span class="p">{</span><span class="o">|</span><span class="n">x</span><span class="o">|</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span><span class="p">}</span>
+</pre></div>
+
+
+<p>We could also have used the <code>map</code> method. On arrays they produce the same output.</p>
+<h3 id="run-a-block-for-each-item-in-the-array">Run a block for each item in the array<a class="headerlink" href="#run-a-block-for-each-item-in-the-array" title="Permanent link">&para;</a></h3>
+<p>Using the <code>map</code> method, we can run a block of code for each item within the array without modifying the original array as follows :</p>
+<div class="codehilite"><pre><span></span><span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">07</span><span class="mi">8</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="o">].</span><span class="n">map</span> <span class="p">{</span><span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">item</span> <span class="o">*</span> <span class="n">item</span> <span class="p">}</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="o">]</span>
+</pre></div>
+
+
+<p>Using the <code>map!</code> modifies the original array as follows :</p>
+<div class="codehilite"><pre><span></span><span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mi">082</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="n">array</span><span class="o">.</span><span class="n">map!</span> <span class="p">{</span> <span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">item</span> <span class="o">*</span> <span class="n">item</span> <span class="p">}</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="o">]</span>
+<span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mi">083</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="n">array</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="o">]</span>
+</pre></div>
+
+
+<h3 id="looping-with-an-index">Looping with an index<a class="headerlink" href="#looping-with-an-index" title="Permanent link">&para;</a></h3>
+<p>We can loop through the items and also get access to the index using the <code>each_with_index</code> as follows :</p>
+<div class="codehilite"><pre><span></span><span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mi">086</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="n">array</span><span class="o">.</span><span class="n">each_with_index</span> <span class="p">{</span> <span class="o">|</span><span class="n">item</span><span class="p">,</span> <span class="n">index</span><span class="o">|</span> <span class="nb">p</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">index</span><span class="si">}</span><span class="s2"> </span><span class="si">#{</span><span class="n">item</span><span class="si">}</span><span class="s2">&quot;</span> <span class="p">}</span>
+<span class="s2">&quot;0 1&quot;</span>
+<span class="s2">&quot;1 4&quot;</span>
+<span class="s2">&quot;2 9&quot;</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="o">]</span>
+</pre></div>
+
+
+<h3 id="selecting-items-that-match">Selecting items that match<a class="headerlink" href="#selecting-items-that-match" title="Permanent link">&para;</a></h3>
+<p>We can use a block to select items that match a condition within a block as follows :</p>
+<div class="codehilite"><pre><span></span><span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mi">090</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="n">array</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="o">]</span>
+<span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mi">091</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="n">array</span><span class="o">.</span><span class="n">select</span> <span class="p">{</span><span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">item</span><span class="o">.</span><span class="n">even?</span> <span class="p">}</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="mi">4</span><span class="o">]</span>
+</pre></div>
+
+
+<p>We can use the <code>select!</code> to modify the original array.</p>
+<h3 id="rejecting-items-not-matching">Rejecting items not matching<a class="headerlink" href="#rejecting-items-not-matching" title="Permanent link">&para;</a></h3>
+<p>We can return items that does not match by using the <code>reject</code> method as follows :</p>
+<div class="codehilite"><pre><span></span><span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mi">092</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="n">array</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="o">]</span>
+<span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mi">093</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="n">array</span><span class="o">.</span><span class="n">reject</span> <span class="p">{</span> <span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">item</span><span class="o">.</span><span class="n">even?</span> <span class="p">}</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="o">]</span>
+</pre></div>
+
+
+<h3 id="remove-item-with-a-condition">Remove item with a condition<a class="headerlink" href="#remove-item-with-a-condition" title="Permanent link">&para;</a></h3>
+<p>We can use the <code>delete_if</code> to remove items that match a condition as follows :</p>
+<div class="codehilite"><pre><span></span><span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mi">094</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="n">array</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="o">]</span>
+<span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mi">095</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="n">array</span><span class="o">.</span><span class="n">delete_if</span> <span class="p">{</span><span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">item</span><span class="o">.</span><span class="n">even?</span><span class="p">}</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="o">]</span>
+</pre></div>
+
+
+<p>The <code>delete_if</code> method is destructive.</p>
+<h2 id="sorting-arrays">Sorting arrays<a class="headerlink" href="#sorting-arrays" title="Permanent link">&para;</a></h2>
+<p>You can sort homogeneous arrays of common data types, like strings or numbers, "naturally" by just calling Array#sort:</p>
+<div class="codehilite"><pre><span></span><span class="o">[</span><span class="mi">5</span><span class="o">.</span><span class="mo">01</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="o">].</span><span class="n">sort</span>                           <span class="c1"># =&gt; [-5, 0, 5, 5.01]</span>
+<span class="o">[</span><span class="s2">&quot;Utahraptor&quot;</span><span class="p">,</span> <span class="s2">&quot;Ankylosaur&quot;</span><span class="p">,</span> <span class="s2">&quot;Maiasaur&quot;</span><span class="o">].</span><span class="n">sort</span>   <span class="c1"># =&gt; [&quot;Ankylosaur&quot;, &quot;Maiasaur&quot;, &quot;Utahraptor&quot;]</span>
+</pre></div>
+
+
+<p>To sort objects based on one of their data members, or by the results of a method call, use Array#sort_by. This code sorts an array of arrays by size, regardless of their contents:</p>
+<div class="codehilite"><pre><span></span><span class="n">arrays</span> <span class="o">=</span> <span class="o">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="o">]</span><span class="p">,</span> <span class="o">[</span><span class="mi">100</span><span class="o">]</span><span class="p">,</span> <span class="o">[</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="o">]]</span>
+<span class="n">arrays</span><span class="o">.</span><span class="n">sort_by</span> <span class="p">{</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span> <span class="n">x</span><span class="o">.</span><span class="n">size</span> <span class="p">}</span>       <span class="c1"># =&gt; [[100], [10, 20], [1, 2, 3]]</span>
+</pre></div>
+
+
+<p>We can use a code block to define a sort routine :</p>
+<div class="codehilite"><pre><span></span><span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">26</span><span class="p">,</span> <span class="mi">10000</span><span class="o">].</span><span class="n">sort</span> <span class="k">do</span> <span class="o">|</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">|</span>
+    <span class="n">x</span><span class="o">==</span><span class="mi">42</span> <span class="o">?</span> <span class="mi">1</span> <span class="p">:</span> <span class="n">x</span><span class="o">&lt;=&gt;</span><span class="n">y</span>
+<span class="k">end</span>
+<span class="c1"># =&gt; [1, 23, 26, 100, 10000, 42]</span>
+</pre></div>
+
+
+<p>Change the sort order an objects :</p>
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">Animal</span>
+    <span class="kp">attr_reader</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:eyes</span><span class="p">,</span> <span class="ss">:appendages</span>
+    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="nb">name</span><span class="p">,</span> <span class="n">eyes</span><span class="p">,</span> <span class="n">appendages</span><span class="p">)</span>
+        <span class="vi">@name</span><span class="p">,</span> <span class="vi">@eyes</span><span class="p">,</span> <span class="vi">@appendages</span> <span class="o">=</span> <span class="nb">name</span><span class="p">,</span> <span class="n">eyes</span><span class="p">,</span> <span class="n">appendages</span>
+    <span class="k">end</span>
+    <span class="k">def</span> <span class="nf">inspect</span>
+        <span class="vi">@name</span>
+    <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">animals</span> <span class="o">=</span> <span class="o">[</span><span class="no">Animal</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;octopus&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>
+            <span class="no">Animal</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;spider&quot;</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>
+            <span class="no">Animal</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;bee&quot;</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span>
+            <span class="no">Animal</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;elephant&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+            <span class="no">Animal</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;crab&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span><span class="o">]</span>
+<span class="n">animals</span><span class="o">.</span><span class="n">sort_by</span> <span class="p">{</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span> <span class="n">x</span><span class="o">.</span><span class="n">eyes</span> <span class="p">}</span>
+<span class="c1"># =&gt; [octopus, elephant, crab, bee, spider]</span>
+<span class="n">animals</span><span class="o">.</span><span class="n">sort_by</span> <span class="p">{</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span> <span class="n">x</span><span class="o">.</span><span class="n">appendages</span> <span class="p">}</span>
+<span class="c1"># =&gt; [elephant, bee, octopus, spider, crab]</span>
+</pre></div>
+
+
+<p>If you pass a block into sort, Ruby calls the block to make comparisons instead of using the comparison operator.</p>
+<h3 id="shuffling-an-array">Shuffling an array<a class="headerlink" href="#shuffling-an-array" title="Permanent link">&para;</a></h3>
+<p>In the older Ruby they was no method to shuffle. In the Ruby 2, the method <code>shuffle</code> was introduced. Here is a demo of shuffling a deck of cards :</p>
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">Card</span>
+    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">suit</span><span class="p">,</span> <span class="n">rank</span><span class="p">)</span>
+        <span class="vi">@suit</span> <span class="o">=</span> <span class="n">suit</span>
+        <span class="vi">@rank</span> <span class="o">=</span> <span class="n">rank</span>
+    <span class="k">end</span>
+    <span class="k">def</span> <span class="nf">to_s</span>
+        <span class="s2">&quot;</span><span class="si">#{</span><span class="vi">@suit</span><span class="si">}</span><span class="s2"> of </span><span class="si">#{</span><span class="vi">@rank</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">class</span> <span class="nc">Deck</span> <span class="o">&lt;</span> <span class="nb">Array</span>
+    <span class="kp">attr_reader</span> <span class="ss">:cards</span>
+    <span class="vc">@@suits</span> <span class="o">=</span> <span class="sx">%w{Spades Hearts Clubs Diamonds}</span>
+    <span class="vc">@@ranks</span> <span class="o">=</span> <span class="sx">%w{Ace 2 3 4 5 6 7 8 9 10 Jack Queen King}</span>
+    <span class="k">def</span> <span class="nf">initialize</span>
+        <span class="vc">@@suits</span><span class="o">.</span><span class="n">each</span> <span class="p">{</span> <span class="o">|</span><span class="n">suit</span><span class="o">|</span> <span class="vc">@@ranks</span><span class="o">.</span><span class="n">each</span> <span class="p">{</span> <span class="o">|</span><span class="n">rank</span><span class="o">|</span> <span class="nb">self</span> <span class="o">&lt;&lt;</span> <span class="no">Card</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">rank</span><span class="p">,</span> <span class="n">suit</span><span class="p">)</span> <span class="p">}</span> <span class="p">}</span>
+    <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">deck</span> <span class="o">=</span> <span class="no">Deck</span><span class="o">.</span><span class="n">new</span>
+<span class="n">deck</span><span class="o">.</span><span class="n">collect</span> <span class="p">{</span> <span class="o">|</span><span class="n">card</span><span class="o">|</span> <span class="n">card</span><span class="o">.</span><span class="n">to_s</span> <span class="p">}</span>
+<span class="c1"># =&gt; [&quot;Ace of Spades&quot;, &quot;2 of Spades&quot;, &quot;3 of Spades&quot;, &quot;4 of Spades&quot;, ...] deck.shuffle!</span>
+<span class="n">deck</span><span class="o">.</span><span class="n">collect</span> <span class="p">{</span> <span class="o">|</span><span class="n">card</span><span class="o">|</span> <span class="n">card</span><span class="o">.</span><span class="n">to_s</span> <span class="p">}</span>
+<span class="c1"># =&gt; [&quot;6 of Clubs&quot;, &quot;8 of Diamonds&quot;, &quot;2 of Hearts&quot;, &quot;5 of Clubs&quot;, ...]</span>
+</pre></div>
+
+
+<h2 id="exercises">Exercises<a class="headerlink" href="#exercises" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p>Loop through the array and only choose the letters :</p>
+<p><code>ruby
+array = ['1', 'a', '2', 'b', '3', 'c']</code>
+The expected output is <code>a b c</code>.
+2. Make the each of the following characters uppercase, show at least two ways :</p>
+<p><code>ruby
+array = ['a', 'b', 'c']</code>
+3. Remove duplicates from the following array :</p>
+<p><code>ruby
+survey_results = [1, 2, 7, 1, 1, 5, 2, 5, 1]</code>
+Also try use the set collection. You can find the Set class by adding the Set standard libary as follows :</p>
+<p><code>ruby
+require 'set'</code></p>
+<p>Show also the frequency of the duplicate characters.
+4. Sum the items of the array :</p>
+<p><code>ruby
+collection = [1, 2, 3, 4, 5]</code>
+5. Sort the array by the frequency of the words in the sentence.
+6. Generate a deck of the 52 cards. Use the following start code :</p>
+<p><code>ruby
+suits = %w{Spades Hearts Clubs Diamonds}
+ranks = %w{Ace 2 3 4 5 6 7 8 9 10 Jack Queen King}</code>
+7. Get the smallest and biggest top and bottom 5 of the following array :</p>
+<p><code>ruby
+[1,60,21,100,-5,20,60,22,85,91,4,66]</code>
+8. Find the smallest word in a sentence.
+9. Decompose an array with duplicate values into a hash. Use this as sample :</p>
+<p><code>ruby
+raw_data = [ [1, 'a'], [1, 'b'], [1, 'c'],
+                [2, 'a'], [2, ['b', 'c']],
+                [3, 'c'] ]</code>
+The expected output is as follows :</p>
+<p>```ruby</p>
+<h1 id="1a-b-c-2a-b-c-3c">=&gt; {1=&gt;["a", "b", "c"], 2=&gt;["a", ["b", "c"]], 3=&gt;["c"]}<a class="headerlink" href="#1a-b-c-2a-b-c-3c" title="Permanent link">&para;</a></h1>
+<p>```</p>
+</li>
+</ol>
+<h2 id="solution">Solution<a class="headerlink" href="#solution" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p>We can use the <code>step</code> by skipping 2 steps:</p>
+<p><code>ruby
+(0..array.count).step(2) {|i| p array[i + 1] }</code>
+2. The solution is to perform an operation on the array using <code>map</code> or <code>collect</code> as follows :</p>
+<p><code>ruby
+array.collect {|c| c.upcase }
+array.map {|c| c.upcase }</code>
+You could do something interesting we havent covered yet using lambdas as follows :</p>
+<p><code>ruby
+upcase = -&gt;(c){ c.downcase } # create a lambda expression
+array.map(&amp;upcase) # pass a lambda into the map.</code>
+3. We can use the <code>uniq</code> method to remove duplicates from an array.</p>
+<p><code>ruby
+survey_results.uniq</code></p>
+<p>or using a Set as follows :</p>
+<p>```ruby
+require 'set'</p>
+<p>s = Set.new
+survey_results.each {|c| s.add}
+```
+4. This is one of the many solutions :</p>
+<p><code>ruby
+collection.inject(0) {|sum, i| sum + i} # =&gt; 15</code>
+5. We first need to construct a histogram. Then we can use the <code>sort_by</code> method as follows :</p>
+<p><code>ruby
+w = "This is a is a is a word is this sentence"
+hist = w.split.inject(Hash.new(0)) {|hash,v| hash[v] += 1; hash }
+w.split.sort_by {|x| [hist[x], x]}</code></p>
+<p>And we can sort distinctly as follows :</p>
+<p><code>ruby
+hist.keys.sort_by { |x| [hist[x], x] }</code>
+6. We can just embed an <code>each</code> block inside another one.
+7. The idea is to sort the list first and then extract the values :</p>
+<p>```ruby
+l = [1,60,21,100,-5,20,60,22,85,91,4,66] sorted = l.sort</p>
+<h1 id="the-top-5">The top 5<a class="headerlink" href="#the-top-5" title="Permanent link">&para;</a></h1>
+<p>sorted[-5...sorted.size] # =&gt; [60, 66, 85, 91, 100]</p>
+<h1 id="the-bottom-5">The bottom 5<a class="headerlink" href="#the-bottom-5" title="Permanent link">&para;</a></h1>
+<p>sorted[0...5]</p>
+<h1 id="-5-1-4-20-21">=&gt; [-5, 1, 4, 20, 21]<a class="headerlink" href="#-5-1-4-20-21" title="Permanent link">&para;</a></h1>
+<p><code>``
+8. We can use the</code>min` on the Array and pass in a block for comparison as follows :</p>
+</li>
+</ol>
+<div class="codehilite"><pre><span></span><span class="n">w</span> <span class="o">=</span> <span class="s2">&quot;This is a is a is a word is this sentence&quot;</span>
+<span class="n">w</span><span class="o">.</span><span class="n">split</span><span class="o">.</span><span class="n">min</span> <span class="p">{</span><span class="o">|</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="o">|</span> <span class="n">x</span><span class="o">.</span><span class="n">size</span> <span class="o">&lt;=&gt;</span> <span class="n">y</span><span class="o">.</span><span class="n">size</span> <span class="p">}</span>
+</pre></div>
+
+
+<ol>
+<li>We can build a hash using the first values from the array as follows :</li>
+</ol>
+<div class="codehilite"><pre><span></span><span class="nb">hash</span> <span class="o">=</span> <span class="no">Hash</span><span class="o">.</span><span class="n">new</span> <span class="p">{</span> <span class="o">|</span><span class="nb">hash</span><span class="p">,</span> <span class="n">key</span><span class="o">|</span> <span class="nb">hash</span><span class="o">[</span><span class="n">key</span><span class="o">]</span> <span class="o">=</span> <span class="o">[]</span> <span class="p">}</span>
+    <span class="n">raw_data</span> <span class="o">=</span> <span class="o">[</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="o">]</span><span class="p">,</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="o">]</span><span class="p">,</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="o">]</span><span class="p">,</span>
+                 <span class="o">[</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="o">]</span><span class="p">,</span> <span class="o">[</span><span class="mi">2</span><span class="p">,</span> <span class="o">[</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="o">]]</span><span class="p">,</span>
+                 <span class="o">[</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="o">]</span> <span class="o">]</span>
+    <span class="n">raw_data</span><span class="o">.</span><span class="n">each</span> <span class="p">{</span> <span class="o">|</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="o">|</span> <span class="nb">hash</span><span class="o">[</span><span class="n">x</span><span class="o">]</span> <span class="o">&lt;&lt;</span> <span class="n">y</span> <span class="p">}</span>
+<span class="nb">hash</span>
+</pre></div>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav" style="background-color: #ff9900">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../strings/" title="Strings" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Strings
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../hashes/" title="Hashes" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Hashes
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset" style="background-color: #ff9900">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2018 - Peruzal
+          </div>
+        
+      </div>
+      
+        
+  <div class="md-footer-social">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+      <a href="https://github.com/peruzal" class="md-footer-social__link fa fa-github"></a>
+    
+      <a href="https://twitter.com/peruzal" class="md-footer-social__link fa fa-twitter"></a>
+    
+  </div>
+
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application.b438e6c5.js"></script>
+      
+      <script>app.initialize({version:"0.17.3",url:{base:".."}})</script>
+      
+    
+    
+      
+        <script>!function(e,a,t,n,o,c,i){e.GoogleAnalyticsObject=o,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,c=a.createElement(t),i=a.getElementsByTagName(t)[0],c.async=1,c.src="https://www.google-analytics.com/analytics.js",i.parentNode.insertBefore(c,i)}(window,document,"script",0,"ga"),ga("create","UA_40772582_8","auto"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");if(Array.prototype.map.call(links,function(e){e.host!=document.location.host&&e.addEventListener("click",function(){var a=e.getAttribute("data-md-action")||"follow";ga("send","event","outbound",a,e.href)})}),document.forms.search){var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}</script>
+      
+    
+  </body>
+</html>

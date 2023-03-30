@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Exercises on Introduction to SQL</title>
+    <link>http://guides.peruzal.com/introduction-to-sql/exercises/index.xml</link>
+    <description>Recent content in Exercises on Introduction to SQL</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Copyright 2017 Peruzal</copyright>
+    <lastBuildDate>Sun, 12 Mar 2017 22:34:38 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/introduction-to-sql/exercises/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Exercises</title>
+      <link>http://guides.peruzal.com/introduction-to-sql/exercises/</link>
+      <pubDate>Sun, 12 Mar 2017 22:34:38 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/introduction-to-sql/exercises/</guid>
+      <description>
+
+&lt;h2 id=&#34;connecting-to-the-database&#34;&gt;Connecting to the Database&lt;/h2&gt;
+
+&lt;p&gt;To connect to an MS SQL Server you will need the following :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Either a Windows user account with database login access&lt;/li&gt;
+&lt;li&gt;or a an sql user registered with the database&lt;/li&gt;
+&lt;li&gt;You will also need the hostname/ip address of the server with the database&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;choose-a-database&#34;&gt;Choose a Database&lt;/h2&gt;
+
+&lt;p&gt;You use the &lt;strong&gt;USE&lt;/strong&gt; statement to select a database to work, e.g&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;USE AdventureWorks;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Alternatively with SMSS(SQL Server Management Studio), you can choose the database you want to work with from the drop down.&lt;/p&gt;
+
+&lt;h2 id=&#34;retrieving-specific-columns&#34;&gt;Retrieving Specific Columns&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;Problem&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;You have a table or a view. You wish to retrieve data from specific columns.&lt;/p&gt;
+
+&lt;h3 id=&#34;solution&#34;&gt;Solution&lt;/h3&gt;
+
+&lt;p&gt;Write a &lt;strong&gt;SELECT&lt;/strong&gt; statement. List the columns you wish returned following the &lt;strong&gt;SELECT&lt;/strong&gt; keyword. The following example demonstrates a very simple &lt;strong&gt;SELECT&lt;/strong&gt; against the &lt;em&gt;AdventureWorks&lt;/em&gt; database, whereby three columns are returned, along with several rows from the &lt;em&gt;HumanResources.Employee&lt;/em&gt; table.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT NationalIDNumber,    LoginID,    JobTitle 
+FROM  HumanResources.Employee
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;analysis&#34;&gt;Analysis&lt;/h3&gt;
+
+&lt;p&gt;The &lt;strong&gt;FROM&lt;/strong&gt; clause specifies the data source, which in this example is a table. Notice the two-part name of &lt;em&gt;HumanResources.Employee&lt;/em&gt;. The first part (the part before the period) is the &lt;em&gt;schema&lt;/em&gt;, and the second part (after the period) is the actual table name. A schema contains the object, and that schema is then owned by a user. Because users own a schema, and the schema contains the object, you can change the owner of the schema without having to modify object ownership.&lt;/p&gt;
+
+&lt;h2 id=&#34;retrieving-all-columns&#34;&gt;Retrieving All Columns&lt;/h2&gt;
+
+&lt;h3 id=&#34;problem&#34;&gt;Problem&lt;/h3&gt;
+
+&lt;p&gt;You are writing an ad hoc query. You wish to retrieve all columns from a table or view without having to type all the column names.&lt;/p&gt;
+
+&lt;h3 id=&#34;solution-1&#34;&gt;Solution&lt;/h3&gt;
+
+&lt;p&gt;Specify an asterisk (*) instead of a column list. Doing so causes SQL Server to return all columns from the table or view. For example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT * 
+FROM  HumanResources.Employee; 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;analysis-1&#34;&gt;Analysis&lt;/h3&gt;
+
+&lt;p&gt;The asterisk symbol (*) returns all columns of the table or view you are querying.&lt;/p&gt;
+
+&lt;div class=&#34;admonition note&#34;&gt;
+&lt;p class=&#34;admonition-title&#34;&gt;Using SELECT *&lt;/p&gt;
+&lt;p&gt;Please remember that, as good practice, it is better to reference the columns you want to retrieve explicitly instead of using SELECT *.&lt;/p&gt;
+
+&lt;p&gt;Using SELECT * can also negatively affect performance, as you may be returning more data than you need over the network, increasing the result set size and data retrieval operations on the SQL Server instance&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;specifying-the-rows-to-be-returned&#34;&gt;Specifying the Rows to Be Returned&lt;/h2&gt;
+
+&lt;h3 id=&#34;problem-1&#34;&gt;Problem&lt;/h3&gt;
+
+&lt;p&gt;You do not want to return all rows from a table or a view. You want to restrict query results to only those
+rows of interest.&lt;/p&gt;
+
+&lt;h3 id=&#34;solution-2&#34;&gt;Solution&lt;/h3&gt;
+
+&lt;p&gt;Specify a &lt;strong&gt;WHERE&lt;/strong&gt; clause giving the conditions that rows must meet in order to be returned. For example, the
+following query returns only rows in which the person’s title is “Ms.”&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT Title, FirstName, LastName
+FROM Person.Person
+WHERE Title = &#39;Ms.&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You may combine multiple conditions in a &lt;strong&gt;WHERE&lt;/strong&gt; clause through the use of the keywords &lt;strong&gt;AND&lt;/strong&gt; and &lt;strong&gt;OR&lt;/strong&gt;. The
+following query looks specifically for &lt;em&gt;Ms. Antrim’s&lt;/em&gt; data:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT Title, FirstName, LastName
+FROM Person.Person
+WHERE Title = &#39;Ms.&#39; AND
+LastName = &#39;Antrim&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;analysis-2&#34;&gt;Analysis&lt;/h3&gt;
+
+&lt;p&gt;The &lt;strong&gt;WHERE&lt;/strong&gt; clause provides search conditions that determine the rows returned by the query. Search conditions are written as predicates, which are expressions that evaluate to one of the Boolean results of &lt;strong&gt;TRUE&lt;/strong&gt;, &lt;strong&gt;FALSE&lt;/strong&gt;, or &lt;strong&gt;UNKNOWN&lt;/strong&gt;. Only rows for which the final evaluation of the &lt;strong&gt;WHERE&lt;/strong&gt; clause is &lt;strong&gt;TRUE&lt;/strong&gt; are returned.&lt;/p&gt;
+
+&lt;p&gt;Use the OR operator to specify alternate choices. Use parentheses to clarify the order of operations. For
+example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;WHERE Title = &#39;Ms.&#39; AND
+(LastName = &#39;Antrim&#39; OR LastName = &#39;Galvin&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can write multiple operators &lt;strong&gt;(AND, OR, NOT)&lt;/strong&gt; in a single &lt;strong&gt;WHERE&lt;/strong&gt; clause, but it is important to make
+your intentions clear by properly embedding your &lt;strong&gt;ANDs&lt;/strong&gt; and &lt;strong&gt;ORs&lt;/strong&gt; in parentheses. The &lt;strong&gt;NOT&lt;/strong&gt; operator takes
+precedence (is evaluated first) before &lt;strong&gt;AND&lt;/strong&gt;. The &lt;strong&gt;AND&lt;/strong&gt; operator takes precedence over the &lt;strong&gt;OR&lt;/strong&gt; operator. Using
+both &lt;strong&gt;AND&lt;/strong&gt; and** **OR operators in the same &lt;strong&gt;WHERE&lt;/strong&gt; clause without parentheses can return unexpected results. For
+example, the following query may return unintended results:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT Title, FirstName, LastName
+FROM Person.Person
+WHERE Title = &#39;Ms.&#39; AND
+FirstName = &#39;Catherine&#39; OR
+LastName = &#39;Adams&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Is the intention to return results for all rows with a Title of &lt;em&gt;“Ms.”&lt;/em&gt;, and of those rows, only include those with
+a &lt;em&gt;FirstName&lt;/em&gt; of &lt;em&gt;Catherine&lt;/em&gt; or a &lt;em&gt;LastName&lt;/em&gt; of Adams? Or did the query author wish to search for all people
+named “Ms.” with a &lt;em&gt;FirstName&lt;/em&gt; of &lt;em&gt;Catherine&lt;/em&gt;, as well as anyone with a &lt;em&gt;LastName&lt;/em&gt; of &lt;em&gt;Adams&lt;/em&gt;?&lt;/p&gt;
+
+&lt;h2 id=&#34;specifying-a-range-of-values&#34;&gt;Specifying A Range of Values&lt;/h2&gt;
+
+&lt;h3 id=&#34;problem-2&#34;&gt;Problem&lt;/h3&gt;
+
+&lt;p&gt;You wish to specify a range of values as a search condition. For example, you are querying a table having a date
+column. You wish to return rows having dates only in a specified range of interest.&lt;/p&gt;
+
+&lt;h3 id=&#34;solution-3&#34;&gt;Solution&lt;/h3&gt;
+
+&lt;p&gt;Write a predicate involving the &lt;strong&gt;BETWEEN&lt;/strong&gt; operator. That operator allows you to specify a range of values, in this
+case of date values. For example, to find sales orders placed between the dates July 23, 2005 and July 24, 2005:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT SalesOrderID, ShipDate
+FROM Sales.SalesOrderHeader
+WHERE ShipDate BETWEEN &#39;2005-07-23T00:00:00&#39;
+AND &#39;2005-07-24T23:59:59&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;checking-for-null-values&#34;&gt;Checking for NULL Values&lt;/h2&gt;
+
+&lt;h3 id=&#34;problem-3&#34;&gt;Problem&lt;/h3&gt;
+
+&lt;p&gt;Some of the values in a column might be NULL. You wish to identify rows having or not having NULL values.&lt;/p&gt;
+
+&lt;h3 id=&#34;solution-4&#34;&gt;Solution&lt;/h3&gt;
+
+&lt;p&gt;Make use of the IS NULL and IS NOT NULL tests to identify rows having or not having NULL values in a given
+column. For example, the following query returns any rows for which the value of the product’s weight is
+unknown:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT ProductID, Name, Weight
+FROM Production.Product
+WHERE Weight IS NULL;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;admonition note&#34;&gt;
+&lt;p class=&#34;admonition-title&#34;&gt;Checking NULL Values&lt;/p&gt;
+&lt;p&gt;NULL values cannot be identified using operators such as = and &amp;lt;&amp;gt; that are designed to compare two values
+and return a TRUE or FALSE result.&lt;/p&gt;
+
+&lt;p&gt;IS NULL however, is specifically designed to return TRUE when a value is NULL. Likewise, the expression IS
+NOT NULL returns TRUE when a value is not NULL. Predicates involving IS NULL and IS NOT NULL enable you to
+filter for rows having or not having NULL values in one or more columns.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;providing-a-list-of-values&#34;&gt;Providing a List of Values&lt;/h2&gt;
+
+&lt;h3 id=&#34;problem-4&#34;&gt;Problem&lt;/h3&gt;
+
+&lt;p&gt;You are searching for matches to a specific list of values. You could write a string of predicates joined by OR
+operators. But you prefer a more easily readable and maintainable solution.&lt;/p&gt;
+
+&lt;h3 id=&#34;solution-5&#34;&gt;Solution&lt;/h3&gt;
+
+&lt;p&gt;Create a predicate involving the IN operator, which allows you to specify an arbitrary list of values. For example,
+the IN operator in the following query tests the equality of the Color column to a list of expressions:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT ProductID,
+Name,
+Color
+FROM Production.Product
+WHERE Color IN (&#39;Silver&#39;, &#39;Black&#39;, &#39;Red&#39;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;analysis-3&#34;&gt;Analysis&lt;/h3&gt;
+
+&lt;p&gt;Use the IN operator any time you have a specific list of values. You can think of IN as shorthand for multiple OR
+expressions. For example, the following two WHERE clauses are semantically equivalent:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;WHERE Color IN (&#39;Silver&#39;, &#39;Black&#39;, &#39;Red&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;WHERE Color = &#39;Silver&#39; OR Color = &#39;Black&#39; OR Color = &#39;Red&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;performing-wildcard-searches&#34;&gt;Performing Wildcard Searches&lt;/h2&gt;
+
+&lt;h3 id=&#34;problem-5&#34;&gt;Problem&lt;/h3&gt;
+
+&lt;p&gt;You don’t have a specific value or list of values to find. What you do have is a general pattern, and you want to
+find all values that match that pattern.&lt;/p&gt;
+
+&lt;h3 id=&#34;solution-6&#34;&gt;Solution&lt;/h3&gt;
+
+&lt;p&gt;Make use of the &lt;strong&gt;LIKE&lt;/strong&gt; predicate, which provides a set of basic pattern-matching capabilities. Create a string using so-called wildcards to serve as a search expression.&lt;/p&gt;
+
+&lt;p&gt;The following example demonstrates using the LIKE operation with the % wildcard, searching for any product
+with a name beginning with the letter B:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT ProductID,
+Name
+FROM Production.Product
+WHERE Name LIKE &#39;B%&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;sorting-your-results&#34;&gt;Sorting Your Results&lt;/h2&gt;
+
+&lt;h3 id=&#34;problem-6&#34;&gt;Problem&lt;/h3&gt;
+
+&lt;p&gt;You are executing a query, and you wish the results to come back in a specific order.&lt;/p&gt;
+
+&lt;p&gt;###Solution&lt;/p&gt;
+
+&lt;p&gt;Write an &lt;strong&gt;ORDER BY&lt;/strong&gt; clause into your query. Specify the columns on which to sort. Place the clause at the very end
+of your query.&lt;/p&gt;
+
+&lt;p&gt;This next example demonstrates ordering the query results by columns &lt;em&gt;ProductID&lt;/em&gt; and &lt;em&gt;EndDate&lt;/em&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT p.Name, h.EndDate, h.ListPrice
+FROM Production.Product AS p
+INNER JOIN Production.ProductListPriceHistory AS h
+ON p.ProductID = h.ProductID
+ORDER BY p.Name,
+h.EndDate;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;specifying-sort-order&#34;&gt;Specifying Sort Order&lt;/h2&gt;
+
+&lt;h3 id=&#34;problem-7&#34;&gt;Problem&lt;/h3&gt;
+
+&lt;p&gt;You do not want the default, ascending-order sort. You want to sort by one or more columns in descending order.&lt;/p&gt;
+
+&lt;h3 id=&#34;solution-7&#34;&gt;Solution&lt;/h3&gt;
+
+&lt;p&gt;Make use of the keywords &lt;strong&gt;ASC&lt;/strong&gt; and &lt;strong&gt;ASCENDING&lt;/strong&gt;, or &lt;strong&gt;DESC&lt;/strong&gt; and &lt;strong&gt;DESCENDING&lt;/strong&gt;, to specify the sort direction. Apply these
+keywords to each sort column as you desire.
+This next example sorts on the same two columns as Recipe 1-13’s query, but this time in descending order
+for each of those columns:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT p.Name,
+h.EndDate,
+h.ListPrice
+FROM Production.Product AS p
+INNER JOIN Production.ProductListPriceHistory AS h
+ON p.ProductID = h.ProductID
+ORDER BY p.Name DESC,
+h.EndDate DESC;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;sorting-by-columns-not-selected&#34;&gt;Sorting by Columns Not Selected&lt;/h2&gt;
+
+&lt;h3 id=&#34;problem-8&#34;&gt;Problem&lt;/h3&gt;
+
+&lt;p&gt;You want to sort by columns not returned by the query.&lt;/p&gt;
+
+&lt;h3 id=&#34;solution-8&#34;&gt;Solution&lt;/h3&gt;
+
+&lt;p&gt;Simply specify the columns you wish to sort by. They do not need to be in your query results. For example, you
+can return a list of product names sorted by color without returning the colors:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT p.Name
+FROM Production.Product AS p
+ORDER BY p.Color;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;admonition note&#34;&gt;
+&lt;p class=&#34;admonition-title&#34;&gt;SELECT DISTINCT&lt;/p&gt;
+&lt;p&gt;When using a SELECT DISTINCT, the columns used in the ORDER BY should appear in the SELECT columns list.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;forcing-unusual-sort-orders&#34;&gt;Forcing Unusual Sort Orders&lt;/h2&gt;
+
+&lt;h3 id=&#34;problem-9&#34;&gt;Problem&lt;/h3&gt;
+
+&lt;p&gt;You wish to force a sort order not directly supported by the data. For example, you wish to retrieve only the
+colored products, and you further wish to force the color red to sort first.&lt;/p&gt;
+
+&lt;h3 id=&#34;solution-9&#34;&gt;Solution&lt;/h3&gt;
+
+&lt;p&gt;Write an expression to translate values in the data to values that will give the sort order you are after. Then order
+your query results by that expression. Following is one approach to the problem of retrieving colored parts and
+listing the red ones first:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT p.ProductID,
+p.Name,
+p.Color
+FROM Production.Product AS p
+WHERE p.Color IS NOT NULL
+ORDER BY CASE p.Color
+WHEN &#39;Red&#39; THEN NULL
+ELSE p.Color
+END;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;analysis-4&#34;&gt;Analysis&lt;/h3&gt;
+
+&lt;p&gt;The solution takes advantage of the fact that SQL Server sorts nulls first. The CASE expression returns NULL for
+red-colored items, thus forcing those first. Other colors are returned unchanged. The result is all the red items
+first in the list, and then red is followed by other colors in their natural sort order.
+You don’t have to rely upon nulls sorting first. Here is another version of the query to illustrate that and one
+other point:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT p.ProductID,
+p.Name,
+p.Color
+FROM Production.Product AS p
+WHERE p.Color IS NOT NULL
+ORDER BY CASE LOWER(p.Color)
+WHEN &#39;red&#39; THEN &#39; &#39;
+ELSE LOWER(p.Color)
+END;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This version of the query returns the same results as before. The value ‘Red’ is converted into a single space,
+which sorts before all the spelled-out color names. The CASE expression specifies &lt;strong&gt;LOWER(p.Color)&lt;/strong&gt; to ensure
+&lt;em&gt;‘Red’, ‘RED’, ‘red’&lt;/em&gt;, and so forth are all treated the same.&lt;/p&gt;
+
+&lt;h2 id=&#34;paging-through-a-result-set&#34;&gt;Paging Through A Result Set&lt;/h2&gt;
+
+&lt;h3 id=&#34;problem-10&#34;&gt;Problem&lt;/h3&gt;
+
+&lt;p&gt;You wish to present a result set to an application user N rows at a time.&lt;/p&gt;
+
+&lt;h3 id=&#34;solution-10&#34;&gt;Solution&lt;/h3&gt;
+
+&lt;p&gt;Make use of the query paging feature that is brand new in SQL Server 2012. Do this by adding OFFSET and FETCH
+clauses to your query’s ORDER BY clause. For example, the following query uses OFFSET and FETCH to retrieve the
+first 10 rows of results:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT ProductID, Name
+FROM Production.Product
+ORDER BY Name
+OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Changing the offset from 0 to 8 will fetch another 10 rows. The offset will skip the first eight rows. There will
+be a two-row overlap with the preceding result set. Here is the query:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT ProductID, Name
+FROM Production.Product
+ORDER BY Name
+OFFSET 8 ROWS FETCH NEXT 10 ROWS ONLY;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You must specify an &lt;strong&gt;ORDER BY&lt;/strong&gt; clause! &lt;strong&gt;OFFSET&lt;/strong&gt; and &lt;strong&gt;FETCH&lt;/strong&gt; are actually considered as part of that clause. If you don’t specify a sort order, then rows can come back in any order&lt;/p&gt;
+
+&lt;p&gt;Consider executing sequences of paging queries from within a transaction providing a snapshot or serializable isolation. You could set an isolation level as follows :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SET TRANSACTION ISOLATION LEVEL SNAPSHOT;
+BEGIN TRANSACTION;
+… /* Queries go here */
+COMMIT;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

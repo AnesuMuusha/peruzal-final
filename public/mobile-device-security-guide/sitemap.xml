@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/getting-started/</loc>
+    <lastmod>2016-03-09T00:11:02+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/mobile-app-ecosystem/</loc>
+    <lastmod>2017-01-01T11:56:05+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/license/</loc>
+    <lastmod>2016-03-09T20:10:46+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-reset-lock-pattern/</loc>
+    <lastmod>2017-01-12T05:16:31+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-insecure-data-storage/</loc>
+    <lastmod>2017-01-08T17:16:38+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/rooting-android-devices/</loc>
+    <lastmod>2017-01-07T12:28:30+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-data-analysis-and-recovery/</loc>
+    <lastmod>2017-01-01T12:11:05+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/mobile-device-attack-vectors/</loc>
+    <lastmod>2017-01-01T11:55:46+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/mobile-malware/</loc>
+    <lastmod>2017-01-01T11:53:30+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-network-attacks/</loc>
+    <lastmod>2017-01-01T11:53:18+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-runtime-analysis/</loc>
+    <lastmod>2017-01-01T11:52:59+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-traffic-analysis/</loc>
+    <lastmod>2017-01-01T11:52:43+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-unintended-data-leakage/</loc>
+    <lastmod>2017-01-01T11:52:28+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-insecure-local-data-storage/</loc>
+    <lastmod>2017-01-01T11:52:12+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-data-analysis/</loc>
+    <lastmod>2017-01-01T11:51:37+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-data-acqusition/</loc>
+    <lastmod>2017-01-01T11:51:26+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/setting-up-ios-pentesting-lab/</loc>
+    <lastmod>2017-01-01T11:50:56+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/jailbreaking-ios-devices/</loc>
+    <lastmod>2017-01-01T11:50:32+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-internals/</loc>
+    <lastmod>2017-01-01T11:50:20+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/setting-up-ios-development-environment/</loc>
+    <lastmod>2017-01-01T11:49:54+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/owasp-mobile-top-10-risks/</loc>
+    <lastmod>2017-01-01T11:49:18+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-data-extraction/</loc>
+    <lastmod>2017-01-01T11:48:54+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-forensic-tools/</loc>
+    <lastmod>2017-01-01T11:48:39+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-security-model/</loc>
+    <lastmod>2017-01-01T11:48:14+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-fundamentals/</loc>
+    <lastmod>2017-01-01T11:47:51+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/setting-up-android-lab-environment/</loc>
+    <lastmod>2017-01-01T11:47:24+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/</loc>
+    <lastmod>2016-03-08T21:07:13+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-data-extraction/</loc>
+    <lastmod>2017-01-01T11:48:54+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-forensic-tools/</loc>
+    <lastmod>2017-01-01T11:48:39+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-fundamentals/</loc>
+    <lastmod>2017-01-01T11:47:51+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-insecure-data-storage/</loc>
+    <lastmod>2017-01-08T17:16:38+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-reset-lock-pattern/</loc>
+    <lastmod>2017-01-12T05:16:31+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-security-model/</loc>
+    <lastmod>2017-01-01T11:48:14+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/getting-started/</loc>
+    <lastmod>2016-03-09T00:11:02+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-data-acqusition/</loc>
+    <lastmod>2017-01-01T11:51:26+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-data-analysis/</loc>
+    <lastmod>2017-01-01T11:51:37+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-data-analysis-and-recovery/</loc>
+    <lastmod>2017-01-01T12:11:05+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-insecure-local-data-storage/</loc>
+    <lastmod>2017-01-01T11:52:12+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-internals/</loc>
+    <lastmod>2017-01-01T11:50:20+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-network-attacks/</loc>
+    <lastmod>2017-01-01T11:53:18+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-runtime-analysis/</loc>
+    <lastmod>2017-01-01T11:52:59+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-traffic-analysis/</loc>
+    <lastmod>2017-01-01T11:52:43+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-unintended-data-leakage/</loc>
+    <lastmod>2017-01-01T11:52:28+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/jailbreaking-ios-devices/</loc>
+    <lastmod>2017-01-01T11:50:32+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/license/</loc>
+    <lastmod>2016-03-09T20:10:46+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/mobile-app-ecosystem/</loc>
+    <lastmod>2017-01-01T11:56:05+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/mobile-device-attack-vectors/</loc>
+    <lastmod>2017-01-01T11:55:46+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/mobile-malware/</loc>
+    <lastmod>2017-01-01T11:53:30+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/owasp-mobile-top-10-risks/</loc>
+    <lastmod>2017-01-01T11:49:18+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/rooting-android-devices/</loc>
+    <lastmod>2017-01-07T12:28:30+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/setting-up-android-lab-environment/</loc>
+    <lastmod>2017-01-01T11:47:24+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/setting-up-ios-development-environment/</loc>
+    <lastmod>2017-01-01T11:49:54+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/setting-up-ios-pentesting-lab/</loc>
+    <lastmod>2017-01-01T11:50:56+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/tags/</loc>
+    <priority>0</priority>
+  </url>
+  
+</urlset>

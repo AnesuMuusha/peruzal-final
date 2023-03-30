@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+  
+  
+  
+  
+   <html class="no-js"> 
+
+  <head lang="en-us">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=10" />
+    <title>Setting up Android Lab Environment - Mobile Device Security and Penetration Testing Guide</title>
+    <meta name="generator" content="Hugo 0.31.1" />
+
+    
+    <meta name="description" content="Mobile Device Security and Penetration Testing guide">
+    
+    <link rel="canonical" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/setting-up-android-lab-environment/">
+    
+    <meta name="author" content="Peruzal">
+    
+
+    <meta property="og:url" content="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/setting-up-android-lab-environment/">
+    <meta property="og:title" content="Mobile Device Security and Penetration Testing Guide">
+    <meta property="og:image" content="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/images/logo.png">
+    <meta name="apple-mobile-web-app-title" content="Mobile Device Security and Penetration Testing Guide">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="shortcut icon" type="image/x-icon" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/images/favicon.ico">
+
+    <style>
+      @font-face {
+        font-family: 'Icon';
+        src: url('https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/fonts/icon.eot');
+        src: url('https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/fonts/icon.eot')
+               format('embedded-opentype'),
+             url('https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/fonts/icon.woff')
+               format('woff'),
+             url('https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/fonts/icon.ttf')
+               format('truetype'),
+             url('https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/fonts/icon.svg')
+               format('svg');
+        font-weight: normal;
+        font-style: normal;
+      }
+    </style>
+
+    <link rel="stylesheet" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/stylesheets/application.css">
+    <link rel="stylesheet" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/stylesheets/temporary.css">
+    <link rel="stylesheet" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/stylesheets/palettes.css">
+    <link rel="stylesheet" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/stylesheets/highlight/highlight.css">
+
+    
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ubuntu:400,700|Ubuntu&#43;Mono">
+    <style>
+      body, input {
+        font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+      }
+      pre, code {
+        font-family: 'Ubuntu Mono', 'Courier New', 'Courier', monospace;
+      }
+    </style>
+
+    
+    <script src="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/javascripts/modernizr.js"></script>
+
+    
+
+  </head>
+  <body class="palette-primary-red palette-accent-teal">
+
+
+
+
+<div class="backdrop">
+	<div class="backdrop-paper"></div>
+</div>
+
+<input class="toggle" type="checkbox" id="toggle-drawer">
+<input class="toggle" type="checkbox" id="toggle-search">
+<label class="toggle-button overlay" for="toggle-drawer"></label>
+
+<header class="header">
+	<nav aria-label="Header">
+  <div class="bar default">
+    <div class="button button-menu" role="button" aria-label="Menu">
+      <label class="toggle-button icon icon-menu" for="toggle-drawer">
+        <span></span>
+      </label>
+    </div>
+    <div class="stretch">
+      <div class="title">
+        Setting up Android Lab Environment
+      </div>
+    </div>
+
+    
+    <div class="button button-twitter" role="button" aria-label="Twitter">
+       <a href="https://twitter.com/peruzal" title="@peruzal on Twitter" target="_blank" class="toggle-button icon icon-twitter"></a>
+    </div>
+    
+
+    
+    <div class="button button-github" role="button" aria-label="GitHub">
+      <a href="https://github.com/peruzal" title="@peruzal on GitHub" target="_blank" class="toggle-button icon icon-github"></a>
+    </div>
+    
+    
+        
+  </div>
+  <div class="bar search">
+    <div class="button button-close" role="button" aria-label="Close">
+      <label class="toggle-button icon icon-back" for="toggle-search"></label>
+    </div>
+    <div class="stretch">
+      <div class="field">
+        <input class="query" type="text" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck>
+      </div>
+    </div>
+    <div class="button button-reset" role="button" aria-label="Search">
+      <button class="toggle-button icon icon-close" id="reset-search"></button>
+    </div>
+  </div>
+</nav>
+</header>
+
+<main class="main">
+	<div class="drawer">
+		<nav aria-label="Navigation">
+  <a href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide" class="project">
+    <div class="banner">
+      
+        <div class="logo">
+          <img src="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guideimages/logo.png">
+        </div>
+      
+      <div class="name">
+        <strong>Mobile Device Security and Penetration Testing Guide <span class="version">1.0.0</span></strong>
+        
+      </div>
+    </div>
+  </a>
+
+  <div class="scrollable">
+    <div class="wrapper">
+      
+
+      <div class="toc">
+        
+        <ul>
+          
+
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Getting Started" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/getting-started/">
+	
+	Getting Started
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Mobile App Ecosystem" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/mobile-app-ecosystem/">
+	
+	Mobile App Ecosystem
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Mobie App Attack Vectors" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/mobile-device-attack-vectors/">
+	
+	Mobie App Attack Vectors
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a class="current" title="Setting Up Android Lab Environment" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/setting-up-android-lab-environment/">
+	
+	Setting Up Android Lab Environment
+</a>
+
+
+<ul id="scrollspy">
+</ul>
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Android  Fundamentals" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-fundamentals/">
+	
+	Android  Fundamentals
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Rooting Android Devices" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/rooting-android-devices/">
+	
+	Rooting Android Devices
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Android Security Model" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-security-model/">
+	
+	Android Security Model
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Android Forensic Tools" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-forensic-tools/">
+	
+	Android Forensic Tools
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Android Data Extraction" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-data-extraction/">
+	
+	Android Data Extraction
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="OWASP Mobile Top 10 Risks" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/owasp-mobile-top-10-risks/">
+	
+	OWASP Mobile Top 10 Risks
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Android Insecure Data Storage" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-insecure-data-storage/">
+	
+	Android Insecure Data Storage
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Setting Up iOS Development Environment" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/setting-up-ios-development-environment/">
+	
+	Setting Up iOS Development Environment
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Setting Up an iOS Pentesting Lab" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/setting-up-ios-pentesting-lab/">
+	
+	Setting Up an iOS Pentesting Lab
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Jailbreaking iOS Devices" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/jailbreaking-ios-devices/">
+	
+	Jailbreaking iOS Devices
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="iOS Internals Overview" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-internals/">
+	
+	iOS Internals Overview
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Data Acqusition from iOS Devices" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-data-acqusition/">
+	
+	Data Acqusition from iOS Devices
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="iOS Data Analysis and Recovery" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-data-analysis-and-recovery/">
+	
+	iOS Data Analysis and Recovery
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="iOS Insecure Local Data Storage" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-insecure-local-data-storage/">
+	
+	iOS Insecure Local Data Storage
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="iOS Unintended Data Leakage" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-unintended-data-leakage/">
+	
+	iOS Unintended Data Leakage
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="iOS Traffic Analysis" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-traffic-analysis/">
+	
+	iOS Traffic Analysis
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="iOS Runtime Analysis" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-runtime-analysis/">
+	
+	iOS Runtime Analysis
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="iOS Network Attacks" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-network-attacks/">
+	
+	iOS Network Attacks
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Mobile Malware" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/mobile-malware/">
+	
+	Mobile Malware
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="License" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/license/">
+	
+	License
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Mobile App Device Security and Penetration Testing" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/">
+	
+	Mobile App Device Security and Penetration Testing
+</a>
+
+
+
+  
+</li>
+
+
+        </ul>
+        
+
+        
+        <hr>
+        <span class="section">The author</span>
+        
+        <ul>
+          
+          <li>
+            <a href="https://twitter.com/peruzal" target="_blank" title="@peruzal on Twitter">
+              @peruzal on Twitter
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="https://github.com/peruzal" target="_blank" title="@peruzal on GitHub">
+              @peruzal on GitHub
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="mailto:info@peruzal.co.za" title="Email of info@peruzal.co.za">
+              Contact via email
+            </a>
+          </li>
+          
+        </ul>
+        
+      </div>
+    </div>
+  </div>
+</nav>
+
+	</div>
+
+	<article class="article">
+		<div class="wrapper">
+			<h1>Setting up Android Lab Environment </h1>
+
+			
+
+<h2 id="tools">Tools</h2>
+
+<p>To setup the environment for pen testing Android devices, the full Android Development Environment together with several tools are required.</p>
+
+<ul>
+<li><a href="https://developer.android.com/studio/index.html">Android Studio</a></li>
+<li><a href="https://developer.android.com/studio/intro/update.html">Android SDK</a></li>
+<li><a href="https://ibotpeaches.github.io/Apktool/">APKTool</a></li>
+<li><a href="jd.benow.ca">JD-Gui</a></li>
+<li><a href="https://github.com/SUPERAndroidAnalyzer/super">SUPER Android Analyzer</a></li>
+<li><a href="https://github.com/ajinabraham/Mobile-Security-Framework-MobSF">MobSF (Mobile Security Framework)</a></li>
+<li><a href="https://github.com/mwrlabs/drozer">Drozer</a></li>
+<li><a href="https://github.com/AndroBugs/AndroBugs_Framework">AndroBugs</a></li>
+<li><a href="https://portswigger.net/burp/">Burp Suite</a></li>
+<li><a href="https://github.com/linkedin/qark">QARK(Quick Android Review Kit)</a></li>
+<li><a href="https://www.getpostman.com/">Postman</a></li>
+<li><a href="http://sqlitebrowser.org/">SQLite Browser</a></li>
+<li><a href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/setting-up-android-lab-environment/#vulnerable-android-apps">Vulnerable Android apps</a></li>
+</ul>
+
+<h2 id="android-studio">Android Studio</h2>
+
+<p>Android Studio is the official IDE for developing Android apps. Android Studio is available for both Windows, Linux and Mac. When you have access to the source of the app you can use Android Studio to run the application.
+Android Studio requires Java to be installed. Android Studio can be downloaded from <a href="https://developer.android.com/studio/index.html">here</a></p>
+
+<h2 id="android-sdk">Android SDK</h2>
+
+<p>The SDK is the Software Development Kit used for developing Android apps. Once Android Studio it will take you through configuring an SDK.
+You will need at least one Android SDK version to test apps.</p>
+
+<h2 id="apktool">APKTool</h2>
+
+<p>A tool for reverse engineering Android apk files. To install the <code>apktool</code> follow the the this <a href="https://ibotpeaches.github.io/Apktool/install/link">guide</a>.</p>
+
+<h2 id="jd-gui">JD-Gui</h2>
+
+<p>JD-GUI is a standalone graphical utility that displays Java source codes of <code>.class</code> files. You can browse the reconstructed source code with the JD-GUI for instant access to methods and fields.
+You can download it from <a href="http://jd.benow.ca/">here</a>.</p>
+
+<h2 id="super-android-analyzer">SUPER Android Analyzer</h2>
+
+<p>SUPER is a command-line application that can be used in Windows, Mac OS X and Linux, that analyzes .apk files in search for vulnerabilities. It does this by decompressing APKs and applying a series of rules to detect those vulnerabilities.
+Super is available on <a href="https://github.com/SUPERAndroidAnalyzer/super">github</a> and the binaries can be download from <a href="http://superanalyzer.rocks/download.html">here</a>.</p>
+
+<h3 id="using-super">Using super</h3>
+
+<p>Once installed installed, from the terminal run the command, and <code>super</code> will generate a report once its finished.</p>
+
+<pre><code class="language-sh">super diva-beta.apk
+</code></pre>
+
+<h2 id="mobsf">MobSF</h2>
+
+<p>Mobile Security Framework is an intelligent, all-in-one open source mobile application (Android/iOS/Windows) automated pen-testing framework capable of performing static, dynamic analysis and web API testing.
+MobSF can be downloaded from <a href="https://github.com/ajinabraham/Mobile-Security-Framework-MobSF">github</a>.</p>
+
+<h2 id="drozer">Drozer</h2>
+
+<p>Drozer is a Android Security Assessment Framework for Android. Drozer allows you to search for security vulnerabilities in apps and devices by assuming the role of an app and interacting with the Dalvik VM, other apps&rsquo; IPC endpoints and the underlying OS.
+You can find Drozer on  <a href="https://github.com/mwrlabs/drozer">github</a>.</p>
+
+<h3 id="install-agent-apk">Install agent apk</h3>
+
+<p>The drozer agent apk is included in the drozer folder. Install the apk to the device by running :</p>
+
+<pre><code class="language-sh">adb install agent.apk
+</code></pre>
+
+<h3 id="installing-drozer-on-os-x">Installing Drozer on OS X</h3>
+
+<p>They are binary packages for installing Drozer on Windows and Linux. On OSX the installation fails due to changes in OpenSSL bundled with the default install of OSX.
+Follow this <a href="https://blog.ropnop.com/installing-drozer-on-os-x-el-capitan/">guide</a> to install Drozer on OSX.</p>
+
+<h3 id="run-drozer-app">Run drozer app</h3>
+
+<p>On the device find the Drozer app on the home screen. Start the app and turn it on. Once the server is running a toast will show the port to connect to.</p>
+
+<h3 id="starting-a-session">Starting a session</h3>
+
+<p>Start by forwarding all tcp traffic from port 34415.</p>
+
+<pre><code class="language-sh">adb forward tcp:31415 tcp:31415
+</code></pre>
+
+<h2 id="androbugs">AndroBugs</h2>
+
+<p>AndroBugs Framework is an Android vulnerability analysis system that helps developers or hackers find potential security vulnerabilities in Android applications.
+Android can be downloaded from <a href="https://github.com/AndroBugs/AndroBugs_Framework">github</a>.</p>
+
+<h3 id="burp-proxy">Burp Proxy</h3>
+
+<p>Burp suite is an HTTP proxy. You will need Java installed in order to run Burp. Download the installer from <a href="https://portswigger.net/burp/download.html">here</a>.
+The free edition should suffice.</p>
+
+<h2 id="qark-quick-android-review-kit">QARK(Quick Android Review Kit)</h2>
+
+<p>This tool is designed to look for several security related Android application vulnerabilities, either in source code or packaged APKs. The tool is also capable of creating &ldquo;Proof-of-Concept&rdquo; deployable APKs and/or ADB commands, capable of exploiting many of the vulnerabilities it finds. There is no need to root the test device, as this tool focuses on vulnerabilities that can be exploited under otherwise secure conditions.</p>
+
+<h2 id="postman">Postman</h2>
+
+<p>Postman is a Chrome plugin. You can install the plugin from the extensions directory. Chrome is a REST client, you can use it to test REST APIs.
+You can install Postman from <a href="http://www.getpostman.com/">here</a></p>
+
+<h2 id="sqlite-browser">SQLite Browser</h2>
+
+<p>An SQLite database is made up of a single file. You can open the file using the <code>sqlite</code> command line tool. You can also use a GUI like SQLite browser to view the SQLite database.
+You can download the SQLite browser from <a href="http://sqlitebrowser.org/">here</a>.</p>
+
+<h2 id="vulnerable-android-apps">Vulnerable Android apps</h2>
+
+<p>We will the use following open source vulnerable Android apps for testing :</p>
+
+<ul>
+<li><a href="https://github.com/Peruzal/diva-android">DIVA(Damn Insecure Vulnerable App)</a>.</li>
+<li><a href="http://github.com">Insecure Bank</a></li>
+</ul>
+
+<h2 id="adb-android-device-bridge">ADB (Android Device Bridge)</h2>
+
+<p>ADB lets you connect to a running Android device or emulator. You can make phone calls, send sms, list installed packages, mock gps coordinates and many more functions.
+The <code>adb</code> command line is found in the SDK <code>platform-tools</code> folder.</p>
+
+<h2 id="enabling-usb-debugging">Enabling usb debugging</h2>
+
+<p>To perform the following tasks, the device needs to have <code>usb debugging</code> enabled.</p>
+
+<h3 id="check-if-developer-options-in-enabled">Check if <code>Developer Options</code> in enabled</h3>
+
+<ul>
+<li>Go to <code>Settings</code></li>
+<li>Check if there is a  <code>Developer options</code> category</li>
+</ul>
+
+<p>By default <code>Developer options</code> is not enabled by default. Enabled usb debugging :</p>
+
+<ul>
+<li>Go to <code>Settings</code></li>
+<li>Choose <code>About Phone</code></li>
+<li>Tap on the  <code>Build Number</code> three times, then a toast will pop up and tell you press four more times.</li>
+<li>Go back and the <code>Developer Options</code> menu should now be available.</li>
+<li>Choose <code>Enable USB Debugging</code></li>
+</ul>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The steps might be slightly different depending on the device manufacturer of your phone.</p>
+</div>
+
+<ul>
+<li>Connect the usb the computer. A dialog box should show and up, choose <code>Always trust</code></li>
+<li>Running <code>adb devices</code> should now show up the connected Android phone.</li>
+</ul>
+
+<h3 id="listing-attached-devices">Listing attached devices</h3>
+
+<pre><code class="language-sh">adb devices
+</code></pre>
+
+<h3 id="connect-to-a-specific-device">Connect  to a specific device</h3>
+
+<p>You will need the device serial found from running <code>adb devices</code> to connect to a specific devices. For an emulator this is usually
+the emulator IP address with its port.</p>
+
+<pre><code class="language-sh">adb device -s &lt;device-serial&gt;
+</code></pre>
+
+<h3 id="getting-a-shell">Getting a shell</h3>
+
+<p>On my machine, with  multiple emulators running</p>
+
+<pre><code class="language-sh">$ adb devices
+List of devices attached
+192.168.56.102:5555	device
+192.168.56.101:5555	device
+</code></pre>
+
+<p>and then i can connect to a specific emulator with adb by running :</p>
+
+<pre><code class="language-sh">$ adb -s 192.168.56.102:5555 shell
+root@android:/ # 
+</code></pre>
+
+<p>I will then be logged onto to the device as the root user.</p>
+
+<h3 id="listing-installed-packages">Listing installed packages</h3>
+
+<p>The <code>adb pm</code> command is used to interact with the Android package manager. The command will list the Android&rsquo;s app package name.</p>
+
+<pre><code class="language-sh">adb shell pm list packages
+</code></pre>
+
+<h3 id="installing-an-apk-onto-the-device">Installing an apk onto the device</h3>
+
+<p>If you have access to the apk of the app, you can use adb to install the app with the command :</p>
+
+<pre><code class="language-sh"> adb install &lt;apk file location&gt;
+</code></pre>
+
+<h3 id="copying-files-to-the-devices">Copying files to the devices</h3>
+
+<pre><code class="language-sh">adb push &lt;file name&gt; &lt;location on the device&gt;
+</code></pre>
+
+<h3 id="copying-files-from-the-device">Copying files from the device</h3>
+
+<pre><code class="language-sh">adb pull &lt;path on the device&gt;
+</code></pre>
+
+<h3 id="forwarding-tcp-connections">Forwarding TCP connections</h3>
+
+<p>You can forward tcp traffic to a specific port on the device.</p>
+
+<pre><code class="language-sh">adb forward tcp:&lt;local port&gt; tcp:&lt;device port&gt;
+</code></pre>
+
+<h3 id="troubleshooting-adb">Troubleshooting adb</h3>
+
+<p>You can kill the adb server and restart it again especially if devices are not showing up.</p>
+
+<pre><code class="language-sh">adb kill-server
+</code></pre>
+
+<p>and start the adb server</p>
+
+<pre><code class="language-sh">adb start-server
+</code></pre>
+
+<h2 id="adb-reference">adb reference</h2>
+
+<p>The complete adb reference is found on the <a href="https://developer.android.com/studio/command-line/adb.html#shellcommands">here</a></p>
+
+
+			<aside class="copyright" role="note">
+				
+				&copy; 2018 Peruzal Mobile Device Security and Penetration Testing Guide &ndash;
+				
+				Documentation built with
+				<a href="https://www.gohugo.io" target="_blank">Hugo</a>
+				using the
+				<a href="http://github.com/digitalcraftsman/hugo-material-docs" target="_blank">Material</a> theme.
+			</aside>
+
+			<footer class="footer">
+				
+
+<nav class="pagination" aria-label="Footer">
+  <div class="previous">
+  
+      <a href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-fundamentals/" title="Android Fundamentals">
+        <span class="direction">
+          Previous
+        </span>
+        <div class="page">
+          <div class="button button-previous" role="button" aria-label="Previous">
+            <i class="icon icon-back"></i>
+          </div>
+          <div class="stretch">
+            <div class="title">
+              Android Fundamentals
+            </div>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+
+  <div class="next">
+  
+  </div>
+</nav>
+
+
+
+
+
+			</footer>
+		</div>
+	</article>
+
+	<div class="results" role="status" aria-live="polite">
+		<div class="scrollable">
+			<div class="wrapper">
+				<div class="meta"></div>
+				<div class="list"></div>
+			</div>
+		</div>
+	</div>
+</main>
+
+    <script>
+    
+      var base_url = '';
+      var repo_id  = '';
+    
+    </script>
+
+    <script src="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/javascripts/application.js"></script>
+    
+
+    <script>
+      /* Add headers to scrollspy */
+      var headers   = document.getElementsByTagName("h2");
+      var scrollspy = document.getElementById('scrollspy');
+
+      if(scrollspy) {
+        if(headers.length > 0) {
+          for(var i = 0; i < headers.length; i++) {
+            var li = document.createElement("li");
+            li.setAttribute("class", "anchor");
+
+            var a  = document.createElement("a");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", headers[i].innerHTML);
+            a.innerHTML = headers[i].innerHTML;
+
+            li.appendChild(a)
+            scrollspy.appendChild(li);
+          }
+        } else {
+          scrollspy.parentElement.removeChild(scrollspy)
+        }
+
+
+        /* Add permanent link next to the headers */
+        var headers = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+
+        for(var i = 0; i < headers.length; i++) {
+            var a = document.createElement("a");
+            a.setAttribute("class", "headerlink");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", "Permanent link")
+            a.innerHTML = "#";
+            headers[i].appendChild(a);
+        }
+      }
+    </script>
+
+    
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>
+

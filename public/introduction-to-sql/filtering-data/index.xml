@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Filtering-data on Introduction to SQL</title>
+    <link>http://guides.peruzal.com/introduction-to-sql/filtering-data/index.xml</link>
+    <description>Recent content in Filtering-data on Introduction to SQL</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Copyright 2017 Peruzal</copyright>
+    <lastBuildDate>Tue, 28 Feb 2017 21:49:57 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/introduction-to-sql/filtering-data/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Filtering Data</title>
+      <link>http://guides.peruzal.com/introduction-to-sql/filtering-data/</link>
+      <pubDate>Tue, 28 Feb 2017 21:49:57 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/introduction-to-sql/filtering-data/</guid>
+      <description>
+
+&lt;h2 id=&#34;limiting-data-retrieved-using-the-where-clause&#34;&gt;Limiting data retrieved using the WHERE Clause&lt;/h2&gt;
+
+&lt;p&gt;The WHERE clause is used to filter the data returned from the database. You specify the columns and conditions to limit the data that will be returned.&lt;/p&gt;
+
+&lt;p&gt;The basic syntax for the WHERE  clause is as follows :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT &amp;lt;columnN&amp;gt;, &amp;lt;columnN2&amp;gt;, &amp;lt;columnN*&amp;gt;
+FROM &amp;lt;table&amp;gt;
+WHERE &amp;lt;column&amp;gt; = &amp;lt;condition&amp;gt; [AND|OR &amp;lt;column&amp;gt; = &amp;lt;condition&amp;gt;]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;return-all-rows-with-a-specific-product-price&#34;&gt;Return all rows with a specific product price&lt;/h3&gt;
+
+&lt;p&gt;We can return all rows with product price equal to 3.49 using the following statement with a WHERE clause.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT prod_name, prod_price
+FROM products
+WHERE prod_price = 3.49
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;admonition note&#34;&gt;
+&lt;p class=&#34;admonition-title&#34;&gt;Note&lt;/p&gt;
+&lt;p&gt;When using both ORDER BY and the WHERE clause the ORDER BY clause should come after the WHERE clause.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;the-where-clause-operators&#34;&gt;The WHERE Clause Operators&lt;/h2&gt;
+
+&lt;p&gt;The WHERE clause supports a lot of different types of operators other than the simple equality operator we have used thus far.&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Operator&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;=&lt;/td&gt;
+&lt;td&gt;Equality&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&amp;lt;&amp;gt;&lt;/td&gt;
+&lt;td&gt;Not equal&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;!=&lt;/td&gt;
+&lt;td&gt;Not equal&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&amp;lt;&lt;/td&gt;
+&lt;td&gt;Less than&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&amp;gt;&lt;/td&gt;
+&lt;td&gt;Greater than&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;!&amp;lt;&lt;/td&gt;
+&lt;td&gt;Not less than&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;!&amp;gt;&lt;/td&gt;
+&lt;td&gt;Not greater than&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&amp;gt;=&lt;/td&gt;
+&lt;td&gt;Greater than or equal to&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&amp;lt;=&lt;/td&gt;
+&lt;td&gt;Less then or equal to&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;BETWEEN&lt;/td&gt;
+&lt;td&gt;Between two specified values&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;IS NULL&lt;/td&gt;
+&lt;td&gt;Is a &lt;strong&gt;NULL&lt;/strong&gt; value&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&#34;retrieve-all-product-less-than-10&#34;&gt;Retrieve all product less than 10&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT prod_name, prod_price
+FROM products
+WHERE prod_price &amp;lt; 10
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;retrieve-all-products-less-than-or-equal-to-10&#34;&gt;Retrieve all products less than or equal to 10&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT prod_name, prod_price
+FROM products
+WHERE prod_price &amp;lt;= 10
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;retrieve-all-products-that-does-not-match&#34;&gt;Retrieve all products that does not match&lt;/h3&gt;
+
+&lt;p&gt;We want to retrieve all product not made by a specific vendor&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT vend_id, prod_name
+FROM products
+WHERE vend_id &amp;lt;&amp;gt; &#39;DLL01&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;admonition note&#34;&gt;
+&lt;p class=&#34;admonition-title&#34;&gt;Using Quote&lt;/p&gt;
+&lt;p&gt;When comparing against string value data type columns quotes are required to surround the values being compared against. For number values quotes are not required.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;retrieving-values-within-a-range&#34;&gt;Retrieving values within a range&lt;/h2&gt;
+
+&lt;p&gt;The BETWEEN keyword is used to retrieve values between two values, and the AND keyword is used to separate the two values. The values will be matched inclusive of the start and end values.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT prod_name, prod_price
+FROM products
+WHERE prod_price BETWEEN 5 AND 10
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;checking-for-no-value&#34;&gt;Checking for no value&lt;/h3&gt;
+
+&lt;p&gt;When creating a table, you can specify that a specific column might not contain a value. You use the NULL keyword to specify that condition. We can use the equal sign operator to check for a NULL value, we use the keywords &lt;code&gt;IS NULL&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id=&#34;lets-find-all-products-without-prices&#34;&gt;Lets find all products without prices&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT prod_name
+FROM products
+WHERE prod_price IS NULL
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;find-all-customers-without-an-email-address&#34;&gt;Find all customers without an email address&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT cust_name
+FROM customers
+WHERE cust_email IS NULL
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;combining-where-clauses&#34;&gt;Combining WHERE Clauses&lt;/h2&gt;
+
+&lt;p&gt;We can combine multiple criteria in the WHERE clause by using &lt;code&gt;AND&lt;/code&gt; and &lt;code&gt;OR&lt;/code&gt; keywords to create more powerful filters.&lt;/p&gt;
+
+&lt;h3 id=&#34;retrieve-data-that-matches-two-columns&#34;&gt;Retrieve data that matches two columns&lt;/h3&gt;
+
+&lt;p&gt;The statement below will retrieve all products made by vendor with vendor id DLL01 and also having price less than or equal to 4.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT prod_id, prod_price, prod_name
+FROM products
+WHERE vend_id = &#39;DLL01&#39; AND prod_price &amp;lt;= 4;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;admonition note&#34;&gt;
+&lt;p class=&#34;admonition-title&#34;&gt;Note&lt;/p&gt;
+&lt;p&gt;When using the AND keyword,note that both conditions need to be true for the data to be returned, otherwise the data is not returned since it does not satisfy all the conditions.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;selecting-either-using-or-keword&#34;&gt;Selecting either using OR keword&lt;/h3&gt;
+
+&lt;p&gt;The OR keyword is the opposite of the AND keyword. It returns when either one of the conditions is true.&lt;/p&gt;
+
+&lt;p&gt;The statement below will return all products by name and price made by either vendor with id DLL01 or BRS01 but not both.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT prod_name, prod_price
+FROM products
+WHERE vend_id = &#39;DLL01&#39; OR vend_id = &#39;BRS01&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;order-of-evaluation&#34;&gt;Order of evaluation&lt;/h3&gt;
+
+&lt;p&gt;When specifying multiple conditions use the parentheses to group the conditions together otherwise you will get unexpected results.&lt;/p&gt;
+
+&lt;p&gt;The following sql statements will not return the expected results :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT prod_name, prod_price
+FROM producs
+WHERE vend_id = &#39;DLL01&#39; OR vend_id = &#39;  BRS01&#39; AND prod_price &amp;gt;= 10;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You will notice the query will also return products with prices less than 10. This is because the AND operator is being evaluated first.&lt;/p&gt;
+
+&lt;p&gt;To return the correct results we will need to use the brackets to wrap around the conditions.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT prod_name, prod_price
+FROM producs
+WHERE (vend_id = &#39;DLL01&#39; OR vend_id = &#39;  BRS01&#39;) AND prod_price &amp;gt;= 10;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;using-the-in-operator&#34;&gt;Using the IN Operator&lt;/h2&gt;
+
+&lt;p&gt;The IN operator is used to specify a range of operators, any of which can be matched. The IN takes a comma separated list of valid values, all enclosed in parentheses.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT prod_name, prod_price
+FROM products
+WHERE vend_id in (&#39;DLL01&#39;, &#39;BSR01&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The IN operator works the same as using multiple OR statements. We could have returned the same results using the OR operator as follows :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT prod_name, prod_price
+FROM products
+WHERE vend_id = &#39;DLL01&#39; OR vend_id =  &#39;BSR01&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The IN operator enables you to embed another sql statement instead of just specifying the values.&lt;/p&gt;
+
+&lt;h2 id=&#34;using-the-not-operator&#34;&gt;Using the NOT Operator&lt;/h2&gt;
+
+&lt;p&gt;The NOT operator negates the conditions. The NOT operator is always used with another operator.&lt;/p&gt;
+
+&lt;p&gt;Lets list all products but exclude products made by a specific vendor :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT prod_name
+FROM products
+WHERE NOT vend_id = &#39;DLL01&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Instead of using the NOT operator we could have returned the same results but using a slighlt different statement&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT prod_name
+FROM products
+WHERE NOT vend_id &amp;lt;&amp;gt; &#39;DLL01&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;NOT becomes powerful in complicated sql statements, where multiple conditions are specified, e.g. if we did want to match a specific list of conditions, we could precede the IN keyword with the NOT operator.&lt;/p&gt;
+
+&lt;h2 id=&#34;using-the-like-predicate&#34;&gt;Using the LIKE predicate&lt;/h2&gt;
+
+&lt;p&gt;The LIKE predicate is used to search for unknown data, unlike the equality operator that is used to search for known values. The LIKE predicate is used together with characters that have special meaning.&lt;/p&gt;
+
+&lt;h3 id=&#34;percent-sign-wildcard&#34;&gt;Percent Sign (%) Wildcard&lt;/h3&gt;
+
+&lt;p&gt;The most frequently used wildcard is the percent sign (%). Within a string, the % means, match any number of number of occurrences of any character.&lt;/p&gt;
+
+&lt;p&gt;The following sql statement finds all products with name that begins with Fish following by any character&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT prod_id, prod_name
+FROM products
+WHERE prod_name LIKE &#39;Fish%&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;The wildcard character can be used anywhere within the search pattern. We can also use multiple wildcard characters.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;The following sql statement matches all products that have the name bean bag within them regardless of any character after of before the text.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT prod_id, prod_name
+FROM products
+WHERE prod_name LIKE &#39;%bean bag%&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;The % does not match a NULL value. Be careful when using it with columns that have a NULL value as it will not match it.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&#34;the-underscore-wildcard&#34;&gt;The underscore(_) wildcard&lt;/h3&gt;
+
+&lt;p&gt;The underscore(_) will match only a single character instead of many.&lt;/p&gt;
+
+&lt;h3 id=&#34;the-brackets-wildcard&#34;&gt;The brackets([]) wildcard&lt;/h3&gt;
+
+&lt;p&gt;The brackets will match either of the characters inside the brackets. The following statement will match any customer contacts that have a name that either starts with with J or M followed by any character.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT cust_contact
+FROM customers
+WHERE cust_contact LIKE &#39;[JM]%&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The wildcard can also be negated to not match the characters in the brackets using the ^ character, e.g&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT cust_contact
+FROM customers
+WHERE cust_contact LIKE &#39;[^JM]%&#39;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

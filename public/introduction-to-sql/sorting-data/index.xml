@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Sorting-data on Introduction to SQL</title>
+    <link>http://guides.peruzal.com/introduction-to-sql/sorting-data/index.xml</link>
+    <description>Recent content in Sorting-data on Introduction to SQL</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Copyright 2017 Peruzal</copyright>
+    <lastBuildDate>Tue, 28 Feb 2017 21:49:34 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/introduction-to-sql/sorting-data/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Sorting Data</title>
+      <link>http://guides.peruzal.com/introduction-to-sql/sorting-data/</link>
+      <pubDate>Tue, 28 Feb 2017 21:49:34 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/introduction-to-sql/sorting-data/</guid>
+      <description>
+
+&lt;h2 id=&#34;sorting-data&#34;&gt;Sorting Data&lt;/h2&gt;
+
+&lt;p&gt;We can use the ORDER BY keywords to select a column to use for ordering retuned data from the database.&lt;/p&gt;
+
+&lt;h3 id=&#34;order-product-by-product-name&#34;&gt;Order product by product name&lt;/h3&gt;
+
+&lt;p&gt;Lets retrieve the products and order them by product name. By default the ORDER BY clause orders the rows in ascending order.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT prod_name
+FROM products
+ORDER BY prod_name
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;admonition note&#34;&gt;
+&lt;p class=&#34;admonition-title&#34;&gt;Note&lt;/p&gt;
+&lt;p&gt;When ordering rows, we can use a different column in the order by clause even if the column is not specified in the list of columns to be retrieved from the database.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;sorting-by-multiple-columns&#34;&gt;Sorting by Multiple Columns&lt;/h2&gt;
+
+&lt;p&gt;We can specify multiple columns in the ORDER BY clause. The column names should be separated by commas.&lt;/p&gt;
+
+&lt;h3 id=&#34;sort-by-product-price-and-product-name&#34;&gt;Sort by product price and product name&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT prod_id, prod_price, prod_name
+FROM products
+ORDER BY prod_price, prod_name
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The above sql statement will first sort by product price and if they are matching products with the same name, then it will sort first with the price and then with the product name.&lt;/p&gt;
+
+&lt;h2 id=&#34;sorting-by-column-position&#34;&gt;Sorting by Column Position&lt;/h2&gt;
+
+&lt;p&gt;Instead of using the column name in the ORDER BY clause, we can specify instead the column position. The first column is position 1.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT prod_name
+FROM products
+ORDER BY 1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The above sql statement will sort by rows by the product name since its on column 1.&lt;/p&gt;
+
+&lt;p&gt;The statement will return the same result as the previous statement sorting rows by multiple columns. We are using the column positions for prod_price which is column 1 and prod_name which is column 3.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT prod_id, prod_price, prod_name
+FROM products
+ORDER BY 2, 3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;specifying-sort-direction&#34;&gt;Specifying Sort Direction&lt;/h2&gt;
+
+&lt;p&gt;The default sort direction is ascending, A to Z for characters or smallest to highest for numbers. We can change the sort direction by using the keywords &lt;code&gt;ASC&lt;/code&gt; for ascending &lt;code&gt;DESC&lt;/code&gt; for descending together with the ORDER BY clause.&lt;/p&gt;
+
+&lt;h3 id=&#34;retrieve-products-by-highest-price-first&#34;&gt;Retrieve products by highest price first&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT prod_id, prod_price, prod_name
+FROM products
+ORDER BY prod_price DESC
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;When specifying multiple columns in the ORDER BY clause, the DESC or ASC keywords only applies to the column name preceding it.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;The statement below will order the rows by the highest price first and then by product name in ascending order.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT prod_id, prod_price, prod_name
+FROM products
+ORDER BY prod_price DESC, prod_name
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

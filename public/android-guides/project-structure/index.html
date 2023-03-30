@@ -1,0 +1,1541 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="Android Project Structure">
+      
+      
+        <link rel="canonical" href="https://guides.peruzal.com/xamarin-forms-guide/project-structure/">
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.0">
+    
+    
+      
+        <title>Android Project Structure - Android Mobile App Development Guide</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.0284f74d.css">
+      
+        <link rel="stylesheet" href="../assets/stylesheets/application-palette.01803549.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#ffa000">
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.74668098.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../assets/fonts/material-icons.css">
+    
+    
+    
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="amber" data-md-color-accent="deep-orange">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#android-project-structure" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://guides.peruzal.com/xamarin-forms-guide" title="Android Mobile App Development Guide" class="md-header-nav__button md-logo">
+          
+            <img src="../images/logo-lines.png" width="24" height="24">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              Android Mobile App Development Guide
+            </span>
+            <span class="md-header-nav__topic">
+              
+                Android Project Structure
+              
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/Peruzal/xamarin-forms-guide/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    Github
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://guides.peruzal.com/xamarin-forms-guide" title="Android Mobile App Development Guide" class="md-nav__button md-logo">
+      
+        <img src="../images/logo-lines.png" width="48" height="48">
+      
+    </a>
+    Android Mobile App Development Guide
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/Peruzal/xamarin-forms-guide/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    Github
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Getting Started" class="md-nav__link">
+      Getting Started
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Android Project Structure
+      </label>
+    
+    <a href="./" title="Android Project Structure" class="md-nav__link md-nav__link--active">
+      Android Project Structure
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#organizing-source-files" title="Organizing Source Files" class="md-nav__link">
+    Organizing Source Files
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#naming-conventions" title="Naming Conventions" class="md-nav__link">
+    Naming Conventions
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#for-java-code" title="For Java Code" class="md-nav__link">
+    For Java Code
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-android-classes" title="For Android Classes" class="md-nav__link">
+    For Android Classes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#android-folder-structure" title="Android Folder Structure" class="md-nav__link">
+    Android Folder Structure
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#organize-packages-by-category" title="Organize packages by category" class="md-nav__link">
+    Organize packages by category
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#organize-packages-by-application-features" title="Organize packages by application features" class="md-nav__link">
+    Organize packages by application features
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#organizing-resources" title="Organizing Resources" class="md-nav__link">
+    Organizing Resources
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#organizing-resources-into-subfolders" title="Organizing Resources into Subfolders" class="md-nav__link">
+    Organizing Resources into Subfolders
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conclusion" title="Conclusion" class="md-nav__link">
+    Conclusion
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#retaining-fragments" title="Retaining Fragments" class="md-nav__link">
+    Retaining Fragments
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understanding-the-android-application-class" title="Understanding the Android Application Class" class="md-nav__link">
+    Understanding the Android Application Class
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#custom-application-classes" title="Custom Application Classes" class="md-nav__link">
+    Custom Application Classes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#defining-your-application-class" title="Defining Your Application Class" class="md-nav__link">
+    Defining Your Application Class
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limitations-and-warnings" title="Limitations and Warnings" class="md-nav__link">
+    Limitations and Warnings
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resources" title="Resources" class="md-nav__link">
+    Resources
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../android-resources/" title="Understanding App Resources" class="md-nav__link">
+      Understanding App Resources
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Android Common View
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        Android Common View
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/view-attributes/" title="View Attributes" class="md-nav__link">
+      View Attributes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/textview/" title="TextView" class="md-nav__link">
+      TextView
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/button/" title="Button" class="md-nav__link">
+      Button
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/edittext/" title="EditText" class="md-nav__link">
+      EditText
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/image-view/" title="ImageView" class="md-nav__link">
+      ImageView
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/image-button/" title="ImageButton" class="md-nav__link">
+      ImageButton
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/radio-button/" title="RadioButton" class="md-nav__link">
+      RadioButton
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/view/" title="View" class="md-nav__link">
+      View
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/spinner/" title="Spinner" class="md-nav__link">
+      Spinner
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/checkbox/" title="CheckBox" class="md-nav__link">
+      CheckBox
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/switch/" title="Switch" class="md-nav__link">
+      Switch
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/seek-bar/" title="SeekBar" class="md-nav__link">
+      SeekBar
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/rating-bar/" title="RatingBar" class="md-nav__link">
+      RatingBar
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/progress-bar/" title="ProgressBar" class="md-nav__link">
+      ProgressBar
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/search-view/" title="SearchView" class="md-nav__link">
+      SearchView
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Layouts
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        Layouts
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../layouts/overview/" title="Layouts Overview" class="md-nav__link">
+      Layouts Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../layouts/linear-layout/" title="Linear Layout" class="md-nav__link">
+      Linear Layout
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../layouts/relative-layout/" title="Relative Layout" class="md-nav__link">
+      Relative Layout
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../layouts/frame-layout/" title="Frame Layout" class="md-nav__link">
+      Frame Layout
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../layouts/layout-prformance/" title="Optimizing Layout Performance" class="md-nav__link">
+      Optimizing Layout Performance
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../activities/" title="Activities" class="md-nav__link">
+      Activities
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      Navigation
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        Navigation
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../navigation/common-navigation-patterns/" title="Common Navigation Patterns" class="md-nav__link">
+      Common Navigation Patterns
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../navigation/intents/" title="Navigation with Intents" class="md-nav__link">
+      Navigation with Intents
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../navigation/swipe-tabbed-navigation/" title="Swipe and Tabbed Navigation" class="md-nav__link">
+      Swipe and Tabbed Navigation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../navigation/navigation-drawer/" title="Navigation Drawer" class="md-nav__link">
+      Navigation Drawer
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../navigation/bottom-navigation/" title="Bottom Navigation" class="md-nav__link">
+      Bottom Navigation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../navigation/task-stacks/" title="Navigation and Task Stacks" class="md-nav__link">
+      Navigation and Task Stacks
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../navigation/common-intents/" title="Common Intents" class="md-nav__link">
+      Common Intents
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../fragments/" title="Fragments" class="md-nav__link">
+      Fragments
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../common-intents/" title="Common Intents" class="md-nav__link">
+      Common Intents
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../android-permissions/" title="Understanding Android Permissions" class="md-nav__link">
+      Understanding Android Permissions
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../networking/" title="Networking" class="md-nav__link">
+      Networking
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#organizing-source-files" title="Organizing Source Files" class="md-nav__link">
+    Organizing Source Files
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#naming-conventions" title="Naming Conventions" class="md-nav__link">
+    Naming Conventions
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#for-java-code" title="For Java Code" class="md-nav__link">
+    For Java Code
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-android-classes" title="For Android Classes" class="md-nav__link">
+    For Android Classes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#android-folder-structure" title="Android Folder Structure" class="md-nav__link">
+    Android Folder Structure
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#organize-packages-by-category" title="Organize packages by category" class="md-nav__link">
+    Organize packages by category
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#organize-packages-by-application-features" title="Organize packages by application features" class="md-nav__link">
+    Organize packages by application features
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#organizing-resources" title="Organizing Resources" class="md-nav__link">
+    Organizing Resources
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#organizing-resources-into-subfolders" title="Organizing Resources into Subfolders" class="md-nav__link">
+    Organizing Resources into Subfolders
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conclusion" title="Conclusion" class="md-nav__link">
+    Conclusion
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#retaining-fragments" title="Retaining Fragments" class="md-nav__link">
+    Retaining Fragments
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understanding-the-android-application-class" title="Understanding the Android Application Class" class="md-nav__link">
+    Understanding the Android Application Class
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#custom-application-classes" title="Custom Application Classes" class="md-nav__link">
+    Custom Application Classes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#defining-your-application-class" title="Defining Your Application Class" class="md-nav__link">
+    Defining Your Application Class
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limitations-and-warnings" title="Limitations and Warnings" class="md-nav__link">
+    Limitations and Warnings
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resources" title="Resources" class="md-nav__link">
+    Resources
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/Peruzal/xamarin-forms-guide/edit/master/docs/project-structure.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="android-project-structure">Android Project Structure<a class="headerlink" href="#android-project-structure" title="Permanent link">&para;</a></h1>
+<p><img alt="Android App Project Structure" src="/images/android-app-project-structure.png" /></p>
+<p>Within an Android app project structure, the most frequently edited folders are:</p>
+<ul>
+<li><code>src</code> - Java source files associated with your project. This includes the <code>Activity</code> <em>controller</em> files as well as your models and helpers.</li>
+<li><code>res</code> - Resource files associated with your project. All graphics, strings, layouts, and other resource files are stored in the resource file hierarchy under the res directory. </li>
+<li><code>res/layout</code> - XML layout files that describe the views and layouts for each activity and for partial views such as list items.</li>
+<li><code>res/values</code> - XML files which store various attribute values. These include <code>strings.xml</code>, <code>dimens.xml</code>, <code>styles.xml</code>, <code>colors.xml</code>, <code>themes.xml</code>, and so on.</li>
+<li><code>res/drawable</code> - Here we store the various density-independent graphic assets used in our application.</li>
+<li><code>res/drawable-hdpi</code> - Series of folders for density specific images to use for various resolutions.</li>
+</ul>
+<p>The most frequently edited files are:</p>
+<ul>
+<li><code>res/layout/activity_foo.xml</code> - This file describes the layout of the activity's UI. This means the placement of every view object on one app screen.</li>
+<li><code>src/.../FooActivity.java</code> - The Activity "controller" that constructs the activity using the view, and handles all event handling and view logic for one app screen.</li>
+<li><code>AndroidManifest.xml</code> - This is the Android application definition file. It contains information about the Android application such as minimum Android version, permission to access Android device capabilities such as internet access permission, ability to use phone permission, etc.</li>
+</ul>
+<p>Other less edited folders include:</p>
+<ul>
+<li><code>gen</code> - Generated Java code files, this library is for Android internal use only.</li>
+<li><code>assets</code> - Uncompiled source files associated with your project; Rarely used.</li>
+<li><code>bin</code> - Resulting application package files associated with your project once it’s been built.</li>
+<li><code>libs</code> - Contains any secondary libraries (jars) you might want to link to your app.</li>
+</ul>
+<h2 id="organizing-source-files">Organizing Source Files<a class="headerlink" href="#organizing-source-files" title="Permanent link">&para;</a></h2>
+<p>Android applications should always be neatly organized with a clear folder structure that makes your code easy to read. In addition, proper naming conventions for code and classes are important to ensure your code is clean and maintainable.</p>
+<h3 id="naming-conventions">Naming Conventions<a class="headerlink" href="#naming-conventions" title="Permanent link">&para;</a></h3>
+<p>Be sure to check out the <a href="https://github.com/ribot/android-guidelines/blob/master/project_and_code_guidelines.md">Ribot Code and Style Guidelines</a> for a more extensive breakdown of suggested style and naming guidelines.</p>
+<h4 id="for-java-code">For Java Code<a class="headerlink" href="#for-java-code" title="Permanent link">&para;</a></h4>
+<p>The following naming and casing conventions are important for your Java code:</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Example</th>
+<th>Description</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Variable</td>
+<td><code>incomeTaxRate</code></td>
+<td>All variables should be camel case</td>
+<td><a href="https://www.cwu.edu/~gellenbe/javastyle/variable.html">Read More</a></td>
+</tr>
+<tr>
+<td>Constant</td>
+<td><code>DAYS_IN_WEEK</code></td>
+<td>All constants should be all uppercase</td>
+<td><a href="https://www.cwu.edu/~gellenbe/javastyle/constant.html">Read More</a></td>
+</tr>
+<tr>
+<td>Method</td>
+<td><code>convertToEuroDollars</code></td>
+<td>All methods should be camel case</td>
+<td><a href="https://www.cwu.edu/~gellenbe/javastyle/method.html">Read More</a></td>
+</tr>
+<tr>
+<td>Parameter</td>
+<td><code>depositAmount</code></td>
+<td>All parameter names should be camel case</td>
+<td><a href="https://www.cwu.edu/~gellenbe/javastyle/parameter.html">Read More</a></td>
+</tr>
+</tbody>
+</table>
+<p>See <a href="https://www.cwu.edu/~gellenbe/javastyle/naming.html">this naming guide</a> for more details.</p>
+<h4 id="for-android-classes">For Android Classes<a class="headerlink" href="#for-android-classes" title="Permanent link">&para;</a></h4>
+<p>Android classes should be named with a particular convention that makes their purpose clear in the name. For example all activities should end with <code>Activity</code> as in <code>MoviesActivity</code>. The following are the most important naming conventions:</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Convention</th>
+<th>Inherits</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Activity</td>
+<td><code>CreateTodoItemActivity</code></td>
+<td><code>AppCompatActivity</code>, <code>Activity</code></td>
+</tr>
+<tr>
+<td>List Adapter</td>
+<td><code>TodoItemsAdapter</code></td>
+<td><code>BaseAdapter</code>, <code>ArrayAdapter</code></td>
+</tr>
+<tr>
+<td>Database Helper</td>
+<td><code>TodoItemsDbHelper</code></td>
+<td><code>SQLiteOpenHelper</code></td>
+</tr>
+<tr>
+<td>Network Client</td>
+<td><code>TodoItemsClient</code></td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>Fragment</td>
+<td><code>TodoItemDetailFragment</code></td>
+<td><code>Fragment</code></td>
+</tr>
+<tr>
+<td>Service</td>
+<td><code>FetchTodoItemService</code></td>
+<td><code>Service</code>, <code>IntentService</code></td>
+</tr>
+</tbody>
+</table>
+<p>Use your best judgement for other types of files. The goal is for any Android-specific classes to be identifiable by the suffix. </p>
+<h3 id="android-folder-structure">Android Folder Structure<a class="headerlink" href="#android-folder-structure" title="Permanent link">&para;</a></h3>
+<p>There are several best practices for organizing your app's package structure.</p>
+<h4 id="organize-packages-by-category">Organize packages by category<a class="headerlink" href="#organize-packages-by-category" title="Permanent link">&para;</a></h4>
+<p><a href="http://blog.smartlogic.io/2013/07/09/organizing-your-android-development-code-structure">The way to do this</a> is to group things together by their category. Each component goes to the corresponding package:</p>
+<ul>
+<li><code>com.example.myapp.activities</code> - Contains all activities</li>
+<li><code>com.example.myapp.adapters</code> - Contains all custom adapters</li>
+<li><code>com.example.myapp.models</code>   - Contains all our data models</li>
+<li><code>com.example.myapp.network</code> - Contains all networking code</li>
+<li><code>com.example.myapp.fragments</code> - Contains all fragments</li>
+<li><code>com.example.myapp.utils</code> - Contains all helpers supporting code.</li>
+<li><code>com.example.myapp.interfaces</code> - Contains all interfaces</li>
+</ul>
+<p>Keeping these folders in each app means that code is logically organized and scanning the code is a pleasant experience. You can see a slight variation on this structure as suggested by <a href="https://github.com/futurice/android-best-practices#java-packages-architecture">Futurice on their best-practices repo</a>.</p>
+<h4 id="organize-packages-by-application-features">Organize packages by application features<a class="headerlink" href="#organize-packages-by-application-features" title="Permanent link">&para;</a></h4>
+<p>Alternatively, we can package-by-feature rather than layers. This approach uses packages to <a href="http://www.javapractices.com/topic/TopicAction.do?Id=205">reflect the feature set</a>. Consider the following package structure <a href="https://medium.com/@cesarmcferreira/package-by-features-not-layers-2d076df1964d#.f7znkie19">as outlined in this post</a>:</p>
+<ul>
+<li><code>com.example.myapp.service.*</code> - Is a subpackage for all background related service packages/classes</li>
+<li><code>com.example.myapp.ui.*</code> - Is a subpackage for all UI-related packages/classes</li>
+<li><code>com.example.myapp.ui.mainscreen</code> - Contains classes related to some app's Main Screen</li>
+<li><code>com.example.myapp.ui.detailsscreen</code> - Contains classes related to some app's Item Details Screen</li>
+</ul>
+<p>This feature allows you to place <code>DetailsActivity</code>, <code>DetailsFragment</code>, <code>DetailsListAdapter</code>, <code>DetailsItemModel</code> in one package, which provides comfortable navigation when you're working on "item details" feature.</p>
+<p><code>DetailsListAdapter</code> and <code>DetailsItemModel</code> classes and/or their properties can be made package-private, and thus not exposed outside of the package. Within the package you may access their properties directly without generating tons of boilerplate "setter" methods.</p>
+<p>This can make object creation really simple and intuitive, while objects remain immutable outside the package.</p>
+<h2 id="organizing-resources">Organizing Resources<a class="headerlink" href="#organizing-resources" title="Permanent link">&para;</a></h2>
+<p>Resources should be split up into the following key files and folders:</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Path</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>XML Layouts</td>
+<td><code>res/layout/</code></td>
+<td>This is where we put our XML layout files.</td>
+</tr>
+<tr>
+<td>XML Menus</td>
+<td><code>res/menu/</code></td>
+<td>This is where we put our AppBar menu actions.</td>
+</tr>
+<tr>
+<td>Drawables</td>
+<td><code>res/drawable</code></td>
+<td>This is where we put images and XML drawables.</td>
+</tr>
+<tr>
+<td>Colors</td>
+<td><code>res/values/colors.xml</code></td>
+<td>This is where we put <a href="http://developer.android.com/guide/topics/resources/more-resources.html#Color">color definitions</a>.</td>
+</tr>
+<tr>
+<td>Dimensions</td>
+<td><code>res/values/dimens.xml</code></td>
+<td>This is where we put <a href="http://developer.android.com/guide/topics/resources/more-resources.html#Dimension">dimension values</a>.</td>
+</tr>
+<tr>
+<td>Strings</td>
+<td><code>res/values/strings.xml</code></td>
+<td>This is where we put strings.</td>
+</tr>
+<tr>
+<td>Styles</td>
+<td><code>res/values/styles.xml</code></td>
+<td>This is where we put style values.</td>
+</tr>
+</tbody>
+</table>
+<p>See the <a href="http://developer.android.com/guide/topics/resources/providing-resources.html#ResourceTypes">full list of resources here</a> and note the following:</p>
+<ul>
+<li><strong>Don't hardcode color hex values in the layout</strong>. Instead of hardcoding these values, be sure to <a href="http://developer.android.com/guide/topics/resources/more-resources.html#Color">move all colors</a> into <code>res/values/colors.xml</code> and reference the colors in layouts with <code>@color/royal_blue</code>.</li>
+<li><strong>Don't hardcode margin / padding dimensions in the layout</strong>. Instead of hardcoding these values, be sure to <a href="http://developer.android.com/guide/topics/resources/more-resources.html#Dimension">move all dimension values</a> into <code>res/values/dimens.xml</code> and reference these in layouts with <code>@dimen/item_padding_left</code>.</li>
+<li>To support multiple devices, we can then use the <a href="http://guides.codepath.com/android/Understanding-App-Resources#providing-alternate-resources">alternative resources system</a> to provide different colors, strings, dimens, styles, etc based on the device type, screen size, API version and much more. </li>
+</ul>
+<p>Be sure to start properly organizing your resources early on in the development of an application. Be sure to check out the <a href="https://github.com/ribot/android-guidelines/blob/master/project_and_code_guidelines.md">Ribot Code and Style Guidelines</a> for a more extensive breakdown of suggested style and naming guidelines.</p>
+<h3 id="organizing-resources-into-subfolders">Organizing Resources into Subfolders<a class="headerlink" href="#organizing-resources-into-subfolders" title="Permanent link">&para;</a></h3>
+<p>Often there are questions about organizing not just the source files but also better organizing the <a href="http://guides.codepath.com/android/Understanding-App-Resources">application resources</a>. In a modern app, there are often hundreds of different layout files, drawables, styles, etc and by default these are all grouped together in a flat list within a single subdirectory (i.e <code>res/layout</code>).</p>
+<p>Refer to <a href="http://stackoverflow.com/q/4930398/313399">stackoverflow post</a> for a discussion of the other options. </p>
+<h3 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">&para;</a></h3>
+<p>It is up to you to decide which of the aforementioned approaches suits your project best.</p>
+<p>However, in general Java programming, packaging apps by feature is considered preferable and <a href="http://www.javapractices.com/topic/TopicAction.do?Id=205">makes a lot of sense</a>.</p>
+<h2 id="retaining-fragments">Retaining Fragments<a class="headerlink" href="#retaining-fragments" title="Permanent link">&para;</a></h2>
+<p>In many cases, we can avoid problems when an Activity is re-created by simply using fragments. If your views and state are within a fragment, we can easily have the fragment be retained when the activity is re-created:</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">RetainedFragment</span> <span class="kd">extends</span> <span class="n">Fragment</span> <span class="o">{</span>
+    <span class="c1">// data object we want to retain</span>
+    <span class="kd">private</span> <span class="n">MyDataObject</span> <span class="n">data</span><span class="o">;</span>
+
+    <span class="c1">// this method is only called once for this fragment</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+        <span class="c1">// retain this fragment when activity is re-initialized</span>
+        <span class="n">setRetainInstance</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setData</span><span class="o">(</span><span class="n">MyDataObject</span> <span class="n">data</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">MyDataObject</span> <span class="nf">getData</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">data</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>This approach keeps the fragment from being destroyed during the activity lifecycle.  They are instead retained inside the Fragment Manager.  See the Android official docs for more <a href="http://developer.android.com/guide/topics/resources/runtime-changes.html#RetainingAnObject">information</a>.  </p>
+<p>Now you can <strong>check to see if the fragment already exists by tag</strong> before creating one and the fragment will retain it's state across configuration changes. See the <a href="http://developer.android.com/guide/topics/resources/runtime-changes.html#RetainingAnObject">Handling Runtime Changes</a> guide for more details.</p>
+<h2 id="understanding-the-android-application-class">Understanding the Android Application Class<a class="headerlink" href="#understanding-the-android-application-class" title="Permanent link">&para;</a></h2>
+<p>The <code>Application</code> class in Android is the base class within an Android app that contains all other components such as activities and services. The Application class, or any subclass of the Application class, is instantiated before any other class when the process for your application/package is created.</p>
+<p><img src="http://i.imgur.com/b4YiAfy.png" /></p>
+<p>This class is primarily used for initialization of global state before the first <code>Activity</code> is displayed. Note that custom <code>Application</code> objects should be used carefully and are often <strong>not needed at all</strong>. </p>
+<h3 id="custom-application-classes">Custom Application Classes<a class="headerlink" href="#custom-application-classes" title="Permanent link">&para;</a></h3>
+<p>In many apps, there's no need to work with an application class directly. However, there are a few acceptable uses of a custom application class:</p>
+<ul>
+<li>Specialized tasks that need to run before the creation of your first activity</li>
+<li>Global initialization that needs to be shared across all components (crash reporting, persistence)</li>
+<li>Static methods for easy access to static immutable data such as a shared network client object</li>
+</ul>
+<p>Note that you should <strong>never store mutable shared data</strong> inside the <code>Application</code> object since that data might disappear or become invalid at any time. Instead, store any mutable shared data using [[persistence strategies|Persisting-Data-to-the-Device]] such as files, <code>SharedPreferences</code> or <code>SQLite</code>. </p>
+<h3 id="defining-your-application-class">Defining Your Application Class<a class="headerlink" href="#defining-your-application-class" title="Permanent link">&para;</a></h3>
+<p>If we do want a custom application class, we start by creating a new class which extends <code>android.app.Application</code> as follows:</p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">android.app.Application</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyCustomApplication</span> <span class="kd">extends</span> <span class="n">Application</span> <span class="o">{</span>
+        <span class="c1">// Called when the application is starting, before any other application objects have been created.</span>
+        <span class="c1">// Overriding this method is totally optional!</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">();</span>
+            <span class="c1">// Required initialization logic here!</span>
+    <span class="o">}</span>
+
+        <span class="c1">// Called by the system when the device configuration changes while your component is running.</span>
+        <span class="c1">// Overriding this method is totally optional!</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onConfigurationChanged</span><span class="o">(</span><span class="n">Configuration</span> <span class="n">newConfig</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onConfigurationChanged</span><span class="o">(</span><span class="n">newConfig</span><span class="o">);</span>
+    <span class="o">}</span>
+
+        <span class="c1">// This is called when the overall system is running low on memory,</span>
+        <span class="c1">// and would like actively running processes to tighten their belts.</span>
+        <span class="c1">// Overriding this method is totally optional!</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onLowMemory</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onLowMemory</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>And specify the <code>android:name</code> property in the the <code>&lt;application&gt;</code> node in <code>AndroidManifest.xml</code>:</p>
+<div class="codehilite"><pre><span></span><span class="nt">&lt;application</span>
+   <span class="na">android:name=</span><span class="s">&quot;.MyCustomApplication&quot;</span>
+   <span class="na">android:icon=</span><span class="s">&quot;@drawable/icon&quot;</span>
+   <span class="na">android:label=</span><span class="s">&quot;@string/app_name&quot;</span>
+   <span class="err">...</span><span class="nt">&gt;</span>
+</pre></div>
+
+
+<p>That's all you should need to get started with your custom application.</p>
+<h2 id="limitations-and-warnings">Limitations and Warnings<a class="headerlink" href="#limitations-and-warnings" title="Permanent link">&para;</a></h2>
+<p>There is always data and information that is needed in many places within your app. This might be a session token, the result of an expensive computation, etc. It might be tempting to use the application instance in order to avoid the overhead of passing objects between activities or keeping those in persistent storage.</p>
+<p>However, you should <strong>never store mutable instance data</strong> inside the <code>Application</code> object because if you assume that your data will stay there, your application will inevitably crash at some point with a <code>NullPointerException</code>. The application object is <strong>not guaranteed to stay in memory forever, it will get killed</strong>. Contrary to popular belief, the app won’t be restarted from scratch. Android will create a new <code>Application</code> object and start the activity where the user was before to give the illusion that the application was never killed in the first place.</p>
+<p>So how should we store shared application data? We should store shared data in one of the following ways:</p>
+<ul>
+<li>Explicitly pass the data to the Activity through the intent.</li>
+<li>Use one of the many ways to persist the data to disk.</li>
+</ul>
+<p><strong>Bottom Line</strong>: Storing data in the <code>Application</code> object is error-prone and can crash your app. Prefer storing your global data on disk if it is really needed later or explicitly pass to your activity in the intent’s extras.</p>
+<h2 id="resources">Resources<a class="headerlink" href="#resources" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://developer.android.com/reference/android/app/Application.html">https://developer.android.com/reference/android/app/Application.html</a></li>
+<li><a href="http://stackoverflow.com/questions/18002227/why-extend-an-application-class">http://stackoverflow.com/questions/18002227/why-extend-an-application-class</a></li>
+<li><a href="http://www.devahead.com/blog/2011/06/extending-the-android-application-class-and-dealing-with-singleton/">http://www.devahead.com/blog/2011/06/extending-the-android-application-class-and-dealing-with-singleton/</a></li>
+<li><a href="https://tausiq.wordpress.com/2013/01/27/android-make-use-of-android-application-class-as-singleton-object/">https://tausiq.wordpress.com/2013/01/27/android-make-use-of-android-application-class-as-singleton-object/</a></li>
+<li><a href="https://androidresearch.wordpress.com/2012/03/22/defining-global-variables-in-android/">https://androidresearch.wordpress.com/2012/03/22/defining-global-variables-in-android/</a></li>
+<li><a href="http://www.helloandroid.com/tutorials/maintaining-global-application-state">http://www.helloandroid.com/tutorials/maintaining-global-application-state</a></li>
+<li><a href="https://www.mobomo.com/2011/5/how-to-use-application-object-of-android/">https://www.mobomo.com/2011/5/how-to-use-application-object-of-android/</a></li>
+<li><a href="http://www.developerphil.com/dont-store-data-in-the-application-object/">http://www.developerphil.com/dont-store-data-in-the-application-object/</a></li>
+<li><a href="http://www.vogella.com/tutorials/AndroidLifeCycle/article.html#managing-the-application-life-cycle">http://www.vogella.com/tutorials/AndroidLifeCycle/article.html#managing-the-application-life-cycle</a></li>
+<li><a href="https://github.com/hotchemi/PermissionsDispatcher">https://github.com/hotchemi/PermissionsDispatcher</a></li>
+<li><a href="http://developer.android.com/guide/topics/security/permissions.html">http://developer.android.com/guide/topics/security/permissions.html</a></li>
+<li><a href="http://developer.android.com/preview/features/runtime-permissions.html">http://developer.android.com/preview/features/runtime-permissions.html</a></li>
+<li><a href="https://github.com/googlesamples/android-RuntimePermissions">https://github.com/googlesamples/android-RuntimePermissions</a></li>
+<li><a href="http://www.androidauthority.com/goodbye-menu-button-hello-action-bar-48312/">http://www.androidauthority.com/goodbye-menu-button-hello-action-bar-48312/</a></li>
+<li><a href="http://android-developers.blogspot.in/2013/08/actionbarcompat-and-io-2013-app-source.html">http://android-developers.blogspot.in/2013/08/actionbarcompat-and-io-2013-app-source.html</a></li>
+<li><a href="http://android-developers.blogspot.com/2014/10/appcompat-v21-material-design-for-pre.html">http://android-developers.blogspot.com/2014/10/appcompat-v21-material-design-for-pre.html</a></li>
+<li><a href="https://chris.banes.me/2015/04/22/support-libraries-v22-1-0/">https://chris.banes.me/2015/04/22/support-libraries-v22-1-0/</a></li>
+<li><a href="http://developer.android.com/guide/topics/resources/runtime-changes.html">http://developer.android.com/guide/topics/resources/runtime-changes.html</a></li>
+<li><a href="http://developer.android.com/training/basics/activity-lifecycle/recreating.html">http://developer.android.com/training/basics/activity-lifecycle/recreating.html</a></li>
+<li><a href="http://www.vogella.com/tutorials/AndroidLifeCycle/article.html#configurationchange">http://www.vogella.com/tutorials/AndroidLifeCycle/article.html#configurationchange</a></li>
+<li><a href="http://www.androiddesignpatterns.com/2013/04/retaining-objects-across-config-changes.html">http://www.androiddesignpatterns.com/2013/04/retaining-objects-across-config-changes.html</a></li>
+<li><a href="http://www.intertech.com/Blog/saving-and-retrieving-android-instance-state-part-1/">http://www.intertech.com/Blog/saving-and-retrieving-android-instance-state-part-1/</a></li>
+<li><a href="http://sunil-android.blogspot.com/2013/03/save-and-restore-instance-state.html">http://sunil-android.blogspot.com/2013/03/save-and-restore-instance-state.html</a></li>
+<li><a href="https://medium.com/google-developers/activity-revival-and-the-case-of-the-rotating-device-167e34f9a30d#.nq3b23lxg">https://medium.com/google-developers/activity-revival-and-the-case-of-the-rotating-device-167e34f9a30d#.nq3b23lxg</a></li>
+<li>http://developer.android.com/training/basics/activity-lifecycle/index.html</li>
+<li>https://github.com/xxv/android-lifecycle</li>
+<li><a href="http://blog.smartlogic.io/2013/07/09/organizing-your-android-development-code-structure">http://blog.smartlogic.io/2013/07/09/organizing-your-android-development-code-structure</a></li>
+<li><a href="http://stackoverflow.com/questions/5525872/android-project-package-structure">http://stackoverflow.com/questions/5525872/android-project-package-structure</a></li>
+<li><a href="http://www.javapractices.com/topic/TopicAction.do?Id=205">http://www.javapractices.com/topic/TopicAction.do?Id=205</a></li>
+<li><a href="http://tools.android.com/tech-docs/new-build-system/user-guide#TOC-Project-Structure">http://tools.android.com/tech-docs/new-build-system/user-guide#TOC-Project-Structure</a></li>
+<li><a href="http://developer.android.com/guide/topics/resources/string-resource.html">http://developer.android.com/guide/topics/resources/string-resource.html</a></li>
+<li><a href="http://developer.android.com/guide/topics/resources/accessing-resources.html">http://developer.android.com/guide/topics/resources/accessing-resources.html</a></li>
+<li><a href="http://mobile.tutsplus.com/tutorials/android/android-string/">http://mobile.tutsplus.com/tutorials/android/android-string/</a></li>
+<li><a href="http://developer.android.com/guide/topics/resources/providing-resources.html">http://developer.android.com/guide/topics/resources/providing-resources.html</a></li>
+<li><a href="http://developer.android.com/training/multiscreen/screendensities.html">http://developer.android.com/training/multiscreen/screendensities.html</a></li>
+<li><a href="http://www.evoketechnologies.com/blog/effective-ui-design-tips-android-devices/">http://www.evoketechnologies.com/blog/effective-ui-design-tips-android-devices/</a></li>
+<li><a href="http://www.androiddesignpatterns.com/2016/08/contextcompat-getcolor-getdrawable.html/">http://www.androiddesignpatterns.com/2016/08/contextcompat-getcolor-getdrawable.html/</a></li>
+<li><a href="http://developer.android.com/tools/projects/index.html#ApplicationProjects">http://developer.android.com/tools/projects/index.html#ApplicationProjects</a></li>
+<li><a href="http://www.codeproject.com/Articles/395614/Basic-structure-of-an-Android-project">http://www.codeproject.com/Articles/395614/Basic-structure-of-an-Android-project</a></li>
+<li><a href="http://mobile.tutsplus.com/tutorials/android/android-sdk-app-structure/">http://mobile.tutsplus.com/tutorials/android/android-sdk-app-structure/</a></li>
+</ul>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href=".." title="Getting Started" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Getting Started
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../android-resources/" title="Understanding App Resources" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Understanding App Resources
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset" style="background-color: #ff9900; color: #fff">
+    <div class="md-grid" style="display: flex;">
+      <div style="flex: 1;">
+        <h2>Consulting</h2>
+        <ul style="list-style: none; margin-left: -15px;">
+          <li><a href="https://www.peruzal.com/mobile-app-development" target="_blank">Mobile App Development</a></li>
+          <li><a href="https://www.peruzal.com/mobile-app-device-security-and-penetration-testing" target="_blank">Mobile App Security and Penetration Testing</a></li>
+          <li><a href="https://www.peruzal.com/database-and-web-application-performance-tuning-and-consulting" target="_blank">Database Performance Tuning</a></li>
+        </ul>
+      </div>
+      <div style="flex: 1;">
+        <h2>Training</h2>
+        <ul style="list-style: none; margin-left: -15px;">
+          <li><a href="https://training.peruzal.com/courses/mobile/android-mobile-app-development-training-certification" target="_blank">Android Mobile App Development Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/mobile/ios-mobile-app-development-training-with-swift" target="_blank">iOS Mobile App Development Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/mobile/xamarin/xamarin-forms-mobile-app-development-training" target="_blank">Xamarin Forms Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/mobile/xamarin/android-mobile-app-development-training-with-xamarin" target="_blank">Xamarin Android Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/mobile/xamarin/ios-mobile-app-development-training-with-xamarin" target="_blank">Xamarin iOS Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/web/reactjs-front-end-web-application-development" target="_blank">ReactJS Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/web/reactjs-front-end-web-application-development" target="_blank">React Native Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/gaming/unity-certified-game-development-training-south-africa" target="_blank">Unity Game Development Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/database/mysql-database-administration-training-certification-south-africa" target="_blank">MySQL Database Adminstration Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/programming/java-programming-training-certification" target="_blank">Java Programming Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/programming/ruby-programming-training-certification" target="_blank">Ruby Programming Training</a></li>
+        </ul>
+      </div>
+      <div style="flex: 1">
+        <h2>Resources</h2>
+        <ul style="list-style: none; margin-left: -15px;">
+          <li><a href="http://guides.peruzal.com/xamarin-forms-guide" target="_blank">Xamarin Forms Guide</a></li>
+          <li><a href="http://guides.peruzal.com/v1/android-guides" target="_blank">Android Development Guides</a></li>
+          <li><a href="http://guides.peruzal.com/xamarin-ios" target="_blank">iOS Development Guides</a></li>
+          <li><a href="http://xamarin-android-guide.peruzal.com/" target="_blank">Xamarin Android Guides</a></li>
+          <li><a href="http://xamarin-ios-guide.peruzal.com/" target="_blank">Xamarin iOS Guide</a></li>
+          <li><a href="http://unity-certified-associate-guide.peruzal.com/" target="_blank">Unity Game Development Guide</a></li>
+          <li><a href="https://josephkandi.gitbooks.io/mysql-5-6-database-administration-certification-g/content/" target="_blank">MySQL Database Adminstration Guide</a></li>
+          <li><a href="https://josephkandi.gitbooks.io/learn-java-by-developing-an-android-app/content/" target="_blank">Java Programming Guide</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="md-footer-meta__inner" style="background-color: rgba(0,0,0,.87)">
+      <div style="text-align: center; font-size: 0.7rem">
+          <div class="md-footer-copyright__highlight">
+            <a href="https://www.peruzal.com" target="_blank">Copyright &copy 2019 - Peruzal</a>
+          </div>
+      </div>
+      
+  <div style="text-align: center">
+    <link rel="stylesheet" href="../assets/fonts/font-awesome.css">
+    
+      <a href="https://github.com/peruzal" target="_blank" class="md-footer-social__link fa fa-github"></a>
+    
+      <a href="https://twitter.com/peruzal" target="_blank" class="md-footer-social__link fa fa-twitter"></a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-40772582-8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-40772582-8');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-6342782466521705",
+          enable_page_level_ads: true
+     });
+</script>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application.245445c6.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
+      
+        <script src="../assets/js/utils.js"></script>
+      
+        <script src="../assets/js/mixpanel.js"></script>
+      
+        <script src="../assets/js/track.js"></script>
+      
+        <script src="../assets/js/drift.js"></script>
+      
+    
+  </body>
+</html>

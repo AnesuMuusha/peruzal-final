@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Getting-starteds on SQL Server Performance and Tuning</title>
+    <link>http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/getting-started/index.xml</link>
+    <description>Recent content in Getting-starteds on SQL Server Performance and Tuning</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Copyright 2017 Peruzal</copyright>
+    <lastBuildDate>Mon, 27 Feb 2017 23:12:05 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/getting-started/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Getting Started</title>
+      <link>http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/getting-started/</link>
+      <pubDate>Mon, 27 Feb 2017 23:12:05 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/getting-started/</guid>
+      <description>
+
+&lt;h2 id=&#34;things-you-will-need&#34;&gt;Things you will need&lt;/h2&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

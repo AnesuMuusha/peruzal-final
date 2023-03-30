@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Query-design-analyses on SQL Server Performance and Tuning</title>
+    <link>http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/query-design-analysis/index.xml</link>
+    <description>Recent content in Query-design-analyses on SQL Server Performance and Tuning</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Copyright 2017 Peruzal</copyright>
+    <lastBuildDate>Sat, 18 Mar 2017 14:54:56 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/query-design-analysis/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Query Design Analysis</title>
+      <link>http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/query-design-analysis/</link>
+      <pubDate>Sat, 18 Mar 2017 14:54:56 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/query-design-analysis/</guid>
+      <description>
+
+&lt;p&gt;A database schema may include a number of performance-enhancement features such as indexes, statistics, and stored procedures. But none of these features guarantees good performance if your queries are written badly in the first place.&lt;/p&gt;
+
+&lt;h2 id=&#34;query-design-recommendations&#34;&gt;Query Design Recommendations&lt;/h2&gt;
+
+&lt;p&gt;When you need to run a query, you can often use many different approaches to get the same data. In many cases, the optimizer generates the same plan, irrespective of the structure of the query. However, in some situations the query structure won’t allow the optimizer to select the best possible processing strategy. It is important that you are aware that this can happen and, should it occur, what you can do to avoid it.&lt;/p&gt;
+
+&lt;p&gt;In general, keep the following recommendations in mind to ensure the best performance:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Operate on small result sets.&lt;/li&gt;
+&lt;li&gt;Use indexes effectively.&lt;/li&gt;
+&lt;li&gt;Avoid optimizer hints.&lt;/li&gt;
+&lt;li&gt;Use domain and referential integrity.&lt;/li&gt;
+&lt;li&gt;Avoid resource-intensive queries.&lt;/li&gt;
+&lt;li&gt;Reduce the number of network round-trips.&lt;/li&gt;
+&lt;li&gt;Reduce the transaction cost.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;operating-on-small-result-sets&#34;&gt;Operating on Small Result Sets&lt;/h2&gt;
+
+&lt;p&gt;To improve the performance of a query, limit the amount of data it operates on, including both columns and rows. Operating on a small result set reduces the amount of resources consumed by a query and increases the effectiveness of indexes. Two of the rules you should follow to limit the data set’s size are as follows:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Limit the number of columns in the select list.&lt;/li&gt;
+&lt;li&gt;Use highly selective WHERE clauses to limit the rows returned.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;using-indexes-effectively&#34;&gt;Using Indexes Effectively&lt;/h2&gt;
+
+&lt;p&gt;It is extremely important to have effective indexes on database tables to improve performance. However, it is equally important to ensure that the queries are designed properly to use these indexes effectively. These are some of the query design rules you should follow to improve the use of indexes:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Avoid nonsargable search conditions.&lt;/li&gt;
+&lt;li&gt;Avoid arithmetic operators on the WHERE clause column.&lt;/li&gt;
+&lt;li&gt;Avoid functions on the WHERE clause column.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;avoiding-optimizer-hints&#34;&gt;Avoiding Optimizer Hints&lt;/h2&gt;
+
+&lt;p&gt;Since it is usually difficult to outsmart the optimizer, the usual recommendation is to avoid optimizer hints. Generally, it is beneficial to let the optimizer determine a cost-effective processing strategy based on the data distribution statistics, indexes, and other factors.&lt;/p&gt;
+
+&lt;h2 id=&#34;using-domain-and-referential-integrity&#34;&gt;Using Domain and Referential Integrity&lt;/h2&gt;
+
+&lt;p&gt;Domain and referential integrity help define and enforce valid values for a column, maintaining the integrity of the database. This is done through column/table constraints.&lt;/p&gt;
+
+&lt;p&gt;Domain and referential integrity help the SQL Server 2014 optimizer analyze valid data values without physically accessing the data, which reduces query time.&lt;/p&gt;
+
+&lt;h2 id=&#34;avoiding-resource-intensive-queries&#34;&gt;Avoiding Resource-Intensive Queries&lt;/h2&gt;
+
+&lt;p&gt;These are a few techniques you can use to reduce the footprint of a query:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Avoid data type conversion.&lt;/li&gt;
+&lt;li&gt;Use EXISTS over COUNT(*) to verify data existence.&lt;/li&gt;
+&lt;li&gt;Use UNION ALL over UNION.&lt;/li&gt;
+&lt;li&gt;Use indexes for aggregate and sort operations.&lt;/li&gt;
+&lt;li&gt;Avoid local variables in a batch query.&lt;/li&gt;
+&lt;li&gt;Be careful when naming stored procedures.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;reducing-the-number-of-network-round-trips&#34;&gt;Reducing the Number of Network Round-Trips&lt;/h2&gt;
+
+&lt;p&gt;To reduce the overhead of multiple network round-trips, consider the following techniques:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Execute multiple queries together.&lt;/li&gt;
+&lt;li&gt;Use SET NOCOUNT.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;reducing-the-transaction-cost&#34;&gt;Reducing the Transaction Cost&lt;/h2&gt;
+
+&lt;p&gt;Based on the characteristics of a transaction, here are two broad recommendations to reduce the cost of the transaction:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Reduce logging overhead.&lt;/li&gt;
+&lt;li&gt;Reduce lock overhead.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

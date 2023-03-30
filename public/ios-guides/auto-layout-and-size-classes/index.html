@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+  
+  
+  
+  
+   <html class="no-js"> 
+
+  <head lang="en-us">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=10" />
+    <title>AutoLayout and Size Classes - Xamarin iOS Guides</title>
+    <meta name="generator" content="Hugo 0.17" />
+
+    
+    <meta name="description" content="Xamrin iOS guides for the Peruzal Cross Platform Mobile App Development course">
+    
+    <link rel="canonical" href="http://guides.peruzal.com/ios-guides/auto-layout-and-size-classes/">
+    
+    <meta name="author" content="Peruzal">
+    
+
+    <meta property="og:url" content="http://guides.peruzal.com/ios-guides/auto-layout-and-size-classes/">
+    <meta property="og:title" content="Xamarin iOS Guides">
+    <meta property="og:image" content="http://guides.peruzal.com/ios-guides/images/logo.png">
+    <meta name="apple-mobile-web-app-title" content="Xamarin iOS Guides">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="shortcut icon" type="image/x-icon" href="http://guides.peruzal.com/ios-guides/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="http://guides.peruzal.com/ios-guides/images/favicon.ico">
+
+    <style>
+      @font-face {
+        font-family: 'Icon';
+        src: url('http://guides.peruzal.com/ios-guides/fonts/icon.eot?52m981');
+        src: url('http://guides.peruzal.com/ios-guides/fonts/icon.eot?#iefix52m981')
+               format('embedded-opentype'),
+             url('http://guides.peruzal.com/ios-guides/fonts/icon.woff?52m981')
+               format('woff'),
+             url('http://guides.peruzal.com/ios-guides/fonts/icon.ttf?52m981')
+               format('truetype'),
+             url('http://guides.peruzal.com/ios-guides/fonts/icon.svg?52m981#icon')
+               format('svg');
+        font-weight: normal;
+        font-style: normal;
+      }
+    </style>
+
+    <link rel="stylesheet" href="http://guides.peruzal.com/ios-guides/stylesheets/application.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/ios-guides/stylesheets/temporary.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/ios-guides/stylesheets/palettes.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/ios-guides/stylesheets/highlight/highlight.css">
+
+    
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ubuntu:400,700|Ubuntu&#43;Mono">
+    <style>
+      body, input {
+        font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+      }
+      pre, code {
+        font-family: 'Ubuntu Mono', 'Courier New', 'Courier', monospace;
+      }
+    </style>
+
+    
+    <script src="http://guides.peruzal.com/ios-guides/javascripts/modernizr.js"></script>
+
+    
+
+  </head>
+  <body class="palette-primary-red palette-accent-teal">
+
+
+
+
+<div class="backdrop">
+	<div class="backdrop-paper"></div>
+</div>
+
+<input class="toggle" type="checkbox" id="toggle-drawer">
+<input class="toggle" type="checkbox" id="toggle-search">
+<label class="toggle-button overlay" for="toggle-drawer"></label>
+
+<header class="header">
+	<nav aria-label="Header">
+  <div class="bar default">
+    <div class="button button-menu" role="button" aria-label="Menu">
+      <label class="toggle-button icon icon-menu" for="toggle-drawer">
+        <span></span>
+      </label>
+    </div>
+    <div class="stretch">
+      <div class="title">
+        AutoLayout and Size Classes
+      </div>
+    </div>
+
+    
+
+    
+    <div class="button button-github" role="button" aria-label="GitHub">
+      <a href="https://github.com/peruzal" title="@peruzal on GitHub" target="_blank" class="toggle-button icon icon-github"></a>
+    </div>
+    
+    
+        
+  </div>
+  <div class="bar search">
+    <div class="button button-close" role="button" aria-label="Close">
+      <label class="toggle-button icon icon-back" for="toggle-search"></label>
+    </div>
+    <div class="stretch">
+      <div class="field">
+        <input class="query" type="text" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck>
+      </div>
+    </div>
+    <div class="button button-reset" role="button" aria-label="Search">
+      <button class="toggle-button icon icon-close" id="reset-search"></button>
+    </div>
+  </div>
+</nav>
+</header>
+
+<main class="main">
+	<div class="drawer">
+		<nav aria-label="Navigation">
+  <a href="http://guides.peruzal.com/ios-guides/" class="project">
+    <div class="banner">
+      
+        <div class="logo">
+          <img src="http://guides.peruzal.com/ios-guides/images/logo.png">
+        </div>
+      
+      <div class="name">
+        <strong>Xamarin iOS Guides <span class="version">1.0.0</span></strong>
+        
+      </div>
+    </div>
+  </a>
+
+  <div class="scrollable">
+    <div class="wrapper">
+      
+
+      <div class="toc">
+        
+        <ul>
+          
+
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="iOS with Swift and Objective-C" href="http://guides.peruzal.com/ios-guides/">
+	
+	iOS with Swift and Objective-C
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Getting Started" href="http://guides.peruzal.com/ios-guides/getting-started/">
+	
+	Getting Started
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Setting up a Project" href="http://guides.peruzal.com/ios-guides/setup/">
+	
+	Setting up a Project
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Swift Fundamentals" href="http://guides.peruzal.com/ios-guides/swift/">
+	
+	Swift Fundamentals
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Swift Objective-C Interoperability" href="http://guides.peruzal.com/ios-guides/swift-objective-c-interoperability/">
+	
+	Swift Objective-C Interoperability
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Objective-C Fundamentals" href="http://guides.peruzal.com/ios-guides/objective-c/">
+	
+	Objective-C Fundamentals
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Common Views" href="http://guides.peruzal.com/ios-guides/common-views/">
+	
+	Common Views
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Form Input" href="http://guides.peruzal.com/ios-guides/form-input/">
+	
+	Form Input
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Model View Controller(MVC)" href="http://guides.peruzal.com/ios-guides/mvc/">
+	
+	Model View Controller(MVC)
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a class="current" title="Auto Layout and Size Classes" href="http://guides.peruzal.com/ios-guides/auto-layout-and-size-classes/">
+	
+	Auto Layout and Size Classes
+</a>
+
+
+<ul id="scrollspy">
+</ul>
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Table View" href="http://guides.peruzal.com/ios-guides/tableview/">
+	
+	Table View
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Collection View" href="http://guides.peruzal.com/ios-guides/collection-view/">
+	
+	Collection View
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Tab Bar" href="http://guides.peruzal.com/ios-guides/tabbar-controller/">
+	
+	Tab Bar
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Scroll View" href="http://guides.peruzal.com/ios-guides/scrollview/">
+	
+	Scroll View
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Search Bar" href="http://guides.peruzal.com/ios-guides/searchbar/">
+	
+	Search Bar
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Navigation Patterns" href="http://guides.peruzal.com/ios-guides/navigation/">
+	
+	Navigation Patterns
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Passing Data between View Controllers" href="http://guides.peruzal.com/ios-guides/passing-data/">
+	
+	Passing Data between View Controllers
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Navigation Controller" href="http://guides.peruzal.com/ios-guides/navigation-controller/">
+	
+	Navigation Controller
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Location" href="http://guides.peruzal.com/ios-guides/location/">
+	
+	Location
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Maps and Location" href="http://guides.peruzal.com/ios-guides/maps-and-location/">
+	
+	Maps and Location
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="iOS Frameworks and Device Sensors" href="http://guides.peruzal.com/ios-guides/ios-frameworks-and-device-sensors/">
+	
+	iOS Frameworks and Device Sensors
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Networking and Threading" href="http://guides.peruzal.com/ios-guides/networking-and-threading/">
+	
+	Networking and Threading
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Animations and Gestures" href="http://guides.peruzal.com/ios-guides/animations-and-gestures/">
+	
+	Animations and Gestures
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Persistence" href="http://guides.peruzal.com/ios-guides/persistence/">
+	
+	Persistence
+</a>
+
+
+
+  
+</li>
+
+
+        </ul>
+        
+
+        
+        <hr>
+        <span class="section">The author</span>
+        
+        <ul>
+          
+
+          
+          <li>
+            <a href="https://github.com/peruzal" target="_blank" title="@peruzal on GitHub">
+              @peruzal on GitHub
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="mailto:info@peruzal.com" title="Email of info@peruzal.com">
+              Contact via email
+            </a>
+          </li>
+          
+        </ul>
+        
+      </div>
+    </div>
+  </div>
+</nav>
+
+	</div>
+
+	<article class="article">
+		<div class="wrapper">
+			<h1>AutoLayout and Size Classes </h1>
+
+			
+
+<h2 id="autolayout">AutoLayout</h2>
+
+<p>AutoLayout is a constraint based layout system that requires two things, <strong>Size</strong> and <strong>Position</strong>, in order to correctly
+position views.</p>
+
+<h2 id="size-classes">Size Classes</h2>
+
+<p>iOS uses <strong>Size Classes</strong> for applying <strong>AutoLayout</strong> constraints to be applied to the different devices. Using Size Classes you could
+define your views so that you could hide certain view or reposition them.</p>
+
+<h2 id="autolayout-with-xcode">AutoLayout with XCode</h2>
+
+<p>In XCode you have two buttons for applying the size and position of views, <strong>Pin</strong> and <strong>Align</strong>.
+<img src="http://guides.peruzal.com/ios-guides/images/alignandpin.jpg" alt="Pin and Align" /></p>
+
+<h2 id="resolving-autolayout-issues">Resolving AutoLayout Issues</h2>
+
+<p>If the contraints are not satisfied, XCode will highlight the issues, and show either a red border around the view or a yello dotted line.
+To resolve the issues, you have several options :</p>
+
+<ul>
+<li><strong>Update Frames</strong>: you think the red dotted lines are correct. Clicking this will move your layer to that position.</li>
+<li><strong>Update Constraints</strong>: you think that the red dotted lines are incorrect. Clicking this will change the constraints.</li>
+<li><strong>Add Missing Constraint</strong>: whatever is missing in term of position or size will be added.</li>
+</ul>
+
+<p><img src="http://guides.peruzal.com/ios-guides/images/autolayoutresolve.jpeg" alt="Resolve AutoLayout Issues" /></p>
+
+<p>This guide provides a quick overview and basic examples of the most
+common uses cases for using Auto Layout in Interface Builder. You can also check out <a href="https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/AutolayoutPG">Apple&rsquo;s
+official Auto Layout guide</a>.</p>
+
+<h2 id="what-is-auto-layout-and-why-use-it">What is Auto Layout and why use it?</h2>
+
+<p>Until the introduction of iPad and iPhone 5, all screens in the iOS
+world had the same <a href="https://developer.apple.com/library/ios/documentation/2DDrawing/Conceptual/DrawingPrintingiOS/GraphicsDrawingOverview/GraphicsDrawingOverview.html#//apple_ref/doc/uid/TP40010156-CH14-SW7">point</a> dimensions of 320x480 width x
+height.  At this point in time it was often possible to describe an
+app&rsquo;s layout by specifying the absolute position and size of views.</p>
+
+<p>These days, most applications will want their layout to be responsive to
+changes the screen size or the content they are displaying.  <em>Auto Layout</em>
+provides a convenient way for you to describe how the size and position
+of your <a href="https://developer.apple.com/library/ios/documentation/WindowsViews/Conceptual/ViewPG_iPhoneOS/Introduction/Introduction.html">views</a> should change when the size and position
+their parent views or neighboring views change.  This can happen for
+example when:</p>
+
+<ul>
+<li>your application is run on different devices</li>
+<li>the size of or number of neighboring views change to reflect a change
+in the content the application is displaying</li>
+<li>the user rotates the orientation of the device</li>
+</ul>
+
+<p>In Auto Layout you describe a view&rsquo;s layout by providing one or more
+<em>constraints</em> that describe how it is size and position are related to
+the size and position of other views.</p>
+
+<h3 id="example-of-layout-problem">Example of layout problem</h3>
+
+<p>To get a sense of the kind of problem that arises when laying out views
+and that Auto Layout can solve for us, consider the following example.
+Using Interface Builder we&rsquo;ve added a single view (colored red) inside
+the view controller&rsquo;s root view.</p>
+
+<p><a href="http://imgur.com/ZAuzNug"><img src="http://i.imgur.com/ZAuzNug.png" title="source: imgur.com" /></a></p>
+
+<p>Without adding any layout constraints here is what this interface looks
+likes in some situations where this app might run.</p>
+
+<p><a href="http://imgur.com/0WwqszZ"><img src="http://i.imgur.com/0WwqszZ.png" title="source: imgur.com" /></a></p>
+
+<p>Depending on the use case, chances are this is not behavior that we
+want.  For example, if the red view were meant to be a button that is
+always pinned to the upper right corner of the screen, the behavior is
+incorrect for the landscape and iPhone 6 sizes.</p>
+
+<h2 id="basic-constraints">Basic constraints</h2>
+
+<p>In Auto Layout, you describe your application&rsquo;s layout by adding
+constraints that define relationships between the size and position its
+views.  <strong>In order for Auto Layout to function properly you&rsquo;ll need to
+provide enough constraints for each view so that the system can
+determine its size (width and height) and location (the x and y
+coordinates of the top left corner of the view).</strong></p>
+
+<p>You can add constraints in Interface Builder by selecting one or more
+views and using the the Auto Layout controls (boxed in red below).  The
+buttons are from left to right:</p>
+
+<ol>
+<li>Aligntool - specify how views should be aligned relative to each
+other</li>
+<li>Pin tool - specify that a view should be a fixed distance from
+another view</li>
+<li>Issues tool - quick fixes for <a href="#constraint-errors-and-warnings">errors or warnings</a> that may come up as you
+add constraints.</li>
+<li>Resizing settings - changes the way Interface Builder updates
+constraints when you resize views.  You probably won&rsquo;t use this.</li>
+</ol>
+
+<p><a href="http://imgur.com/KZsEwNc"><img src="http://i.imgur.com/KZsEwNc.png" title="source: imgur.com" /></a></p>
+
+<p>You can also add constraints by control-dragging from one view to the
+relevant area of another view and selecting the appropriate item in the
+context menu.</p>
+
+<p><a href="http://imgur.com/Z9t4JEM"><img src="http://i.imgur.com/Z9t4JEM.gif" title="source: imgur.com" /></a></p>
+
+<p>Here are some of the most basic situations you&rsquo;ll come across.</p>
+
+<h3 id="pinning-to-one-or-more-edges">Pinning to one or more edges</h3>
+
+<p>You&rsquo;ll often find yourself wanting to position a view to be a fixed
+distance from an edge of its parent view or one of its neighboring
+views.</p>
+
+<p>Here we pin the the red view to the top right corner of its parent view.
+This might be useful for example if the red view is a menu button that
+we want to always be accessible from the same location.  Notice that we
+had to specify the height and width of the view as well so that Auto
+Layout would have enough informatin to figure out both the location and
+size of the red view.</p>
+
+<p><a href="http://imgur.com/TDwD12X"><img src="http://i.imgur.com/TDwD12X.gif" title="source: imgur.com" /></a></p>
+
+<p>The result when we run our app is as follows.</p>
+
+<p><a href="http://imgur.com/Ewh64iM"><img src="http://i.imgur.com/Ewh64iM.png" title="source: imgur.com" /></a></p>
+
+<h3 id="resize-with-parent-view">Resize with parent view</h3>
+
+<p>Another common situation is for a view to resize its dimensions (either
+height, width or both) to match the parent view&rsquo;s dimensions.</p>
+
+<p>Here we specify that the red view should be pinned to the top of the
+screen with fixed height, but it should resize to span the width of the
+screen.  This might be useful for example in a situation where the red
+view contains an alert message.</p>
+
+<p><a href="http://imgur.com/YVs4hFP"><img src="http://i.imgur.com/YVs4hFP.gif" title="source: imgur.com" /></a></p>
+
+<p>Here&rsquo;s what the result is when running our app:</p>
+
+<p><a href="http://imgur.com/UUcCSJH"><img src="http://i.imgur.com/UUcCSJH.png" title="source: imgur.com" /></a></p>
+
+<h3 id="center-a-view-within-a-parent-view">Center a view within a parent view</h3>
+
+<p>Sometimes you&rsquo;ll want to center a view (either vertically, horizontally,
+or both) within another view.</p>
+
+<p>Here we center the red view vertically on the screen.  This might be
+useful if we need to show our logo in the Launch Screen.  Notice that we
+had select &ldquo;Update Frames&rdquo; after setting our constraints.  More on this
+[below].</p>
+
+<p><a href="http://imgur.com/VfQLiGI"><img src="http://i.imgur.com/VfQLiGI.gif" title="source: imgur.com" /></a></p>
+
+<h2 id="working-with-constraints-in-interface-builder">Working with constraints in Interface Builder</h2>
+
+<p>Here are a few common situations that will come up as you add and modify
+constraints in Interface Builder</p>
+
+<h3 id="specifying-the-second-view-to-which-a-constraint-should-be-relative">Specifying the second view to which a constraint should be relative</h3>
+
+<p>The pin tool by default will try to create a constraint relative to the
+nearest neighbor.  You can change which view a constraint is relative to
+by clicking on the small arrow and selecting the right view in the drop
+down menu.</p>
+
+<p><a href="http://imgur.com/CufGkhG"><img src="http://i.imgur.com/CufGkhG.png" title="source: imgur.com" /></a></p>
+
+<h3 id="editing-constraints">Editing constraints</h3>
+
+<p>Note that constraints added using the align and pin buttons are
+additive.  They do not update existing constraints, but rather create
+entirely new ones.  For example, here we try to set a second height
+constraint which results in a case of <a href="#conflicting-constraints">conflicting
+constraints</a>.</p>
+
+<p><a href="http://imgur.com/APMxBUm"><img src="http://i.imgur.com/APMxBUm.gif" title="source: imgur.com" /></a></p>
+
+<p>You can edit an constraint by selecting the view associated with that
+constraint and using the Size inspector, or simply selecting the
+constraint directly in the Scene Outline.</p>
+
+<p><a href="http://imgur.com/cOiWvcd"><img src="http://i.imgur.com/cOiWvcd.png" title="source: imgur.com" /></a></p>
+
+<p>Here we update our red view to have a different height and different
+inset distance from it&rsquo;s parent view.</p>
+
+<p><a href="http://imgur.com/bd0Uqmg"><img src="http://i.imgur.com/bd0Uqmg.gif" title="source: imgur.com" /></a></p>
+
+<h3 id="constraint-errors-and-warnings">Constraint Errors and Warnings</h3>
+
+<p>The Auto Layout system will give an error if it us unable to determine
+the correct position and size of any of the views in your scene.  It
+will provide you with a warning there is issue that may result
+unexpected behavior&mdash;for example something that would result in
+your interface not looking like it appears in interface builder.</p>
+
+<h4 id="misplaced-views">Misplaced Views</h4>
+
+<p>As you edit your constraints you&rsquo;ll run into situations where the
+position and/or size of your views as they appear in Interface Builder
+no longer match what would be the result of the constraints you&rsquo;ve
+created.  In this case Auto Layout will will give you a &ldquo;Misplaced
+Views&rdquo; warning.</p>
+
+<h5 id="update-frames">Update frames</h5>
+
+<p>One way to fix this warning is to update the views&rsquo; sizes and locations
+in the Interface Builder to match the constraints.  You can do this by
+selecting &ldquo;Update frames&rdquo; from the issues button or in the Auto Layout
+error inspector.  You should use this option when you know that your
+constraints are correct, and the way the views are laid out on the
+canvas is wrong.  You should not select this option if you suspect one
+of the constraints is wrong.  In particular, do not select this option
+if Interface Builder says that you have &ldquo;Missing Constraints&rdquo; as this
+will result in confusing placement of your view off screen or having it
+be sized to zero.</p>
+
+<p>Here we edit the red view&rsquo;s constraints for height, but this is not
+properly updated on our canvas.  After selecting &ldquo;Update Frames&rdquo; the new
+height is properly reflected.</p>
+
+<p><a href="http://imgur.com/U4mgd09"><img src="http://i.imgur.com/U4mgd09.gif" title="source: imgur.com" /></a></p>
+
+<h5 id="update-constraints">Update constraints</h5>
+
+<p>Other times you&rsquo;ll be editing a view&rsquo;s location or size independently of
+manipulating constraints, and the view&rsquo;s location on the canvas is the
+location you want to keep.  You can update existing constraints to match
+the view&rsquo;s location on the canvas by selecting &ldquo;Update Constraints&rdquo; from
+the issues button or in the Auto Layout error inspector.</p>
+
+<p>After &ldquo;updating constraints&rdquo;, you should check to see if the system
+modified your constraints in the a sensible way since sometimes
+constraints will be updated in a way you did not intend.  In particular,
+do not use this option if Interface Builder tells you that you have
+&ldquo;Conflicting Constraints&rdquo; since this will update all constraints to fit
+the location of the view on the canvas, and you will end up having
+duplicate or redundant constraints.</p>
+
+<p>Here we&rsquo;ve decreased the width of the red view.  Selecting &ldquo;Update
+Constraints&rdquo; changes the horizontal space constraints between the red
+view and the parent view to match the new layout.</p>
+
+<p><a href="http://imgur.com/VCus7Pg"><img src="http://i.imgur.com/VCus7Pg.gif" title="source: imgur.com" /></a></p>
+
+<h4 id="conflicting-constraints">Conflicting Constraints</h4>
+
+<p>If you create constraints such that Auto Layout cannot simultaneously
+satisfy all of your constraints (i.e. your system is overconstrained),
+then it will give you an error about &ldquo;Conflicting Constraints&rdquo;.  You&rsquo;ll
+have to remove at least one constraint to resolve the issue.  Sometimes
+it&rsquo;s helpful to remove all constraints for a particular view and start
+over.  You can do this by selecting the view and choosing &ldquo;Clear
+Constraints&rdquo; from the issues button.</p>
+
+<p>Here our constraints on the red view to be centered along the y axis and
+to be a specific distance from the top of the parent view conflict with
+each other.  We resolve the issue by removing the vertical centering
+constraint and updating the frame of the view.</p>
+
+<p><a href="http://imgur.com/x2ZKSyE"><img src="http://i.imgur.com/x2ZKSyE.gif" title="source: imgur.com" /></a></p>
+
+<h4 id="missing-constraints">Missing Constraints</h4>
+
+<p>If you do not provide enough information for Auto Layout to determine
+both the x-coordinate and y-coordinate of the top left corner of your
+view <em>and</em> the width and height of your view, then it will give you an
+error about &ldquo;Missing Constraints&rdquo;.  This can be resolved by adding an
+appropriate constraint.  Be careful when using the automatic issue
+resolver since this may not add the constraint you expected or it may
+add a relatively unintuitive constraint.</p>
+
+<p>Here when we remove the constraint specifying the distance the red view
+has to be away from the right side of the parent view, Auto Layout
+can no longer determine the width of the red view.  Note that when we
+use the automatic issue resolver it adds a width constraint instead of
+the horizontal space constraint we originally had.</p>
+
+<p><a href="http://imgur.com/GjU98SU"><img src="http://i.imgur.com/GjU98SU.gif" title="source: imgur.com" /></a></p>
+
+<h2 id="dealing-with-flexible-content-size">Dealing with flexible content size</h2>
+
+<p>So far we have been only dealing with views whose content (and hence
+size) does not change during run time.  However, many views that we end
+up working with will have dynamic size depending on their content.  The
+most prominent examples are <a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UILabel_Class/"><code>UILabels</code></a>,
+<a href="https://developer.apple.com/library/prerelease/ios/documentation/UIKit/Reference/UIButton_Class/index.html"><code>UIButtons</code></a>, and <a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIImageView_Class/index.html"><code>UIImageViews</code></a>.</p>
+
+<h3 id="intrinsic-content-size-of-a-view">Intrinsic content size of a view</h3>
+
+<p>Views that can determine the size they that &ldquo;should be&rdquo; have what is
+known as an <em><a href="https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/AutolayoutPG/ImplementingView/ImplementingView.html#//apple_ref/doc/uid/TP40010853-CH16-SW2">intrinsic content size</a></em>.  This size
+is the size the view has determined would be best to display its current
+content.  For example a <code>UILabel</code>&rsquo;s intrinsic content size will change
+depending the text in the label, and a <code>UIImageView</code>&rsquo;s intrinsic content
+size will depend on the image it has loaded.</p>
+
+<p>When using Auto Layout, you do not necessary have to provide width and
+height constraints for views with an intrinsic content size since the
+system will take this into account when computing the final layout of
+the views.  To get a sense of how intrinsic content size works we can
+consider some examples.</p>
+
+<h3 id="two-labels-one-on-top-of-another">Two labels: one on top of another</h3>
+
+<p>Here we add constraints for two labels that located vertically adjacent
+to each other.  We pin the first label to the top left corner, specify
+the vertical space between the labels, pin the second label to the left
+margin and also give both labels a width.  Notice that we did not have
+to specify the height for either label.</p>
+
+<p><a href="http://imgur.com/hhHeK7d"><img src="http://i.imgur.com/hhHeK7d.gif" title="source: imgur.com" /></a></p>
+
+<p>Now we make one the labels a multi-line label by setting it&rsquo;s &ldquo;Lines&rdquo;
+property to 0 in the attributes inspector&mdash;this means that the
+label can have an arbitray number of lines.  Once we add sufficiently
+long text and update frames, the first label changes its height to match
+the content and the second label gets automatically pushed lower down
+the canvas so that the vertical space between the two labels is
+maintained.  We had to update the frames manually here, but this would
+be done automatically for us at runtime when we change the content of
+the label.</p>
+
+<p><a href="http://imgur.com/FAhPo6v"><img src="http://i.imgur.com/FAhPo6v.gif" title="source: imgur.com" /></a></p>
+
+<h3 id="left-aligned-label-next-to-right-aligned-label">Left aligned label next to right aligned label</h3>
+
+<p>Consider another example where we have two single-line labels
+horizontally adjancent to each other.  We want to pin one label to the
+left margin and the other to the right margin&mdash;this is common for
+example in the design of many table view cells.</p>
+
+<h4 id="inequality-constraints">Inequality constraints</h4>
+
+<p>We also want to specify that the labels should have a minimum amount of
+horizontal space between them so that they do not run into each other.
+We do not know the exact amount of horizontal space since the contents
+of the labels might change at run time.  One way to accomplish this is
+to define an <em>inequality constraint</em> where we can specify that a certain
+constraint&rsquo;s value be greater than or less than a constant.</p>
+
+<p><a href="http://imgur.com/by5X5AB"><img src="http://i.imgur.com/by5X5AB.gif" title="source: imgur.com" /></a></p>
+
+<h4 id="compression-resistance">Compression resistance</h4>
+
+<p>In this same example, what if the text in our labels becomes long enough
+so overlap is unavoidable?  As seen below, at least one of the labels
+will start to shrink and compress its content (in this case by using
+an ellipsis).</p>
+
+<p>How do we control this shrinking behavior?  Each view has a horizontal
+and vertical <em>content compression resistance priority</em> that can be
+modified.  Higher compression resistance means the view is less likely
+to shrink its content.</p>
+
+<p>In this case we specify that the green label is the one whose content
+should be compressed if there is a conflict by lowering its compression
+resistance priority.</p>
+
+<p><a href="http://imgur.com/PhgyniJ"><img src="http://i.imgur.com/PhgyniJ.gif" title="source: imgur.com" /></a></p>
+
+<h4 id="content-hugging">Content hugging</h4>
+
+<p>Sometimes you&rsquo;ll want to views to be a fixed distance from each other
+and for one of the views to expand to fill the available
+space&emdash;this is common for example with buttons.  This can be
+accomplished by pinning the views to the surround views and adding a
+fixed constraint for the space between them.  You can specify which view
+should fill the available space by changing the <em>content hugging
+priority</em> of a view.  A lower content hugging priority means the view is
+more likely to expand to match constraints, whereas a higher content
+hugging priority means a view wants to be as close to its intrinsic
+content size as possible.</p>
+
+<p>Here we specify that the red label should expand to fill the available
+space by lowering its content hugging priority.
+<a href="http://imgur.com/B6txKC3"><img src="http://i.imgur.com/B6txKC3.gif" title="source: imgur.com" /></a></p>
+
+<h2 id="manipulating-constraints-programmatically">Manipulating constraints programmatically</h2>
+
+<h2 id="vfl">VFL</h2>
+
+<p>The Visual Format Language is a declarative language that is used to define Auto Layout constraints for views.</p>
+
+<p>To use VFL, ensure <code>translatesAutoresizingMaskIntoConstraints</code> is set to <code>false</code>.</p>
+
+<pre><code class="language-swift">  func addConstraints() {
+    //Collect Views to apply VFL
+    let buttonsDictionary = [&quot;button1&quot;: flagButton1,
+                         &quot;button2&quot;: flagButton2,
+                         &quot;button3&quot;: flagButton3]
+
+    //Metrics establish Fixed Constants
+    let metrics = [&quot;topSpacing&quot;: 80, &quot;bottomSpacing&quot;: 20, &quot;buttonHeight&quot;: 20, &quot;buttonSpacing&quot;: 20]
+
+    //Note that priorities can be set using @. 1000 for Required. &lt; 100 for Optional. Example: @999
+
+    //Horizontal constraints
+    for buttonName in buttonsDictionary.keys {
+      view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(&quot;H:|-[\(buttonName)]-|&quot;, options: .allZeros, metrics: nil, views: buttonsDictionary))
+    }
+
+    //Vertical constraints
+    view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(&quot;V:|-(==topSpacing)-[button1(&gt;=buttonHeight@997)]-(==buttonSpacing@999)-[button2(==button1)]-(==buttonSpacing@999)-[button3(==button1)]-(&gt;=bottomSpacing@998)-|&quot;, options: .allZeros, metrics: metrics, views: buttonsDictionary))
+  }
+</code></pre>
+
+<h3 id="understanding-debug-output">Understanding debug output</h3>
+
+<h2 id="other-topics">Other topics</h2>
+
+<h3 id="springs-and-struts-and-autoresizing-mask">Springs and Struts and AutoResizing Mask</h3>
+
+<!---
+- autolayout is per interface builder document:
+- http://stackoverflow.com/questions/9370072/xcode-4-3-not-presenting-autoresizing-panel-in-size-inspector
+- Tip: If you want to remove all constraints and start over, choose Issues > Clear Constraints.
+-->
+
+<!---
+- what is layout?
+- why autolayout?
+- specifies how to respond to change
+
+- examples of most common use cases
+
+
+- auto resizing mask / Springs and struts
+
+- Tip: If you want to remove all constraints and start over, choose Issues > Clear Constraints.
+
+- overconstrained
+- underconstrained
+
+-->
+
+
+			<aside class="copyright" role="note">
+				
+				&copy; 2016 Peruzal &ndash;
+				
+				Xamarin iOS Guides by 
+				<a href="https://www.peruzal.com" target="_blank">Peruzal</a>
+			</aside>
+
+			<footer class="footer">
+				
+
+<nav class="pagination" aria-label="Footer">
+  <div class="previous">
+  
+      <a href="http://guides.peruzal.com/ios-guides/common-views/" title="Common Views">
+        <span class="direction">
+          Previous
+        </span>
+        <div class="page">
+          <div class="button button-previous" role="button" aria-label="Previous">
+            <i class="icon icon-back"></i>
+          </div>
+          <div class="stretch">
+            <div class="title">
+              Common Views
+            </div>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+
+  <div class="next">
+  
+      <a href="http://guides.peruzal.com/ios-guides/" title="Introduction to iOS with Swift and Objective-C">
+        <span class="direction">
+          Next
+        </span>
+        <div class="page">
+          <div class="stretch">
+            <div class="title">
+              Introduction to iOS with Swift and Objective-C
+            </div>
+          </div>
+          <div class="button button-next" role="button" aria-label="Next">
+            <i class="icon icon-forward"></i>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+</nav>
+
+
+
+
+
+			</footer>
+		</div>
+	</article>
+
+	<div class="results" role="status" aria-live="polite">
+		<div class="scrollable">
+			<div class="wrapper">
+				<div class="meta"></div>
+				<div class="list"></div>
+			</div>
+		</div>
+	</div>
+</main>
+
+    <script>
+    
+      var base_url = '';
+      var repo_id  = '';
+    
+    </script>
+
+    <script src="http://guides.peruzal.com/ios-guides/javascripts/application.js"></script>
+    
+
+    <script>
+      /* Add headers to scrollspy */
+      var headers   = document.getElementsByTagName("h2");
+      var scrollspy = document.getElementById('scrollspy');
+
+      if(scrollspy) {
+        if(headers.length > 0) {
+          for(var i = 0; i < headers.length; i++) {
+            var li = document.createElement("li");
+            li.setAttribute("class", "anchor");
+
+            var a  = document.createElement("a");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", headers[i].innerHTML);
+            a.innerHTML = headers[i].innerHTML;
+            
+            li.appendChild(a)
+            scrollspy.appendChild(li);
+          }
+        } else {
+          scrollspy.parentElement.removeChild(scrollspy)
+        }
+        
+
+        /* Add permanent link next to the headers */
+        var headers = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+
+        for(var i = 0; i < headers.length; i++) {
+            var a = document.createElement("a");
+            a.setAttribute("class", "headerlink");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", "Permanent link")
+            a.innerHTML = "#";
+            headers[i].appendChild(a);
+        }
+      }
+    </script>
+
+    
+
+    <script src="//gohugo.io/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/cs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/json.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/swift.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/xml.min.js"></script>    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/objectivec.min.js"></script>
+  </body>
+</html>

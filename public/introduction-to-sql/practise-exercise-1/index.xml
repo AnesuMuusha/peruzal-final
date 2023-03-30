@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Practise-exercise-1s on Introduction to SQL</title>
+    <link>http://guides.peruzal.com/introduction-to-sql/practise-exercise-1/index.xml</link>
+    <description>Recent content in Practise-exercise-1s on Introduction to SQL</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Copyright 2017 Peruzal</copyright>
+    <lastBuildDate>Mon, 13 Mar 2017 22:15:23 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/introduction-to-sql/practise-exercise-1/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Practise Exercises</title>
+      <link>http://guides.peruzal.com/introduction-to-sql/practise-exercise-1/</link>
+      <pubDate>Mon, 13 Mar 2017 22:15:23 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/introduction-to-sql/practise-exercise-1/</guid>
+      <description>
+
+&lt;h2 id=&#34;exercise-one&#34;&gt;Exercise One&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Write a &lt;strong&gt;SELECT&lt;/strong&gt; statement that lists the customers along with their &lt;em&gt;ID&lt;/em&gt; numbers. Include the &lt;em&gt;StoreID&lt;/em&gt; and the &lt;em&gt;AccountNumber&lt;/em&gt; from the &lt;em&gt;Sales.Customers&lt;/em&gt; table.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Write a &lt;strong&gt;SELECT&lt;/strong&gt; statement that lists the name, product number, and color of each product from the _Production.Product _table.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Write a &lt;strong&gt;SELECT&lt;/strong&gt; statement that lists the customer ID numbers and sales order ID numbers from the &lt;em&gt;Sales.SalesOrderHeader&lt;/em&gt; table.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Answer this question: Why should you specify column names rather than an asterisk when writing the select-list? Give at least two reasons.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;using-execution-plans&#34;&gt;Using Execution Plans&lt;/h2&gt;
+
+&lt;p&gt;Use the AdventureWorks2012 database to complete this exercise. Be sure to turn on the Include Actual Execution Plan setting before you begin. Type the following code into the query window, and then complete each question.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;USE AdventureWorks2012;
+GO
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;1&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT LastName
+FROM Person.Person
+WHERE LastName = &#39;Smith&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;2&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT LastName
+FROM Person.Person
+WHERE LastName LIKE &#39;Sm%&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;3&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT LastName
+FROM Person.Person
+WHERE LastName LIKE &#39;%mith&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;4&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT ModifiedDate
+FROM Person.Person
+WHERE ModifiedDate BETWEEN &#39;2005-01-01&#39; and &#39;2005-01-31&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Highlight and run queries 1 and 2. Explain why there is no difference in performance between the two queries.&lt;/li&gt;
+&lt;li&gt;Highlight and run queries 2 and 3. Determine which query performs the best, and explain why you think so.&lt;/li&gt;
+&lt;li&gt;Highlight and run queries 3 and 4. Determine which query performs the best, and explain why you think so.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;working-with-nulls&#34;&gt;Working with NULLs&lt;/h2&gt;
+
+&lt;p&gt;Use the AdventureWorks2012 database to complete this exercise. You can find the solutions in the Appendix.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Write a query that displays in the “AddressLine1 (City PostalCode)” format from the Person.Address table.&lt;/li&gt;
+&lt;li&gt;Write a query using the Production.Product table displaying the product ID, color, and name columns. If the color column contains a NULL value, replace the color with No Color.&lt;/li&gt;
+&lt;li&gt;Modify the query written in question 2 so that the description of the product is displayed in the “Name: Color” format. Make sure that all rows display a value even if the Color value is missing.&lt;/li&gt;
+&lt;li&gt;Write a query using the Production.Product table displaying a description with the “ProductID: Name” format. Hint: You will need to use a function to write this query.&lt;/li&gt;
+&lt;li&gt;Explain the difference between the ISNULL and COALESCE functions.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;mathematical-operations&#34;&gt;Mathematical Operations&lt;/h3&gt;
+
+&lt;p&gt;Use the &lt;em&gt;AdventureWorks2012&lt;/em&gt; database to complete this exercise.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Write a query using the &lt;em&gt;Sales.SpecialOffer&lt;/em&gt; table. Display the difference between the &lt;em&gt;MinQty&lt;/em&gt; and &lt;em&gt;MaxQty&lt;/em&gt; columns along with the &lt;em&gt;SpecialOfferID&lt;/em&gt; and Description columns.&lt;/li&gt;
+&lt;li&gt;Write a query using the &lt;em&gt;Sales.SpecialOffer&lt;/em&gt; table. Multiply the &lt;em&gt;MinQty&lt;/em&gt; column by the &lt;em&gt;DiscountPct&lt;/em&gt; column. Include the &lt;em&gt;SpecialOfferID&lt;/em&gt; and &lt;em&gt;Description&lt;/em&gt; columns in the results.&lt;/li&gt;
+&lt;li&gt;Write a query using the &lt;em&gt;Sales.SpecialOffer&lt;/em&gt; table that multiplies the &lt;em&gt;MaxQty&lt;/em&gt; column by the &lt;em&gt;DiscountPct&lt;/em&gt; column. If the &lt;em&gt;MaxQty&lt;/em&gt; value is NULL, replace it with the value 10. Include the &lt;em&gt;SpecialOfferID&lt;/em&gt; and Description columns in the results.&lt;/li&gt;
+&lt;li&gt;Describe the difference between division and modulo.&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

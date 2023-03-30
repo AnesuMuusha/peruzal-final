@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ios-runtime-analyses on Mobile Device Security and Penetration Testing Guide</title>
+    <link>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-runtime-analysis/</link>
+    <description>Recent content in Ios-runtime-analyses on Mobile Device Security and Penetration Testing Guide</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Peruzal Mobile Device Security and Penetration Testing Guide</copyright>
+    <lastBuildDate>Sun, 01 Jan 2017 11:52:59 +0200</lastBuildDate>
+    
+	<atom:link href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-runtime-analysis/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>iOS Runtime Analysis</title>
+      <link>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-runtime-analysis/</link>
+      <pubDate>Sun, 01 Jan 2017 11:52:59 +0200</pubDate>
+      
+      <guid>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-runtime-analysis/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

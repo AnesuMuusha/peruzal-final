@@ -1,0 +1,719 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Index-analyses on SQL Server Performance and Tuning</title>
+    <link>http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/index-analysis/index.xml</link>
+    <description>Recent content in Index-analyses on SQL Server Performance and Tuning</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Copyright 2017 Peruzal</copyright>
+    <lastBuildDate>Sat, 18 Mar 2017 14:52:09 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/index-analysis/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Index Analysis</title>
+      <link>http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/index-analysis/</link>
+      <pubDate>Sat, 18 Mar 2017 14:52:09 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/index-analysis/</guid>
+      <description>
+
+&lt;p&gt;One of the best ways to reduce disk I/O is to use an index. An index allows SQL Server to find data in a table without scanning the entire table.&lt;/p&gt;
+
+&lt;p&gt;The following query scans the entire table to retrieve the data :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT TOP 10
+        p.ProductID,
+        p.[Name],
+        p.StandardCost,
+        p.[Weight],
+        ROW_NUMBER() OVER (ORDER BY p.Name DESC) AS RowNumber
+FROM Production.Product p
+ORDER BY p.Name DESC;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The table will still be scanned if we were to add a WHERE clause on StandardCost column.&lt;/p&gt;
+
+&lt;h3 id=&#34;index-terms&#34;&gt;Index Terms&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Heap&lt;/strong&gt; - A heap is a data structure where rows are stored without a specified order. In other words, it is a table without a clustered index.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Clustered index&lt;/strong&gt; - A table can only have one clustered index and the data is sorted on the clustered index.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Nonclustered index&lt;/strong&gt; - A B-Tree structure that contains the index key values and a pointer to the data row on the base table. It can be created on a heap on a clustered index. Each table can have up to 999 nonclustered indexes. A nonclustered index can optionally contain non-key columns when using the &lt;strong&gt;INCLUDE&lt;/strong&gt; clause, which are particularly useful when covering a query.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Unique index&lt;/strong&gt; - a unique index does not allow two rows of data to have identical key values. A table can have one or more unique indexes.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Primary key&lt;/strong&gt; - A primary key is a key that uniquely identifies each record in the table and creates a unique index, which, by default, will also be a clustered index.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;creating-a-primary-key&#34;&gt;Creating a Primary Key&lt;/h3&gt;
+
+&lt;p&gt;By default when a primary key is created, it creates a unique, clustered index. This is the behaviour when using the designer in SSMS and also the ALTER TABLE statement.&lt;/p&gt;
+
+&lt;p&gt;If you run the following queries, the will both produce a clustered index :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;-- if you run the following code to create a primary key, where the CLUSTERED or NONCLUSTERED keywords are not specified
+CREATE TABLE table1 (
+ col1 int NOT NULL,
+ col2 nchar(10) NULL,
+CONSTRAINT PK_table1 PRIMARY KEY(col1)
+)
+
+-- or
+CREATE TABLE table1
+(
+ col1 int NOT NULL,
+ col2 nchar(10) NULL
+)
+GO
+ALTER TABLE table1 ADD CONSTRAINT
+PK_table1 PRIMARY KEY
+(
+ col1
+)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/images/primark-key-default-sql.png&#34; alt=&#34;Primary Key Clsutered Index&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;create-index-syntax&#34;&gt;Create Index Syntax&lt;/h3&gt;
+
+&lt;p&gt;The following is the syntax to creating an index :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;CREATE [ UNIQUE ] [ CLUSTERED | NONCLUSTERED ] INDEX index_name
+    ON &amp;lt;object&amp;gt; ( column [ ASC | DESC ] [ ,...n ] )
+    [ INCLUDE ( column_name [ ,...n ] ) ]
+    [ WHERE &amp;lt;filter_predicate&amp;gt; ]
+    [ WITH ( &amp;lt;relational_index_option&amp;gt; [ ,...n ] ) ]
+    [ ON { partition_scheme_name ( column_name )
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;modifying-the-index&#34;&gt;Modifying the Index&lt;/h3&gt;
+
+&lt;p&gt;The &lt;strong&gt;ALTER INDEX&lt;/strong&gt; command is used to modify an existing table or view index (relational or XML) by disabling, rebuilding, or reorganizing the index; or by setting options on the index.&lt;/p&gt;
+
+&lt;p&gt;The syntax is as follows :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;ALTER INDEX { index_name | ALL } ON &amp;lt;object&amp;gt;
+{
+      REBUILD {
+            [ PARTITION = ALL ] [ WITH ( &amp;lt;rebuild_index_option&amp;gt; [ ,...n ] ) ]
+          | [ PARTITION = partition_number [ WITH ( &amp;lt;single_partition_rebuild_index_option&amp;gt; ) [ ,...n ] ]
+      }
+    | DISABLE
+    | REORGANIZE  [ PARTITION = partition_number ] [ WITH ( &amp;lt;reorganize_option&amp;gt;  ) ]
+    | SET ( &amp;lt;set_index_option&amp;gt; [ ,...n ] )
+    }
+[ ; ]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;dropping-an-index&#34;&gt;Dropping an Index&lt;/h3&gt;
+
+&lt;p&gt;We can the &lt;strong&gt;DROP INDEX&lt;/strong&gt; command remove an existing index and the syntax is as follows :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;DROP INDEX [ IF EXISTS ]
+{ &amp;lt;drop_relational_or_xml_or_spatial_index&amp;gt; [ ,...n ]
+| &amp;lt;drop_backward_compatible_index&amp;gt; [ ,...n ]
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;the following will drop the index name &lt;strong&gt;IX_ProductVendor_BusinessEntityID&lt;/strong&gt; from the &lt;strong&gt;Purchasing.ProductVendor&lt;/strong&gt; table.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;DROP INDEX IX_ProductVendor_BusinessEntityID
+    ON Purchasing.ProductVendor;
+GO
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and we can also drop multiple indexes as follows :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;DROP INDEX
+    IX_PurchaseOrderHeader_EmployeeID ON Purchasing.PurchaseOrderHeader,
+    IX_Address_StateProvinceID ON Person.Address;
+GO
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;dropping-a-primary-key-constraint-online&#34;&gt;Dropping a PRIMARY KEY constraint online&lt;/h3&gt;
+
+&lt;p&gt;Indexes that are created as the result of creating &lt;strong&gt;PRIMARY KEY&lt;/strong&gt; or &lt;strong&gt;UNIQUE&lt;/strong&gt; constraints cannot be dropped by using &lt;strong&gt;DROP INDEX&lt;/strong&gt;. They are dropped using the &lt;strong&gt;ALTER TABLE DROP CONSTRAINT&lt;/strong&gt; statement.&lt;/p&gt;
+
+&lt;p&gt;The following example deletes a clustered index with a P&lt;strong&gt;RIMARY KEY&lt;/strong&gt; constraint by dropping the constraint. The &lt;strong&gt;ProductCostHistory&lt;/strong&gt; table has no **FOREIGN KEY **constraints. If it did, those constraints would have to be removed first.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;-- Set ONLINE = OFF to execute this example on editions other than Enterprise Edition.
+ALTER TABLE Production.TransactionHistoryArchive
+DROP CONSTRAINT PK_TransactionHistoryArchive_TransactionID
+WITH (ONLINE = ON);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;creating-indexes&#34;&gt;Creating Indexes&lt;/h3&gt;
+
+&lt;p&gt;Let’s do a quick exercise to show some of these concepts and T-SQL statements mentioned in this section. Create a new table by running the following statement:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;-- create a new table by running the following statement:
+SELECT * INTO dbo.SalesOrderDetail
+FROM Sales.SalesOrderDetail
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;view-the-indexes-for-the-table&#34;&gt;View the indexes for the Table&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;-- let’s use the sys.indexes catalog view to inspect the table properties:
+SELECT * FROM sys.indexes
+WHERE object_id = OBJECT_ID(&#39;dbo.SalesOrderDetail&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/images/heap.png&#34; alt=&#34;Heap&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;create-a-non-clustered-index&#34;&gt;Create a non-clustered index&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;-- let’s create a nonclustered index:
+CREATE INDEX IX_ProductID ON dbo.SalesOrderDetail(ProductID)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/images/non-clustered-index.png&#34; alt=&#34;Non Clustered Index&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Nonclustered indexes can have index_id values between 2 and 250 and between 256 and 1005. The values between 251 and 255 are reserved&lt;/p&gt;
+
+&lt;h3 id=&#34;create-a-clustered-index&#34;&gt;Create a clustered index&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;-- now create a clustered index:
+CREATE CLUSTERED INDEX IX_SalesOrderID_SalesOrderDetailID
+ON dbo.SalesOrderDetail(SalesOrderID, SalesOrderDetailID)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/images/clustered-index.png&#34; alt=&#34;Clustered Index&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Note that instead of a heap, now we have a clustered index and the index_id is now 1. A clustered index always has an index_id of 1. Internally, the nonclustered index has been rebuilt to now use a cluster key pointer rather than a row identifier (RID).&lt;/p&gt;
+
+&lt;p&gt;Dropping the nonclustered index will remove the index pages entirely, leaving only the clustered index:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;-- dropping the nonclustered index will remove the index pages entirely, leaving only the clustered index:
+DROP INDEX dbo.SalesOrderDetail.IX_ProductID
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;But notice that deleting the clustered index, which is considered the entire table, does not delete the underlying data, but simply changes the table structure to be a heap:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;-- but notice that deleting the clustered index, which is considered the entire table
+DROP INDEX dbo.SalesOrderDetail.IX_SalesOrderID_SalesOrderDetail
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/images/heap.png&#34; alt=&#34;Heap&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;choosing-a-clustered-index&#34;&gt;Choosing a Clustered Index&lt;/h3&gt;
+
+&lt;p&gt;You definitely want to use a clustered index in the following cases:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;You frequently need to return data in a sorted order or query ranges of data. In this case, you would need to create the clustered index key on the column’s desired order.&lt;/li&gt;
+&lt;li&gt;You frequently need to return data grouped together. In this case, you would need to create the clustered index key on the columns used by the GROUP BY clause.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;clustered-vs-nonclustered-indexes&#34;&gt;Clustered vs. Nonclustered Indexes&lt;/h3&gt;
+
+&lt;p&gt;The main considerations in choosing between a clustered and a nonclustered index are as follows:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Number of rows to be retrieved&lt;/li&gt;
+&lt;li&gt;Data-ordering requirement&lt;/li&gt;
+&lt;li&gt;Index key width&lt;/li&gt;
+&lt;li&gt;Column update frequency&lt;/li&gt;
+&lt;li&gt;Lookup cost&lt;/li&gt;
+&lt;li&gt;Any disk hot spots&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;covering-indexes&#34;&gt;Covering Indexes&lt;/h2&gt;
+
+&lt;p&gt;A covering index is a nonclustered index built upon all the columns required to satisfy a SQL query without going to the heap or the clustered index. If a query encounters an index and does not need to refer to the underlying structures at all, then the index can be considered a covering index.&lt;/p&gt;
+
+&lt;p&gt;Using the following query you will notice that the column PostalCode is needed but we have to perform a lookup in order to retrieve the data not satisfied by the index :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;-- for example, the following query is already covered by an existing index, IX_SalesOrderHeader_CustomerID
+SELECT SalesOrderID, CustomerID FROM Sales.SalesOrderHeader
+WHERE CustomerID = 16448
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;There is no need to access the base table at all. If we slightly change the query to also request the SalesPersonID column, this time, there is no index that covers the query :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;-- if we slightly change the query to also request the SalesPersonID column
+SELECT SalesOrderID, CustomerID, SalesPersonID FROM Sales.SalesOrderHeader
+WHERE CustomerID = 16448
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/images/non-covered-index.png&#34; alt=&#34;Non Covered Index&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;WE can use the INCLUDE keyword when creating the index in order to include the index column without adding it to the index keys as follows :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;-- at this point, you may decide to just update an existing index to include the required column
+CREATE INDEX IX_SalesOrderHeader_CustomerID_SalesPersonID
+ON Sales.SalesOrderHeader(CustomerID)
+INCLUDE (SalesPersonID
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Re-run the query and notice the plan with an index seek. Drop the index :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;-- finally, to clean up, drop the temporarily created index:
+DROP INDEX Sales.SalesOrderHeader.IX_SalesOrderHeader_CustomerID_SalesPersonID
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The INCLUDE is best used in the following cases:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;You don’t want to increase the size of the index keys, but you still want to make the index a covering index.&lt;/li&gt;
+&lt;li&gt;You have a data type that cannot be an index key column but can be added to the nonclustered index through the INCLUDE command.&lt;/li&gt;
+&lt;li&gt;You’ve already exceeded the maximum number of key columns for an index (although this is a problem best avoided).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;filtered-indexes&#34;&gt;Filtered Indexes&lt;/h2&gt;
+
+&lt;p&gt;A filtered index is a nonclustered index that uses a filter, basically a WHERE clause, to create a highly selective set of keys against a column or columns that may not have good selectivity otherwise.&lt;/p&gt;
+
+&lt;p&gt;The Sales.SalesOrderHeader table has more than 30,000 rows. Of those rows, 27,000+ have a null value in the PurchaseOrderNumber column and the SalesPersonId column. If you wanted to get a simple list of purchase order numbers, the query might look like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT  soh.PurchaseOrderNumber,
+        soh.OrderDate,
+        soh.ShipDate,
+        soh.SalesPersonID
+FROM    Sales.SalesOrderHeader AS soh
+WHERE   PurchaseOrderNumber LIKE &#39;PO5%&#39;
+        AND soh.SalesPersonID IS NOT NULL;
+;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Running the query results in, as you might expect, a clustered index scan, and the following I/O and execution time.&lt;/p&gt;
+
+&lt;p&gt;To fix this, it is possible to create an index and include some of the columns from the query to make this a covering index.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;CREATE NONCLUSTERED INDEX IX_Test
+ON Sales.SalesOrderHeader(PurchaseOrderNumber,SalesPersonID)
+INCLUDE  (OrderDate,ShipDate);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;Table &#39;SalesOrderHeader&#39;. Scan count 1, logical reads 5
+CPU time = 0 ms,  elapsed time = 69 ms.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;As you can see, the covering index dropped the reads from 689 to 5 and the time from 87 ms to 69 ms. Normally, this would be enough. Assume for a moment that this query has to be called frequently. Now, every bit of speed you can wring from it will pay dividends. Knowing that so much of the data in the indexed columns is null, you can adjust the index so that it filters out the null values, which aren’t used by the index anyway, reducing the size of the tree and therefore the amount of searching required.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;CREATE NONCLUSTERED INDEX IX_Test
+ON Sales.SalesOrderHeader(PurchaseOrderNumber,SalesPersonID)
+INCLUDE (OrderDate,ShipDate)
+WHERE PurchaseOrderNumber IS NOT NULL AND SalesPersonID IS NOT NULL
+WITH  (DROP_EXISTING = ON);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The final run of the query is visible in the following result :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;Table  &#39;SalesOrderHeader&#39;.  Scan count 1,  logical reads 4
+CPU time = 0 ms,    elapsed time = 55 ms.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Filtered indexes improve performance in many ways.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Improving the efficiency of queries by reducing the size of the index&lt;/li&gt;
+&lt;li&gt;Reducing storage costs by making smaller indexes&lt;/li&gt;
+&lt;li&gt;Cutting down on the costs of index maintenance because of the reduced size&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;index-intersections&#34;&gt;Index Intersections&lt;/h2&gt;
+
+&lt;p&gt;If a table has multiple indexes, then SQL Server can use multiple indexes to execute a query. SQL Server can take advantage of multiple indexes, selecting small subsets of data based on each index and then performing an intersection of the two subsets (that is, returning only those rows that meet all the criteria). SQL Server can exploit multiple indexes on a table and then employ a join algorithm to obtain the index intersection between the two subsets.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;--SELECT * is intentionally used in this query
+SELECT  soh.*
+FROM    Sales.SalesOrderHeader AS soh
+WHERE   soh.SalesPersonID = 276
+        AND soh.OrderDate BETWEEN &#39;4/1/2005&#39; AND &#39;7/1/2005&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;There&amp;rsquo;s no index on the OrderDate column so SQL Server will perform a scan of the table. We can include the column or create a new non-clustered index on the table as follows :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;CREATE NONCLUSTERED INDEX IX_Test
+ON Sales.SalesOrderHeader (OrderDate);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And when we run the query you will notice SQL Server have used both indexes and created an index intersection.&lt;/p&gt;
+
+&lt;h2 id=&#34;index-joins&#34;&gt;Index Joins&lt;/h2&gt;
+
+&lt;p&gt;The index join is a variation of index intersection, where the covering index technique is applied to the index intersection. If no single index covers a query but multiple indexes together can cover the query, SQL Server can use an index join to satisfy the query fully without going to the base table.&lt;/p&gt;
+
+&lt;p&gt;Let’s look at this indexing technique at work. Make a slight modification to the query from the “Index Intersections” section like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT  soh.SalesPersonID,
+        soh.OrderDate
+FROM    Sales.SalesOrderHeader AS soh
+WHERE   soh.SalesPersonID = 276
+        AND soh.OrderDate BETWEEN &#39;4/1/2005&#39; AND &#39;7/1/2005&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Since the query requires the value of the OrderDate column also, the optimizer selected the clustered index to retrieve values for all the columns referred to in the query. If an index is created on the OrderDate column like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;CREATE NONCLUSTERED INDEX IX_Test
+ON Sales.SalesOrderHeader (OrderDate ASC);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and the query is rerun.&lt;/p&gt;
+
+&lt;p&gt;The combination of the two indexes acts like a covering index reducing the reads against the table from 689 to 4 because it’s using two Index Seek operations joined together instead of a clustered index scan.&lt;/p&gt;
+
+&lt;p&gt;Since SQL Server didnt use the index, we can use a hint as follows :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT  soh.SalesPersonID,
+        soh.OrderDate
+FROM    Sales.SalesOrderHeader AS soh WITH
+            (INDEX (IX_Test,
+                    IX_SalesOrderHeader_SalesPersonID))
+WHERE   soh.OrderDate BETWEEN &#39;4/1/2002&#39; AND &#39;7/1/2002&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The reads have clearly increased, and you have work tables and work files that use tempdb to store data during the processing. Most of the time, the optimizer makes good choices when it comes to indexes and execution plans.&lt;/p&gt;
+
+&lt;h2 id=&#34;index-operations&#34;&gt;Index Operations&lt;/h2&gt;
+
+&lt;p&gt;Equality and inequality operators can be used in a predicate, including =, &amp;lt;, &amp;gt;, &amp;lt;=, &amp;gt;=, &amp;lt;&amp;gt;, !=, !&amp;lt;, !&amp;gt;, BETWEEN, and IN for seek operations.&lt;/p&gt;
+
+&lt;p&gt;The following predicates can be matched to an Index Seek operation if there is an index on the specified column, or a multicolumn index with that column as a leading index key:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;ProductID = 771&lt;/li&gt;
+&lt;li&gt;UnitPrice &amp;lt; 3.975&lt;/li&gt;
+&lt;li&gt;LastName = ’Allen’&lt;/li&gt;
+&lt;li&gt;LastName LIKE ’Brown%’&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The following query produces an Index Seek :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT ProductID, SalesOrderID, SalesOrderDetailID
+FROM Sales.SalesOrderDetail
+WHERE ProductID = 771 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The SalesOrderDetail table has a multicolumn index with ProductID as the leading column.&lt;/p&gt;
+
+&lt;p&gt;An index cannot be used to seek on some complex expressions, expressions using functions, or strings with a leading wildcard character, as in the following predicates:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;ABS(ProductID) = 771&lt;/li&gt;
+&lt;li&gt;UnitPrice + 1 &amp;lt; 3.975&lt;/li&gt;
+&lt;li&gt;LastName LIKE ’%Allen’&lt;/li&gt;
+&lt;li&gt;UPPER(LastName) = ’Allen’&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The following query produces a scan because of the function in the WHERE cause :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;-- compare the following query to the previous example
+SELECT ProductID, SalesOrderID, SalesOrderDetailID
+FROM Sales.SalesOrderDetail
+WHERE ABS(ProductID) = 771
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In the case of a multicolumn index, SQL Server can only use the index to seek on the second column if there is an equality predicate on the first column. So SQL Server can use a multicolumn index to seek on both columns in the following cases, supposing that a multicolumn index exists on both columns in the order presented:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;ProductID = 771 AND SalesOrderID &amp;gt; 34000&lt;/li&gt;
+&lt;li&gt;LastName = ’Smith’ AND FirstName = ’Ian’&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;That being said, if there is no equality predicate on the first column, or if the predicate cannot be evaluated on the second column, as is the case in a complex expression, then SQL Server may still only be able to use a multicolumn index to seek on just the first column, as in the following examples:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;ProductID &amp;lt; 771 AND SalesOrderID = 34000&lt;/li&gt;
+&lt;li&gt;LastName &amp;gt; ’Smith’ AND FirstName = ’Ian’&lt;/li&gt;
+&lt;li&gt;ProductID = 771 AND ABS(SalesOrderID) = 34000&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;However, SQL Server is not able to use a multicolumn index for an Index Seek in the following examples because it is not even able to search on the first column:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;ABS(ProductID) = 771 AND SalesOrderID = 34000&lt;/li&gt;
+&lt;li&gt;LastName LIKE ’%Smith’ AND FirstName = ’Ian’&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The following will only seek on the ProductID column :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT ProductID, SalesOrderID, SalesOrderDetailID
+FROM Sales.SalesOrderDetail
+WHERE ProductID = 771 AND ABS(SalesOrderID) = 45233
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;missing-indexes&#34;&gt;Missing Indexes&lt;/h2&gt;
+
+&lt;p&gt;SQL Server does provide a second approach that can help you find useful indexes for your existing queries. Let’s take a quick look to see how this feature works. Create the dbo.SalesOrderDetail table on the AdventureWorks2012 database by running the following statement:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;-- create the dbo.SalesOrderDetail table on the AdventureWorks2012 database by running the following statement:
+SELECT * INTO dbo.SalesOrderDetail
+FROM Sales.SalesOrderDetail
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Run this query and request a graphical or XML execution plan:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;-- run this query and request a graphical or XML execution plan:
+SELECT * FROM dbo.SalesOrderDetail
+WHERE SalesOrderID = 43670 AND SalesOrderDetailID &amp;gt; 112
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This query could benefit from an index on the &lt;strong&gt;SalesOrderID&lt;/strong&gt; and &lt;strong&gt;SalesOrderDetailID&lt;/strong&gt; columns, but no missing indexes information is shown this time. One limitation of the Missing Indexes feature that this example has revealed is that it does not work with a trivial plan optimization.&lt;/p&gt;
+
+&lt;p&gt;In our case, we’re just going to create a nonrelated index by running the following statement:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;CREATE INDEX IX_ProductID ON dbo.SalesOrderDetail(ProductID)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;What is significant about this is that, although the index created will not be used by our previous query, the query no longer qualifies for a trivial plan. Run the query again and observe the generated by now includes information about missing indexes.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;-- create the recommended index, after you provide a name for it, by running the following statement:
+CREATE NONCLUSTERED INDEX IX_SalesOrderID_SalesOrderDetailID
+ON [dbo].[SalesOrderDetail]([SalesOrderID], [SalesOrderDetailID]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If you run our previous SELECT statement again and look at the execution plan, this time you’ll see an Index Seek operator using the index you’ve just created, and both the Missing Index warning and the MissingIndex element of the XML plan are gone.&lt;/p&gt;
+
+&lt;p&gt;Finally, remove the dbo.SalesOrderDetail table you’ve just created by running the following statement:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;DROP TABLE dbo.SalesOrderDetail
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;index-fragmentation&#34;&gt;Index Fragmentation&lt;/h2&gt;
+
+&lt;p&gt;Fragmentation happens when the logical order of pages in an index does not match the physical order in the data file. Because fragmentation can affect the performance of some queries, you need to monitor the fragmentation level of your indexes and, if required, perform reorganize or rebuild operations on them.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;It is also worth clarifying that fragmentation may affect only queries performing scans or range scans; queries performing index seeks may not be affected at all.&lt;/li&gt;
+&lt;li&gt;The query optimizer does not consider fragmentation either, so the plans it produces will be the same whether you have high fragmentation or no fragmentation at all.&lt;/li&gt;
+&lt;li&gt;You can use the &lt;strong&gt;sys.dm_db_index_physical_stats&lt;/strong&gt; DMF to analyze the fragmentation level of your indexes&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The following example will return fragmentation information for the Sales.SalesOrderDetail of the AdventureWorks2012 database:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;-- the following example will return fragmentation information for the Sales.SalesOrderDetail table
+SELECT a.index_id, name, avg_fragmentation_in_percent, fragment_count,
+avg_fragment_size_in_pages
+FROM sys.dm_db_index_physical_stats (DB_ID(&#39;AdventureWorks2012&#39;),
+OBJECT_ID(&#39;Sales.SalesOrderDetail&#39;), NULL, NULL, NULL) AS a
+JOIN sys.indexes AS b ON a.object_id = b.object_id AND a.index_id = b.index_id
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To rebuild all the indexes on the SalesOrderDetail table, use the following statement:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;ALTER INDEX ALL ON Sales.SalesOrderDetail REBUILD
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In case you need to reorganize the index, which is not the case here, you can use a command like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;ALTER INDEX ALL ON Sales.SalesOrderDetail REORGANIZE
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;rebuilding-indexes&#34;&gt;Rebuilding Indexes&lt;/h2&gt;
+
+&lt;p&gt;Rebuilding an index drops and re-creates the index. This removes fragmentation, reclaims disk space by compacting the pages based on the specified or existing fill factor setting, and reorders the index rows in contiguous pages. When ALL is specified, all indexes on the table are dropped and rebuilt in a single transaction. FOREIGN KEY constraints do not have to be dropped in advance. When indexes with 128 extents or more are rebuilt, the Database Engine defers the actual page deallocations, and their associated locks, until after the transaction commits.&lt;/p&gt;
+
+&lt;p&gt;Rebuilding or reorganizing small indexes often does not reduce fragmentation. The pages of small indexes are sometimes stored on mixed extents. Mixed extents are shared by up to eight objects, so the fragmentation in a small index might not be reduced after reorganizing or rebuilding it.&lt;/p&gt;
+
+&lt;h3 id=&#34;rebuilding-an-index&#34;&gt;Rebuilding an index&lt;/h3&gt;
+
+&lt;p&gt;The following example rebuilds a single index on the Employee table in the AdventureWorks2012 database.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;ALTER INDEX PK_Employee_EmployeeID ON HumanResources.Employee REBUILD;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;rebuilding-all-indexes-on-a-table-and-specifying-options&#34;&gt;Rebuilding all indexes on a table and specifying options&lt;/h3&gt;
+
+&lt;p&gt;The following example specifies the keyword ALL. This rebuilds all indexes associated with the table Production.Product in the AdventureWorks2012 database. Three options are specified.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;ALTER INDEX ALL ON Production.Product
+REBUILD WITH (FILLFACTOR = 80, SORT_IN_TEMPDB = ON, STATISTICS_NORECOMPUTE = ON);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;setting-options-on-an-index&#34;&gt;Setting options on an index&lt;/h3&gt;
+
+&lt;p&gt;The following example sets several options on the index AK_SalesOrderHeader_SalesOrderNumber in the AdventureWorks2012 database.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;ALTER INDEX AK_SalesOrderHeader_SalesOrderNumber ON
+    Sales.SalesOrderHeader
+SET (
+    STATISTICS_NORECOMPUTE = ON,
+    IGNORE_DUP_KEY = ON,
+    ALLOW_PAGE_LOCKS = ON
+    ) ;
+GO
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;disabling-an-index&#34;&gt;Disabling an index&lt;/h3&gt;
+
+&lt;p&gt;The following example disables a nonclustered index on the Employee table in the AdventureWorks2012 database.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;ALTER INDEX IX_Employee_ManagerID ON HumanResources.Employee DISABLE;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;reorganizing-indexes&#34;&gt;Reorganizing Indexes&lt;/h2&gt;
+
+&lt;p&gt;Reorganizing an index uses minimal system resources. It defragments the leaf level of clustered and nonclustered indexes on tables and views by physically reordering the leaf-level pages to match the logical, left to right, order of the leaf nodes. Reorganizing also compacts the index pages. Compaction is based on the existing fill factor value.&lt;/p&gt;
+
+&lt;h2 id=&#34;unused-indexes&#34;&gt;Unused Indexes&lt;/h2&gt;
+
+&lt;p&gt;The &lt;strong&gt;sys.dm_db_index_usage_stats&lt;/strong&gt; DMV can be used to learn about the operations performed by your indexes. It is especially helpful in discovering indexes that are not used by any query, or are only minimally used.&lt;/p&gt;
+
+&lt;p&gt;As an example, run the following code to create a new table with a nonclustered index:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;- as an example, run the following code to create a new table with a nonclustered index:
+SELECT * INTO dbo.SalesOrderDetail
+FROM Sales.SalesOrderDetail
+CREATE NONCLUSTERED INDEX IX_ProductID ON dbo.SalesOrderDetail(ProductID)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;When you run the following query, it will initially contain only one record, which was created because of table access performed when the IX_ProductID index was created:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;- when you run the following query, it will initially contain only one record
+SELECT DB_NAME(database_id) AS database_name,
+OBJECT_NAME(s.object_id) AS object_name, i.name, s.*
+FROM sys.dm_db_index_usage_stats s JOIN sys.indexes i
+ON s.object_id = i.object_id AND s.index_id = i.index_id
+AND OBJECT_ID(&#39;dbo.SalesOrderDetail&#39;) = s.object_id
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;However, the values that we will be inspecting in this exercise—user_seeks, user_scans, user_lookups, and user_updates—are all set to 0. Now run the following query, let’s say, three times:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT * FROM dbo.SalesOrderDetail
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This query is using a Table Scan operator, so, if you rerun our previous query using the sys.dm_db_index_usage_stats DMV, it will show the value 3 on the user_scans column.&lt;/p&gt;
+
+&lt;p&gt;Run the next query, which uses an Index Seek, twice. After the query is executed, a new record will be added for the nonclustered index, and the user_seeks counter will show a value of 2.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;-- run the next query, which uses an Index Seek, twice
+SELECT ProductID FROM dbo.SalesOrderDetail
+WHERE ProductID = 773
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now, run the following query four times, and it will use both Index Seek and RID Lookup operators. Because the user_seeks for the nonclustered index had a value of 2, it will be updated to 6, and the user_lookups value for the heap will be updated to 4.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;-- now, run the following query four times
+SELECT * FROM dbo.SalesOrderDetail
+WHERE ProductID = 773
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Finally, run the following query once:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;-- finally, run the following query once:
+UPDATE dbo.SalesOrderDetail
+SET ProductID = 666
+WHERE ProductID = 927
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note that the UPDATE statement is doing an Index Seek and a Table Update, so user_seek will be updated for the index, and user_updates will be updated once for both the nonclustered index and the heap.&lt;/p&gt;
+
+&lt;p&gt;Finally, drop the table you just created:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;DROP TABLE dbo.SalesOrderDetail
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;non-clustered-indexes-clustered-vs-non-clustered-indexes-advanced-indexing-techniques&#34;&gt;Non-clustered Indexes Clustered vs. Non-clustered Indexes Advanced Indexing Techniques&lt;/h3&gt;
+
+&lt;p&gt;A nonclustered index does not affect the order of the data in the table pages because the leaf pages of a nonclustered index and the data pages of the table are separate.&lt;/p&gt;
+
+&lt;p&gt;If all the columns required by the query are available in the index itself, then access to the data page is not required. This is known as a covering index.&lt;/p&gt;
+
+&lt;h3 id=&#34;when-not-to-use-a-nonclustered-index&#34;&gt;When Not to Use a Nonclustered Index&lt;/h3&gt;
+
+&lt;p&gt;Nonclustered indexes are not suitable for queries that retrieve a large number of rows. Such queries are better served with a clustered index, which doesn’t require a separate lookup to retrieve a data row.&lt;/p&gt;
+
+&lt;h3 id=&#34;when-to-use-a-nonclustered-index&#34;&gt;When to Use a Nonclustered Index&lt;/h3&gt;
+
+&lt;p&gt;A nonclustered index is most useful when all you want to do is retrieve a small number of rows and columns from a large table. As the number of columns to be retrieved increases, the ability to have a covering index decreases.&lt;/p&gt;
+
+&lt;h3 id=&#34;relationship-with-nonclustered-indexes&#34;&gt;Relationship with Nonclustered Indexes&lt;/h3&gt;
+
+&lt;p&gt;An index row of a nonclustered index contains a pointer to the corresponding data row of the table. This pointer is called a row locator. The value of the row locator depends on whether the data pages are stored in a heap or on a clustered index. For a nonclustered index, the row locator is a pointer to the row identifier (RID) for the data row in a heap. For a table with a clustered index, the row locator is the clustered index key value.&lt;/p&gt;
+
+&lt;h2 id=&#34;indexed-views&#34;&gt;Indexed Views&lt;/h2&gt;
+
+&lt;p&gt;A database view can be materialized on the disk by creating a unique clustered index on the view. Such a view is referred to as an indexed view or a materialized view. After a unique clustered index is created on the view, the view’s result set is materialized immediately and persisted in physical storage in the database, saving the overhead of performing costly operations during query execution. After the view is materialized, multiple nonclustered indexes can be created on the indexed view. Effectively, this turns a view (again, just a query) into a real table with defined storage.&lt;/p&gt;
+
+&lt;h3 id=&#34;benefit&#34;&gt;Benefit&lt;/h3&gt;
+
+&lt;p&gt;You can use an indexed view to increase the performance of a query in the following ways:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Aggregations can be precomputed and stored in the indexed view to minimize expensive computations during query execution.&lt;/li&gt;
+&lt;li&gt;Tables can be prejoined, and the resulting data set can be materialized.&lt;/li&gt;
+&lt;li&gt;Combinations of joins or aggregations can be materialized&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;overhead&#34;&gt;Overhead&lt;/h3&gt;
+
+&lt;p&gt;Indexed views can produce major overhead on an OLTP database. Some of the overheads of indexed views are as follows:&lt;/p&gt;
+
+&lt;p&gt;Any change in the base tables has to be reflected in the indexed view by executing the view’s SELECT statement.
+Any changes to a base table on which an indexed view is defined may initiate one or more changes in the nonclustered indexes of the indexed view. The clustered index will also have to be changed if the clustering key is updated.
+The indexed view adds to the ongoing maintenance overhead of the database.
+Additional storage is required in the database.&lt;/p&gt;
+
+&lt;h3 id=&#34;usage-scenarios&#34;&gt;Usage Scenarios&lt;/h3&gt;
+
+&lt;p&gt;Reporting systems benefit the most from indexed views. OLTP systems with frequent writes may not be able to take advantage of the indexed views because of the increased maintenance cost associated with updating both the view and the underlying base tables. The net performance improvement provided by an indexed view is the difference between the total query execution savings offered by the view and the cost of storing and maintaining the view.&lt;/p&gt;
+
+&lt;h2 id=&#34;index-compression&#34;&gt;Index Compression&lt;/h2&gt;
+
+&lt;p&gt;Compressing an index means getting more key information onto a single page. This can lead to significant performance improvements because fewer pages and fewer index levels are needed to store the index. There will be overhead in the CPU as the key values in the index are compressed and decompressed, so this may not be a solution for all indexes. Memory benefits also because the compressed pages are stored in memory in a compressed state.&lt;/p&gt;
+
+&lt;p&gt;By default, an index will be not be compressed. You have to explicitly call for the index to be compressed when you create the index. There are two types of compression: row- and page-level compression.&lt;/p&gt;
+
+&lt;p&gt;e.g we can compress an index as follows :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;CREATE NONCLUSTERED INDEX IX_Comp_Test
+ON Person.Address (City,PostalCode)
+WITH (DATA_COMPRESSION = ROW);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and with page compression as follows :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;CREATE NONCLUSTERED INDEX IX_Comp_Page_Test
+ON Person.Address  (City,PostalCode)
+WITH (DATA_COMPRESSION = PAGE);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We can check the compressed pages in an index as follows :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT  i.Name,
+        i.type_desc,
+        s.page_count,
+        s.record_count,
+        s.index_level,
+        compressed_page_count
+FROM    sys.indexes i
+        JOIN sys.dm_db_index_physical_stats(DB_ID(N&#39;AdventureWorks2012&#39;),
+                                            OBJECT_ID(N&#39;Person.Address&#39;),NULL,
+                                            NULL,&#39;DETAILED&#39;) AS s
+        ON i.index_id = s.index_id
+WHERE   i.OBJECT_ID = OBJECT_ID(N&#39;Person.Address&#39;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;columnstore-indexes&#34;&gt;Columnstore Indexes&lt;/h2&gt;
+
+&lt;p&gt;Introduced in SQL Server 2012, the columnstore index is used to index information by columns rather than by rows. This is especially useful when working within data warehousing systems where large amounts of data have to be aggregated and accessed quickly.&lt;/p&gt;
+
+&lt;h3 id=&#34;index-overhead&#34;&gt;Index Overhead&lt;/h3&gt;
+
+&lt;p&gt;The performance benefit of indexes does come at a cost. Tables with indexes require more storage and memory space for the index pages in addition to the data pages of the table. Data manipulation queries (INSERT, UPDATE, and DELETE statements, or the CUD part of Create, Read, Update, Delete [CRUD]) can take longer, and more processing time is required to maintain the indexes of constantly changing tables. When you have to deal with the existing system, you should ensure that the performance benefits of an index outweigh the extra cost in processing resources&lt;/p&gt;
+
+&lt;h2 id=&#34;index-design-recommendations&#34;&gt;Index Design Recommendations&lt;/h2&gt;
+
+&lt;p&gt;The main recommendations for index design are as follows:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Examine the WHERE clause and JOIN criteria columns.&lt;/li&gt;
+&lt;li&gt;Use narrow indexes.&lt;/li&gt;
+&lt;li&gt;Examine column uniqueness.&lt;/li&gt;
+&lt;li&gt;Examine the column data type.&lt;/li&gt;
+&lt;li&gt;Consider column order.&lt;/li&gt;
+&lt;li&gt;Consider the type of index (clustered versus nonclustered)s&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;references&#34;&gt;References&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.microsoft.com/en-us/sql/t-sql/statements/alter-index-transact-sql&#34;&gt;https://docs.microsoft.com/en-us/sql/t-sql/statements/alter-index-transact-sql&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.microsoft.com/en-us/sql/t-sql/statements/create-index-transact-sql&#34;&gt;https://docs.microsoft.com/en-us/sql/t-sql/statements/create-index-transact-sql&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.microsoft.com/en-us/sql/t-sql/statements/drop-index-transact-sql&#34;&gt;https://docs.microsoft.com/en-us/sql/t-sql/statements/drop-index-transact-sql&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+  
+  
+  
+  
+   <html class="no-js"> 
+
+  <head lang="en-us">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=10" />
+    <title>Datase Tuning Advisor - SQL Server Performance and Tuning</title>
+    <meta name="generator" content="Hugo 0.18.1" />
+
+    
+    <meta name="description" content="SQL Server Performance and Tuning">
+    
+    <link rel="canonical" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/database-tuning-advisor/">
+    
+    <meta name="author" content="Peruzal">
+    
+
+    <meta property="og:url" content="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/database-tuning-advisor/">
+    <meta property="og:title" content="SQL Server Performance and Tuning">
+    <meta property="og:image" content="http://guides.peruzal.com/images/logo.png">
+    <meta name="apple-mobile-web-app-title" content="SQL Server Performance and Tuning">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="shortcut icon" type="image/x-icon" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/images/favicon.ico">
+
+    <style>
+      @font-face {
+        font-family: 'Icon';
+        src: url('http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/fonts/icon.eot');
+        src: url('http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/fonts/icon.eot')
+               format('embedded-opentype'),
+             url('http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/fonts/icon.woff')
+               format('woff'),
+             url('http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/fonts/icon.ttf')
+               format('truetype'),
+             url('http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/fonts/icon.svg')
+               format('svg');
+        font-weight: normal;
+        font-style: normal;
+      }
+    </style>
+
+    <link rel="stylesheet" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/stylesheets/application.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/stylesheets/temporary.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/stylesheets/palettes.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/stylesheets/highlight/highlight.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/github-gist.min.css">
+
+    
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ubuntu:400,700|Ubuntu&#43;Mono">
+    <style>
+      body, input {
+        font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+      }
+      pre, code {
+        font-family: 'Ubuntu Mono', 'Courier New', 'Courier', monospace;
+      }
+    </style>
+
+    
+    <script src="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/javascripts/modernizr.js"></script>
+
+    
+
+  </head>
+  <body class="palette-primary-deep-orange palette-accent-light-blue">
+
+
+
+
+<div class="backdrop">
+	<div class="backdrop-paper"></div>
+</div>
+
+<input class="toggle" type="checkbox" id="toggle-drawer">
+<input class="toggle" type="checkbox" id="toggle-search">
+<label class="toggle-button overlay" for="toggle-drawer"></label>
+
+<header class="header">
+	<nav aria-label="Header">
+  <div class="bar default">
+    <div class="button button-menu" role="button" aria-label="Menu">
+      <label class="toggle-button icon icon-menu" for="toggle-drawer">
+        <span></span>
+      </label>
+    </div>
+    <div class="stretch">
+      <div class="title">
+        Datase Tuning Advisor
+      </div>
+    </div>
+
+    
+    <div class="button button-twitter" role="button" aria-label="Twitter">
+       <a href="https://twitter.com/peruzal" title="@peruzal on Twitter" target="_blank" class="toggle-button icon icon-twitter"></a>
+    </div>
+    
+
+    
+    <div class="button button-github" role="button" aria-label="GitHub">
+      <a href="https://github.com/peruzal" title="@peruzal on GitHub" target="_blank" class="toggle-button icon icon-github"></a>
+    </div>
+    
+    
+        
+  </div>
+  <div class="bar search">
+    <div class="button button-close" role="button" aria-label="Close">
+      <label class="toggle-button icon icon-back" for="toggle-search"></label>
+    </div>
+    <div class="stretch">
+      <div class="field">
+        <input class="query" type="text" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck>
+      </div>
+    </div>
+    <div class="button button-reset" role="button" aria-label="Search">
+      <button class="toggle-button icon icon-close" id="reset-search"></button>
+    </div>
+  </div>
+</nav>
+</header>
+
+<main class="main">
+	<div class="drawer">
+		<nav aria-label="Navigation">
+  <a href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization" class="project">
+    <div class="banner">
+      
+        <div class="logo">
+          <img src="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/images/logo.png">
+        </div>
+      
+      <div class="name">
+        <strong>SQL Server Performance and Tuning <span class="version">1.0.0</span></strong>
+        
+      </div>
+    </div>
+  </a>
+
+  <div class="scrollable">
+    <div class="wrapper">
+      
+
+      <div class="toc">
+        
+        <ul>
+          
+
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Introduction" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/">
+	
+	Introduction
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Performance Tuning Overview" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/performance-tuning-overview/">
+	
+	Performance Tuning Overview
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="SQL Performance Analysis" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/sql-performance-analysis/">
+	
+	SQL Performance Analysis
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="SQL Query Performance Analysis" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/sql-query-performance-analysis/">
+	
+	SQL Query Performance Analysis
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Index Analysis" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/index-analysis/">
+	
+	Index Analysis
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a class="current" title="Database Tuning Advisor" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/database-tuning-advisor/">
+	
+	Database Tuning Advisor
+</a>
+
+
+<ul id="scrollspy">
+</ul>
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Boomark Lookup Analysis" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/bookmark-lookup-analysis/">
+	
+	Boomark Lookup Analysis
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Statistics Analysis" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/statistics-analysis/">
+	
+	Statistics Analysis
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Index Fragmentation Analysis" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/index-fragmentation-analysis/">
+	
+	Index Fragmentation Analysis
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Execution Plan Cache Analysis" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/execution-plan-cache-analysis/">
+	
+	Execution Plan Cache Analysis
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Query Recompilation" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/query-recompilation/">
+	
+	Query Recompilation
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Query Design Analysis" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/query-design-analysis/">
+	
+	Query Design Analysis
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Blocking Analysis" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/blocking-analysis/">
+	
+	Blocking Analysis
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Deadlock Analysis" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/deadlock-analysis/">
+	
+	Deadlock Analysis
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Cursor Cost Analysis" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/cursor-cost-analysis/">
+	
+	Cursor Cost Analysis
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Database Performance Stress Testing" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/database-performance-stress-testing/">
+	
+	Database Performance Stress Testing
+</a>
+
+
+
+  
+</li>
+
+
+        </ul>
+        
+
+        
+        <hr>
+        <span class="section">The author</span>
+        
+        <ul>
+          
+          <li>
+            <a href="https://twitter.com/peruzal" target="_blank" title="@peruzal on Twitter">
+              @peruzal on Twitter
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="https://github.com/peruzal" target="_blank" title="@peruzal on GitHub">
+              @peruzal on GitHub
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="mailto:hello@peruzal.com" title="Email of hello@peruzal.com">
+              Contact via email
+            </a>
+          </li>
+          
+        </ul>
+        
+      </div>
+    </div>
+  </div>
+</nav>
+
+	</div>
+
+	<article class="article">
+		<div class="wrapper">
+			<h1>Datase Tuning Advisor </h1>
+
+			
+
+<h2 id="database-engine-tuning-advisor-mechanisms">Database Engine Tuning Advisor Mechanisms</h2>
+
+<p>This tool can help identify an optimal set of indexes and statistics for a given workload without requiring an expert understanding of the database schema, workload, or SQL Server internals.</p>
+
+<h3 id="running-dta">Running DTA</h3>
+
+<p>You can run the DTA from the command line or within SQL Server Management Studio.</p>
+
+<h3 id="running-from-the-command-line">Running from the command line</h3>
+
+<ol>
+<li>Click <strong>Start</strong></li>
+<li>Type <strong>run</strong></li>
+<li>Type <strong>cmd</strong></li>
+<li>From the cmd you now access the <strong>dta</strong> command line tool</li>
+</ol>
+
+<h3 id="running-from-sql-server-management-studio">Running from SQL Server Management Studio</h3>
+
+<ol>
+<li>Click <strong>Tools</strong></li>
+<li>Choose <strong>Database Tuning Advisor</strong></li>
+</ol>
+
+<p>You can also tune a specific query from SMSS by right-clicking and choosing <strong>Database Tuning Advisor</strong>.</p>
+
+<p><img src="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/images/database-tuning-advisor.png" alt="Database Tuning Advisor" /></p>
+
+<h2 id="database-engine-tuning-advisor-examples">Database Engine Tuning Advisor Examples</h2>
+
+<p>Tuning a Query</p>
+
+<p>You can use the Database Engine Tuning Advisor to recommend indexes for a complete database by using a workload that fairly represents all SQL activities. You can also use it to recommend indexes for a set of problematic queries.</p>
+
+<p>To learn how you can use the Database Engine Tuning Advisor to get index recommendations on a set of problematic queries, say you have a simple query that is called rather frequently. Because of the frequency, you want a quick turnaround for some tuning. This is the query:</p>
+
+<pre><code class="language-sql">SELECT  soh.DueDate,
+        soh.CustomerID,
+        soh.Status
+FROM    Sales.SalesOrderHeader AS soh
+WHERE   soh.DueDate BETWEEN '1/1/2008' AND '2/1/2008';
+</code></pre>
+
+<p>To analyze the query, right-click it in the query window and select Analyze Query in the Database Engine Tuning Advisor.</p>
+
+<h2 id="tuning-a-workload-using-the-plan-cache">Tuning a Workload Using the Plan Cache</h2>
+
+<p>You can also specify the plan cache as a workload to tune.  In this case, the DTA will select the top 1,000 events from the plan cache based on total elapsed time of the query (that is, based on the total_elapsed_time column of the <strong>sys.dm_exec_query_stats</strong> DMV)</p>
+
+<p>Let’s try an example, and to make it easy to see the results, let’s clear the plan cache and run only one query in Management Studio:s</p>
+
+<pre><code class="language-sql"> -- let’s clear the plan cache and run only one query in Management Studio:
+DBCC FREEPROCCACHE
+GO
+SELECT SalesOrderID, OrderQty, ProductID
+FROM dbo.SalesOrderDetail
+WHERE CarrierTrackingNumber = 'D609-4F2A-9B'
+</code></pre>
+
+<p>After the query is executed, most likely, it will be kept in the plan cache. Open a new DTA session. In the Workload option, select Plan Cache and specify AdventureWorks2012 as both the database to tune and the database for workload analysis. Click the Start Analysis button. After the analysis is completed, you can select the Recommendations tab and select Index Recommendations, which will include the following recommendations (which you can see by looking at the Definition column):</p>
+
+<pre><code>-- after the analysis is completed, you can select the Recommendations tab
+CREATE NONCLUSTERED INDEX [_dta_index_SalesOrderDetail_5_807673925__K3_1_4_5]
+ON [dbo].[SalesOrderDetail]
+(
+[CarrierTrackingNumber] ASC
+)
+INCLUDE ([SalesOrderID],
+[OrderQty],
+[ProductID]) WITH (SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF)
+ON [PRIMARY]
+</code></pre>
+
+<pre><code class="language-sql">-- finally, drop the table you just created by running the following statement:
+DROP TABLE dbo.SalesOrderDetail
+</code></pre>
+
+<h2 id="offload-of-tuning-overhead-to-test-server">Offload of Tuning Overhead to Test Server</h2>
+
+<p>One of the most interesting and perhaps less known features of the DTA is that you can use it with a test server to tune the workload of a production server.</p>
+
+<p>The DTA can gather the database metadata and statistics from the production server and use it to create a similar database, with no data, on a different server. This database is called a shell database.</p>
+
+<h2 id="database-engine-tuning-advisor-limitations">Database Engine Tuning Advisor Limitations</h2>
+
+<p>The Database Engine Tuning Advisor recommendations are based on the input workload. If the input workload is not a true representation of the actual workload, then the recommended indexes may sometimes have a negative effect on some queries that are missing in the workload.</p>
+
+<p>But most importantly, in many cases, the Database Engine Tuning Advisor may not recognize possible tuning opportunities. It has a sophisticated testing engine, but in some scenarios, its capabilities are limited</p>
+
+
+			<aside class="copyright" role="note">
+				
+				&copy; 2017 Copyright 2017 Peruzal &ndash;
+				
+				Documentation built with
+				<a href="https://www.gohugo.io" target="_blank">Hugo</a>
+				using the
+				<a href="http://github.com/digitalcraftsman/hugo-material-docs" target="_blank">Material</a> theme.
+			</aside>
+
+			<footer class="footer">
+				
+
+<nav class="pagination" aria-label="Footer">
+  <div class="previous">
+  
+      <a href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/index-analysis/" title="Index Analysis">
+        <span class="direction">
+          Previous
+        </span>
+        <div class="page">
+          <div class="button button-previous" role="button" aria-label="Previous">
+            <i class="icon icon-back"></i>
+          </div>
+          <div class="stretch">
+            <div class="title">
+              Index Analysis
+            </div>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+
+  <div class="next">
+  
+      <a href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/bookmark-lookup-analysis/" title="Boomark Lookup Analysis">
+        <span class="direction">
+          Next
+        </span>
+        <div class="page">
+          <div class="stretch">
+            <div class="title">
+              Boomark Lookup Analysis
+            </div>
+          </div>
+          <div class="button button-next" role="button" aria-label="Next">
+            <i class="icon icon-forward"></i>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+</nav>
+
+
+
+
+
+			</footer>
+		</div>
+	</article>
+
+	<div class="results" role="status" aria-live="polite">
+		<div class="scrollable">
+			<div class="wrapper">
+				<div class="meta"></div>
+				<div class="list"></div>
+			</div>
+		</div>
+	</div>
+</main>
+
+    <script>
+    
+      var base_url = '';
+      var repo_id  = '';
+    
+    </script>
+
+    <script src="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/javascripts/application.js"></script>
+    
+
+    <script>
+      /* Add headers to scrollspy */
+      var headers   = document.getElementsByTagName("h2");
+      var scrollspy = document.getElementById('scrollspy');
+
+      if(scrollspy) {
+        if(headers.length > 0) {
+          for(var i = 0; i < headers.length; i++) {
+            var li = document.createElement("li");
+            li.setAttribute("class", "anchor");
+
+            var a  = document.createElement("a");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", headers[i].innerHTML);
+            a.innerHTML = headers[i].innerHTML;
+
+            li.appendChild(a)
+            scrollspy.appendChild(li);
+          }
+        } else {
+          scrollspy.parentElement.removeChild(scrollspy)
+        }
+
+
+        /* Add permanent link next to the headers */
+        var headers = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+
+        for(var i = 0; i < headers.length; i++) {
+            var a = document.createElement("a");
+            a.setAttribute("class", "headerlink");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", "Permanent link")
+            a.innerHTML = "#";
+            headers[i].appendChild(a);
+        }
+      }
+    </script>
+
+    
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>
+

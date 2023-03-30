@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Location-rsses on Xamarin iOS Guides</title>
+    <link>http://guides.peruzal.com/ios-guides/location/index.xml</link>
+    <description>Recent content in Location-rsses on Xamarin iOS Guides</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Peruzal</copyright>
+    <lastBuildDate>Mon, 12 Dec 2016 02:18:10 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/ios-guides/location/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Working with Location</title>
+      <link>http://guides.peruzal.com/ios-guides/location/</link>
+      <pubDate>Mon, 12 Dec 2016 02:18:10 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/ios-guides/location/</guid>
+      <description>
+
+&lt;h2 id=&#34;location&#34;&gt;Location&lt;/h2&gt;
+
+&lt;h3 id=&#34;step-1-add-the-location-framework&#34;&gt;Step 1: Add the Location Framework&lt;/h3&gt;
+
+&lt;p&gt;In build phases, add the location framework.&lt;/p&gt;
+
+&lt;h3 id=&#34;step-2-identifying-the-desired-location-permission&#34;&gt;Step 2: Identifying the desired location permission&lt;/h3&gt;
+
+&lt;p&gt;So the first thing you need to do is to add one or both of the following keys to your Info.plist file:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;NSLocationWhenInUseUsageDescription&lt;/li&gt;
+&lt;li&gt;NSLocationAlwaysUsageDescription&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;step-3-create-the-location-manager&#34;&gt;Step 3: Create the location manager&lt;/h3&gt;
+
+&lt;p&gt;In the app delegate,&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import CoreLocation
+
+@UIApplicationMain
+class AppDelegate: UIResponder, UIApplicationDelegate {
+    var window: UIWindow?
+    var locationManager: CLLocationManager! = CLLocationManager()
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;step-4-request-permission&#34;&gt;Step 4: Request permission&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;locationManager.requestAlwaysAuthorization()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;step-5-start-updating-location&#34;&gt;Step 5: Start Updating Location&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;locationManager.startUpdatingLocation()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;step-6-implement-location-delegate&#34;&gt;Step 6: Implement Location Delegate&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+    var location = locations[0] as CLLocation
+    
+    println(location)
+}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

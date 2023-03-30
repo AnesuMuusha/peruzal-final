@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Setting-up-android-lab-environments on Mobile Device Security and Penetration Testing Guide</title>
+    <link>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/setting-up-android-lab-environment/</link>
+    <description>Recent content in Setting-up-android-lab-environments on Mobile Device Security and Penetration Testing Guide</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Peruzal Mobile Device Security and Penetration Testing Guide</copyright>
+    <lastBuildDate>Sun, 01 Jan 2017 11:47:24 +0200</lastBuildDate>
+    
+	<atom:link href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/setting-up-android-lab-environment/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Setting up Android Lab Environment</title>
+      <link>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/setting-up-android-lab-environment/</link>
+      <pubDate>Sun, 01 Jan 2017 11:47:24 +0200</pubDate>
+      
+      <guid>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/setting-up-android-lab-environment/</guid>
+      <description>Tools To setup the environment for pen testing Android devices, the full Android Development Environment together with several tools are required.
+ Android Studio Android SDK APKTool JD-Gui SUPER Android Analyzer MobSF (Mobile Security Framework) Drozer AndroBugs Burp Suite QARK(Quick Android Review Kit) Postman SQLite Browser Vulnerable Android apps  Android Studio Android Studio is the official IDE for developing Android apps. Android Studio is available for both Windows, Linux and Mac.</description>
+    </item>
+    
+  </channel>
+</rss>

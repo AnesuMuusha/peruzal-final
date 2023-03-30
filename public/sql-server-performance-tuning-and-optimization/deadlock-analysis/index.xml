@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Deadlock-analyses on SQL Server Performance and Tuning</title>
+    <link>http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/deadlock-analysis/index.xml</link>
+    <description>Recent content in Deadlock-analyses on SQL Server Performance and Tuning</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Copyright 2017 Peruzal</copyright>
+    <lastBuildDate>Sat, 18 Mar 2017 14:55:24 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/deadlock-analysis/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Deadlock Analysis</title>
+      <link>http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/deadlock-analysis/</link>
+      <pubDate>Sat, 18 Mar 2017 14:55:24 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/deadlock-analysis/</guid>
+      <description>
+
+&lt;h2 id=&#34;deadlock-fundamentals&#34;&gt;Deadlock Fundamentals&lt;/h2&gt;
+
+&lt;p&gt;A deadlock is a special blocking scenario in which two processes get blocked by each other. Each process, while holding its own resources, attempts to access a resource that is locked by the other process. This will lead to a blocking scenario known as a deadly embrace&lt;/p&gt;
+
+&lt;p&gt;Choosing the Deadlock Victim&lt;/p&gt;
+
+&lt;p&gt;SQL Server determines the session to be a deadlock victim by evaluating the cost of undoing the transaction of the participating sessions, and it selects the one with the least estimated cost. You can exercise some control over the session to be chosen as a victim by setting the deadlock priority of its connection to LOW.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SET DEADLOCK_PRIORITY LOW;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This steers SQL Server toward choosing this particular session as a victim in the event of a deadlock. You can reset the deadlock priority of the connection to its normal value by executing the following SET statement:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SET DEADLOCK_PRIORITY NORMAL;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The SET statement allows you to mark a session as a HIGH deadlock priority, too. This won’t prevent deadlocks on a given session, but it will reduce the likelihood of a given session being picked as the victim. You can even set the priority level to a number value from –10 for the lowest priority or to 10 for the highest.&lt;/p&gt;
+
+&lt;h2 id=&#34;using-error-handling-to-catch-a-deadlock&#34;&gt;Using Error Handling to Catch a Deadlock&lt;/h2&gt;
+
+&lt;p&gt;When SQL Server chooses a session as a victim, it raises an error with the error number. You can use the TRY/CATCH construct within T-SQL to handle the error. SQL Server ensures the consistency of the database by automatically rolling back the transaction of the victim session. The rollback ensures that the session is returned to the same state it was in before the start of its transaction.&lt;/p&gt;
+
+&lt;p&gt;Take the following T-SQL statement as an example of one method for handling a deadlock error:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;DECLARE @retry AS TINYINT = 1,
+    @retrymax AS TINYINT = 2,
+    @retrycount AS TINYINT = 0;
+WHILE @retry = 1
+    AND @retrycount &amp;lt;= @retrymax
+    BEGIN
+        SET @retry = 0;
+
+        BEGIN TRY
+            UPDATE  HumanResources.Employee
+            SET     LoginID = &#39;54321&#39;
+            WHERE   BusinessEntityID = 100;
+        END TRY
+        BEGIN CATCH
+            IF (ERROR_NUMBER() = 1205)
+                BEGIN
+                    SET @retrycount = @retrycount + 1;
+                    SET @retry = 1;
+                END
+        END CATCH
+    END
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;deadlock-analysis&#34;&gt;Deadlock Analysis&lt;/h2&gt;
+
+&lt;p&gt;You can sometimes prevent a deadlock from happening by analyzing the causes. You need the following information to do this:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The sessions participating in the deadlock&lt;/li&gt;
+&lt;li&gt;The resources involved in the deadlock&lt;/li&gt;
+&lt;li&gt;The queries executed by the sessions&lt;/li&gt;
+&lt;li&gt;Collecting Deadlock Information&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;You have four ways to collect the deadlock information.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Use Extended Events&lt;/li&gt;
+&lt;li&gt;Set trace flag 1222&lt;/li&gt;
+&lt;li&gt;Set trace flag 1204&lt;/li&gt;
+&lt;li&gt;Use trace events&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Extended Events provides several ways to gather the deadlock information. This is probably the best method you can apply to your server for collecting deadlock information. You can use these options:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Lock_deadlock:&lt;/strong&gt; Displays basic information about a deadlock occurrence&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Lock_deadlock_chain:&lt;/strong&gt; Captures information from each participant in a deadlock&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Xml_deadlock_report:&lt;/strong&gt; Displays an XML deadlock graph with the cause of the deadlock&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;avoiding-deadlocks&#34;&gt;Avoiding Deadlocks&lt;/h2&gt;
+
+&lt;p&gt;The methods for avoiding a deadlock scenario depend upon the nature of the deadlock. The following are some of the techniques you can use to avoid a deadlock:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Access resources in the same physical order.&lt;/li&gt;
+&lt;li&gt;Decrease the number of resources accessed.&lt;/li&gt;
+&lt;li&gt;Minimize lock contention.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Statistics-analyses on SQL Server Performance and Tuning</title>
+    <link>http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/statistics-analysis/index.xml</link>
+    <description>Recent content in Statistics-analyses on SQL Server Performance and Tuning</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Copyright 2017 Peruzal</copyright>
+    <lastBuildDate>Sat, 18 Mar 2017 14:53:03 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/statistics-analysis/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Statistics Analysis</title>
+      <link>http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/statistics-analysis/</link>
+      <pubDate>Sat, 18 Mar 2017 14:53:03 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/statistics-analysis/</guid>
+      <description>
+
+&lt;p&gt;The SQL Server optimizer is cost based and its the statistics available to the optimizer that it considers when searching for an optimal query plan. The optimizer must have information about the data that defines an index or a column. That information is referred to as a statistic. Statistics define both the distribution of data and the uniqueness or selectivity of the data. Statistics are maintained both on indexes and on columns within the system&lt;/p&gt;
+
+&lt;h2 id=&#34;the-role-of-statistics-in-query-optimization&#34;&gt;The Role of Statistics in Query Optimization&lt;/h2&gt;
+
+&lt;p&gt;SQL Server’s query optimizer is a cost-based optimizer; it decides on the best data access mechanism and join strategy by identifying the selectivity, how unique the data is, and which columns are used in filtering the data (meaning via the WHERE or JOIN clause). Statistics exist with an index, but they also exist on columns without an index that are used as part of a predicate. As long as you ensure that the default statistical settings for the database are set, the optimizer will be able to do its best to determine effective processing strategies dynamically.&lt;/p&gt;
+
+&lt;h2 id=&#34;statistics-on-an-indexed-column&#34;&gt;Statistics on an Indexed Column&lt;/h2&gt;
+
+&lt;p&gt;The usefulness of an index is largely dependent on the statistics of the indexed columns; without statistics, SQL Server’s cost-based query optimizer can’t decide upon the most effective way of using an index. To meet this requirement, SQL Server automatically creates the statistics of an index key whenever the index is created. It isn’t possible to turn this feature off.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/images/statistics-database-configuration.png&#34; alt=&#34;Statistics Configuration&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;statistics-on-a-nonindexed-column&#34;&gt;Statistics on a Nonindexed Column&lt;/h2&gt;
+
+&lt;p&gt;Sometimes you may have columns in join or filter criteria without any index. Even for such nonindexed columns, the query optimizer is more likely to make the best choice if it knows the cardinality and data distribution, also known as the statistics, of those columns.&lt;/p&gt;
+
+&lt;p&gt;In addition to statistics on indexes, SQL Server can build statistics on columns with no indexes. The information on data distribution, or the likelihood of a particular value occurring in a nonindexed column, can help the query optimizer determine an optimal processing strategy.&lt;/p&gt;
+
+&lt;h2 id=&#34;analyzing-statistics&#34;&gt;Analyzing Statistics&lt;/h2&gt;
+
+&lt;p&gt;We use the DBCC command to show the statistics of columns and indexes as follows :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;DBCC SHOW_STATISTICS(&#39;Person.Person&#39;, &#39;IX_Person_LastName_FirstName_MiddleName&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;to show the statistics on the index &lt;code&gt;IX_Person_LastName_FirstName_MiddleName&lt;/code&gt; on the &lt;code&gt;Person.Person&lt;/code&gt; table.&lt;/p&gt;
+
+&lt;p&gt;These steps consist of varying size intervals between the 200 values stored. A step provides the following information:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The top value of a given step (RANGE_HI_KEY)&lt;/li&gt;
+&lt;li&gt;The number of rows equal to RANGE_HI_KEY (EQ_ROWS)&lt;/li&gt;
+&lt;li&gt;The number of rows between the previous top value and the current top value, without counting either of these boundary points (RANGE_ROWS)&lt;/li&gt;
+&lt;li&gt;The number of distinct values in the range (DISTINCT_RANGE_ROWS); if all values in the range are unique, then RANGE_ROWS equals DISTINCT_RANGE_ROWS&lt;/li&gt;
+&lt;li&gt;The average number of rows equal to any potential key value within a range (AVG_RANGE_ROWS)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;For example, when referencing an index, the value of AVG_RANGE_ROWS for a key value within a step in the histogram helps the optimizer decide how (and whether) to use the index when the indexed column is referred to in a WHERE clause. Because the optimizer can perform a SEEK or SCAN operation to retrieve rows from a table, the optimizer can decide which operation to perform based on the number of potential matching rows for the index key value. This can be even more precise when referencing the RANGE_HI_KEY since the optimizer can know that it should find a fairly precise number of rows from that value (assuming the statistics are up-to-date).&lt;/p&gt;
+
+&lt;p&gt;Showing statistics on an a table as follows :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT  s.name,
+        s.auto_created,
+        s.user_created,
+        s.filter_definition,
+        sc.column_id,
+        c.name AS ColumnName
+FROM    sys.stats AS s
+        JOIN sys.stats_columns AS sc ON sc.stats_id = s.stats_id
+AND sc.object_id = s.object_id
+        JOIN sys.columns AS c ON c.column_id = sc.column_id
+AND c.object_id = s.object_id
+WHERE   s.object_id = OBJECT_ID(&#39;Production.Product&#39;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;inspecting-statistics-objects&#34;&gt;Inspecting Statistics Objects&lt;/h2&gt;
+
+&lt;p&gt;Existing statistics for a specific object can be displayed using the sys.stats catalog view, as used in the following query:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;-- existing statistics for a specific object can be displayed using the sys.stats catalog view, as used in the following query:
+SELECT * FROM sys.stats
+WHERE object_id = OBJECT_ID(&#39;Sales.SalesOrderDetail&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;For example, run the following statement to verify that there are no statistics on the UnitPrice column of the Sales.SalesOrderDetail table:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;DBCC SHOW_STATISTICS (‘Sales.SalesOrderDetail’, UnitPrice)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;By then running the following query, the query optimizer will automatically create statistics on the UnitPrice column, which is used in the query predicate:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;-- by then running the following query, the query optimizer will automatically create statistics on the UnitPrice column
+SELECT * FROM Sales.SalesOrderDetail
+WHERE UnitPrice = 35
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/images/histogram.png&#34; alt=&#34;Statistics Histogram&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Running the previous &lt;strong&gt;DBCC SHOW_STATISTICS&lt;/strong&gt; statement again will now show a statistics object. The output is separated into three result sets called the header, the density vector, and the histogram.&lt;/p&gt;
+
+&lt;h2 id=&#34;density&#34;&gt;Density&lt;/h2&gt;
+
+&lt;p&gt;To better explain the density vector, run the following statement to inspect the statistics of the existing index, IX_SalesOrderDetail_ProductID:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;DBCC SHOW_STATISTICS (’Sales.SalesOrderDetail’, IX_SalesOrderDetail_ProductID)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Density, which is defined as 1 / “number of distinct values,” is listed in the All density field, and it is calculated for each set of columns, forming a prefix for the columns in the statistics object.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/images/density.png&#34; alt=&#34;Density&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Density information can be used to improve the query optimizer’s estimates for GROUP BY operations, and on equality predicates where a value is unknown, as in the case of a query using local variables.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;--  in this case, we have 1 / 0.003759399, which gives us 266, which is the estimated number of rows shown in the plan
+SELECT ProductID FROM Sales.SalesOrderDetail
+GROUP BY ProductID
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Next is an example of how the density can be used to estimate the cardinality of a query using local variables:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;-- next is an example of how the density can be used to estimate the cardinality of a query using local variables:
+DECLARE @ProductID int
+SET @ProductID = 921
+SELECT ProductID FROM Sales.SalesOrderDetail
+WHERE ProductID = @ProductID
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/images/density-group-by.png&#34; alt=&#34;Density in Group By Clause&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;In this case, the query optimizer does not know the value of the @ProductID local variable at optimization time, so it is not able to use the histogram. The estimated number of rows is obtained using the density multiplied by the number of records in the table, which in our example is 0.003759399 * 121317, or 456.079.&lt;/p&gt;
+
+&lt;p&gt;Actually, because the query optimizer does not know the value of @ProductID at optimization time, the value 921 in the previous listing does not matter; any other value will give exactly the same estimated number of rows and execution plan, this being the average number of rows per value. Finally, run this query with an inequality operator:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;-- finally, run this query with an inequality operator:
+DECLARE @pid int = 897
+SELECT * FROM Sales.SalesOrderDetail
+WHERE ProductID &amp;lt; @pid
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Just as before, the value 897 does not matter; any other value will give you the same estimated number of rows and execution plan. However, this time, the query optimizer is not able to use the density information and instead is using the standard guess of 30 percent selectivity for inequality comparisons. This means that the estimated number of rows is always 30 percent of the total number of records for an inequality operator; in this case, 30 percent of 121,317 is 36,395.1&lt;/p&gt;
+
+&lt;h2 id=&#34;cardinality-estimation-errors&#34;&gt;Cardinality Estimation Errors&lt;/h2&gt;
+
+&lt;p&gt;Cardinality estimation errors can lead to the query optimizer making poor choices as to how best to execute a query and, therefore, to badly performing execution plans.  In the next query, I show you how to use the SET STATISTICS PROFILE statement with one of our previous examples, where SQL Server is making a blind guess regarding the selectivity of certain columns:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;-- in the next query, I show you how to use the SET STATISTICS PROFILE statement
+SET STATISTICS PROFILE ON
+GO
+SELECT * FROM Sales.SalesOrderDetail
+WHERE OrderQty * UnitPrice &amp;gt; 10000
+GO
+SET STATISTICS PROFILE OFF
+GO
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Using this output, you can easily compare the actual number of rows, shown on the Rows column, against the estimated number of records, shown on the EstimateRows column, for each operator in the plan.&lt;/p&gt;
+
+&lt;p&gt;Introduced with SQL Server 2012, the &lt;strong&gt;inaccurate_cardinality_estimate&lt;/strong&gt; extended event can also be used to detect inaccurate cardinality estimations by identifying which query operators output significantly more rows than those estimated by the query optimizer.&lt;/p&gt;
+
+&lt;h3 id=&#34;recommendations&#34;&gt;Recommendations&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;auto-create and auto-update statistics default configurations&lt;/li&gt;
+&lt;li&gt;updating statistics using WITH FULLSCAN&lt;/li&gt;
+&lt;li&gt;avoiding local variables in queries&lt;/li&gt;
+&lt;li&gt;avoiding non-constant-foldable or complex expressions on predicates using computed columns, and considering multicolumn or filtered statistics&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;statistics-on-computed-columns&#34;&gt;Statistics on Computed Columns&lt;/h2&gt;
+
+&lt;p&gt;SQL Server can automatically create and update statistics on computed columns.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;-- to see an example, run this query
+SELECT * FROM Sales.SalesOrderDetail
+WHERE OrderQty * UnitPrice &amp;gt; 10000
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The estimated number of rows is 36,395.1, which is 30 percent of the total number of rows (121,317), although the query returns only 772 records. SQL Server is obviously using a selectivity guess because it cannot estimate the selectivity of the expression OrderQty * UnitPrice &amp;gt; 10000.&lt;/p&gt;
+
+&lt;p&gt;Now create a computed column:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;-- now create a computed column:
+ALTER TABLE Sales.SalesOrderDetail
+ADD cc AS OrderQty * UnitPrice
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Run the previous SELECT statement again, and note that, this time, the estimated number of rows has changed and is close to the actual number of rows returned by the query.&lt;/p&gt;
+
+&lt;p&gt;Note that creating the computed column does not create statistics; these statistics are created the first time the query is optimized, and you can run the next query to display the information about the statistics objects for the Sales.SalesOrderDetail table:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;-- note that creating the computed column does not create statistics
+SELECT * FROM sys.stats
+WHERE object_id = OBJECT_ID(&#39;Sales.SalesOrderDetail&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The newly created statistics object will most likely be at the end of the list. Copy the name of the object, and use the following command to display the details about the statistics object&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;-- use the following command to display the details about the statistics object
+DBCC SHOW_STATISTICS (&#39;Sales.SalesOrderDetail&#39;, _WA_Sys_0000000E_44CA3770)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Unfortunately, for automatic matching to work, the expression must be exactly the same as the computed column definition. So, if I change the query to UnitPrice * OrderQty, instead of OrderQty * UnitPrice, the execution plan will show an estimated number of rows of 30 percent again, as this query will demonstrate:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;-- unfortunately, for automatic matching to work, the expression must be exactly the same as the computed column definition
+SELECT * FROM Sales.SalesOrderDetail
+WHERE UnitPrice * OrderQty &amp;gt; 10000
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Finally, drop the created computed column:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;-- finally, drop the created computed column:
+ALTER TABLE Sales.SalesOrderDetail
+DROP COLUMN cc
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;statistics-maintenance&#34;&gt;Statistics Maintenance&lt;/h2&gt;
+
+&lt;p&gt;SQL Server allows a user to manually override the maintenance of statistics in an individual database. The four main configurations controlling the automatic statistics maintenance behavior of SQL Server are as follows:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;New statistics on columns with no index (auto create statistics)&lt;/li&gt;
+&lt;li&gt;Updating existing statistics (auto update statistics)&lt;/li&gt;
+&lt;li&gt;The degree of sampling used to generate statistics&lt;/li&gt;
+&lt;li&gt;Asynchronous updating of existing statistics (auto update statistics async)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;If you want to check the status of whether a table has its automatic statistics turned off, you can use this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;EXEC sp_autostats &#39;HumanResources.Department&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Reset the automatic maintenance of the index so that it is on where it has been turned off.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;EXEC sp_autostats
+    &#39;HumanResources.Department&#39;,
+    &#39;ON&#39;;
+EXEC sp_autostats
+    &#39;HumanResources.Department&#39;,
+    &#39;ON&#39;,
+    AK_Department_Name;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;analyzing-the-effectiveness-of-statistics&#34;&gt;Analyzing the Effectiveness of Statistics&lt;/h2&gt;
+
+&lt;p&gt;You can verify the current settings for the autostats feature using the following:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;sys.databases&lt;/li&gt;
+&lt;li&gt;DATABASEPROPERTYEX&lt;/li&gt;
+&lt;li&gt;sp_autostats&lt;/li&gt;
+&lt;li&gt;Status of Auto Create Statistics&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;You can verify the current setting for auto create statistics by running a query against the sys.databases system table.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT  is_auto_create_stats_on
+FROM    sys.databases
+WHERE   [name] = &#39;AdventureWorks2012&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;A return value of 1 means enabled, and a value of 0 means disabled.&lt;/p&gt;
+
+&lt;p&gt;You can also verify the status of specific indexes using the sp_autostats system stored procedure, as shown in the following code.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;USE AdventureWorks2012;
+EXEC sys.sp_autostats
+    &#39;HumanResources.Department&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

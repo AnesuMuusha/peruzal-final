@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+  
+  
+  
+  
+   <html class="no-js"> 
+
+  <head lang="en-us">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=10" />
+    <title>Joining Tables - Introduction to SQL</title>
+    <meta name="generator" content="Hugo 0.19" />
+
+    
+    <meta name="description" content="Introduction to SQL Guide">
+    
+    <link rel="canonical" href="http://guides.peruzal.com/introduction-to-sql/joining-tables/">
+    
+    <meta name="author" content="Peruzal">
+    
+
+    <meta property="og:url" content="http://guides.peruzal.com/introduction-to-sql/joining-tables/">
+    <meta property="og:title" content="Introduction to SQL">
+    <meta property="og:image" content="http://guides.peruzal.com/images/logo.png">
+    <meta name="apple-mobile-web-app-title" content="Introduction to SQL">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="shortcut icon" type="image/x-icon" href="http://guides.peruzal.com/introduction-to-sql/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="http://guides.peruzal.com/introduction-to-sql/images/favicon.ico">
+
+    <style>
+      @font-face {
+        font-family: 'Icon';
+        src: url('http://guides.peruzal.com/introduction-to-sql/fonts/icon.eot');
+        src: url('http://guides.peruzal.com/introduction-to-sql/fonts/icon.eot')
+               format('embedded-opentype'),
+             url('http://guides.peruzal.com/introduction-to-sql/fonts/icon.woff')
+               format('woff'),
+             url('http://guides.peruzal.com/introduction-to-sql/fonts/icon.ttf')
+               format('truetype'),
+             url('http://guides.peruzal.com/introduction-to-sql/fonts/icon.svg')
+               format('svg');
+        font-weight: normal;
+        font-style: normal;
+      }
+    </style>
+
+    <link rel="stylesheet" href="http://guides.peruzal.com/introduction-to-sql/stylesheets/application.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/introduction-to-sql/stylesheets/temporary.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/introduction-to-sql/stylesheets/palettes.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/introduction-to-sql/stylesheets/highlight/highlight.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/github-gist.min.css">
+
+    
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ubuntu:400,700|Ubuntu&#43;Mono">
+    <style>
+      body, input {
+        font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+      }
+      pre, code {
+        font-family: 'Ubuntu Mono', 'Courier New', 'Courier', monospace;
+      }
+    </style>
+
+    
+    <script src="http://guides.peruzal.com/introduction-to-sql/javascripts/modernizr.js"></script>
+
+    
+
+  </head>
+  <body class="palette-primary-deep-orange palette-accent-light-blue">
+
+
+
+
+<div class="backdrop">
+	<div class="backdrop-paper"></div>
+</div>
+
+<input class="toggle" type="checkbox" id="toggle-drawer">
+<input class="toggle" type="checkbox" id="toggle-search">
+<label class="toggle-button overlay" for="toggle-drawer"></label>
+
+<header class="header">
+	<nav aria-label="Header">
+  <div class="bar default">
+    <div class="button button-menu" role="button" aria-label="Menu">
+      <label class="toggle-button icon icon-menu" for="toggle-drawer">
+        <span></span>
+      </label>
+    </div>
+    <div class="stretch">
+      <div class="title">
+        Joining Tables
+      </div>
+    </div>
+
+    
+    <div class="button button-twitter" role="button" aria-label="Twitter">
+       <a href="https://twitter.com/peruzal" title="@peruzal on Twitter" target="_blank" class="toggle-button icon icon-twitter"></a>
+    </div>
+    
+
+    
+    <div class="button button-github" role="button" aria-label="GitHub">
+      <a href="https://github.com/peruzal" title="@peruzal on GitHub" target="_blank" class="toggle-button icon icon-github"></a>
+    </div>
+    
+    
+        
+  </div>
+  <div class="bar search">
+    <div class="button button-close" role="button" aria-label="Close">
+      <label class="toggle-button icon icon-back" for="toggle-search"></label>
+    </div>
+    <div class="stretch">
+      <div class="field">
+        <input class="query" type="text" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck>
+      </div>
+    </div>
+    <div class="button button-reset" role="button" aria-label="Search">
+      <button class="toggle-button icon icon-close" id="reset-search"></button>
+    </div>
+  </div>
+</nav>
+</header>
+
+<main class="main">
+	<div class="drawer">
+		<nav aria-label="Navigation">
+  <a href="http://guides.peruzal.com/introduction-to-sql" class="project">
+    <div class="banner">
+      
+        <div class="logo">
+          <img src="http://guides.peruzal.com/introduction-to-sql/images/logo.png">
+        </div>
+      
+      <div class="name">
+        <strong>Introduction to SQL <span class="version">1.0.0</span></strong>
+        
+      </div>
+    </div>
+  </a>
+
+  <div class="scrollable">
+    <div class="wrapper">
+      
+
+      <div class="toc">
+        
+        <ul>
+          
+
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Understanding SQL" href="http://guides.peruzal.com/introduction-to-sql/understanding-sql/">
+	
+	Understanding SQL
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Retrieving Data" href="http://guides.peruzal.com/introduction-to-sql/retrieving-data/">
+	
+	Retrieving Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Sorting Data" href="http://guides.peruzal.com/introduction-to-sql/sorting-data/">
+	
+	Sorting Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Filtering Data" href="http://guides.peruzal.com/introduction-to-sql/filtering-data/">
+	
+	Filtering Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Functions Data" href="http://guides.peruzal.com/introduction-to-sql/functions/">
+	
+	Functions Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Grouping Data" href="http://guides.peruzal.com/introduction-to-sql/grouping-data/">
+	
+	Grouping Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Sub Queries" href="http://guides.peruzal.com/introduction-to-sql/subqueries/">
+	
+	Sub Queries
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a class="current" title="Joining Tables" href="http://guides.peruzal.com/introduction-to-sql/joining-tables/">
+	
+	Joining Tables
+</a>
+
+
+<ul id="scrollspy">
+</ul>
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Inserting Data" href="http://guides.peruzal.com/introduction-to-sql/inserting-data/">
+	
+	Inserting Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Updating Data" href="http://guides.peruzal.com/introduction-to-sql/updating-data/">
+	
+	Updating Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Deleting Data" href="http://guides.peruzal.com/introduction-to-sql/deleting-data/">
+	
+	Deleting Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Working with Tables" href="http://guides.peruzal.com/introduction-to-sql/working-with-tables/">
+	
+	Working with Tables
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Views" href="http://guides.peruzal.com/introduction-to-sql/views/">
+	
+	Views
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Stored Procedures" href="http://guides.peruzal.com/introduction-to-sql/stored-procedures/">
+	
+	Stored Procedures
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Transaction" href="http://guides.peruzal.com/introduction-to-sql/transactions/">
+	
+	Transaction
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Advanced SQL Features" href="http://guides.peruzal.com/introduction-to-sql/advanced-sql-features/">
+	
+	Advanced SQL Features
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Calculated Fields" href="http://guides.peruzal.com/introduction-to-sql/calculated-fields/">
+	
+	Calculated Fields
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Installing SQL Server" href="http://guides.peruzal.com/introduction-to-sql/installing-sql-server/">
+	
+	Installing SQL Server
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="SQL Server Architecture" href="http://guides.peruzal.com/introduction-to-sql/sql-server-architecture/">
+	
+	SQL Server Architecture
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Database Recovery" href="http://guides.peruzal.com/introduction-to-sql/database-recovery/">
+	
+	Database Recovery
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Security" href="http://guides.peruzal.com/introduction-to-sql/database-security/">
+	
+	Security
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="AlwaysOn Availability Groups" href="http://guides.peruzal.com/introduction-to-sql/sql-server-alwayson/">
+	
+	AlwaysOn Availability Groups
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Intro to SQL" href="http://guides.peruzal.com/introduction-to-sql/">
+	
+	Intro to SQL
+</a>
+
+
+
+  
+</li>
+
+
+        </ul>
+        
+
+        
+        <hr>
+        <span class="section">The author</span>
+        
+        <ul>
+          
+          <li>
+            <a href="https://twitter.com/peruzal" target="_blank" title="@peruzal on Twitter">
+              @peruzal on Twitter
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="https://github.com/peruzal" target="_blank" title="@peruzal on GitHub">
+              @peruzal on GitHub
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="mailto:hello@peruzal.com" title="Email of hello@peruzal.com">
+              Contact via email
+            </a>
+          </li>
+          
+        </ul>
+        
+      </div>
+    </div>
+  </div>
+</nav>
+
+	</div>
+
+	<article class="article">
+		<div class="wrapper">
+			<h1>Joining Tables </h1>
+
+			
+
+<h2 id="understanding-joins">Understanding Joins</h2>
+
+<p>Relational tables are designed so that information is split into multiple tables, one for each data type. The tables are related to each other through common values (and thus the relational in relational design).</p>
+
+<h2 id="using-inner-join">Using INNER JOIN</h2>
+
+<p>Most of the time, to join tables together, you will use INNER JOIN. When connecting two tables with INNER JOIN, only the rows from the tables that match on the joining columns will show up in the results. If you join the customer and order tables, the query will return only the customers who have placed orders, along with the orders that have been placed. Only the rows where the customer ID is common in both tables will show up in the results</p>
+
+<h3 id="creating-a-join">Creating a Join</h3>
+
+<p>Joining table is easy, you just add the table after the JOIN keyword. Here is the syntax for joining two tables (the keyword INNER is optional):</p>
+
+<pre><code class="language-sql">SELECT &lt;select list&gt;
+FROM &lt;table1&gt;
+[INNER] JOIN &lt;table2&gt; ON &lt;table1&gt;.&lt;col1&gt; = &lt;table2&gt;.&lt;col2&gt;
+</code></pre>
+
+<p><img src="http://guides.peruzal.com/introduction-to-sql/images/joining-tables.PNG" alt="Joining Tables" /></p>
+
+<p>Here is an example join on the two tables :</p>
+
+<pre><code class="language-sql">SELECT s.SalesOrderID, s.OrderDate, s.TotalDue, d.SalesOrderDetailID,
+    d.ProductID, d.OrderQty
+FROM Sales.SalesOrderHeader AS s
+INNER JOIN Sales.SalesOrderDetail AS d ON s.SalesOrderID = d.SalesOrderID;
+</code></pre>
+
+<p>Creating a join is very simple. You must specify all the tables to be included and how they are related to each other. Look at the following example</p>
+
+<p>The SELECT list may contain columns from either of the tables. In the FROM clause, you list one of the tables followed by the words INNER JOIN and the second table name. To define how the two tables join together, use the keyword ON and an equality expression.</p>
+
+<p>If a row exists in the <em>Sales.SalesOrderHeader</em> table with no matches in the <em>Sales.SalesOrderDetail</em> table, the <em>Sales.SalesOrderHeader</em> row will not show up in the results.</p>
+
+<p>Because the column name, <em>SalesOrderID</em>, is the same in both tables, it must be fully qualified with the table name anywhere it is used in the query.</p>
+
+<p>Here is another example form the small Training database :</p>
+
+<pre><code class="language-sql">SELECT vend_name, prod_name, prod_price
+FROM Vendors, Products
+WHERE Vendors.vend_id = Products.vend_id;
+</code></pre>
+
+<blockquote>
+<p>The WHERE clause acts as a filter to only include rows that match the specified filter condition—the join condition, in this case. Without the WHERE clause, every row in the first table will be paired with every row in the second table, regardless of if they logically go together or not.</p>
+</blockquote>
+
+<div class="admonition warning">
+<p class="admonition-title">Cartesian Product</p>
+<p>The results returned by a table relationship without a join condition. The number of rows retrieved will be the number of rows in the first table multiplied by the number of rows in the second table.</p>
+</div>
+
+<pre><code class="language-sql">SELECT vend_name, prod_name, prod_price
+FROM Vendors, Products;
+</code></pre>
+
+<div class="admonition note">
+<p class="admonition-title">Cross Joins</p>
+<p>Sometimes you’ll hear the type of join that returns a Cartesian Product referred to as a cross join.</p>
+</div>
+
+<h2 id="inner-join">Inner Join</h2>
+
+<p>The join you have been using so far is called an <strong>equijoin</strong>—a join based on the testing of equality between two tables. This kind of join is also called an inner join. In fact, you may use a slightly different syntax for these joins, specifying the type of join explicitly. The following SELECT statement returns the exact same data as the preceding example :</p>
+
+<pre><code class="language-sql">SELECT vend_name, prod_name, prod_price
+FROM Vendors INNER JOIN Products
+ ON Vendors.vend_id = Products.vend_id;
+</code></pre>
+
+<blockquote>
+<p>The <strong>SELECT</strong> in the statement is the same as the preceding <strong>SELECT</strong> statement, but the FROM clause is different. Here the relationship between the two tables is part of the FROM clause specified as <strong>INNER JOIN</strong>. When using this syntax the join condition is specified using the special ON clause instead of a WHERE clause. The actual condition passed to ON is the same as would be passed to <strong>WHERE</strong>.</p>
+</blockquote>
+
+<h3 id="joining-multiple-tables">Joining Multiple Tables</h3>
+
+<p>SQL imposes no limit to the number of tables that may be joined in a SELECT statement. The basic rules for creating the join remain the same. First list all the tables, and then define the relationship between each. Here is an example:</p>
+
+<pre><code class="language-sql">SELECT prod_name, vend_name, prod_price, quantity
+FROM OrderItems, Products, Vendors
+WHERE Products.vend_id = Vendors.vend_id
+AND OrderItems.prod_id = Products.prod_id
+AND order_num = 20007;
+</code></pre>
+
+<h3 id="joining-on-a-different-column-name">Joining on a Different Column Name</h3>
+
+<p>You can join tables even if they have different column names. The data only needs to be related, e.g the Person.Person and Sales.Customer are related on the BusinessEntityID and CustomerID columns.</p>
+
+<p><img src="http://guides.peruzal.com/introduction-to-sql/images/join-different-columns.PNG" alt="Joining on different column names" /></p>
+
+<pre><code class="language-sql">SELECT c.CustomerID, c.PersonID, p.BusinessEntityID, p.LastName
+FROM Sales.Customer AS c
+INNER JOIN Person.Person AS p ON c.PersonID = p.BusinessEntityID;
+</code></pre>
+
+<h3 id="joining-on-more-than-one-column">Joining on More Than One Column</h3>
+
+<p>Although a JOIN frequently involves joining on a single column, sometimes you might need to join on multiple columns.</p>
+
+<p><img src="http://guides.peruzal.com/introduction-to-sql/images/joining-multiple-columns.PNG" alt="Joining in multiple columns" /></p>
+
+<p>The <em>Sales.SpecialOfferProduct</em> table has a composite primary key composed of <em>SpecialOfferID</em> plus <em>ProductID</em>. To identify a row in this table, you must use both columns. When joining <em>Sales.SalesOrderDetail</em> to the <em>Sales.SpecialOfferProduct</em> table, you specify both columns in the join.</p>
+
+<p>To determine which row matches the rows from Sales.SalesOrderDetail, both columns are used in the join condition. If the join contained only one of the columns, the results would be similar to the incorrect results</p>
+
+<h3 id="joining-three-or-more-tables">Joining Three or More Tables</h3>
+
+<p>You would join more than two tables in situations that involve a many to many relationship.</p>
+
+<p><img src="http://guides.peruzal.com/introduction-to-sql/images/joining-multiple-tables.PNG" alt="Joining multiple tables" /></p>
+
+<p>Here is the syntax to add more tables to the JOIN clause :</p>
+
+<pre><code class="language-sql">SELECT &lt;SELECT list&gt; FROM &lt;table1&gt;
+[INNER] JOIN &lt;table2&gt; ON &lt;table1&gt;.&lt;col1&gt; = &lt;table2&gt;.&lt;col2&gt;
+[INNER] JOIN &lt;table3&gt; ON &lt;table2&gt;.&lt;col2&gt; = &lt;table3&gt;.&lt;col3&gt;
+</code></pre>
+
+<p>Here is an example query joining multiple tables :</p>
+
+<pre><code class="language-sql">SELECT soh.SalesOrderID, soh.OrderDate, p.ProductID, p.Name
+FROM Sales.SalesOrderHeader as soh
+INNER JOIN Sales.SalesOrderDetail AS sod ON soh.SalesOrderID = sod.SalesOrderID
+INNER JOIN Production.Product AS p ON sod.ProductID = p.ProductID
+ORDER BY soh.SalesOrderID;
+</code></pre>
+
+<p>Notice that even though the query joins three tables, the query displays columns from only two of the tables.</p>
+
+<h3 id="exercises">Exercises</h3>
+
+<p>Use the AdventureWorks database to complete this exercise.</p>
+
+<ol>
+<li><p>The <em>HumanResources.Employee</em> table does not contain the employee names. Join that table to the _Person.Person _table on the <em>BusinessEntityID</em> column. Display the <em>job title, birth date, first name, and last name</em>.</p></li>
+
+<li><p>The customer names also appear in the <em>Person.Person</em> table. Join the_ Sales.Customer_ table to the <em>Person.Person</em> table. The <em>BusinessEntityID</em> column in the <em>Person.Person</em> table matches the <em>PersonID</em> column in the <em>Sales.Customer</em> table. Display the_ CustomerID, StoreID_, and <em>TerritoryID</em> columns along with the name columns.</p></li>
+
+<li><p>Extend the query written in question 2 to include the <em>Sales.SalesOrderHeader</em> table. Display the <em>SalesOrderID</em> column along with the columns already specified. The <em>Sales.SalesOrderHeader</em> table joins the Sales.Customer table on <em>CustomerID</em>.</p></li>
+
+<li><p>Write a query that joins the <em>Sales.SalesOrderHeader</em> table to the <em>Sales.SalesPerson</em> table. Join the <em>BusinessEntityID</em> column from the <em>Sales.SalesPerson</em> table to the <em>SalesPersonID</em> column in the <em>Sales.SalesOrderHeader</em> table. Display the <em>SalesOrderID</em> along with the <em>SalesQuota</em> and Bonus.</p></li>
+
+<li><p>Add the name columns to the query written in question 4 by joining on the Person.Person table. See whether you can figure out which columns will be used to write the join.</p></li>
+
+<li><p>The catalog description for each product is stored in the <em>Production.ProductModel</em> table. Display the columns that describe the product such as the color and size, along with the catalog description for each product.</p></li>
+
+<li><p>Write a query that displays the names of the customers along with the product names they have purchased. Hint: Five tables will be required to write this query!</p></li>
+</ol>
+
+<h3 id="solution">Solution</h3>
+
+<p>Use the AdventureWorks database to complete this exercise.</p>
+
+<p><strong>1.</strong></p>
+
+<p>The HumanResources.Employee table does not contain the employee names. Join that table to the Person.Person table on the BusinessEntityID column. Display the job title, birth date, first name, and last name.</p>
+
+<pre><code class="language-sql">SELECT E.JobTitle, E.BirthDate, P.FirstName, P.LastName
+FROM HumanResources.Employee AS E
+INNER JOIN Person.Person AS P ON
+          E.BusinessEntityID = P.BusinessEntityID;
+</code></pre>
+
+<p><strong>2.</strong></p>
+
+<p>The customer names also appear in the Person.Person table. Join the Sales.Customer table to the Person.Person table. The BusinessEntityID column in the Person.Person table matches the PersonID column in the Sales.Customer table. Display the CustomerID, StoreID, and TerritoryID columns along with the name columns.</p>
+
+<pre><code class="language-sql">SELECT C.CustomerID, C.StoreID, C.TerritoryID,
+          P.FirstName, P.MiddleName, P.LastName
+FROM Sales.Customer AS C
+INNER JOIN Person.Person AS P
+          ON C.PersonID = P.BusinessEntityID;
+</code></pre>
+
+<p><strong>3.</strong></p>
+
+<p>Extend the query written in question 2 to include the Sales.SalesOrderHeader table. Display the SalesOrderID column along with the columns already specified. The Sales.SalesOrderHeader table joins the Sales.Customer table on CustomerID.</p>
+
+<pre><code class="language-sql">SELECT C.CustomerID, C.StoreID, C.TerritoryID,
+          P.FirstName, P.MiddleName,
+          P.LastName, S.SalesOrderID
+FROM Sales.Customer AS C
+INNER JOIN Person.Person AS P
+          ON C.PersonID = P.BusinessEntityID
+INNER JOIN Sales.SalesOrderHeader AS S
+          ON S.CustomerID = C.CustomerID;
+</code></pre>
+
+<p><strong>4.</strong></p>
+
+<p>Write a query that joins the Sales.SalesOrderHeader table to the Sales.SalesPerson table. Join the BusinessEntityID column from the Sales.SalesPerson table to the SalesPersonID column in the Sales.SalesOrderHeader table. Display the SalesOrderID along with the SalesQuota and Bonus.</p>
+
+<pre><code class="language-sql">SELECT S.SalesOrderID, SP.SalesQuota, SP.Bonus
+FROM Sales.SalesOrderHeader AS S
+INNER JOIN Sales.SalesPerson AS SP
+          ON S.SalesPersonID = SP.BusinessEntityID;
+</code></pre>
+
+<p><strong>5.</strong></p>
+
+<p>Add the name columns to the query written in question 4 by joining on the Person.Person table. See whether you can figure out which columns will be used to write the join.</p>
+
+<pre><code class="language-sql">SELECT SalesOrderID, SalesQuota, Bonus, FirstName,
+          MiddleName, LastName
+FROM Sales.SalesOrderHeader AS S
+INNER JOIN Sales.SalesPerson AS SP
+          ON S.SalesPersonID = SP.BusinessEntityID
+INNER JOIN Person.Person AS P
+          ON SP.BusinessEntityID = P.BusinessEntityID;
+</code></pre>
+
+<p><strong>6.</strong></p>
+
+<p>The catalog description for each product is stored in the Production.ProductModel table. Display the columns that describe the product such as the color and size, along with the catalog description for each product.</p>
+
+<pre><code class="language-sql">SELECT PM.CatalogDescription, P.Color, P.Size
+FROM Production.Product AS P
+INNER JOIN Production.ProductModel AS PM
+          ON P.ProductModelID = PM.ProductModelID;
+</code></pre>
+
+<p><strong>7.</strong></p>
+
+<p>Write a query that displays the names of the customers along with the product names that they have purchased. Hint: Five tables will be required to write this query!</p>
+
+<pre><code class="language-sql">SELECT FirstName, MiddleName, LastName, Prod.Name
+FROM Sales.Customer AS C
+INNER JOIN Person.Person AS P
+          ON C.PersonID = P.BusinessEntityID
+INNER JOIN Sales.SalesOrderHeader AS SOH
+          ON C.CustomerID = SOH.CustomerID
+INNER JOIN Sales.SalesOrderDetail AS SOD
+          ON SOH.SalesOrderID = SOD.SalesOrderID
+INNER JOIN Production.Product AS Prod
+          ON SOD.ProductID = Prod.ProductID;
+</code></pre>
+
+<h3 id="subqueries-vs-joins">Subqueries vs Joins</h3>
+
+<p>From the last section we ran the following query :</p>
+
+<pre><code class="language-sql">SELECT cust_name, cust_contact
+FROM Customers
+WHERE cust_id IN (SELECT cust_id
+                  FROM Orders
+                  WHERE order_num IN (SELECT order_num
+                                      FROM OrderItems
+                                      WHERE prod_id =
+                                            'RGAN01'));
+</code></pre>
+
+<p>this query can be re-written using a JOIN as follows :</p>
+
+<pre><code class="language-sql">SELECT cust_name, cust_contact
+FROM Customers, Orders, OrderItems
+WHERE Customers.cust_id = Orders.cust_id
+AND OrderItems.order_num = Orders.order_num
+AND prod_id = 'RGAN01';
+</code></pre>
+
+<h2 id="using-table-aliases">Using Table Aliases</h2>
+
+<p>You are allowed to aliases table names in addition to aliasing columns as well. The advantages of table aliases is :</p>
+
+<ul>
+<li>To shorten the SQL syntax</li>
+<li>To enable multiple uses of the same table within a single SELECT statement</li>
+</ul>
+
+<p>Here is an example of using a table alias :</p>
+
+<pre><code class="language-sql">SELECT cust_name, cust_contact
+FROM Customers AS C, Orders AS O, OrderItems AS OI
+WHERE C.cust_id = O.cust_id
+ AND OI.order_num = O.order_num
+ AND prod_id = 'RGAN01';
+</code></pre>
+
+<h2 id="using-different-join-types">Using Different Join Types</h2>
+
+<p>They are other types of joins in addition to the equi-join/ INNER JOIN :</p>
+
+<ul>
+<li>SELF JOIN</li>
+<li>CROSS JOIN</li>
+<li>NATURAL JOIN</li>
+</ul>
+
+<h2 id="self-joins">Self Joins</h2>
+
+<p>A self-join is a special type of query that joins a table back to itself.</p>
+
+<p>Suppose you wanted to send a mailing to all the customer contacts who work for the same company for which Jim Jones works. This query requires that you first find out which company Jim Jones works for, and next which customers work for that company. The following is one way to approach this problem:</p>
+
+<pre><code class="language-sql">SELECT cust_id, cust_name, cust_contact
+FROM Customers
+WHERE cust_name = (SELECT cust_name
+                   FROM Customers
+                   WHERE cust_contact = 'Jim Jones');
+</code></pre>
+
+<p>This first solution uses subqueries. The inner SELECT statement does a simple retrieval to return the cust_name of the company that Jim Jones works for. That name is the one used in the WHERE clause of the outer query so that all employees who work for that company are retrieved. The same query can be accomplished used an inner join :</p>
+
+<pre><code class="language-sql">SELECT c1.cust_id, c1.cust_name, c1.cust_contact
+FROM Customers AS c1, Customers AS c2
+WHERE c1.cust_name = c2.cust_name
+ AND c2.cust_contact = 'Jim Jones';
+</code></pre>
+
+<div class="admonition note">
+<p class="admonition-title">Self-Joins Instead of Subqueries</p>
+<p>Self-joins are often used to replace statements using subqueries that retrieve data from the same table as the outer statement. Although the end result is the same, many DBMSs process joins far more quickly than they do subqueries. It is usually worth experimenting with both to determine which performs better.</p>
+</div>
+
+<h2 id="natural-joins">Natural Joins</h2>
+
+<p>Whenever tables are joined, at least one column will appear in more than one table (the columns being used to create the join). Standard joins (the inner joins that you learned about in the last lesson) return all data, even multiple occurrences of the same column. A natural join simply eliminates those multiple occurrences so that only one of each column is returned.</p>
+
+<p>A natural join is a join in which you select only columns that are unique. This is typically done using a wildcard (SELECT *) for one table and explicit subsets of the columns for all other tables. The following is an example:</p>
+
+<pre><code>SELECT C.*, O.order_num, O.order_date,
+       OI.prod_id, OI.quantity, OI.item_price
+FROM Customers AS C, Orders AS O,
+     OrderItems AS OI
+WHERE C.cust_id = O.cust_id
+ AND OI.order_num = O.order_num
+ AND prod_id = 'RGAN01';
+</code></pre>
+
+<blockquote>
+<p>The truth is, every inner join you have created thus far is actually a natural join, and you will probably never need an inner join that is not a natural join.</p>
+</blockquote>
+
+<h2 id="outer-joins">Outer Joins</h2>
+
+<p>Most joins relate rows in one table with rows in another. But occasionally, you want to include rows that have no related rows. For example, you might use joins to accomplish the following tasks:</p>
+
+<ul>
+<li>Count how many orders were placed by each customer, including customers that have yet to place an order.</li>
+<li>List all products with order quantities, including products not ordered by anyone.</li>
+<li>Calculate average sale sizes, taking into account customers that have not yet placed an order.</li>
+</ul>
+
+<h3 id="using-left-outer-join">Using LEFT OUTER JOIN</h3>
+
+<p>When writing <strong>OUTER JOI</strong>N, you must specify either <strong>LEFT</strong> or <strong>RIGHT</strong>. If the main table, the table you want to see all the rows from even if there is not a match, is on the left side of the join, you will specify LEFT.</p>
+
+<p>The syntax for the LEFT OUTER JOIN is as follows :</p>
+
+<pre><code class="language-sql">SELECT &lt;SELECT list&gt;
+FROM &lt;table1&gt;
+LEFT [OUTER] JOIN &lt;table2&gt; ON &lt;table1&gt;.&lt;col1&gt; = &lt;table2&gt;.&lt;col2&gt;
+</code></pre>
+
+<p>Here is an example of the LEFT OUTER JOIN :</p>
+
+<pre><code class="language-sql">SELECT c.CustomerID, s.SalesOrderID, s.OrderDate
+FROM Sales.Customer AS c
+LEFT OUTER JOIN Sales.SalesOrderHeader AS s ON c.CustomerID = s.CustomerID
+WHERE c.CustomerID IN (11028,11029,1,2,3,4);
+</code></pre>
+
+<p>All the rows from the table on the left side of the join, the Sales.Customer table, that meet the criteria in the WHERE clause show up in the results. The query returns rows from the right side of the join, the Sales.SalesOrderHeader table, only if they match on CustomerID.</p>
+
+<p>To retrieve a list of all customers including those who have placed no orders, you can do the following from the Training database.</p>
+
+<pre><code class="language-sql">SELECT Customers.cust_id, Orders.order_num
+FROM Customers LEFT OUTER JOIN Orders
+ ON Customers.cust_id = Orders.cust_id;
+</code></pre>
+
+<p>Here is a diagram showing the relation between the tables in the AdventureWorks database :</p>
+
+<p><img src="http://guides.peruzal.com/introduction-to-sql/images/left-outer-join.jpg" alt="Left outer join" /></p>
+
+<p>The tan area of the Venn diagram illustrates how all the CustomerID values in the Sales.Customer table will be returned whether or not there is a matching CustomerID value in the Sales.SalesOrderHeader table.</p>
+
+<p>When using <strong>OUTER JOIN</strong> syntax you must use the <strong>RIGHT</strong> or LEFT keywords to specify the table from which to include all rows (RIGHT for the one on the right of <strong>OUTER JOIN</strong>, and <strong>LEFT</strong> for the one on the left). The previous example uses <strong>LEFT OUTER JOIN</strong> to select all the rows from the table on the left in the FROM clause (the Customers table).</p>
+
+<h3 id="using-right-outer-join">Using RIGHT OUTER JOIN</h3>
+
+<p>RIGHT OUTER JOIN differs from LEFT OUTER JOIN in just the location of the tables. If the main table, the table in which you want to see all the rows, even if there is not a match, is on the right side of the join, you will specify RIGHT. Here is the syntax:</p>
+
+<pre><code class="language-sql">SELECT &lt;SELECT list&gt;
+FROM &lt;table2&gt;
+RIGHT [OUTER] JOIN &lt;table1&gt; ON &lt;table1&gt;.&lt;col1&gt; = &lt;table2&gt;.&lt;col2&gt;
+</code></pre>
+
+<p>Here is a query that will give the same result but with table position re-arranged :</p>
+
+<pre><code class="language-sql">SELECT c.CustomerID, s.SalesOrderID, s.OrderDate
+FROM Sales.SalesOrderHeader AS s
+RIGHT OUTER JOIN Sales.Customer AS c ON c.CustomerID = s.CustomerID
+WHERE c.CustomerID IN (11028,11029,1,2,3,4);
+</code></pre>
+
+<p>The only difference between this query and the previous one is the order of the tables within the FROM clause and the direction keyword.</p>
+
+<p>To select all the rows from the table on the right, you use a RIGHT OUTER JOIN as seen in this next example:</p>
+
+<pre><code class="language-sql">SELECT Customers.cust_id, Orders.order_num
+FROM Customers RIGHT OUTER JOIN Orders
+ON Orders.cust_id = Customers.cust_id;
+</code></pre>
+
+<h3 id="using-outer-join-to-find-rows-with-no-match">Using OUTER JOIN to Find Rows with No Match</h3>
+
+<p>Sometimes it’s useful to find all the rows in one table that don’t have corresponding rows in another table. For example, you may want to find all the customers who have never placed an order. Because the columns from the nonmatching rows contain NULL values, you can use OUTER JOIN to find rows with no match by checking for NULL. The syntax is as follows:</p>
+
+<pre><code class="language-sql">SELECT &lt;SELECT list&gt;
+FROM &lt;table1&gt;
+LEFT [OUTER] JOIN &lt;table2&gt; ON &lt;table1&gt;.&lt;col1&gt; = &lt;table2&gt;.&lt;col2&gt;
+WHERE &lt;col2&gt; IS NULL
+</code></pre>
+
+<p>Here is the query that returns a list of all customers who have not placed an order :</p>
+
+<pre><code class="language-sql">SELECT c.CustomerID, s.SalesOrderID, s.OrderDate
+FROM Sales.Customer AS c
+LEFT OUTER JOIN Sales.SalesOrderHeader AS s ON c.CustomerID = s.CustomerID
+WHERE s.SalesOrderID IS NULL;
+</code></pre>
+
+<h3 id="adding-a-table-to-the-right-side-of-a-left-join">Adding a Table to the Right Side of a LEFT JOIN</h3>
+
+<p>The next step is to understand what to do when additional tables are added to the query. For example, you might want to display all the customers and their orders even if an order has not been placed, along with the ProductID from those orders that were placed. To keep the customers with no orders from dropping out of the results, you must continue to use LEFT JOIN.</p>
+
+<pre><code class="language-sql">SELECT C.CustomerID, SOH.SalesOrderID, SOD.SalesOrderDetailID, SOD.ProductID
+FROM Sales.Customer AS C
+LEFT OUTER JOIN Sales.SalesOrderHeader AS SOH ON C.CustomerID = SOH.CustomerID
+LEFT OUTER JOIN Sales.SalesOrderDetail AS SOD ON SOH.SalesOrderID = SOD.SalesOrderID
+WHERE C.CustomerID IN (11028,11029,1,2,3,4);
+</code></pre>
+
+<h3 id="full-outer-join">Full outer join</h3>
+
+<p>Retrieves all rows from both tables and relates those that can be related. Unlike a left outer join or right outer join, which includes unrelated rows from a single table, the full outer join includes unrelated rows from both tables.</p>
+
+<p>Here is a query from the Training database :</p>
+
+<pre><code class="language-sql">SELECT Customers.cust_id, Orders.order_num
+FROM Orders FULL OUTER JOIN Customers
+ ON Orders.cust_id = Customers.cust_id;
+</code></pre>
+
+<h2 id="using-joins-with-aggregate-functions">Using Joins with Aggregate Functions</h2>
+
+<p>Aggregate functions can be used with joins as well. To demonstrate this, let’s look at an example. You want to retrieve a list of all customers and the number of orders that each has placed. The following code uses the <strong>COUNT()</strong> function to achieve this:</p>
+
+<pre><code class="language-sql">SELECT Customers.cust_id,
+       COUNT(Orders.order_num) AS num_ord
+FROM Customers INNER JOIN Orders
+ON Customers.cust_id = Orders.cust_id
+GROUP BY Customers.cust_id;
+</code></pre>
+
+<p>Aggregate functions can be used just as easily with other join types. See the following example:</p>
+
+<pre><code class="language-sql">SELECT Customers.cust_id,
+       COUNT(Orders.order_num) AS num_ord
+FROM Customers LEFT OUTER JOIN Orders
+ON Customers.cust_id = Orders.cust_id
+GROUP BY Customers.cust_id;
+</code></pre>
+
+<h3 id="exercise">Exercise</h3>
+
+<p>Use the AdventureWorks database to complete this exercise. You can find the solutions at the end of the chapter.</p>
+
+<ol>
+<li><p>Write a query that displays all the products along with the <em>SalesOrderID</em> even if an order has never been placed for that product. Join to the <em>Sales.SalesOrderDetail</em> table using the <em>ProductID</em> column.</p></li>
+
+<li><p>Change the query written in question 1 so that only products that have not been ordered show up in the query.</p></li>
+
+<li><p>Write a query that returns all the rows from the Sales.SalesPerson table joined to the <em>Sales.SalesOrderHeader</em> table along with the <em>SalesOrderID</em> column even if no orders match. Include the <em>SalesPersonID</em>, <em>SalesYTD</em> and <em>SalesOrderID</em> columns in the results.</p></li>
+
+<li><p>Change the query written in question 3 so that the salesperson’s name also displays from the <em>Person.Person</em> table.</p></li>
+
+<li><p>The <em>Sales.SalesOrderHeader</em> table contains foreign keys to the <em>Sales.CurrencyRate</em> and <em>Purchasing.ShipMethod</em> tables. Write a query joining all three tables, and make sure it contains all rows from <em>Sales.SalesOrderHeader</em>. Include the <em>CurrencyRateID</em>, <em>AverageRate</em>, <em>SalesOrderID</em>, and <em>ShipBase</em> columns.</p></li>
+
+<li><p>Write a query that returns the <em>BusinessEntityID</em> column from the Sales.SalesPerson table along with every <em>ProductID</em> from the <em>Production.Product</em> table.</p></li>
+</ol>
+
+<h3 id="solution-1">Solution</h3>
+
+<p>Use the AdventureWorks database to complete this exercise.</p>
+
+<p><strong>1.</strong></p>
+
+<p>Write a query that displays all the products along with the SalesOrderID even if an order has never been placed for that product. Join to the Sales.SalesOrderDetail table using the ProductID column.</p>
+
+<pre><code class="language-sql">SELECT SalesOrderID, P.ProductID, P.Name
+FROM Production.Product AS P
+LEFT OUTER JOIN Sales.SalesOrderDetail
+          AS SOD ON P.ProductID = SOD.ProductID;
+</code></pre>
+
+<p><strong>2.</strong></p>
+
+<p>Change the query written in question 1 so that only products that have not been ordered show up in the query.</p>
+
+<pre><code class="language-sql">SELECT SalesOrderID, P.ProductID, P.Name
+FROM Production.Product AS P
+LEFT OUTER JOIN Sales.SalesOrderDetail
+         AS SOD ON P.ProductID = SOD.ProductID
+WHERE SalesOrderID IS NULL;
+</code></pre>
+
+<p><strong>3.</strong></p>
+
+<p>Write a query that returns all the rows from the Sales.SalesPerson table joined to the Sales.SalesOrderHeader table along with the SalesOrderID column even if no orders match. Include the SalesPersonID, SalesYTD and SalesOrderID  columns in the results.</p>
+
+<pre><code class="language-sql">SELECT SalesOrderID, SalesPersonID, SalesYTD, SOH.SalesOrderID
+FROM Sales.SalesPerson AS SP
+LEFT OUTER JOIN Sales.SalesOrderHeader AS SOH
+      ON SP.BusinessEntityID = SOH.SalesPersonID;
+</code></pre>
+
+<p><strong>4.</strong></p>
+
+<p>Change the query written in question 3 so that the salesperson’s name also displays from the Person.Person table.</p>
+
+<pre><code class="language-sql">SELECT SalesOrderID, SalesPersonID, SalesYTD, SOH.SalesOrderID,
+            FirstName, MiddleName, LastName
+FROM Sales.SalesPerson AS SP
+LEFT OUTER JOIN Sales.SalesOrderHeader AS SOH
+        ON SP.BusinessEntityID = SOH.SalesPersonID
+LEFT OUTER JOIN Person.Person AS P
+          ON P.BusinessEntityID = SP.BusinessEntityID;
+</code></pre>
+
+<p><strong>5.</strong></p>
+
+<p>The Sales.SalesOrderHeader table contains foreign keys to the Sales.CurrencyRate and Purchasing.ShipMethod tables. Write a query joining all three tables, and make sure it contains all rows from Sales.SalesOrderHeader. Include the CurrencyRateID, AverageRate, SalesOrderID, and ShipBase columns.</p>
+
+<pre><code class="language-sql">SELECT CR.CurrencyRateID, CR.AverageRate,
+          SM.ShipBase, SalesOrderID
+FROM Sales.SalesOrderHeader AS SOH
+LEFT OUTER JOIN Sales.CurrencyRate AS CR
+          ON SOH.CurrencyRateID = CR.CurrencyRateID
+LEFT OUTER JOIN Purchasing.ShipMethod AS SM
+          ON SOH.ShipMethodID = SM.ShipMethodID;
+</code></pre>
+
+<p><strong>6.</strong></p>
+
+<p>Write a query that returns the BusinessEntityID column from the Sales.SalesPerson table along with every ProductID from the Production.Product table.</p>
+
+<pre><code class="language-sql">SELECT SP.BusinessEntityID, P.ProductID
+FROM Sales.SalesPerson AS SP
+CROSS JOIN Production.Product AS P;
+</code></pre>
+
+
+			<aside class="copyright" role="note">
+				
+				&copy; 2017 Copyright 2017 Peruzal &ndash;
+				
+				Documentation built with
+				<a href="https://www.gohugo.io" target="_blank">Hugo</a>
+				using the
+				<a href="http://github.com/digitalcraftsman/hugo-material-docs" target="_blank">Material</a> theme.
+			</aside>
+
+			<footer class="footer">
+				
+
+<nav class="pagination" aria-label="Footer">
+  <div class="previous">
+  
+      <a href="http://guides.peruzal.com/introduction-to-sql/inserting-data/" title="Inserting Data">
+        <span class="direction">
+          Previous
+        </span>
+        <div class="page">
+          <div class="button button-previous" role="button" aria-label="Previous">
+            <i class="icon icon-back"></i>
+          </div>
+          <div class="stretch">
+            <div class="title">
+              Inserting Data
+            </div>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+
+  <div class="next">
+  
+      <a href="http://guides.peruzal.com/introduction-to-sql/subqueries/" title="Subqueries">
+        <span class="direction">
+          Next
+        </span>
+        <div class="page">
+          <div class="stretch">
+            <div class="title">
+              Subqueries
+            </div>
+          </div>
+          <div class="button button-next" role="button" aria-label="Next">
+            <i class="icon icon-forward"></i>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+</nav>
+
+
+
+
+
+			</footer>
+		</div>
+	</article>
+
+	<div class="results" role="status" aria-live="polite">
+		<div class="scrollable">
+			<div class="wrapper">
+				<div class="meta"></div>
+				<div class="list"></div>
+			</div>
+		</div>
+	</div>
+</main>
+
+    <script>
+    
+      var base_url = '';
+      var repo_id  = '';
+    
+    </script>
+
+    <script src="http://guides.peruzal.com/introduction-to-sql/javascripts/application.js"></script>
+    
+
+    <script>
+      /* Add headers to scrollspy */
+      var headers   = document.getElementsByTagName("h2");
+      var scrollspy = document.getElementById('scrollspy');
+
+      if(scrollspy) {
+        if(headers.length > 0) {
+          for(var i = 0; i < headers.length; i++) {
+            var li = document.createElement("li");
+            li.setAttribute("class", "anchor");
+
+            var a  = document.createElement("a");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", headers[i].innerHTML);
+            a.innerHTML = headers[i].innerHTML;
+
+            li.appendChild(a)
+            scrollspy.appendChild(li);
+          }
+        } else {
+          scrollspy.parentElement.removeChild(scrollspy)
+        }
+
+
+        /* Add permanent link next to the headers */
+        var headers = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+
+        for(var i = 0; i < headers.length; i++) {
+            var a = document.createElement("a");
+            a.setAttribute("class", "headerlink");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", "Permanent link")
+            a.innerHTML = "#";
+            headers[i].appendChild(a);
+        }
+      }
+    </script>
+
+    
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>
+

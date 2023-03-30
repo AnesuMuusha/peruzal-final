@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Retrieving-data on Introduction to SQL</title>
+    <link>http://guides.peruzal.com/introduction-to-sql/retrieving-data/index.xml</link>
+    <description>Recent content in Retrieving-data on Introduction to SQL</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Copyright 2017 Peruzal</copyright>
+    <lastBuildDate>Tue, 28 Feb 2017 21:49:20 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/introduction-to-sql/retrieving-data/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Retrieving Data</title>
+      <link>http://guides.peruzal.com/introduction-to-sql/retrieving-data/</link>
+      <pubDate>Tue, 28 Feb 2017 21:49:20 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/introduction-to-sql/retrieving-data/</guid>
+      <description>
+
+&lt;h2 id=&#34;selecting-data-using-select-statement&#34;&gt;Selecting data using SELECT statement&lt;/h2&gt;
+
+&lt;p&gt;The &lt;strong&gt;SELECT&lt;/strong&gt; statement is used to retrieve data from one or more tables from the database.&lt;/p&gt;
+
+&lt;h3 id=&#34;basic-select-syntax&#34;&gt;Basic SELECT Syntax&lt;/h3&gt;
+
+&lt;p&gt;The structure of an SQL statement.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT select_list 
+FROM table_list 
+WHERE predicates 
+GROUP BY columns
+HAVING condition
+ORDER BY sort_key_columns
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;select-all-products-from-the-products-tablespoon&#34;&gt;Select all products from the products tablespoon&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT *
+FROM products
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Use the wildcard character &lt;strong&gt;*&lt;/strong&gt;, we can retrieve all the rows and all the columns from the products tables.&lt;/p&gt;
+
+&lt;h2 id=&#34;select-a-single-column&#34;&gt;Select a single column&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT product_name
+FROM products
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;By only choosing one column, we will retrieve only rows with the specified column from the database.&lt;/p&gt;
+
+&lt;h2 id=&#34;retrieving-multiple-columns&#34;&gt;Retrieving multiple columns&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT prod_id, prod_name, prod_price
+FROM products
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Whitespace is ignored when writing sql statements. We could have puts the whole sql statement in one line and would have worked the same. Also the sql statements are case insensitive, &lt;code&gt;SELECT&lt;/code&gt; and &lt;code&gt;select&lt;/code&gt; are treated the same.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&#34;retrieving-distinct-rows&#34;&gt;Retrieving distinct rows&lt;/h2&gt;
+
+&lt;p&gt;We can use the &lt;code&gt;DISTINCT&lt;/code&gt; keyword to remove duplicates from the returned rows.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT DISTINCT vend_id
+FROM products
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The query will return distinct vendor ids from the the products table;&lt;/p&gt;
+
+&lt;div class=&#34;admonition note&#34;&gt;
+&lt;p class=&#34;admonition-title&#34;&gt;Note&lt;/p&gt;
+&lt;p&gt;The &lt;strong&gt;DISTINCT&lt;/strong&gt; keyword applies to all rows not only the one column it precedes. If you specify two columns, the DISTINCT will apply to both columns not to an individual column, so all rows will be returned.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;limiting-results&#34;&gt;Limiting results&lt;/h2&gt;
+
+&lt;p&gt;THE LIMIT  keyword is used to limit results returned from the database. We can specify a number or a percentage on the number of rows to return. The statement below will return the first 5 rows from the products table.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT TOP 5 * 
+FROM products
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We can also specify a percentage to return, e.g. to return the top 10 % from the products table we can use the following sql statement.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT TOP 20%
+FROM products
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;comments&#34;&gt;Comments&lt;/h2&gt;
+
+&lt;p&gt;Comments are used to document your sql statements. These statements are ignored and not processed, they are mainly for yourself.&lt;/p&gt;
+
+&lt;h3 id=&#34;single-line-comment&#34;&gt;Single line comment&lt;/h3&gt;
+
+&lt;p&gt;The single line comment starts with &amp;ndash;, two dashes, anything after the dashes is ignored.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;-- This is a single line comment, any statements after the two -- are ignored
+SELECT * 
+FROM products
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;multiline-comment&#34;&gt;Multiline comment&lt;/h3&gt;
+
+&lt;p&gt;The multiline comment starts with with /* and ends with */ characters. Anything in between the two character combination will be ignored.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;/*
+This is a multiple line comment
+anything between here
+and the last character will be ignored.
+*/
+SELECT * 
+FROM products
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

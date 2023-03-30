@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Deleting-data on Introduction to SQL</title>
+    <link>http://guides.peruzal.com/introduction-to-sql/deleting-data/index.xml</link>
+    <description>Recent content in Deleting-data on Introduction to SQL</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Copyright 2017 Peruzal</copyright>
+    <lastBuildDate>Tue, 28 Feb 2017 21:52:18 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/introduction-to-sql/deleting-data/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Deleting Data</title>
+      <link>http://guides.peruzal.com/introduction-to-sql/deleting-data/</link>
+      <pubDate>Tue, 28 Feb 2017 21:52:18 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/introduction-to-sql/deleting-data/</guid>
+      <description>&lt;p&gt;To delete (remove) data from a table, the &lt;strong&gt;DELETE&lt;/strong&gt; statement is used. &lt;strong&gt;DELETE&lt;/strong&gt; can be used in two ways:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;To delete specific rows from a table&lt;/li&gt;
+&lt;li&gt;To delete all rows from a table&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;admonition warning&#34;&gt;
+&lt;p class=&#34;admonition-title&#34;&gt;Caution: Don’t Omit the **WHERE** Clause&lt;/p&gt;
+&lt;p&gt;Special care must be exercised when using &lt;strong&gt;DELETE&lt;/strong&gt; because it is all too easy to mistakenly delete every row from your table. Please read this entire section on &lt;strong&gt;DELETE&lt;/strong&gt; before using this statement.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The following statement deletes a single row from the Customers table (the row you added in the last lesson):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;DELETE FROM Customers
+WHERE cust_id = &#39;1000000006&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This statement should be self-explanatory. DELETE FROM requires that you specify the name of the table from which the data is to be deleted. The WHERE clause filters which rows are to be deleted. In this example, only customer 1000000006 will be deleted. If the WHERE clause were omitted, this statement would have deleted every customer in the table!&lt;/p&gt;
+
+&lt;p&gt;&lt;div class=&#34;admonition note&#34;&gt;
+&lt;p class=&#34;admonition-title&#34;&gt;Tip: Faster Deletes&lt;/p&gt;
+&lt;p&gt;If you really do want to delete all rows from a table, don’t use DELETE. Instead, use the TRUNCATE TABLE statement which accomplished the same thing but does it much quicker (because data changes are not logged).&lt;/p&gt;
+&lt;/div&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

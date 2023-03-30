@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Advanced-sql-features on Introduction to SQL</title>
+    <link>http://guides.peruzal.com/introduction-to-sql/advanced-sql-features/index.xml</link>
+    <description>Recent content in Advanced-sql-features on Introduction to SQL</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Copyright 2017 Peruzal</copyright>
+    <lastBuildDate>Tue, 28 Feb 2017 21:53:47 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/introduction-to-sql/advanced-sql-features/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Advanced SQL Features</title>
+      <link>http://guides.peruzal.com/introduction-to-sql/advanced-sql-features/</link>
+      <pubDate>Tue, 28 Feb 2017 21:53:47 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/introduction-to-sql/advanced-sql-features/</guid>
+      <description>
+
+&lt;h2 id=&#34;understanding-constraints&#34;&gt;Understanding Constraints&lt;/h2&gt;
+
+&lt;h2 id=&#34;understanding-indexes&#34;&gt;Understanding Indexes&lt;/h2&gt;
+
+&lt;h2 id=&#34;understanding-triggers&#34;&gt;Understanding Triggers&lt;/h2&gt;
+
+&lt;h2 id=&#34;database-security&#34;&gt;Database Security&lt;/h2&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,1815 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Introduction to SQL</title>
+    <link>http://guides.peruzal.com/introduction-to-sql/index.xml</link>
+    <description>Recent content on Introduction to SQL</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Copyright 2017 Peruzal</copyright>
+    <lastBuildDate>Wed, 15 Mar 2017 07:21:17 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/introduction-to-sql/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Installing SQL Server</title>
+      <link>http://guides.peruzal.com/introduction-to-sql/installing-sql-server/</link>
+      <pubDate>Wed, 15 Mar 2017 07:21:17 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/introduction-to-sql/installing-sql-server/</guid>
+      <description>
+
+&lt;h2 id=&#34;sql-server-editions&#34;&gt;SQL Server Editions&lt;/h2&gt;
+
+&lt;p&gt;They are various versions of SQL Server available. Before you proceed to the installation of the system, you need to develop an installation plan.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Express Edition&lt;/strong&gt; The lightweight version of SQL Server, designed for use by application developers. For this reason, the product supports Common Language Runtime (CLR) integration and native XML. Also, you can download SQL Server Management Studio Express (SSMSE), to easily manage a database. SQL Server Express is available as a free download.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Standard Edition&lt;/strong&gt; Designed for small and medium-sized businesses. It supports up to four processors as well as 2TB of RAM and includes the full range of BI functionality, including Analysis Services, Reporting Services, and Integration Services. This edition does not include many enterprise-based features from Enterprise Edition.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Enterprise Edition&lt;/strong&gt; The special form of the SQL Server system that is intended for time-critical applications with a huge number of users. In contrast to Standard Edition, this edition contains additional features that can be useful for high-end installations with symmetrical multiprocessors or clusters. The most important additional features of Enterprise Edition are data partitioning, database snapshots, and online database maintenance.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Developer Edition&lt;/strong&gt; Allows developers to build and test any type of application with SQL Server. It includes all the functionality of Enterprise Edition, but is licensed only for use in development, testing, and demonstration. Each license of Developer Edition entitles one developer to use the software on as many systems as necessary; additional developers can use the software by purchasing additional licenses. For rapid deployment into production, the database system of Developer Edition can easily be upgraded to Enterprise Edition.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Web Edition&lt;/strong&gt; A low-cost option for the Web, which provides scalability and manageability capabilities for small to large web applications.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;More information between is found the &lt;a href=&#34;https://msdn.microsoft.com/en-us/library/cc645993.aspx&#34;&gt;Microsoft Website&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;management-components&#34;&gt;Management Components&lt;/h2&gt;
+
+&lt;p&gt;The following management components, among others, belong to SQL Server 2016:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;SQL Server Management Studio (SSMS&lt;/strong&gt;) The primary tool for database administrators (DBAs) to interact with the system. Both administrators and end users can use this tool. Chapter 3 describes this component in detail.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;SQL Server Configuration Manager&lt;/strong&gt; The primary tool for managing the services associated with SQL Server, configuring the network protocols used by SQL Server, and managing the network connectivity configuration from SQL Server client computers. It is a Microsoft Management Console (MMC) snap-in that is available from the Start menu. This tool will be used and explained in Chapter 5.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;SQL Server Profiler&lt;/strong&gt; A graphical tool that enables system administrators to monitor and record database and server activities. The tool is described in detail in Chapter 20.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Database Engine Tuning Advisor (DTA)&lt;/strong&gt; A graphical tool that enables DBAs to automate the physical design of their databases. The tool is described together with SQL Server Profiler in Chapter 20.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Data Quality Client&lt;/strong&gt; An application that enables DBAs to create knowledge bases, create and run data quality projects, and perform administrative tasks. The detailed description of the tool is beyond the scope of this guide.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;SQL Server Data Tools (SSDT)&lt;/strong&gt; A management tool that provides one development platform for different business intelligence (BI) applications. Built on Visual Studio, SSDT is an integrated platform for system developers in the BI area.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;planning-phase&#34;&gt;Planning Phase&lt;/h2&gt;
+
+&lt;p&gt;The planning phase is divided into two parts, general recommendations and the other part will go through the actual installation process.&lt;/p&gt;
+
+&lt;h2 id=&#34;general-recommendations&#34;&gt;General Recommendations&lt;/h2&gt;
+
+&lt;p&gt;During the installation process, you have to make many choices. As a general guideline, it is best to familiarize yourself with their effects before installing your system. At the beginning, you should answer the following questions:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Which SQL Server components should be installed?&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Where will the root directory be stored?&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Should multiple instances of SQL Server be used?&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Which authentication mode for SQL Server should be used?&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;which-sql-server-components-should-be-installed&#34;&gt;Which SQL Server Components Should Be Installed?&lt;/h3&gt;
+
+&lt;p&gt;Before you start the installation process, you should know exactly which SQL Server components you want to install.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/sql-server-features.jpg&#34; alt=&#34;SQL Server Features&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;There are two groups of features on the Feature Selection page: &lt;strong&gt;Instance Features&lt;/strong&gt; and &lt;strong&gt;Shared Features&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Instance features&lt;/strong&gt; are the components that are installed once for each instance so that you have multiple copies of them (one for each instance)- &lt;strong&gt;Shared features&lt;/strong&gt; are features that are common across all instances on a given machine. Each of these shared features is designed to be backward compatible with supported SQL Server versions that can be installed side by side.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;instance-features-database-engine-service&#34;&gt;Instance Features - Database Engine Service&lt;/h3&gt;
+
+&lt;p&gt;The &lt;strong&gt;Database Engine&lt;/strong&gt; is the relational database system of SQL Server.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;SQL Server Replication&lt;/strong&gt;, allows you to replicate data from one system to another.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;R Services&lt;/strong&gt;, this is an optional feature of the Database Engine that lets you execute scripts written in the R language. This feature lets you deploy R packages to SQL Server, execute R solutions in the context of SQL Server, and easily work with SQL Server data in R.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Full-Text and Semantic Extractions for Search&lt;/strong&gt;, Full-Text Search is a component of SQL Server that allows you to store and query unstructured data&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Data Quality Services&lt;/strong&gt;, this feature have already been discussed previously.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;PolyBase Query Service for External Data&lt;/strong&gt;, PolyBase is a new component of SQL Server that builds a gateway from SQL to Hadoop.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;other-instance-features&#34;&gt;Other Instance Features&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Reporting Services, and Integration Services&lt;/strong&gt;, which are components related to business intelligence (BI).&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Analysis Services&lt;/strong&gt; is a group of services that is used to manage and query data that is stored in a data warehouse.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Reporting Services&lt;/strong&gt; allows you to create and manage reports.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;where-will-the-root-directory-be-stored&#34;&gt;Where Will the Root Directory Be Stored?&lt;/h2&gt;
+
+&lt;p&gt;The &lt;em&gt;root directory&lt;/em&gt; is where the Setup program stores all program files and those files that do not change as you use the SQL Server system. By default, the installation process stores all program files in the subdirectory Microsoft SQL Server, although you can change this setting during the installation process. Using the default name is recommended because it uniquely determines the version of the system.&lt;/p&gt;
+
+&lt;h2 id=&#34;should-multiple-instances-of-sql-server-be-used&#34;&gt;Should Multiple Instances of SQL Server Be Used?&lt;/h2&gt;
+
+&lt;p&gt;An instance is a database server that does not share its system and user databases with other instances (servers) running on the same computer.&lt;/p&gt;
+
+&lt;p&gt;There are two instance types:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Default&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Named&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The &lt;em&gt;default instance&lt;/em&gt; operates the same way as the database server versions of SQL Server, where support for only one database server exists. The computer name on which the instance is running specifies solely the name of the default instance. Any instance of the database server other than the default instance is called a named instance.&lt;/p&gt;
+
+&lt;p&gt;You should consider using multiple instances if both of the following are true:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;You have different types of databases on your computer.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Your computer is powerful enough to manage multiple instances.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;A single-processor machine will not be the right hardware platform to run multiple instances of the Database Engine, because of limited resources. For this reason, you should consider the use of multiple instances only with multiprocessor computers.&lt;/p&gt;
+
+&lt;h2 id=&#34;which-authentication-mode-for-sql-server-should-be-used&#34;&gt;Which Authentication Mode for SQL Server Should Be Used?&lt;/h2&gt;
+
+&lt;p&gt;In relation to the Database Engine, there are two different authentication modes:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Windows mode&lt;/strong&gt; Specifies security exclusively at the operating system level—that is, it specifies the way in which users connect to the Windows operating system using their user accounts and group memberships.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Mixed mode&lt;/strong&gt; Allows users to connect to the Database Engine using Windows authentication or SQL Server authentication. This means that some user accounts can be set up to use the Windows security subsystem, while others can use the SQL Server security subsystem in addition to the Windows security subsystem.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;admonition note&#34;&gt;
+&lt;p class=&#34;admonition-title&#34;&gt;Which is the recommended authentication mechanisms&lt;/p&gt;
+&lt;p&gt;Microsoft recommends the use of Windows mode.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;installing-sql-server-step-by-step&#34;&gt;Installing SQL Server - Step by Step&lt;/h2&gt;
+
+&lt;p&gt;To start the SQL Server installation, mount the image of the SQL Server 2016 software. After that, click the “Setup” execution file to open SQL Server Installation Center.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/installation-center.jpg&#34; alt=&#34;Installation Center&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;From the Planning page, you can execute the following tasks, among others:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Hardware and Software Requirements&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Security Documentation&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Online Release Notes&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;System Configuration Checker&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Download Upgrade Advisor&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;hardware-requirements&#34;&gt;Hardware Requirements&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Windows operating systems are supported on the Intel and AMD hardware platforms.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Processor speed should be 1.4 GHz at a minimum, but 2 GHz or faster is recommended.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Officially, the minimum requirement for main memory is 1MB. (Express Edition needs only 512KB.) However, almost everybody recognizes that such a minimal configuration will not perform very well, and as a general guideline, main memory of your computer should be at least 4GB.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;The minimum hard disk space is 6GB.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;security-documentation&#34;&gt;Security Documentation&lt;/h2&gt;
+
+&lt;p&gt;When you click Security Documentation, the system takes you to the Microsoft page that discusses general considerations concerning security. One of the most important security measures is to isolate services from each other. To isolate services, run separate SQL Server services under separate Windows accounts&lt;/p&gt;
+
+&lt;h3 id=&#34;online-release-notes&#34;&gt;Online Release Notes&lt;/h3&gt;
+
+&lt;p&gt;There are two main sources to get information concerning all the features of the SQL Server system: Books Online and Online Release Notes.&lt;/p&gt;
+
+&lt;h3 id=&#34;system-configuration-checker&#34;&gt;System Configuration Checker&lt;/h3&gt;
+
+&lt;p&gt;One of the most important planning tasks is to check whether all conditions are fulfilled for a successful installation of the database system. When you click System Configuration Checker, the component called Global Rules is automatically started. Setup Global Rules identifies problems that might occur when you install SQL Server support files. After finishing this task, the system shows you how many operations were checked and how many of them failed. All failures have to be corrected before the installation can continue.&lt;/p&gt;
+
+&lt;h2 id=&#34;installing-sql-server&#34;&gt;Installing SQL Server&lt;/h2&gt;
+
+&lt;p&gt;After starting the installation, the installation rules runs and verifies if SQL Server can be installed.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/installation-rules.jpg&#34; alt=&#34;Installation Rules&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;choose-installation-type&#34;&gt;Choose Installation Type&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/inew-installation.jpg&#34; alt=&#34;Choose installation type&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;feature-selection&#34;&gt;Feature Selection&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/feature-selection.jpg&#34; alt=&#34;Feature Selection&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;instance-configuration&#34;&gt;Instance Configuration&lt;/h3&gt;
+
+&lt;p&gt;On the Instance Configuration page, you can choose between the installation of a default or named instance.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/instance-configuration.jpg&#34; alt=&#34;Instance Configuration&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;To install a new named instance, click Named Instance and type a new name in the given text box. In the lower part of the page, you can see the list of instances already installed on your system. (MSSQLSERVER is the name of the default instance for SQL Server.) Click Next to continue.&lt;/p&gt;
+
+&lt;h3 id=&#34;server-configuration&#34;&gt;Server Configuration&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/server-configuration.jpg&#34; alt=&#34;Server Configuration&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The next page, Server Configuration, contains two tabs. The first one, Service Accounts, allows you to specify usernames and corresponding passwords for services of all components that will be installed during the installation process.&lt;/p&gt;
+
+&lt;p&gt;To choose the collation of your instance, click the second tab of the same page. You can either choose the default collations for the components that will be installed, or click Customize to select some other collations that are supported by the system. Click Next to continue.&lt;/p&gt;
+
+&lt;h3 id=&#34;database-engine-configuration&#34;&gt;Database Engine Configuration&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/database-configuration.jpg&#34; alt=&#34;Database Configuration&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The Database Engine Configuration page has several different tabs. The first tab, Server Configuration , allows you to choose the authentication mode for your Database Engine system.&lt;/p&gt;
+
+&lt;p&gt;The second tab of the &lt;strong&gt;Database Engine Configuration&lt;/strong&gt; page, Data Directories, allows you to specify the locations for the directories in which Database Engine–related files are stored. In other words, the installation process lists default directories where the installation process will store different SQL Server components and which you can modify.&lt;/p&gt;
+
+&lt;p&gt;The third tab, TempDB, is a new one in SQL Server 2016 and relates to the &lt;em&gt;tempdb&lt;/em&gt; system database. (This database provides storage space for temporary objects that are needed.) On this tab you can configure the number of data files assigned to tempdb. By default, the installation process sets the default to the number of cores on your machine. If your machine has more than eight cores, this initial number of tempdb data files will be set to 8.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/tempdb.jpg&#34; alt=&#34;TempDB&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The last tab, FILESTREAM, allows you to enable FILESTREAM. By default FILESTREAM is disabled. To enable it, check the Enable FILESTREAM for Transact-SQL Access box.&lt;/p&gt;
+
+&lt;p&gt;What appears for the next step depends on whether or not you chose to install Analysis Services and/or Reporting Services.&lt;/p&gt;
+
+&lt;h3 id=&#34;completing-the-installation&#34;&gt;Completing the Installation&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/completing-the-installation.jpg&#34; alt=&#34;Completing the installation&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>SQL Server Architecture</title>
+      <link>http://guides.peruzal.com/introduction-to-sql/sql-server-architecture/</link>
+      <pubDate>Wed, 15 Mar 2017 07:23:27 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/introduction-to-sql/sql-server-architecture/</guid>
+      <description>
+
+&lt;h2 id=&#34;system-databases&#34;&gt;System Databases&lt;/h2&gt;
+
+&lt;p&gt;During the installation of the Database Engine, the following system databases are generated:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;master&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;model&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;tempdb&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;msdb&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;master-database&#34;&gt;&lt;strong&gt;master&lt;/strong&gt; Database&lt;/h3&gt;
+
+&lt;p&gt;The master database is the most important system database of the Database Engine. It comprises all system tables that are necessary for your work. For example, the master database contains information about all other databases managed by the Database Engine, system connections to clients, and user authorizations.&lt;/p&gt;
+
+&lt;p&gt;Because of the importance of this system database, you should always keep a current backup copy of it. Also, the master database is modified each time you perform an operation such as creating user databases or user tables.&lt;/p&gt;
+
+&lt;h3 id=&#34;model-database&#34;&gt;&lt;strong&gt;model&lt;/strong&gt; Database&lt;/h3&gt;
+
+&lt;p&gt;The model database is used as a template when user-defined databases are created. It contains the subset of all system tables of the master database, which every user-defined database needs. The system administrator can change the properties of the model database to adapt it to the specific needs of their system.&lt;/p&gt;
+
+&lt;h3 id=&#34;tempdb-database&#34;&gt;&lt;strong&gt;tempdb&lt;/strong&gt; Database&lt;/h3&gt;
+
+&lt;p&gt;The tempdb database provides the storage space for temporary tables and other temporary objects that are needed. For example, the system stores intermediate results of the calculation of each complex expression in the tempdb database. The tempdb database is used by all the databases belonging to the entire system. Its content is destroyed every time the system is restarted.&lt;/p&gt;
+
+&lt;p&gt;The system stores three different elements in the tempdb database:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;User objects&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Internal objects&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Version store&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Local and global temporary tables&lt;/strong&gt;, which are created by users, are stored in the &lt;strong&gt;tempdb&lt;/strong&gt; database. The other objects stored in this system database are table variables and table-valued functions.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Internal objects&lt;/strong&gt; are similar to user objects, except that they are not visible using catalog views or other tools to retrieve metadata. There are three types of internal objects: work files, work tables, and sort units. Work files are created when the system retrieves information using particular operators. Work tables are created by the system when certain operations, such as spooling and recovering databases and tables by the DBCC command, are executed. Finally, sort units are created when a sort operation is executed.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Optimistic concurrency&lt;/strong&gt; uses the tempdb database as a place to store versions of rows. Hence, the tempdb database grows each time the system performs the following operations, among others:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;An INSERT, UPDATE, or DELETE statement is executed in a snapshot transaction&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;A trigger is executed&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;msdb-database&#34;&gt;&lt;strong&gt;msdb&lt;/strong&gt; Database&lt;/h3&gt;
+
+&lt;p&gt;The msdb database is used by the component called SQL Server Agent to schedule alerts and jobs. This system database contains task scheduling, exception handling, alert management, and system operator information; for example, the msdb database holds information for all the operators, such as e-mail addresses and pager numbers, and history information about all the backups and restore operations.&lt;/p&gt;
+
+&lt;h2 id=&#34;disk-storage-structure&#34;&gt;Disk Storage Structure&lt;/h2&gt;
+
+&lt;p&gt;The storage architecture of the Database Engine contains several units for storing database objects:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Page&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Extent&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;File&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Filegroup&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The main unit of data storage is the page. The size of a page is always 8KB. Each page has a 96-byte header used to store the system information. Data rows are placed on the page immediately after the header.&lt;/p&gt;
+
+&lt;p&gt;The Database Engine supports different page types. The most important are&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Data pages&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Index pages&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;admonition note&#34;&gt;
+&lt;p class=&#34;admonition-title&#34;&gt;Note&lt;/p&gt;
+&lt;p&gt;Data and index pages are actually physical parts of a database where the corresponding tables and indices are stored. The content of a database is stored in one or more files, and each file is divided into page units. Therefore, each table or index page (as a database physical unit) can be uniquely identified using a database ID, database file ID, and a page number.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;p&gt;When you create a table or index, the system allocates a fixed amount of space to contain the data belonging to the table or index. When the space fills, the space for additional storage must be allocated. The physical unit of storage in which space is allocated to a table (index) is called an extent. An &lt;strong&gt;extent&lt;/strong&gt; comprises eight contiguous pages, or 64KB. There are two types of extents:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Uniform extents&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Mixed extents&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Uniform extents are owned by a single table or index, while mixed extents are shared by up to eight tables or indices. The system always allocates pages from mixed extents first. After that, if the size of the table (index) is greater than eight pages, it switches to uniform extents.&lt;/p&gt;
+
+&lt;h2 id=&#34;utilities-and-the-dbcc-command&#34;&gt;Utilities and the DBCC Command&lt;/h2&gt;
+
+&lt;p&gt;Utilities are components that provide different features such as data reliability, data definition, and statistics maintenance functions. The following utilities are described next:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;bcp&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;sqlcmd&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;sqlservr&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;bcp-utility&#34;&gt;&lt;strong&gt;bcp&lt;/strong&gt; Utility&lt;/h3&gt;
+
+&lt;p&gt;bcp (Bulk Copy Program) is a useful utility that copies database data to/from a data file. Therefore, bcp is often used to transfer a large amount of data into a Database Engine database from another relational DBMS using a text file, or vice versa.&lt;/p&gt;
+
+&lt;p&gt;E.g to copy the the table into a file :&lt;/p&gt;
+
+&lt;p&gt;bcp AdventureWorks2012.Person.Address out &amp;ldquo;address.tx&amp;rdquo; -T -c&lt;/p&gt;
+
+&lt;p&gt;The &lt;strong&gt;bcp&lt;/strong&gt; command in exports the data from the address table of the &lt;strong&gt;AdventureWorks&lt;/strong&gt; database in the output file address.txt. The option &lt;strong&gt;–&lt;/strong&gt;T specifies that the trusted connection is used. (Trusted connection means that the system uses integrated security instead of the SQL Server authentication.) The option &lt;strong&gt;–c&lt;/strong&gt; specifies character mode; thus, the data is stored in the ASCII file.&lt;/p&gt;
+
+&lt;h3 id=&#34;sqlcmd-utility&#34;&gt;&lt;strong&gt;sqlcmd&lt;/strong&gt; Utility&lt;/h3&gt;
+
+&lt;p&gt;sqlcmd allows you to enter Transact-SQL statements, system procedures, and script files at the command prompt.&lt;/p&gt;
+
+&lt;p&gt;E.g to run a script in a file and put the results in a file :&lt;/p&gt;
+
+&lt;p&gt;sqlcmd -S localhost -i C:\Scripts\test.sql -o C:\Output\report.rpt&lt;/p&gt;
+
+&lt;h3 id=&#34;dbcc-command&#34;&gt;DBCC Command&lt;/h3&gt;
+
+&lt;p&gt;The Transact-SQL language supports the DBCC (Database Console Commands) statements, which are commands for the Database Engine. Depending on the options used with DBCC, the DBCC commands can be divided into the following groups:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Maintenance&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Informational&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Validation&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Miscellaneous&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Database Recovery</title>
+      <link>http://guides.peruzal.com/introduction-to-sql/database-recovery/</link>
+      <pubDate>Wed, 15 Mar 2017 07:23:47 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/introduction-to-sql/database-recovery/</guid>
+      <description>
+
+&lt;h2 id=&#34;backup-and-restore-operations&#34;&gt;Backup and Restore Operations&lt;/h2&gt;
+
+&lt;p&gt;Database backup is the process of dumping data (from a database, a transaction log, or a file) into backup devices that the system creates and maintains. A backup device can be a disk file or a tape. The Database Engine provides both static and dynamic backups. Static backup means that during the backup process, the only active session supported by the system is the one that creates the backup. In other words, user processes are not allowed during backup. Dynamic backup means that a database backup can be performed without stopping the database server, removing users, or even closing the files.&lt;/p&gt;
+
+&lt;p&gt;The Database Engine provides four different backup methods:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Full database backup&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Differential backup&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Transaction log backup&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;File (or filegroup) backup&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;full-database-backup&#34;&gt;Full Database Backup&lt;/h3&gt;
+
+&lt;p&gt;A full database backup captures the state of the database at the time the backup is started. During the full database backup, the system copies the data as well as the schema of all tables of the database and the corresponding file structures. If the full database backup is executed dynamically, the database system records any activity that takes place during the backup. Therefore, even all uncommitted transactions in the transaction log are written to the backup media.&lt;/p&gt;
+
+&lt;h3 id=&#34;differential-backup&#34;&gt;Differential Backup&lt;/h3&gt;
+
+&lt;p&gt;A differential backup creates a copy of only the parts of the database that have changed since the last full database backup. The advantage of a differential backup is speed. It minimizes the time required to back up a database, because the amount of data to be backed up has the potential to be considerably smaller than in the case of a full database backup&lt;/p&gt;
+
+&lt;h3 id=&#34;transaction-log-backup&#34;&gt;Transaction Log Backup&lt;/h3&gt;
+
+&lt;p&gt;A transaction log backup considers only the changes recorded in the log. This form of backup is therefore not based on physical parts (pages) of the database, but rather on logical operations—that is, changes executed using the DML statements INSERT, UPDATE, and DELETE. Again, because the amount of data to be backed up has the potential to be considerably smaller, this process can be performed significantly quicker than a full database backup and quicker than a differential backup.&lt;/p&gt;
+
+&lt;h2 id=&#34;file-or-filegroup-backup&#34;&gt;File or Filegroup Backup&lt;/h2&gt;
+
+&lt;p&gt;File (or filegroup) backup allows you to back up specific database files (or filegroups) instead of the entire database.&lt;/p&gt;
+
+&lt;h3 id=&#34;performing-database-backup&#34;&gt;Performing Database Backup&lt;/h3&gt;
+
+&lt;p&gt;You can perform backup operations using the following:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Transact-SQL statements&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;SQL Server Management Studio&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;performing-database-recovery&#34;&gt;Performing Database Recovery&lt;/h2&gt;
+
+&lt;p&gt;Whenever a transaction is submitted for execution, the Database Engine is responsible either for executing the transaction completely and recording its changes permanently in the database or for guaranteeing that the transaction has no effect at all on the database.&lt;/p&gt;
+
+&lt;h3 id=&#34;automatic-recovery&#34;&gt;Automatic Recovery&lt;/h3&gt;
+
+&lt;p&gt;Automatic recovery is a fault-tolerant feature that the Database Engine executes every time it is restarted after a failure or shutdown. The automatic recovery process checks to see if the restoration of databases is necessary. If it is, each database is returned to its last consistent state using the transaction log.&lt;/p&gt;
+
+&lt;p&gt;During automatic recovery, the Database Engine examines the transaction log from the last &lt;strong&gt;checkpoint&lt;/strong&gt; to the point at which the system failed or was shut down. &lt;em&gt;(A checkpoint is the most recent point at which all data changes are written permanently to the database from memory. Therefore, a checkpoint ensures the physical consistency of the data.)&lt;/em&gt; The transaction log contains committed transactions (transactions that are successfully executed, but their changes have not yet been written to the database) and uncommitted transactions (transactions that are not successfully executed before a shutdown or failure occurred). The Database Engine rolls forward all committed transactions, thus making permanent changes to the database, and undoes the part of the uncommitted transactions that occurred before the checkpoint.&lt;/p&gt;
+
+&lt;p&gt;The Database Engine first performs the automatic recovery of the master database, followed by the recovery of all other system databases. Then, all user-defined databases are recovered.&lt;/p&gt;
+
+&lt;h3 id=&#34;manual-recovery&#34;&gt;Manual Recovery&lt;/h3&gt;
+
+&lt;p&gt;A manual recovery of a database specifies the application of the full backup of your database and subsequent application of all transaction logs in the sequence of their creation. (Alternatively, you can use the full database backup together with the last differential backup of the database.) After this, the database is in the same (consistent) state as it was at the point when the transaction log was backed up for the last time.&lt;/p&gt;
+
+&lt;h3 id=&#34;recovery-models&#34;&gt;Recovery Models&lt;/h3&gt;
+
+&lt;p&gt;A recovery model allows you to control to what extent you are ready to risk losing committed transactions if a database is damaged. It also determines the speed and size of your transaction log backups. Additionally, the choice of a recovery model has an impact on the size of the transaction log and therefore on the time period needed to back up the log. The Database Engine supports three recovery models:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Full&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Bulk-logged&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Simple&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;full-recovery-model&#34;&gt;Full Recovery Model&lt;/h3&gt;
+
+&lt;p&gt;During full recovery, all operations are written to the transaction log. Therefore, this model provides complete protection against media failure. This means that you can restore your database up to the last committed transaction that is stored in the log file. Additionally, you can recover data to any point in time (prior to the point of failure). To guarantee this, such operations as SELECT INTO and the execution of the bcp utility are fully logged too.&lt;/p&gt;
+
+&lt;p&gt;The disadvantage of this recovery model is that the corresponding transaction log may be very voluminous and the files on the disk containing the log will be filled up very quickly. Also, for such a voluminous log, you will need significantly more time for backup.&lt;/p&gt;
+
+&lt;div class=&#34;admonition note&#34;&gt;
+&lt;p class=&#34;admonition-title&#34;&gt;Note&lt;/p&gt;
+&lt;p&gt;If you use the full recovery model, the transaction log must be protected from media failure. For this reason, using RAID 1 to protect transaction logs is strongly recommended.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Bulk-Logged Recovery Model
+Bulk-logged recovery supports log backups by using minimal space in the transaction log for certain large-scale or bulk operations. The logging of the following operations is minimal and cannot be controlled on an operation-by-operation basis:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;SELECT INTO&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;CREATE INDEX (including indexed views)&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;bcp utility&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The bulk-logged recovery model allows you to recover a database to the end of a transaction log backup (that is, up to the last committed transaction). Additionally, you can restore your database to any point in time if you haven’t performed any bulk operations.&lt;/p&gt;
+
+&lt;p&gt;The advantage of the bulk-logged recovery model is that bulk operations are performed much faster than under the full recovery model, because they are not fully logged.&lt;/p&gt;
+
+&lt;h3 id=&#34;simple-recovery-model&#34;&gt;Simple Recovery Model&lt;/h3&gt;
+
+&lt;p&gt;In the simple recovery model, the transaction log is truncated whenever a checkpoint occurs. Therefore, you can recover a damaged database only by using the full database backup or the differential backup, because they do not require log backups. Backup strategy for this model is very simple: restore the database using existing database backups and, if differential backups exist, apply the most recent one.&lt;/p&gt;
+
+&lt;div class=&#34;admonition note&#34;&gt;
+&lt;p class=&#34;admonition-title&#34;&gt;Note&lt;/p&gt;
+&lt;p&gt;The simple recovery model doesn’t mean that there is no logging at all. The log content won’t be used for backup purposes, but it is used at the checkpoint time, where all the transactions in the log are committed or rolled back.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The advantages of the simple recovery model are that the performance of all bulk operations is very high and requirements for the log space are very small. On the other hand, in the case of failure, this model requires the most manual work because all changes since the most recent database (or differential) backup must be redone. Point-in-time and page restore are not possible with this recovery model.&lt;/p&gt;
+
+&lt;div class=&#34;admonition note&#34;&gt;
+&lt;p class=&#34;admonition-title&#34;&gt;Note&lt;/p&gt;
+&lt;p&gt;Do not use the simple recovery model for production databases.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;maintenace-plans&#34;&gt;Maintenace Plans&lt;/h2&gt;
+
+&lt;p&gt;The Maintenance Plan Wizard provides you with the set of basic tasks needed to maintain a database. It ensures that your database performs well, is regularly backed up, and is free of inconsistencies.&lt;/p&gt;
+
+&lt;p&gt;To start the Maintenance Plan Wizard, expand the server in SQL Server Management Studio, expand Management, right-click Maintenance Plans, and choose Maintenance Plan Wizard. As you can see on the starting page of the Maintenance Plan Wizard, you can perform the following administration tasks:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Check database integrity&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Perform index maintenance&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Update database statistics&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Perform database backups&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;maintenance-plan-scripts&#34;&gt;Maintenance Plan Scripts&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://ola.hallengren.com/&#34;&gt;https://ola.hallengren.com/&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Database Security</title>
+      <link>http://guides.peruzal.com/introduction-to-sql/database-security/</link>
+      <pubDate>Wed, 15 Mar 2017 07:24:03 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/introduction-to-sql/database-security/</guid>
+      <description>
+
+&lt;h2 id=&#34;sql-server-security-modes&#34;&gt;SQL Server Security Modes&lt;/h2&gt;
+
+&lt;p&gt;You can change the SQL Server authentication modes by right clicking on the &lt;strong&gt;Properties&lt;/strong&gt; on the server and choosing security.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/sql-security-modes.PNG&#34; alt=&#34;Authentication Modes&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;server-instance-vs-the-database&#34;&gt;Server Instance vs. the Database&lt;/h2&gt;
+
+&lt;p&gt;Databases within SQL Server are their own unique entities. SQL Server databases are designed to be easily detached from one server environment and reattached to another server without any extra work being done by a DBA.&lt;/p&gt;
+
+&lt;p&gt;Databases have their own users called &lt;strong&gt;database users&lt;/strong&gt; and their own roles called &lt;strong&gt;database roles&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;To authorize a SQL Server login access to a particular database, DBAs need to create a database user within the requested database, which maps to a SQL Server login. Database users are not shared among any databases on the server instance, but a single SQL Server login can map to one or more database users with each database user being in a different database.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/sql-server-logins.PNG&#34; alt=&#34;SQL Server Logins&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;database-logins&#34;&gt;Database Logins&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/database-logins.PNG&#34; alt=&#34;Database Logins&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;server-roles&#34;&gt;Server Roles&lt;/h3&gt;
+
+&lt;p&gt;At the server instance level, there are nine fixed server roles that you can assign to a SQL Server login. Fixed means that you, as a DBA, cannot create your own server roles; rather, you have only the nine to choose from. In SQL Server 2012, database administrators can create their own server level roles.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/server-roles.PNG&#34; alt=&#34;Server Roles&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/server-roles-detail.jpg&#34; alt=&#34;Server Roles Details&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Before you start assigning logins to various roles, it is important to know that, in reality, you probably will use very few of these roles. The most popular is the sysadmin role. The functionality of these roles has been superceded with the introduction of server permissions. Server roles are still relevant to learn and use, because in some cases, it is not possible to create a SQL Server login with enough server permissions to mimic a server role.&lt;/p&gt;
+
+&lt;h2 id=&#34;database-security&#34;&gt;DATABASE SECURITY&lt;/h2&gt;
+
+&lt;p&gt;Database users are similar to SQL Server logins in that they are principals within the scope of a database. These users can be granted or denied specific permissions such as SELECT on a specific table. They can also be included in database roles. All database users are members of the public role. Thus, any permissions that are given to the public role will be in effect given to every database user.&lt;/p&gt;
+
+&lt;h3 id=&#34;database-users&#34;&gt;Database Users&lt;/h3&gt;
+
+&lt;p&gt;When you create a database, a few database users are created for you. One of them is &lt;strong&gt;dbo&lt;/strong&gt;, which is the database owner; as the name implies, the role has permission to perform all activities within the database. Any member of the &lt;strong&gt;sysadmin&lt;/strong&gt; fixed server role, who accesses a database is automatically mapped to the dbo user.&lt;/p&gt;
+
+&lt;p&gt;The &lt;strong&gt;guest&lt;/strong&gt; database user is also always created. When SQL Server users log into a database where they do not have mappings, they are automatically mapped to the guest account. guest is created and is disabled by default. Thus, the default behavior for SQL Server logins that have no specific mapping is to not have any access at all to the database.&lt;/p&gt;
+
+&lt;h3 id=&#34;schemas&#34;&gt;Schemas&lt;/h3&gt;
+
+&lt;p&gt;When a database user is created, the user is assigned to a default schema. A schema is a logical collection of database objects. By grouping objects in a schema, a DBA can grant permissions to the schema that in turn would affect all the objects within the schema. If the user does not have a default schema, but the user is a member of a group that has a default schema, the default schema of the group will be used.&lt;/p&gt;
+
+&lt;h2 id=&#34;server-permissions&#34;&gt;Server Permissions&lt;/h2&gt;
+
+&lt;p&gt;Before server permissions, if you wanted a login to be able to shut down the server, you needed to assign that login to the serveradmin role. Yet serveradmin imparts a number of other capabilities that you may not want to give that other user, such as the ability to change server-wide settings. With server permissions, you can now grant just the SHUTDOWN permission to a specific login, as shown in the following code:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;USE master
+GO
+GRANT SHUTDOWN TO &amp;lt;login&amp;gt;
+GO
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>SQL Server AlwaysOn Step by Step Setup</title>
+      <link>http://guides.peruzal.com/introduction-to-sql/sql-server-alwayson/</link>
+      <pubDate>Fri, 17 Mar 2017 00:43:53 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/introduction-to-sql/sql-server-alwayson/</guid>
+      <description>
+
+&lt;p&gt;This guide will walk you through step by step to setup SQL Server AlwaysOn on SQL Server Server 2016 running on Windos Server 2016.&lt;/p&gt;
+
+&lt;h3 id=&#34;prerequisites&#34;&gt;Prerequisites&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Windows Server 2016&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;SQL Server Developer/Standard Edition&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Three machines running Windows 2016 (WESTEROS, CASTLE-BLACK, WITNESS)&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;step-1-enable-failover-clustering&#34;&gt;Step 1 - Enable Failover Clustering&lt;/h2&gt;
+
+&lt;p&gt;AlwaysOn requires Failover Clustering feature to be added to machine that will have SQL Server installed. You can add this feature through the server manager :&lt;/p&gt;
+
+&lt;h3 id=&#34;open-server-manager&#34;&gt;Open Server Manager&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/cluster/add-roles-step-1.PNG&#34; alt=&#34;Open Server Manager&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;select-installation-type&#34;&gt;Select Installation Type&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/cluster/add-roles-installation-type.PNG&#34; alt=&#34;Add Roles Installation Type&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;choose-the-server-to-install-the-feature-on&#34;&gt;Choose the Server to Install the Feature on&lt;/h3&gt;
+
+&lt;p&gt;You will need to repeat this process for each on the servers, that is for &lt;strong&gt;WESTEROS&lt;/strong&gt; and &lt;strong&gt;CASTLE-BLACK&lt;/strong&gt; which will be nodes in the cluster.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/cluster/server-selection.PNG&#34; alt=&#34;Choose Server&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;don-t-choose-any-server-roles&#34;&gt;Don&amp;rsquo;t choose any Server Roles&lt;/h3&gt;
+
+&lt;p&gt;Click next on the Server Roles, we are not adding anything from this page, we are adding features that are found on the next screen.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/cluster/server-role.PNG&#34; alt=&#34;Choose Server Roles&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;add-the-failover-clustering&#34;&gt;Add the Failover Clustering&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/cluster/failover-clustering.png&#34; alt=&#34;Failover clustering features&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;add-the-feature&#34;&gt;Add the feature&lt;/h3&gt;
+
+&lt;p&gt;Installation will start and the results will be displayed once install is complete.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/cluster/confirm-and-finish.PNG&#34; alt=&#34;Failover Clustering&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;creating-the-cluster&#34;&gt;Creating the Cluster&lt;/h3&gt;
+
+&lt;p&gt;The next step is to create the cluster and add the nodes to it. This step can be performed from any one of the nodes.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/cluster/create-cluster-wizard-select-servers.PNG&#34; alt=&#34;Create Cluster&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Add the nodes and run the validation tests. Once the tests are done you will have a cluster created.&lt;/p&gt;
+
+&lt;h3 id=&#34;add-a-file-share-quorum-witness&#34;&gt;Add a File Share Quorum Witness&lt;/h3&gt;
+
+&lt;p&gt;Since we only have two nodes, we need a third node to vote so that the server can stay online with a majority vote of two.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/cluster/cluster-configuration-quorum-witness.PNG&#34; alt=&#34;Quorum Witness Wizard&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;choose-quorum-option&#34;&gt;Choose Quorum Option&lt;/h3&gt;
+
+&lt;p&gt;Select the File Witness quorum option as we need to use a shared folder as a witness.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/cluster/qorum-options.PNG&#34; alt=&#34;Quorum Option&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;configure-file-share-witness&#34;&gt;Configure File Share Witness&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/cluster/quorum-witness.PNG&#34; alt=&#34;Configure File Share Witness&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;choose-the-shared-folder-path&#34;&gt;Choose the Shared Folder Path&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/cluster/file-share-witness.PNG&#34; alt=&#34;Choose the Shared Folder Path&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The quorum should now a witness and it will be brought online.&lt;/p&gt;
+
+&lt;h2 id=&#34;step-2-enable-alwayson&#34;&gt;Step 2 - Enable AlwaysOn&lt;/h2&gt;
+
+&lt;p&gt;Now that we have a working cluster, we can now enable AlwaysOn in the SQL Server Configuration Tool.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/cluster/enable-alwayson-sql-server-configuration.PNG&#34; alt=&#34;Enable AlwaysOn&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;step-3-create-alwayson-availability-groups&#34;&gt;Step 3 - Create AlwaysOn Availability Groups&lt;/h2&gt;
+
+&lt;p&gt;AlwaysOn Availability Groups is a set of database that are always failed over to another server in the cluster together.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/cluster/create always on availability group1.png&#34; alt=&#34;New Availability Group&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;sepcify-the-name-of-the-ag&#34;&gt;Sepcify the Name of the AG&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/cluster/create always on availability group3.png&#34; alt=&#34;Give the AG a Name&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;add-database-to-the-ag&#34;&gt;Add Database to the AG&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/cluster/create always on availability group4.png&#34; alt=&#34;Add Database to the AG&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;choose-replica-servers&#34;&gt;Choose Replica Servers&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/cluster/create always on availability group5.png&#34; alt=&#34;Replica Server&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;change-backup-preferences&#34;&gt;Change Backup Preferences&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/cluster/create always on availability group9.png&#34; alt=&#34;Backup Preferences&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;add-the-ag-listener&#34;&gt;Add the AG Listener&lt;/h3&gt;
+
+&lt;p&gt;This is the hostname used to connect to the availability group.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/cluster/create always on availability group10.png&#34; alt=&#34;Availability Group Listener&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;choose-synchronization-option&#34;&gt;Choose Synchronization Option&lt;/h3&gt;
+
+&lt;p&gt;Select how the initial synchronization of the database would happen, the easiest is to use a file share.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Monitoring and Maintenance</title>
+      <link>http://guides.peruzal.com/introduction-to-sql/maintenance-tasks/</link>
+      <pubDate>Wed, 15 Mar 2017 07:24:20 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/introduction-to-sql/maintenance-tasks/</guid>
+      <description>
+
+&lt;h2 id=&#34;database-maintenance&#34;&gt;Database Maintenance&lt;/h2&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Practise Exercises</title>
+      <link>http://guides.peruzal.com/introduction-to-sql/practise-exercise-1/</link>
+      <pubDate>Mon, 13 Mar 2017 22:15:23 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/introduction-to-sql/practise-exercise-1/</guid>
+      <description>
+
+&lt;h2 id=&#34;exercise-one&#34;&gt;Exercise One&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Write a &lt;strong&gt;SELECT&lt;/strong&gt; statement that lists the customers along with their &lt;em&gt;ID&lt;/em&gt; numbers. Include the &lt;em&gt;StoreID&lt;/em&gt; and the &lt;em&gt;AccountNumber&lt;/em&gt; from the &lt;em&gt;Sales.Customers&lt;/em&gt; table.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Write a &lt;strong&gt;SELECT&lt;/strong&gt; statement that lists the name, product number, and color of each product from the _Production.Product _table.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Write a &lt;strong&gt;SELECT&lt;/strong&gt; statement that lists the customer ID numbers and sales order ID numbers from the &lt;em&gt;Sales.SalesOrderHeader&lt;/em&gt; table.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Answer this question: Why should you specify column names rather than an asterisk when writing the select-list? Give at least two reasons.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;using-execution-plans&#34;&gt;Using Execution Plans&lt;/h2&gt;
+
+&lt;p&gt;Use the AdventureWorks2012 database to complete this exercise. Be sure to turn on the Include Actual Execution Plan setting before you begin. Type the following code into the query window, and then complete each question.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;USE AdventureWorks2012;
+GO
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;1&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT LastName
+FROM Person.Person
+WHERE LastName = &#39;Smith&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;2&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT LastName
+FROM Person.Person
+WHERE LastName LIKE &#39;Sm%&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;3&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT LastName
+FROM Person.Person
+WHERE LastName LIKE &#39;%mith&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;4&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT ModifiedDate
+FROM Person.Person
+WHERE ModifiedDate BETWEEN &#39;2005-01-01&#39; and &#39;2005-01-31&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Highlight and run queries 1 and 2. Explain why there is no difference in performance between the two queries.&lt;/li&gt;
+&lt;li&gt;Highlight and run queries 2 and 3. Determine which query performs the best, and explain why you think so.&lt;/li&gt;
+&lt;li&gt;Highlight and run queries 3 and 4. Determine which query performs the best, and explain why you think so.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;working-with-nulls&#34;&gt;Working with NULLs&lt;/h2&gt;
+
+&lt;p&gt;Use the AdventureWorks2012 database to complete this exercise. You can find the solutions in the Appendix.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Write a query that displays in the “AddressLine1 (City PostalCode)” format from the Person.Address table.&lt;/li&gt;
+&lt;li&gt;Write a query using the Production.Product table displaying the product ID, color, and name columns. If the color column contains a NULL value, replace the color with No Color.&lt;/li&gt;
+&lt;li&gt;Modify the query written in question 2 so that the description of the product is displayed in the “Name: Color” format. Make sure that all rows display a value even if the Color value is missing.&lt;/li&gt;
+&lt;li&gt;Write a query using the Production.Product table displaying a description with the “ProductID: Name” format. Hint: You will need to use a function to write this query.&lt;/li&gt;
+&lt;li&gt;Explain the difference between the ISNULL and COALESCE functions.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;mathematical-operations&#34;&gt;Mathematical Operations&lt;/h3&gt;
+
+&lt;p&gt;Use the &lt;em&gt;AdventureWorks2012&lt;/em&gt; database to complete this exercise.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Write a query using the &lt;em&gt;Sales.SpecialOffer&lt;/em&gt; table. Display the difference between the &lt;em&gt;MinQty&lt;/em&gt; and &lt;em&gt;MaxQty&lt;/em&gt; columns along with the &lt;em&gt;SpecialOfferID&lt;/em&gt; and Description columns.&lt;/li&gt;
+&lt;li&gt;Write a query using the &lt;em&gt;Sales.SpecialOffer&lt;/em&gt; table. Multiply the &lt;em&gt;MinQty&lt;/em&gt; column by the &lt;em&gt;DiscountPct&lt;/em&gt; column. Include the &lt;em&gt;SpecialOfferID&lt;/em&gt; and &lt;em&gt;Description&lt;/em&gt; columns in the results.&lt;/li&gt;
+&lt;li&gt;Write a query using the &lt;em&gt;Sales.SpecialOffer&lt;/em&gt; table that multiplies the &lt;em&gt;MaxQty&lt;/em&gt; column by the &lt;em&gt;DiscountPct&lt;/em&gt; column. If the &lt;em&gt;MaxQty&lt;/em&gt; value is NULL, replace it with the value 10. Include the &lt;em&gt;SpecialOfferID&lt;/em&gt; and Description columns in the results.&lt;/li&gt;
+&lt;li&gt;Describe the difference between division and modulo.&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Getting Started Exercises</title>
+      <link>http://guides.peruzal.com/introduction-to-sql/getting-started-exercises/</link>
+      <pubDate>Mon, 13 Mar 2017 17:05:09 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/introduction-to-sql/getting-started-exercises/</guid>
+      <description>
+
+&lt;h2 id=&#34;checking-sql-server-version&#34;&gt;Checking SQL Server Version&lt;/h2&gt;
+
+&lt;p&gt;To check the SQL Server version you use the global system configuration function &lt;code&gt;@@VERSION&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT @@VERSION;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;checking-the-database-name&#34;&gt;Checking the Database Name&lt;/h2&gt;
+
+&lt;p&gt;To find the database name you use the &lt;code&gt;DB_NAME()&lt;/code&gt; function :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;select DB_NAME()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;database-id&#34;&gt;Database ID&lt;/h2&gt;
+
+&lt;p&gt;To get the database id use the &lt;code&gt;DB_ID()&lt;/code&gt; function.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;select DB_ID()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;checking-your-username&#34;&gt;Checking Your Username&lt;/h2&gt;
+
+&lt;p&gt;You can check the username you are logged in to SQL using the &lt;code&gt;ORIGINAL_LOGIN()&lt;/code&gt;, &lt;code&gt;CURRENT_USER&lt;/code&gt;, &lt;code&gt;SYSTEM_USER&lt;/code&gt; functions as follows :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT ORIGINAL_LOGIN(), CURRENT_USER, SYSTEM_USER;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;analysis&#34;&gt;Analysis&lt;/h3&gt;
+
+&lt;p&gt;The &lt;code&gt;ORIGINAL_LOGIN()&lt;/code&gt; will show the username used to log in to SQL Server. The &lt;code&gt;CURRENT_USER&lt;/code&gt; is the database user current used to run queries to which the ORIGINAL_LOGIN is mapped to. The &lt;code&gt;SYSTEM_USER&lt;/code&gt; shows the impersonated user. When running queries using the &lt;code&gt;EXECUTE AS&lt;/code&gt;, the SYSTEM_USER will show the user that is being impersonated.&lt;/p&gt;
+
+&lt;p&gt;## Listing the Available Tables&lt;/p&gt;
+
+&lt;p&gt;The &lt;code&gt;INFORMATION_SCHEMA&lt;/code&gt;  views used to to get the information about the tables and views. This is an ISO standard approach.&lt;/p&gt;
+
+&lt;p&gt;The following would return all the tables in the current database.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT * FROM INFORMATION_SCHEMA.TABLES
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can all use the system views to get all tables in the database as follows :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT * FROM sys.tables
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;find-all-schemas-owned-by-a-specific-schema&#34;&gt;Find all schemas owned by a specific schema&lt;/h3&gt;
+
+&lt;p&gt;We can find all schema owned by a specific user as follows :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT name
+FROM sys.tables
+WHERE SCHEMA_NAME(schema_id) = &#39;HumanResources&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The system catalog tables are not as friendly as the information schema and may not provide all the information you require, e.g instead of return the schema name they return the _schema&lt;em&gt;id&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;check-the-existence-of-a-condition&#34;&gt;Check the existence of a condition&lt;/h2&gt;
+
+&lt;p&gt;We can use the EXISTS keyword to check for a condition without returning the data that proves the condition, e.g :
+to find if we have employees that took more than 40 hours of sick leave without knowing who exactly are the employees we can use the following query.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT 1
+WHERE  EXISTS (
+   SELECT *
+   FROM HumanResources.Employee
+   WHERE SickLeaveHours &amp;gt; 40
+);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;or we could also have used :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT TOP(1) 1
+FROM HumanResources.Employee 
+WHERE SickLeaveHours &amp;gt; 40
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;sorting-nulls-high-or-low&#34;&gt;Sorting Nulls High or Low&lt;/h2&gt;
+
+&lt;p&gt;Add a semaphore expression to your &lt;strong&gt;ORDER BY&lt;/strong&gt; clause for the column in question. Then specify &lt;strong&gt;ASC&lt;/strong&gt; or &lt;strong&gt;DSC&lt;/strong&gt; to make the nulls sort first or last as desired. The following example adds such an expression for the Weight column in order to sort that column with nulls last.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT  ProductID, Name, Weight
+FROM    Production.Product
+ORDER BY ISNULL(Weight, 1) DESC, Weight;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code&gt;ISNULL&lt;/code&gt; function takes in a value and if its null returns another value. In our case we return 1.&lt;/p&gt;
+
+&lt;p&gt;Another way is to use the &lt;code&gt;IIF&lt;/code&gt; function as follows :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT  ProductID, Name, Weight
+FROM    Production.Product
+ORDER BY IIF(Weight IS NULL, 1, 0), Weight;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;getting-a-sample-of-the-table-data&#34;&gt;Getting a Sample of the Table Data&lt;/h2&gt;
+
+&lt;p&gt;You can use the TABLESAMPLE keyword to get a sample of the data in a table. You can use a percent or the number of rows as follows :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT *
+FROM Purchasing.PurchaseOrderHeader
+TABLESAMPLE (5 PERCENT);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;or using rows :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT *
+FROM Purchasing.PurchaseOrderHeader
+TABLESAMPLE (200 ROWS);
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Exercises</title>
+      <link>http://guides.peruzal.com/introduction-to-sql/exercises/</link>
+      <pubDate>Sun, 12 Mar 2017 22:34:38 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/introduction-to-sql/exercises/</guid>
+      <description>
+
+&lt;h2 id=&#34;connecting-to-the-database&#34;&gt;Connecting to the Database&lt;/h2&gt;
+
+&lt;p&gt;To connect to an MS SQL Server you will need the following :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Either a Windows user account with database login access&lt;/li&gt;
+&lt;li&gt;or a an sql user registered with the database&lt;/li&gt;
+&lt;li&gt;You will also need the hostname/ip address of the server with the database&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;choose-a-database&#34;&gt;Choose a Database&lt;/h2&gt;
+
+&lt;p&gt;You use the &lt;strong&gt;USE&lt;/strong&gt; statement to select a database to work, e.g&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;USE AdventureWorks;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Alternatively with SMSS(SQL Server Management Studio), you can choose the database you want to work with from the drop down.&lt;/p&gt;
+
+&lt;h2 id=&#34;retrieving-specific-columns&#34;&gt;Retrieving Specific Columns&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;Problem&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;You have a table or a view. You wish to retrieve data from specific columns.&lt;/p&gt;
+
+&lt;h3 id=&#34;solution&#34;&gt;Solution&lt;/h3&gt;
+
+&lt;p&gt;Write a &lt;strong&gt;SELECT&lt;/strong&gt; statement. List the columns you wish returned following the &lt;strong&gt;SELECT&lt;/strong&gt; keyword. The following example demonstrates a very simple &lt;strong&gt;SELECT&lt;/strong&gt; against the &lt;em&gt;AdventureWorks&lt;/em&gt; database, whereby three columns are returned, along with several rows from the &lt;em&gt;HumanResources.Employee&lt;/em&gt; table.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT NationalIDNumber,    LoginID,    JobTitle 
+FROM  HumanResources.Employee
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;analysis&#34;&gt;Analysis&lt;/h3&gt;
+
+&lt;p&gt;The &lt;strong&gt;FROM&lt;/strong&gt; clause specifies the data source, which in this example is a table. Notice the two-part name of &lt;em&gt;HumanResources.Employee&lt;/em&gt;. The first part (the part before the period) is the &lt;em&gt;schema&lt;/em&gt;, and the second part (after the period) is the actual table name. A schema contains the object, and that schema is then owned by a user. Because users own a schema, and the schema contains the object, you can change the owner of the schema without having to modify object ownership.&lt;/p&gt;
+
+&lt;h2 id=&#34;retrieving-all-columns&#34;&gt;Retrieving All Columns&lt;/h2&gt;
+
+&lt;h3 id=&#34;problem&#34;&gt;Problem&lt;/h3&gt;
+
+&lt;p&gt;You are writing an ad hoc query. You wish to retrieve all columns from a table or view without having to type all the column names.&lt;/p&gt;
+
+&lt;h3 id=&#34;solution-1&#34;&gt;Solution&lt;/h3&gt;
+
+&lt;p&gt;Specify an asterisk (*) instead of a column list. Doing so causes SQL Server to return all columns from the table or view. For example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT * 
+FROM  HumanResources.Employee; 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;analysis-1&#34;&gt;Analysis&lt;/h3&gt;
+
+&lt;p&gt;The asterisk symbol (*) returns all columns of the table or view you are querying.&lt;/p&gt;
+
+&lt;div class=&#34;admonition note&#34;&gt;
+&lt;p class=&#34;admonition-title&#34;&gt;Using SELECT *&lt;/p&gt;
+&lt;p&gt;Please remember that, as good practice, it is better to reference the columns you want to retrieve explicitly instead of using SELECT *.&lt;/p&gt;
+
+&lt;p&gt;Using SELECT * can also negatively affect performance, as you may be returning more data than you need over the network, increasing the result set size and data retrieval operations on the SQL Server instance&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;specifying-the-rows-to-be-returned&#34;&gt;Specifying the Rows to Be Returned&lt;/h2&gt;
+
+&lt;h3 id=&#34;problem-1&#34;&gt;Problem&lt;/h3&gt;
+
+&lt;p&gt;You do not want to return all rows from a table or a view. You want to restrict query results to only those
+rows of interest.&lt;/p&gt;
+
+&lt;h3 id=&#34;solution-2&#34;&gt;Solution&lt;/h3&gt;
+
+&lt;p&gt;Specify a &lt;strong&gt;WHERE&lt;/strong&gt; clause giving the conditions that rows must meet in order to be returned. For example, the
+following query returns only rows in which the person’s title is “Ms.”&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT Title, FirstName, LastName
+FROM Person.Person
+WHERE Title = &#39;Ms.&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You may combine multiple conditions in a &lt;strong&gt;WHERE&lt;/strong&gt; clause through the use of the keywords &lt;strong&gt;AND&lt;/strong&gt; and &lt;strong&gt;OR&lt;/strong&gt;. The
+following query looks specifically for &lt;em&gt;Ms. Antrim’s&lt;/em&gt; data:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT Title, FirstName, LastName
+FROM Person.Person
+WHERE Title = &#39;Ms.&#39; AND
+LastName = &#39;Antrim&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;analysis-2&#34;&gt;Analysis&lt;/h3&gt;
+
+&lt;p&gt;The &lt;strong&gt;WHERE&lt;/strong&gt; clause provides search conditions that determine the rows returned by the query. Search conditions are written as predicates, which are expressions that evaluate to one of the Boolean results of &lt;strong&gt;TRUE&lt;/strong&gt;, &lt;strong&gt;FALSE&lt;/strong&gt;, or &lt;strong&gt;UNKNOWN&lt;/strong&gt;. Only rows for which the final evaluation of the &lt;strong&gt;WHERE&lt;/strong&gt; clause is &lt;strong&gt;TRUE&lt;/strong&gt; are returned.&lt;/p&gt;
+
+&lt;p&gt;Use the OR operator to specify alternate choices. Use parentheses to clarify the order of operations. For
+example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;WHERE Title = &#39;Ms.&#39; AND
+(LastName = &#39;Antrim&#39; OR LastName = &#39;Galvin&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can write multiple operators &lt;strong&gt;(AND, OR, NOT)&lt;/strong&gt; in a single &lt;strong&gt;WHERE&lt;/strong&gt; clause, but it is important to make
+your intentions clear by properly embedding your &lt;strong&gt;ANDs&lt;/strong&gt; and &lt;strong&gt;ORs&lt;/strong&gt; in parentheses. The &lt;strong&gt;NOT&lt;/strong&gt; operator takes
+precedence (is evaluated first) before &lt;strong&gt;AND&lt;/strong&gt;. The &lt;strong&gt;AND&lt;/strong&gt; operator takes precedence over the &lt;strong&gt;OR&lt;/strong&gt; operator. Using
+both &lt;strong&gt;AND&lt;/strong&gt; and** **OR operators in the same &lt;strong&gt;WHERE&lt;/strong&gt; clause without parentheses can return unexpected results. For
+example, the following query may return unintended results:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT Title, FirstName, LastName
+FROM Person.Person
+WHERE Title = &#39;Ms.&#39; AND
+FirstName = &#39;Catherine&#39; OR
+LastName = &#39;Adams&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Is the intention to return results for all rows with a Title of &lt;em&gt;“Ms.”&lt;/em&gt;, and of those rows, only include those with
+a &lt;em&gt;FirstName&lt;/em&gt; of &lt;em&gt;Catherine&lt;/em&gt; or a &lt;em&gt;LastName&lt;/em&gt; of Adams? Or did the query author wish to search for all people
+named “Ms.” with a &lt;em&gt;FirstName&lt;/em&gt; of &lt;em&gt;Catherine&lt;/em&gt;, as well as anyone with a &lt;em&gt;LastName&lt;/em&gt; of &lt;em&gt;Adams&lt;/em&gt;?&lt;/p&gt;
+
+&lt;h2 id=&#34;specifying-a-range-of-values&#34;&gt;Specifying A Range of Values&lt;/h2&gt;
+
+&lt;h3 id=&#34;problem-2&#34;&gt;Problem&lt;/h3&gt;
+
+&lt;p&gt;You wish to specify a range of values as a search condition. For example, you are querying a table having a date
+column. You wish to return rows having dates only in a specified range of interest.&lt;/p&gt;
+
+&lt;h3 id=&#34;solution-3&#34;&gt;Solution&lt;/h3&gt;
+
+&lt;p&gt;Write a predicate involving the &lt;strong&gt;BETWEEN&lt;/strong&gt; operator. That operator allows you to specify a range of values, in this
+case of date values. For example, to find sales orders placed between the dates July 23, 2005 and July 24, 2005:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT SalesOrderID, ShipDate
+FROM Sales.SalesOrderHeader
+WHERE ShipDate BETWEEN &#39;2005-07-23T00:00:00&#39;
+AND &#39;2005-07-24T23:59:59&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;checking-for-null-values&#34;&gt;Checking for NULL Values&lt;/h2&gt;
+
+&lt;h3 id=&#34;problem-3&#34;&gt;Problem&lt;/h3&gt;
+
+&lt;p&gt;Some of the values in a column might be NULL. You wish to identify rows having or not having NULL values.&lt;/p&gt;
+
+&lt;h3 id=&#34;solution-4&#34;&gt;Solution&lt;/h3&gt;
+
+&lt;p&gt;Make use of the IS NULL and IS NOT NULL tests to identify rows having or not having NULL values in a given
+column. For example, the following query returns any rows for which the value of the product’s weight is
+unknown:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT ProductID, Name, Weight
+FROM Production.Product
+WHERE Weight IS NULL;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;admonition note&#34;&gt;
+&lt;p class=&#34;admonition-title&#34;&gt;Checking NULL Values&lt;/p&gt;
+&lt;p&gt;NULL values cannot be identified using operators such as = and &amp;lt;&amp;gt; that are designed to compare two values
+and return a TRUE or FALSE result.&lt;/p&gt;
+
+&lt;p&gt;IS NULL however, is specifically designed to return TRUE when a value is NULL. Likewise, the expression IS
+NOT NULL returns TRUE when a value is not NULL. Predicates involving IS NULL and IS NOT NULL enable you to
+filter for rows having or not having NULL values in one or more columns.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;providing-a-list-of-values&#34;&gt;Providing a List of Values&lt;/h2&gt;
+
+&lt;h3 id=&#34;problem-4&#34;&gt;Problem&lt;/h3&gt;
+
+&lt;p&gt;You are searching for matches to a specific list of values. You could write a string of predicates joined by OR
+operators. But you prefer a more easily readable and maintainable solution.&lt;/p&gt;
+
+&lt;h3 id=&#34;solution-5&#34;&gt;Solution&lt;/h3&gt;
+
+&lt;p&gt;Create a predicate involving the IN operator, which allows you to specify an arbitrary list of values. For example,
+the IN operator in the following query tests the equality of the Color column to a list of expressions:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT ProductID,
+Name,
+Color
+FROM Production.Product
+WHERE Color IN (&#39;Silver&#39;, &#39;Black&#39;, &#39;Red&#39;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;analysis-3&#34;&gt;Analysis&lt;/h3&gt;
+
+&lt;p&gt;Use the IN operator any time you have a specific list of values. You can think of IN as shorthand for multiple OR
+expressions. For example, the following two WHERE clauses are semantically equivalent:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;WHERE Color IN (&#39;Silver&#39;, &#39;Black&#39;, &#39;Red&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;WHERE Color = &#39;Silver&#39; OR Color = &#39;Black&#39; OR Color = &#39;Red&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;performing-wildcard-searches&#34;&gt;Performing Wildcard Searches&lt;/h2&gt;
+
+&lt;h3 id=&#34;problem-5&#34;&gt;Problem&lt;/h3&gt;
+
+&lt;p&gt;You don’t have a specific value or list of values to find. What you do have is a general pattern, and you want to
+find all values that match that pattern.&lt;/p&gt;
+
+&lt;h3 id=&#34;solution-6&#34;&gt;Solution&lt;/h3&gt;
+
+&lt;p&gt;Make use of the &lt;strong&gt;LIKE&lt;/strong&gt; predicate, which provides a set of basic pattern-matching capabilities. Create a string using so-called wildcards to serve as a search expression.&lt;/p&gt;
+
+&lt;p&gt;The following example demonstrates using the LIKE operation with the % wildcard, searching for any product
+with a name beginning with the letter B:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT ProductID,
+Name
+FROM Production.Product
+WHERE Name LIKE &#39;B%&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;sorting-your-results&#34;&gt;Sorting Your Results&lt;/h2&gt;
+
+&lt;h3 id=&#34;problem-6&#34;&gt;Problem&lt;/h3&gt;
+
+&lt;p&gt;You are executing a query, and you wish the results to come back in a specific order.&lt;/p&gt;
+
+&lt;p&gt;###Solution&lt;/p&gt;
+
+&lt;p&gt;Write an &lt;strong&gt;ORDER BY&lt;/strong&gt; clause into your query. Specify the columns on which to sort. Place the clause at the very end
+of your query.&lt;/p&gt;
+
+&lt;p&gt;This next example demonstrates ordering the query results by columns &lt;em&gt;ProductID&lt;/em&gt; and &lt;em&gt;EndDate&lt;/em&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT p.Name, h.EndDate, h.ListPrice
+FROM Production.Product AS p
+INNER JOIN Production.ProductListPriceHistory AS h
+ON p.ProductID = h.ProductID
+ORDER BY p.Name,
+h.EndDate;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;specifying-sort-order&#34;&gt;Specifying Sort Order&lt;/h2&gt;
+
+&lt;h3 id=&#34;problem-7&#34;&gt;Problem&lt;/h3&gt;
+
+&lt;p&gt;You do not want the default, ascending-order sort. You want to sort by one or more columns in descending order.&lt;/p&gt;
+
+&lt;h3 id=&#34;solution-7&#34;&gt;Solution&lt;/h3&gt;
+
+&lt;p&gt;Make use of the keywords &lt;strong&gt;ASC&lt;/strong&gt; and &lt;strong&gt;ASCENDING&lt;/strong&gt;, or &lt;strong&gt;DESC&lt;/strong&gt; and &lt;strong&gt;DESCENDING&lt;/strong&gt;, to specify the sort direction. Apply these
+keywords to each sort column as you desire.
+This next example sorts on the same two columns as Recipe 1-13’s query, but this time in descending order
+for each of those columns:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT p.Name,
+h.EndDate,
+h.ListPrice
+FROM Production.Product AS p
+INNER JOIN Production.ProductListPriceHistory AS h
+ON p.ProductID = h.ProductID
+ORDER BY p.Name DESC,
+h.EndDate DESC;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;sorting-by-columns-not-selected&#34;&gt;Sorting by Columns Not Selected&lt;/h2&gt;
+
+&lt;h3 id=&#34;problem-8&#34;&gt;Problem&lt;/h3&gt;
+
+&lt;p&gt;You want to sort by columns not returned by the query.&lt;/p&gt;
+
+&lt;h3 id=&#34;solution-8&#34;&gt;Solution&lt;/h3&gt;
+
+&lt;p&gt;Simply specify the columns you wish to sort by. They do not need to be in your query results. For example, you
+can return a list of product names sorted by color without returning the colors:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT p.Name
+FROM Production.Product AS p
+ORDER BY p.Color;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;admonition note&#34;&gt;
+&lt;p class=&#34;admonition-title&#34;&gt;SELECT DISTINCT&lt;/p&gt;
+&lt;p&gt;When using a SELECT DISTINCT, the columns used in the ORDER BY should appear in the SELECT columns list.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;forcing-unusual-sort-orders&#34;&gt;Forcing Unusual Sort Orders&lt;/h2&gt;
+
+&lt;h3 id=&#34;problem-9&#34;&gt;Problem&lt;/h3&gt;
+
+&lt;p&gt;You wish to force a sort order not directly supported by the data. For example, you wish to retrieve only the
+colored products, and you further wish to force the color red to sort first.&lt;/p&gt;
+
+&lt;h3 id=&#34;solution-9&#34;&gt;Solution&lt;/h3&gt;
+
+&lt;p&gt;Write an expression to translate values in the data to values that will give the sort order you are after. Then order
+your query results by that expression. Following is one approach to the problem of retrieving colored parts and
+listing the red ones first:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT p.ProductID,
+p.Name,
+p.Color
+FROM Production.Product AS p
+WHERE p.Color IS NOT NULL
+ORDER BY CASE p.Color
+WHEN &#39;Red&#39; THEN NULL
+ELSE p.Color
+END;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;analysis-4&#34;&gt;Analysis&lt;/h3&gt;
+
+&lt;p&gt;The solution takes advantage of the fact that SQL Server sorts nulls first. The CASE expression returns NULL for
+red-colored items, thus forcing those first. Other colors are returned unchanged. The result is all the red items
+first in the list, and then red is followed by other colors in their natural sort order.
+You don’t have to rely upon nulls sorting first. Here is another version of the query to illustrate that and one
+other point:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT p.ProductID,
+p.Name,
+p.Color
+FROM Production.Product AS p
+WHERE p.Color IS NOT NULL
+ORDER BY CASE LOWER(p.Color)
+WHEN &#39;red&#39; THEN &#39; &#39;
+ELSE LOWER(p.Color)
+END;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This version of the query returns the same results as before. The value ‘Red’ is converted into a single space,
+which sorts before all the spelled-out color names. The CASE expression specifies &lt;strong&gt;LOWER(p.Color)&lt;/strong&gt; to ensure
+&lt;em&gt;‘Red’, ‘RED’, ‘red’&lt;/em&gt;, and so forth are all treated the same.&lt;/p&gt;
+
+&lt;h2 id=&#34;paging-through-a-result-set&#34;&gt;Paging Through A Result Set&lt;/h2&gt;
+
+&lt;h3 id=&#34;problem-10&#34;&gt;Problem&lt;/h3&gt;
+
+&lt;p&gt;You wish to present a result set to an application user N rows at a time.&lt;/p&gt;
+
+&lt;h3 id=&#34;solution-10&#34;&gt;Solution&lt;/h3&gt;
+
+&lt;p&gt;Make use of the query paging feature that is brand new in SQL Server 2012. Do this by adding OFFSET and FETCH
+clauses to your query’s ORDER BY clause. For example, the following query uses OFFSET and FETCH to retrieve the
+first 10 rows of results:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT ProductID, Name
+FROM Production.Product
+ORDER BY Name
+OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Changing the offset from 0 to 8 will fetch another 10 rows. The offset will skip the first eight rows. There will
+be a two-row overlap with the preceding result set. Here is the query:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT ProductID, Name
+FROM Production.Product
+ORDER BY Name
+OFFSET 8 ROWS FETCH NEXT 10 ROWS ONLY;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You must specify an &lt;strong&gt;ORDER BY&lt;/strong&gt; clause! &lt;strong&gt;OFFSET&lt;/strong&gt; and &lt;strong&gt;FETCH&lt;/strong&gt; are actually considered as part of that clause. If you don’t specify a sort order, then rows can come back in any order&lt;/p&gt;
+
+&lt;p&gt;Consider executing sequences of paging queries from within a transaction providing a snapshot or serializable isolation. You could set an isolation level as follows :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SET TRANSACTION ISOLATION LEVEL SNAPSHOT;
+BEGIN TRANSACTION;
+… /* Queries go here */
+COMMIT;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Combined Queries</title>
+      <link>http://guides.peruzal.com/introduction-to-sql/combined-queries/</link>
+      <pubDate>Sat, 11 Mar 2017 14:05:08 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/introduction-to-sql/combined-queries/</guid>
+      <description>
+
+&lt;p&gt;The &lt;strong&gt;UNION&lt;/strong&gt; operator is used for combined queries. You can run multiple SELECT queries and combine the results, the columns selected needs to be the same.&lt;/p&gt;
+
+&lt;h2 id=&#34;union-operator&#34;&gt;UNION Operator&lt;/h2&gt;
+
+&lt;p&gt;All you do is specify each &lt;strong&gt;SELECT&lt;/strong&gt; statement and place the keyword &lt;strong&gt;UNION&lt;/strong&gt; between each.
+Let’s look at an example. You need a report on all your customers in Illinois, Indiana, and Michigan. You also want to include all &lt;em&gt;Fun4All&lt;/em&gt; locations, regardless of state. Of course, you can create a &lt;strong&gt;WHERE&lt;/strong&gt; clause that will do this, but this time you’ll use a UNION instead.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT cust_name, cust_contact, cust_email
+FROM Customers
+WHERE cust_state IN (&#39;IL&#39;,&#39;IN&#39;,&#39;MI&#39;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and the second query :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT cust_name, cust_contact, cust_email
+FROM Customers
+WHERE cust_name = &#39;Fun4All&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The first SELECT retrieves all rows in Illinois, Indiana, and Michigan by passing those state abbreviations to the IN clause. The second SELECT uses a simple equality test to find all Fun4All locations.&lt;/p&gt;
+
+&lt;p&gt;To combine these two statements, do the following:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT cust_name, cust_contact, cust_email
+FROM Customers
+WHERE cust_state IN (&#39;IL&#39;,&#39;IN&#39;,&#39;MI&#39;)
+UNION
+SELECT cust_name, cust_contact, cust_email
+FROM Customers
+WHERE cust_name = &#39;Fun4All&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;As a point of reference, here is the same query using multiple WHERE clauses instead of a UNION:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT cust_name, cust_contact, cust_email
+FROM Customers
+WHERE cust_state IN (&#39;IL&#39;,&#39;IN&#39;,&#39;MI&#39;)
+OR cust_name = &#39;Fun4All&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;### UNION Rules&lt;/p&gt;
+
+&lt;p&gt;As you can see, unions are very easy to use. But there are a few rules governing exactly which can be combined:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;A &lt;strong&gt;UNION&lt;/strong&gt; must be composed of two or more &lt;strong&gt;SELECT&lt;/strong&gt; statements, each separated by the keyword &lt;strong&gt;UNION&lt;/strong&gt; (so, if combining four &lt;strong&gt;SELECT&lt;/strong&gt; statements there would be three &lt;strong&gt;UNION&lt;/strong&gt; keywords used).&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Each query in a &lt;strong&gt;UNION&lt;/strong&gt; must contain the same columns, expressions, or aggregate functions (and some DBMSs even require that columns be listed in the same order).&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Column datatypes must be compatible: They need not be the exact same type, but they must be of a type that the DBMS can implicitly convert (for example, different numeric types or different date types).&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;h2 id=&#34;including-or-eliminating-duplicate-rows&#34;&gt;Including or Eliminating Duplicate Rows&lt;/h2&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The UNION automatically removes any duplicate rows from the query result set (in other words, it behaves just as do multiple WHERE clause conditions in a single SELECT would). Using the &lt;strong&gt;UNION ALL&lt;/strong&gt; will return the results with the duplicates.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT cust_name, cust_contact, cust_email
+FROM Customers
+WHERE cust_state IN (&#39;IL&#39;,&#39;IN&#39;,&#39;MI&#39;)
+UNION ALL
+SELECT cust_name, cust_contact, cust_email
+FROM Customers
+WHERE cust_name = &#39;Fun4All&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;sorting-combined-query-results&#34;&gt;Sorting Combined Query Results&lt;/h2&gt;
+
+&lt;p&gt;When combining queries with a UNION only one ORDER BY clause may be used, and it must occur after the final SELECT statement. There is very little point in sorting part of a result set one way and part another way, and so multiple ORDER BY clauses are not allowed.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT cust_name, cust_contact, cust_email
+FROM Customers
+WHERE cust_state IN (&#39;IL&#39;,&#39;IN&#39;,&#39;MI&#39;)
+UNION
+SELECT cust_name, cust_contact, cust_email
+FROM Customers
+WHERE cust_name = &#39;Fun4All&#39;
+ORDER BY cust_name, cust_contact;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Summarizing Data</title>
+      <link>http://guides.peruzal.com/introduction-to-sql/summarizing-data/</link>
+      <pubDate>Tue, 28 Feb 2017 22:35:56 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/introduction-to-sql/summarizing-data/</guid>
+      <description>
+
+&lt;h2 id=&#34;using-aggregate-functions&#34;&gt;Using Aggregate Functions&lt;/h2&gt;
+
+&lt;p&gt;Functions that operate on a set of rows to calculate and return a single value. You would use these functions to do the calculations on the server and only return the required value to the client, saving network bandwidth.&lt;/p&gt;
+
+&lt;p&gt;The following are common aggregate functions in SQL :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;AVG&lt;/li&gt;
+&lt;li&gt;COUNT&lt;/li&gt;
+&lt;li&gt;MAX&lt;/li&gt;
+&lt;li&gt;MIN&lt;/li&gt;
+&lt;li&gt;SUM&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;avg-function&#34;&gt;AVG() function&lt;/h3&gt;
+
+&lt;p&gt;AVG() is used to return the average value of a specific column by counting both the number of rows in the table and the sum of their values.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT AVG(prod_price)
+FROM Products;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;average-for-specific-condition&#34;&gt;Average for specific condition&lt;/h3&gt;
+
+&lt;p&gt;We can use WHERE clause to filter the rows and find the average for the specific condition.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT AVG(prod_price) AS avg_price
+FROM Products
+WHERE vend_id = &#39;DLL01&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Column rows containing NULL values are ignored by the AVG() function.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&#34;count-function&#34;&gt;Count() function&lt;/h3&gt;
+
+&lt;p&gt;Counts the number of rows.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;count(*)&lt;/code&gt; - Count the number of rows in a table, whether columns contain values or NULL values.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;count(column)&lt;/code&gt; - Count number of rows that have values in a specific column, ignoring NULL values.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The following will return a count of rows including NULL values.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT COUNT(*) AS num_cust
+FROM Customers;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The following will only count the rows for the specific column ignoring NULL values.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT COUNT(cust_email) AS num_cust
+FROM Customers;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;max-function&#34;&gt;MAX() function&lt;/h3&gt;
+
+&lt;p&gt;Returns the highest value specified in a column.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT MAX(prod_price) AS max_price
+FROM Products;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Column rows with NULL values in them are ignored by the MAX() function.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&#34;min-function&#34;&gt;MIN() function&lt;/h3&gt;
+
+&lt;p&gt;Finds the minimum value.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT MIN(prod_price) AS min_price
+FROM Products;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;sum-function&#34;&gt;SUM() function&lt;/h3&gt;
+
+&lt;p&gt;Returns the sum total of the values in a specific column.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT SUM(quantity)
+FROM OrderItems
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;aggregates-on-distinct-values&#34;&gt;Aggregates on Distinct Values&lt;/h2&gt;
+
+&lt;p&gt;The aggregate functions can also be used with distinct values. By default they use all the values when performing the calculations.&lt;/p&gt;
+
+&lt;h3 id=&#34;calculate-average-on-distinct-values&#34;&gt;Calculate average on distinct values&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT AVG(DISTINCT prod_price) AS avg_price
+FROM Products
+WHERE vend_id = &#39;DLL01&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;DISTINCT may only be used with COUNT() if a column name is specified. DISTINCT may not be used with COUNT(*). Similarly, DISTINCT must be used with a column name and not with a calculation or expression&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&#34;combining-aggregate-functions&#34;&gt;Combining Aggregate Functions&lt;/h2&gt;
+
+&lt;p&gt;The aggregate functions can all be combined in a single select statement.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT COUNT(*) AS num_items,
+       MIN(prod_price) AS price_min,
+       MAX(prod_price) AS price_max,
+       AVG(prod_price) AS price_avg
+FROM Products;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Calculated Fields</title>
+      <link>http://guides.peruzal.com/introduction-to-sql/calculated-fields/</link>
+      <pubDate>Tue, 28 Feb 2017 22:33:35 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/introduction-to-sql/calculated-fields/</guid>
+      <description>
+
+&lt;h2 id=&#34;understanding-calculated-fields&#34;&gt;Understanding Calculated Fields&lt;/h2&gt;
+
+&lt;p&gt;Calculated field are created on the fly and do not exist in the database. We might want to retrieve the first name and last name columns together but in the database they are stored separately, so we can use a calculated field to join them together and return them as a single column.&lt;/p&gt;
+
+&lt;h2 id=&#34;concatenating-fields&#34;&gt;Concatenating Fields&lt;/h2&gt;
+
+&lt;p&gt;We use the + operator to concatenate two columns together. In the following sql statement we have added parantheses to the county retrieved&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT vend_name + &#39; (&#39; + vend_country + &#39;)&#39;
+FROM Vendors
+ORDER BY vend_name;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We can also use the || operator for concatenation.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT vend_name || &#39; (&#39; || vend_country || &#39;)&#39;
+FROM Vendors
+ORDER BY vend_name;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;using-aliases&#34;&gt;Using aliases&lt;/h3&gt;
+
+&lt;p&gt;When using a calculated field you will notice the new column does not have a meaningful name. We can create an alias for the column. We use the AS keyword immediately after the calculated field.&lt;/p&gt;
+
+&lt;p&gt;In the following statement we will give the calculated field a name called vendor_title :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT vend_name || &#39; (&#39; || vend_country || &#39;)&#39; AS vend_title
+FROM Vendors
+ORDER BY vend_name;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can also skip the AS and just put the column name after the calculated and it will work fine, but its recommend that you use the AS keyword.&lt;/p&gt;
+
+&lt;h2 id=&#34;performing-mathematical-calculations&#34;&gt;Performing Mathematical Calculations&lt;/h2&gt;
+
+&lt;p&gt;We can also use calculated fields in performing mathematical calculations. In the following statement we use the calculated field to calculate the expanded price :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT prod_id,
+       quantity,
+       item_price,
+       quantity*item_price AS expanded_price
+FROM OrderItems
+WHERE order_num = 20008;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Advanced SQL Features</title>
+      <link>http://guides.peruzal.com/introduction-to-sql/advanced-sql-features/</link>
+      <pubDate>Tue, 28 Feb 2017 21:53:47 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/introduction-to-sql/advanced-sql-features/</guid>
+      <description>
+
+&lt;h2 id=&#34;understanding-constraints&#34;&gt;Understanding Constraints&lt;/h2&gt;
+
+&lt;h2 id=&#34;understanding-indexes&#34;&gt;Understanding Indexes&lt;/h2&gt;
+
+&lt;h2 id=&#34;understanding-triggers&#34;&gt;Understanding Triggers&lt;/h2&gt;
+
+&lt;h2 id=&#34;database-security&#34;&gt;Database Security&lt;/h2&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Transactions</title>
+      <link>http://guides.peruzal.com/introduction-to-sql/transactions/</link>
+      <pubDate>Tue, 28 Feb 2017 21:53:24 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/introduction-to-sql/transactions/</guid>
+      <description>
+
+&lt;h2 id=&#34;understanding-transaction-processing&#34;&gt;Understanding Transaction Processing&lt;/h2&gt;
+
+&lt;p&gt;Transaction processing is used to maintain database integrity by ensuring that batches of SQL operations execute completely or not at all.&lt;/p&gt;
+
+&lt;p&gt;Common terms when working with transactions :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Transaction&lt;/strong&gt; A block of SQL statements&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Rollback&lt;/strong&gt; The process of undoing specified SQL statements&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Commit&lt;/strong&gt; Writing unsaved SQL statements to the database tables&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Savepoint&lt;/strong&gt; A temporary placeholder in a transaction set to which you can issue a rollback (as opposed to rolling back an entire transaction)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;admonition note&#34;&gt;
+&lt;p class=&#34;admonition-title&#34;&gt;Tip: Which Statements Can You Roll Back?&lt;/p&gt;
+&lt;p&gt;Transaction processing is used to manage &lt;strong&gt;INSERT&lt;/strong&gt;, &lt;strong&gt;UPDATE&lt;/strong&gt;, and &lt;strong&gt;DELETE&lt;/strong&gt; statements. You cannot roll back &lt;strong&gt;SELECT&lt;/strong&gt; statements. (There would not be much point in doing so anyway.) You cannot roll back &lt;strong&gt;CREATE&lt;/strong&gt; or &lt;strong&gt;DROP&lt;/strong&gt; operations. These statements may be used in a transaction block, but if you perform a rollback they will not be undone.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;controlling-transactions&#34;&gt;Controlling Transactions&lt;/h2&gt;
+
+&lt;p&gt;The key to managing transactions involves breaking your SQL statements into logical chunks and explicitly stating when data should be rolled back and when it should not. To start a transaction you use the &lt;strong&gt;BEGIN TRANSACTION&lt;/strong&gt; and when you are done and need to commit the changes, you use the &lt;strong&gt;COMMIT TRANSACTION&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;In the following example, any SQL between the &lt;strong&gt;BEGIN TRANSACTION&lt;/strong&gt; and &lt;strong&gt;COMMIT TRANSACTION&lt;/strong&gt; statements must be executed entirely or not at all.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;BEGIN TRANSACTION
+...
+COMMIT TRANSACTION
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;using-rollback&#34;&gt;Using ROLLBACK&lt;/h3&gt;
+
+&lt;p&gt;The SQL &lt;strong&gt;ROLLBACK&lt;/strong&gt; command is used to roll back (undo) SQL statements, as seen in this next statement:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;DELETE FROM Orders;
+ROLLBACK;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In this example, a &lt;strong&gt;DELETE&lt;/strong&gt; operation is performed and then undone using a &lt;strong&gt;ROLLBACK&lt;/strong&gt; statement. Although not the most useful example, it does demonstrate that, within a transaction block, &lt;strong&gt;DELETE&lt;/strong&gt; operations (like &lt;strong&gt;INSERT&lt;/strong&gt; and &lt;strong&gt;UPDATE&lt;/strong&gt; operations) are never final.&lt;/p&gt;
+
+&lt;h2 id=&#34;using-commit&#34;&gt;Using COMMIT&lt;/h2&gt;
+
+&lt;p&gt;Usually SQL statements are executed and written directly to the database tables. This is known as an implicit commit—the commit (write or save) operation happens automatically.&lt;/p&gt;
+
+&lt;p&gt;To force an explicit commit, the COMMIT statement is used. The following is a SQL Server example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;BEGIN TRANSACTION
+DELETE OrderItems WHERE order_num = 12345
+DELETE Orders WHERE order_num = 12345
+COMMIT TRANSACTION
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In this SQL Server example, order number &lt;em&gt;12345&lt;/em&gt; is deleted entirely from the system. Because this involves updating two database tables, Orders and &lt;em&gt;OrderItems&lt;/em&gt;, a transaction block is used to ensure that the order is not partially deleted. The final &lt;strong&gt;COMMIT&lt;/strong&gt; statement writes the change only if no error occurred. If the first &lt;strong&gt;DELETE&lt;/strong&gt; worked, but the second failed, the &lt;strong&gt;DELETE&lt;/strong&gt; would not be committed.&lt;/p&gt;
+
+&lt;p&gt;Using Savepoints&lt;/p&gt;
+
+&lt;p&gt;Simple ROLLBACK and COMMIT statements enable you to write or undo an entire transaction. Although this works for simple transactions, more complex transactions might require partial commits or rollbacks.&lt;/p&gt;
+
+&lt;p&gt;For example, the process of adding an order described previously is a single transaction. If an error occurs, you only want to roll back to the point before the Orders row was added. You do not want to roll back the addition to the Customers table (if there was one).&lt;/p&gt;
+
+&lt;p&gt;To support the rollback of partial transactions, you must be able to put placeholders at strategic locations in the transaction block. Then, if a rollback is required, you can roll back to one of the placeholders.&lt;/p&gt;
+
+&lt;p&gt;In SQL, these placeholders are called savepoints.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SAVEPOINT delete1;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In SQL Server you do the following:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SAVE TRANSACTION delete1;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Each savepoint takes a unique name that identifies it so that, when you roll back, the DBMS knows where you are rolling back to. To roll back to this savepoint, do the following in SQL Server:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;ROLLBACK TRANSACTION delete1;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The following is a complete SQL Server example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;BEGIN TRANSACTION
+INSERT INTO Customers(cust_id, cust_name)
+VALUES(&#39;1000000010&#39;, &#39;Toys Emporium&#39;);
+SAVE TRANSACTION StartOrder;
+INSERT INTO Orders(order_num, order_date, cust_id)
+VALUES(20100,&#39;2001/12/1&#39;,&#39;1000000010&#39;);
+IF @@ERROR &amp;lt;&amp;gt; 0 ROLLBACK TRANSACTION StartOrder;
+INSERT INTO OrderItems(order_num, order_item, prod_id, quantity, item_price)
+VALUES(20100, 1, &#39;BR01&#39;, 100, 5.49);
+IF @@ERROR &amp;lt;&amp;gt; 0 ROLLBACK TRANSACTION StartOrder;
+INSERT INTO OrderItems(order_num, order_item, prod_id, quantity, item_price)
+VALUES(20100, 2, &#39;BR03&#39;, 100, 10.99);
+IF @@ERROR &amp;lt;&amp;gt; 0 ROLLBACK TRANSACTION StartOrder;
+COMMIT TRANSACTION
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here are a set of four &lt;strong&gt;INSERT&lt;/strong&gt; statements enclosed within a transaction block. A &lt;em&gt;savepoint&lt;/em&gt; is defined after the first &lt;strong&gt;INSERT&lt;/strong&gt; so that, if any of the subsequent &lt;strong&gt;INSERT&lt;/strong&gt; operations fail, the transaction is only rolled back that far. In SQL Server, a variable named &lt;strong&gt;@@ERROR&lt;/strong&gt; can be inspected to see if an operation succeeded&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Stored Procedures</title>
+      <link>http://guides.peruzal.com/introduction-to-sql/stored-procedures/</link>
+      <pubDate>Tue, 28 Feb 2017 21:53:10 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/introduction-to-sql/stored-procedures/</guid>
+      <description>
+
+&lt;h2 id=&#34;understanding-stored-procedures&#34;&gt;Understanding Stored Procedures&lt;/h2&gt;
+
+&lt;p&gt;Stored procedures are simply collections of one or more SQL statements saved for future use. You can think of them as batch files, although in truth they are more than that.&lt;/p&gt;
+
+&lt;h2 id=&#34;why-to-use-stored-procedures&#34;&gt;Why to Use Stored Procedures&lt;/h2&gt;
+
+&lt;p&gt;Stored procedures provides the following benefits :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Simplicity&lt;/li&gt;
+&lt;li&gt;Security&lt;/li&gt;
+&lt;li&gt;Performance&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;In brief, store procedures can be used to :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;To simplify complex operations (as seen in the previous example) by encapsulating processes into a single easy-to-use unit.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;To ensure data consistency by not requiring that a series of steps be created over and over. If all developers and applications use the same stored procedure, then the same code will be used by all. An extension of this is to prevent errors. The more steps that need to be performed, the more likely it is that errors will be introduced. Preventing errors ensures data consistency.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;To simplify change management. If tables, column names, or business logic (or just about anything) changes, then only the stored procedure code needs to be updated, and no one else will need even to be aware that changes were made. An extension of this is security. Restricting access to underlying data via stored procedures reduces the chance of data corruption (unintentional or otherwise).&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Because stored procedures are usually stored in a compiled form, the DBMS has to do less work to process the command. This results in improved performance.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;There are SQL language elements and features that are available only within single requests. Stored procedures can use these to write code that is more powerful and flexible.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;executing-stored-procedures&#34;&gt;Executing Stored Procedures&lt;/h2&gt;
+
+&lt;p&gt;Stored procedures are executed far more often than they are written, so we’ll start there. The SQL statement to execute a stored procedure is simply &lt;strong&gt;EXECUTE&lt;/strong&gt;. &lt;strong&gt;EXECUTE&lt;/strong&gt; takes the name of the stored procedure and any parameters that need to be passed to it.&lt;/p&gt;
+
+&lt;p&gt;Here is an example :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;exec sp_who2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;or using the longer version of the keyword :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;EXECUTE sp_who2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;creating-stored-procedures&#34;&gt;Creating Stored Procedures&lt;/h2&gt;
+
+&lt;p&gt;Lets create a stored procedure that counts the number of customers in a mailing list who have e-mail addresses.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;CREATE PROCEDURE MailingListCount
+AS
+DECLARE @cnt INTEGER
+SELECT @cnt = COUNT(*)
+FROM Customers
+WHERE NOT cust_email IS NULL;
+RETURN @cnt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This stored procedure takes no parameters at all. The calling application retrieves the value by using SQL Server’s return code support. Here a local variable named &lt;em&gt;@cnt&lt;/em&gt; is declared using the &lt;strong&gt;DECLARE&lt;/strong&gt; statement (all local variables in SQL Server are named starting with a_ @_). This variable is then used in the &lt;strong&gt;SELECT&lt;/strong&gt; statement so that it contains the value returned by the &lt;strong&gt;COUNT(&lt;/strong&gt;) function. Finally, the RETURN statement is used to return the count to the calling application as RETURN &lt;em&gt;@cnt&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;To invoke the SQL Server example you could do the following:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;DECLARE @ReturnValue INT
+EXECUTE @ReturnValue=MailingListCount;
+SELECT @ReturnValue;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This code declares a variable to hold whatever the stored procedure returns, executes the store procedure, and then uses a &lt;strong&gt;SELECT&lt;/strong&gt; to display the returned value.&lt;/p&gt;
+
+&lt;p&gt;Here’s another example, this time to insert a new order in the Orders table :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;CREATE PROCEDURE NewOrder @cust_id CHAR(10)
+AS
+-- Declare variable for order number
+DECLARE @order_num INTEGER
+-- Get current highest order number
+SELECT @order_num=MAX(order_num)
+FROM Orders
+-- Determine next order number
+SELECT @order_num=@order_num + 1
+-- Insert new order
+INSERT INTO Orders(order_num, order_date, cust_id)
+VALUES(@order_num, GETDATE(), @cust_id)
+-- Return order number
+RETURN @order_num;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This stored procedure creates a new order in the Orders table. It takes a single parameter, the &lt;em&gt;ID&lt;/em&gt; of the customer placing the order. The other two table columns, the order number and order date, are generated automatically within the stored procedure itself. The code first declares a local variable to store the order number. Next, the current highest order number is retrieved (using a &lt;strong&gt;MAX()&lt;/strong&gt; function) and incremented (using a &lt;strong&gt;SELECT&lt;/strong&gt; statement). Then the order is inserted with an INSERT statement using the newly generated order number, the current system date (retrieved using the &lt;strong&gt;GETDATE()&lt;/strong&gt; function), and the passed customer &lt;strong&gt;ID&lt;/strong&gt;. Finally, the order number (which is needed to process order items) is returned as &lt;strong&gt;RETURN @order_num&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Here’s a quite different version of the same SQL Server code:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;CREATE PROCEDURE NewOrder @cust_id CHAR(10)
+AS
+-- Insert new order
+INSERT INTO Orders(cust_id)
+VALUES(@cust_id)
+-- Return order number
+SELECT order_num = @@IDENTITY;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

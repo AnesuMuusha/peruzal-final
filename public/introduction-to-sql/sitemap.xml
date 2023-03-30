@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/installing-sql-server/</loc>
+    <lastmod>2017-03-15T07:21:17+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/sql-server-architecture/</loc>
+    <lastmod>2017-03-15T07:23:27+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/database-recovery/</loc>
+    <lastmod>2017-03-15T07:23:47+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/database-security/</loc>
+    <lastmod>2017-03-15T07:24:03+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/sql-server-alwayson/</loc>
+    <lastmod>2017-03-17T00:43:53+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/maintenance-tasks/</loc>
+    <lastmod>2017-03-15T07:24:20+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/practise-exercise-1/</loc>
+    <lastmod>2017-03-13T22:15:23+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/getting-started-exercises/</loc>
+    <lastmod>2017-03-13T17:05:09+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/exercises/</loc>
+    <lastmod>2017-03-12T22:34:38+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/combined-queries/</loc>
+    <lastmod>2017-03-11T14:05:08+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/summarizing-data/</loc>
+    <lastmod>2017-02-28T22:35:56+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/calculated-fields/</loc>
+    <lastmod>2017-02-28T22:33:35+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/advanced-sql-features/</loc>
+    <lastmod>2017-02-28T21:53:47+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/transactions/</loc>
+    <lastmod>2017-02-28T21:53:24+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/stored-procedures/</loc>
+    <lastmod>2017-02-28T21:53:10+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/views/</loc>
+    <lastmod>2017-02-28T21:52:58+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/working-with-tables/</loc>
+    <lastmod>2017-02-28T21:52:47+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/deleting-data/</loc>
+    <lastmod>2017-02-28T21:52:18+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/updating-data/</loc>
+    <lastmod>2017-02-28T21:52:09+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/inserting-data/</loc>
+    <lastmod>2017-02-28T21:51:54+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/joining-tables/</loc>
+    <lastmod>2017-02-28T21:51:23+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/subqueries/</loc>
+    <lastmod>2017-02-28T21:51:01+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/grouping-data/</loc>
+    <lastmod>2017-02-28T21:50:40+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/functions/</loc>
+    <lastmod>2017-02-28T21:50:23+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/filtering-data/</loc>
+    <lastmod>2017-02-28T21:49:57+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/sorting-data/</loc>
+    <lastmod>2017-02-28T21:49:34+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/retrieving-data/</loc>
+    <lastmod>2017-02-28T21:49:20+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/understanding-sql/</loc>
+    <lastmod>2017-02-28T21:48:59+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/getting-started/</loc>
+    <lastmod>2017-02-27T23:12:05+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/</loc>
+    <lastmod>2017-02-27T23:10:24+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/advanced-sql-features/</loc>
+    <lastmod>2017-02-28T21:53:47+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/calculated-fields/</loc>
+    <lastmod>2017-02-28T22:33:35+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/combined-queries/</loc>
+    <lastmod>2017-03-11T14:05:08+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/database-recovery/</loc>
+    <lastmod>2017-03-15T07:23:47+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/database-security/</loc>
+    <lastmod>2017-03-15T07:24:03+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/deleting-data/</loc>
+    <lastmod>2017-02-28T21:52:18+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/exercises/</loc>
+    <lastmod>2017-03-12T22:34:38+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/filtering-data/</loc>
+    <lastmod>2017-02-28T21:49:57+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/functions/</loc>
+    <lastmod>2017-02-28T21:50:23+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/getting-started-exercises/</loc>
+    <lastmod>2017-03-13T17:05:09+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/getting-started/</loc>
+    <lastmod>2017-02-27T23:12:05+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/grouping-data/</loc>
+    <lastmod>2017-02-28T21:50:40+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/inserting-data/</loc>
+    <lastmod>2017-02-28T21:51:54+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/installing-sql-server/</loc>
+    <lastmod>2017-03-15T07:21:17+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/</loc>
+    <lastmod>2017-03-15T07:21:17+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/joining-tables/</loc>
+    <lastmod>2017-02-28T21:51:23+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/maintenance-tasks/</loc>
+    <lastmod>2017-03-15T07:24:20+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/practise-exercise-1/</loc>
+    <lastmod>2017-03-13T22:15:23+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/retrieving-data/</loc>
+    <lastmod>2017-02-28T21:49:20+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/sorting-data/</loc>
+    <lastmod>2017-02-28T21:49:34+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/sql-server-alwayson/</loc>
+    <lastmod>2017-03-17T00:43:53+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/sql-server-architecture/</loc>
+    <lastmod>2017-03-15T07:23:27+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/stored-procedures/</loc>
+    <lastmod>2017-02-28T21:53:10+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/subqueries/</loc>
+    <lastmod>2017-02-28T21:51:01+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/summarizing-data/</loc>
+    <lastmod>2017-02-28T22:35:56+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/transactions/</loc>
+    <lastmod>2017-02-28T21:53:24+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/understanding-sql/</loc>
+    <lastmod>2017-02-28T21:48:59+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/updating-data/</loc>
+    <lastmod>2017-02-28T21:52:09+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/views/</loc>
+    <lastmod>2017-02-28T21:52:58+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://guides.peruzal.com/introduction-to-sql/working-with-tables/</loc>
+    <lastmod>2017-02-28T21:52:47+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+</urlset>

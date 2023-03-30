@@ -1,0 +1,637 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Swift-rsses on Xamarin iOS Guides</title>
+    <link>http://guides.peruzal.com/ios-guides/swift/index.xml</link>
+    <description>Recent content in Swift-rsses on Xamarin iOS Guides</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Peruzal</copyright>
+    <lastBuildDate>Mon, 12 Dec 2016 00:55:08 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/ios-guides/swift/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Swift Fundamentals</title>
+      <link>http://guides.peruzal.com/ios-guides/swift/</link>
+      <pubDate>Mon, 12 Dec 2016 00:55:08 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/ios-guides/swift/</guid>
+      <description>
+
+&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+
+&lt;p&gt;This guide covers the main Swift concepts you&amp;rsquo;ll need as you start building apps. It is meant to introduce each topic in a way that provides enough background to get you started and defers to the &lt;a href=&#34;https://itunes.apple.com/us/book/swift-programming-language/id881256329&#34;&gt;iBook on Swift&lt;/a&gt; for more in depth coverage.&lt;/p&gt;
+
+&lt;h2 id=&#34;hello-world&#34;&gt;Hello World&lt;/h2&gt;
+
+&lt;p&gt;It is common to start any tutorial for a new language with the &lt;strong&gt;Hello World&lt;/strong&gt; example so we&amp;rsquo;ll start out by showing how easy this is to do in Swift:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;print(&amp;quot;Hello World!&amp;quot;)      // Prints &amp;quot;Hello World!&amp;quot; to the output window in Xcode
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To make this a little more personal, let&amp;rsquo;s look at one of the handy features of Swift (called &lt;strong&gt;string interpolation&lt;/strong&gt;) where we can insert values into strings using the &lt;code&gt;\(...)&lt;/code&gt; syntax. Below, we&amp;rsquo;ve inserted &lt;code&gt;name&lt;/code&gt; into the middle of our string:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let name: String = &amp;quot;Bob&amp;quot;
+print(&amp;quot;Hello \(name)!&amp;quot;)     // Prints &amp;quot;Hello Bob!&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;when-to-use-let-vs-var&#34;&gt;When to use let vs var&lt;/h2&gt;
+
+&lt;p&gt;You&amp;rsquo;ll notice in the example above we&amp;rsquo;ve used &lt;code&gt;let&lt;/code&gt; to create the new variable for the name &amp;ldquo;Bob&amp;rdquo;. In Swift, you&amp;rsquo;ll choose from the following 2 options when creating a new variable:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;let&lt;/code&gt; =&amp;gt; Use &lt;code&gt;let&lt;/code&gt; when you are defining a &lt;strong&gt;constant&lt;/strong&gt; (a value that will not change)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let numberOfContinents: Int = 7   // Seven continents will not change so we&#39;ve used &amp;quot;let&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;code&gt;var&lt;/code&gt; =&amp;gt; Use &lt;code&gt;var&lt;/code&gt; when you are defining a &lt;strong&gt;variable&lt;/strong&gt; (a value that might change)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;var continentsVisited: Int = 2   // Continents visited increases over time so we&#39;ve used &amp;quot;var&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;In general, it is considered a best practice to use constants (&lt;code&gt;let&lt;/code&gt;) whenever possible.&lt;/p&gt;
+
+&lt;h2 id=&#34;numbers&#34;&gt;Numbers&lt;/h2&gt;
+
+&lt;p&gt;The two most common types of numbers you&amp;rsquo;ll use in Swift are integers (&lt;code&gt;Int&lt;/code&gt;) and doubles (&lt;code&gt;Double&lt;/code&gt;):&lt;/p&gt;
+
+&lt;p&gt;Integers are whole numbers with no fractional component:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let minValue: Int = -42
+let maxValue: Int = 55 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Doubles can have a fractional component:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let pi: Double = 3.14159
+let billAmount: Double = 10.25
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;strings&#34;&gt;Strings&lt;/h2&gt;
+
+&lt;p&gt;Strings represent a series of characters:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let hello: String = &amp;quot;Hello&amp;quot;
+let world: String = &amp;quot;World&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can use &lt;strong&gt;string interpolation&lt;/strong&gt; to construct new strings:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let helloWorld: String = &amp;quot;\(hello) \(world)&amp;quot;    // &amp;quot;Hello World&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Or you can use the &lt;code&gt;+&lt;/code&gt; operator to combine strings:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let helloWorld: String = hello + &amp;quot; &amp;quot; + world    // &amp;quot;Hello World&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;booleans&#34;&gt;Booleans&lt;/h2&gt;
+
+&lt;p&gt;Boolean is a very simple type in Swift as it can only ever be &lt;code&gt;true&lt;/code&gt; or &lt;code&gt;false&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let swiftIsCool: Bool = true
+let iMissObjectiveC: Bool = false 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;arrays&#34;&gt;Arrays&lt;/h2&gt;
+
+&lt;p&gt;Arrays store a list of values that must be of the same type. Below we&amp;rsquo;ve kept track of the previous bill amounts (which is a list of doubles):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;// Notice how we&#39;ve used &amp;quot;var&amp;quot; here since we want to append new items to the array
+var previousBillAmounts: [Double] = [10.25, 21.32, 15.54]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To add a new bill to the array:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;previousBillAmounts.append(52.45)    // Result: [10.25, 21.32, 15.54, 52.45]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To check on how many bills there are in the array:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let count = previousBillAmounts.count            // Result: 4
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Or to check the first bill amount in the array:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let firstBillAmount = previousBillAmounts[0]    // Result: 10.25
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;dictionaries&#34;&gt;Dictionaries&lt;/h2&gt;
+
+&lt;p&gt;Much like you might use a real world dictionary to look up the definition for a word, you can use the dictionary data structure in Swift to create associations between keys (the word in the real world dictionary) and values (the definition in the real world dictionary).&lt;/p&gt;
+
+&lt;p&gt;This is easiest seen using an example. Let&amp;rsquo;s say we want to keep track of the ages of people that are using our app. This would be best done using the following dictionary:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;var people: [String: Int] = [
+                              &amp;quot;Bob&amp;quot;: 32,
+                              &amp;quot;Cindy&amp;quot;: 25
+                            ]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here, the &lt;strong&gt;key&lt;/strong&gt; is the name of the person and the &lt;strong&gt;value&lt;/strong&gt; is the person&amp;rsquo;s age.&lt;/p&gt;
+
+&lt;p&gt;Later on if we want to find out Bob&amp;rsquo;s age, we can look it up by doing:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let bobsAge = people[&amp;quot;Bob&amp;quot;]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If we get a new user we can easily add them to our dictionary using the following syntax:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;people[&amp;quot;Dan&amp;quot;] = 56
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;specifying-types&#34;&gt;Specifying Types&lt;/h2&gt;
+
+&lt;p&gt;In most of the examples in this guide, we are explicit with the types of our constants and variables. Explicit typing looks something like:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let name: String = &amp;quot;Bob&amp;quot;   // Explicitly designating &amp;quot;name&amp;quot; to be of type &amp;quot;String&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;However, Swift is smart enough to infer the type for us in a lot of cases. The previous example can be shortened to:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let name = &amp;quot;Bob&amp;quot;   // Swift infers &amp;quot;name&amp;quot; is of type &amp;quot;String&amp;quot; since &amp;quot;Bob&amp;quot; is a String
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In cases where Swift can infer the type, it&amp;rsquo;s not necessary to be explicit with the types for your constants and variables. We just do it in this guide so that the examples are easier to follow.&lt;/p&gt;
+
+&lt;h2 id=&#34;any-and-anyobject&#34;&gt;Any and AnyObject&lt;/h2&gt;
+
+&lt;p&gt;Swift has two special &amp;ldquo;catch all types&amp;rdquo; that come in handy when a more specific type cannot be determined.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;AnyObject&lt;/code&gt; can represent an instance of &lt;strong&gt;any class type&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Any&lt;/code&gt; can represent an instance of &lt;strong&gt;any type at all&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;In general it&amp;rsquo;s a best practice to be as specific with your types as possible and avoid the use of &lt;code&gt;AnyObject&lt;/code&gt; and &lt;code&gt;Any&lt;/code&gt;, but they become particularly helpful when interacting with Objective-C code that is less strict on typing.&lt;/p&gt;
+
+&lt;h2 id=&#34;optionals&#34;&gt;Optionals&lt;/h2&gt;
+
+&lt;p&gt;Optionals is a very important concept in Swift and is meant to improve the safety of Swift code. By simply placing a question mark (?) after any type, it declares that variable to be optional. An optional type allows that variable to exist in one of the following two states:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;There &lt;strong&gt;is a value and it equals x&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;There &lt;strong&gt;isn&amp;rsquo;t a value at all&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Let&amp;rsquo;s look at an example to make this more clear. Consider the following 2 examples where we are trying to convert a &lt;code&gt;String&lt;/code&gt; to an &lt;code&gt;Int&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;// Example 1 (Conversion succeeds)
+let input: String = &amp;quot;123&amp;quot;
+let optionalConvertedInput: Int? = Int(input)  // optionalConvertedInput = 123
+
+// Example 2 (Conversion fails - input is not a number)
+let input: String = &amp;quot;123abc&amp;quot;
+let optionalConvertedInput: Int? = Int(input)  // optionalConvertedInput = nil
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Swift requires &lt;code&gt;optionalConvertedInput&lt;/code&gt; to be of type &lt;code&gt;Int?&lt;/code&gt; (or &amp;ldquo;optional Int&amp;rdquo;) so that it is explicit that convertedInput &lt;em&gt;might&lt;/em&gt; not contain a value (in the case when the conversion fails). If we were to declare &lt;code&gt;convertedInput&lt;/code&gt; as simply &lt;code&gt;Int&lt;/code&gt;, we&amp;rsquo;d get a compile error.&lt;/p&gt;
+
+&lt;p&gt;There&amp;rsquo;s a handy syntax in Swift that you&amp;rsquo;ll use quite often when working with optionals. If we wanted to use the value of &lt;code&gt;optionalConvertedInput&lt;/code&gt; later on in our code, we&amp;rsquo;d have to first check to make sure it&amp;rsquo;s not &lt;code&gt;nil&lt;/code&gt;. We can do so using the following code:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;if let convertedInput = optionalConvertedInput {
+   // Code that gets executed when optionalConvertedInput is NOT nil
+} else {
+   // OptionalConvertedInput IS nil, do something else
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In other languages like Java, NullPointerException&amp;rsquo;s (exceptions that are fired when a null reference is accessed) are a common source of crashes. Swift&amp;rsquo;s Optionals goes a long way to reduce this type of programming error.&lt;/p&gt;
+
+&lt;h2 id=&#34;functions&#34;&gt;Functions&lt;/h2&gt;
+
+&lt;p&gt;Functions in Swift are very similar to other languages. The simplest function in Swift can be written as:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;// This prints &amp;quot;Hello!&amp;quot; to the output window
+func printHello() {
+    print(&amp;quot;Hello!&amp;quot;)
+}
+
+// Calls this function
+printHello()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We can extend this function to be a little more personable by taking in a name and returning the greeting instead of printing it out:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;// Takes in a &amp;quot;personName&amp;quot; parameter of type String and returns the greeting as a String
+func sayHello(personName: String) -&amp;gt; String {
+    return &amp;quot;Hello \(personName)!&amp;quot;
+}
+
+// Calls this function
+let greeting: String = sayHello(&amp;quot;Bob&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Things get a little more interesting when you start to have multiple parameters as Swift has the concept of &lt;strong&gt;external&lt;/strong&gt; and &lt;strong&gt;local&lt;/strong&gt; parameter names. An external parameter name is used to label arguments passed to a function call. A local parameter name is the name used in the implementation of the function.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;// &amp;quot;to&amp;quot; + &amp;quot;and&amp;quot; are the external parameter names
+// &amp;quot;person&amp;quot; + &amp;quot;anotherPerson&amp;quot; are the local parameter names
+func sayHello(to person: String, and anotherPerson: String) -&amp;gt; String {
+    return &amp;quot;Hello \(person) and \(anotherPerson)!&amp;quot;
+}
+
+// Calls this function using the &amp;quot;external&amp;quot; parameter names
+let greeting: String = sayHello(to: &amp;quot;Bill&amp;quot;, and: &amp;quot;Ted&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;control-flow&#34;&gt;Control Flow&lt;/h2&gt;
+
+&lt;h3 id=&#34;conditional-statements&#34;&gt;Conditional Statements&lt;/h3&gt;
+
+&lt;p&gt;If statements are very similar to other languages and can be expressed as:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let temperatureInFahrenheit: Int = 90
+
+if temperatureInFahrenheit &amp;lt;= 32 {
+    print(&amp;quot;It&#39;s very cold. Consider wearing a scarf.&amp;quot;)
+} else if temperatureInFahrenheit &amp;gt;= 86 {
+    print(&amp;quot;It&#39;s really warm. Don&#39;t forget to wear sunscreen.&amp;quot;)
+} else {
+    print(&amp;quot;It&#39;s not that cold. Wear a t-shirt.&amp;quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;loops&#34;&gt;Loops&lt;/h3&gt;
+
+&lt;p&gt;The two most common types of loops you&amp;rsquo;ll need in Swift are &lt;strong&gt;for loops&lt;/strong&gt; and &lt;strong&gt;for-in loops&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;For loops&lt;/strong&gt; work well when you want to do something until a particular condition is met (in the case below until &lt;code&gt;index &amp;gt;= 3&lt;/code&gt;):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;// Simple for loop that prints &amp;quot;Hello&amp;quot; 3 times
+for var index = 0; index &amp;lt; 3; index++ {
+    print(&amp;quot;Hello&amp;quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;C-style &lt;strong&gt;for loops&lt;/strong&gt; are deprecated and will be removed in future versions of Swift, more info available on the &lt;a href=&#34;https://github.com/apple/swift-evolution/blob/master/proposals/0007-remove-c-style-for-loops.md&#34;&gt;SE-0007 Proposal&lt;/a&gt;.  &lt;strong&gt;For-in loops&lt;/strong&gt; are preferred instead. The above example could be re-written as:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;        for _ in 0..&amp;lt;3 {
+            print(&amp;quot;Hello&amp;quot;)
+        }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;For-in loops&lt;/strong&gt; come in really handy when you want to do something to each item in a collection (such as an array):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let names = [&amp;quot;Anna&amp;quot;, &amp;quot;Alex&amp;quot;, &amp;quot;Brian&amp;quot;, &amp;quot;Jack&amp;quot;]
+
+// Loops over each name in &amp;quot;names&amp;quot; and prints out a greeting for each person
+for name in names {
+    print(&amp;quot;Hello, \(name)!&amp;quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Sometimes you want to loop over each item in an array and also keep track of the index of the item. Array&amp;rsquo;s &lt;code&gt;enumerate()&lt;/code&gt; method can help you achieve this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let names = [&amp;quot;Anna&amp;quot;, &amp;quot;Alex&amp;quot;, &amp;quot;Brian&amp;quot;, &amp;quot;Jack&amp;quot;]
+
+for (index, value) in names.enumerate() {
+    print(&amp;quot;Item \(index + 1): \(value)&amp;quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;classes&#34;&gt;Classes&lt;/h2&gt;
+
+&lt;p&gt;Classes are the building blocks of your app’s code. You define properties and methods to add functionality to your classes by using the same syntax as for variables and functions.&lt;/p&gt;
+
+&lt;p&gt;Below you can find a &lt;code&gt;Person&lt;/code&gt; class that is meant to show an example of the types of things you&amp;rsquo;ll want to do when building your classes.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;class Person {
+	
+    // Custom initializer - takes in firstName and lastName
+    init(firstName: String, lastName: String) {
+        self.firstName = firstName
+        self.lastName = lastName
+
+        // Increment type property each time a new person is created
+        Person.numberOfPeople++
+    }
+	
+    // *** Properties ***
+	
+    // Stored Property - Stored as part of the current instance of the class
+    var firstName: String
+    var lastName: String
+
+    // Computed Property - computes &amp;quot;fullName&amp;quot; from &amp;quot;firstName&amp;quot; and &amp;quot;lastName&amp;quot;
+    var fullName: String {
+    	get {
+            return &amp;quot;\(firstName) \(lastName)&amp;quot;
+    	}
+    }
+
+    // Type Property - Single instance for all instances of the class,
+    // similar to a static property in Java
+    static var numberOfPeople = 0   
+    
+    // *** Methods ***
+    
+    // Instance Method
+    func greet() {
+    	// Notice the use of &amp;quot;self&amp;quot; - self refers to the current instance and 
+        // is similar to &amp;quot;this&amp;quot; in Java
+    	print (&amp;quot;Hello \(self.firstName)&amp;quot;)
+    }
+    
+    // Type Method
+    class func printNumberOfPeople() {
+    	print(&amp;quot;Number of people = \(Person.numberOfPeople)&amp;quot;)
+    }
+}
+
+// ... Using the Person Class ...
+
+// Create a new instance of the Person class
+let bob = Person(firstName: &amp;quot;Bob&amp;quot;, lastName: &amp;quot;Smith&amp;quot;)
+
+// Call instance method
+bob.greet()   // Prints &amp;quot;Hello Bob&amp;quot;
+
+// Accessing properies
+print(&amp;quot;Bob&#39;s first name is: \(bob.firstName)&amp;quot;)  // Prints &amp;quot;Bob&#39;s first name is: Bob&amp;quot;
+print(&amp;quot;Bob&#39;s full name is: \(bob.fullName)&amp;quot;)    // Prints &amp;quot;Bob&#39;s full name is: Bob Smith&amp;quot;
+
+// Call type method
+// Prints &amp;quot;Number of people = 1&amp;quot; (since we&#39;ve only created one Person)
+Person.printNumberOfPeople()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;protocols&#34;&gt;Protocols&lt;/h2&gt;
+
+&lt;p&gt;Protocols are similar to interfaces in other languages. Think about a protocol as a contract. The contract includes a set of methods that must be implemented. Any classes that choose to implement a protocol sign this contract and implement all the methods that are in the protocol.&lt;/p&gt;
+
+&lt;p&gt;Let&amp;rsquo;s say we have the following protocol (&lt;code&gt;MyFriendlyGreeterProtocol&lt;/code&gt;) that defines 2 methods &lt;code&gt;sayHello()&lt;/code&gt; and &lt;code&gt;sayBye()&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;protocol MyFriendlyGreeterProtocol {
+    func sayHello()
+    func sayBye()
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Any classes that implement this protocol (you implement a protocol by adding its name after the class defintion as shown below), must implement both of these methods:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;class MyEnglishPerson: MyFriendlyGreeterProtocol {
+    func sayHello() {
+        print(&amp;quot;Hello!&amp;quot;)
+    }
+
+    func sayBye() {
+        print(&amp;quot;Bye!&amp;quot;)
+    }
+	
+    // ... other methods for this class ...
+
+}
+
+class MySpanishPerson: MyFriendlyGreeterProtocol {
+    func sayHello() {
+        print(&amp;quot;Hola!&amp;quot;)
+    }
+
+    func sayBye() {
+        print(&amp;quot;Adios!&amp;quot;)
+    }
+	
+    // ... other methods for this class ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;There is a lot more you can do with protocols as they form one of the key design patterns in iOS. The code above merely shows how to get started with the syntax for protocols.&lt;/p&gt;
+
+&lt;h2 id=&#34;closures&#34;&gt;Closures&lt;/h2&gt;
+
+&lt;p&gt;Closures are self-contained blocks of code that can be passed around and used in your code. Closures in Swift are similar to blocks in Objective-C and lambdas in other programming languages.&lt;/p&gt;
+
+&lt;p&gt;Closures can capture and store references to any constants and variables from the context in which they are defined. This is known as &amp;ldquo;closing&amp;rdquo; over those constants and variables. Swift handles all of the memory management of capturing for you.&lt;/p&gt;
+
+&lt;p&gt;Here’s an example of a function called &lt;code&gt;makeIncrementer&lt;/code&gt;, which contains a nested function called &lt;code&gt;incrementer&lt;/code&gt;. The nested &lt;code&gt;incrementer()&lt;/code&gt; function captures two values, &lt;code&gt;runningTotal&lt;/code&gt; and &lt;code&gt;amount&lt;/code&gt;, from its surrounding context. After capturing these values, &lt;code&gt;incrementer&lt;/code&gt; is returned by &lt;code&gt;makeIncrementer&lt;/code&gt; as a closure that increments &lt;code&gt;runningTotal&lt;/code&gt; by amount each time it is called.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;func makeIncrementer(forIncrement amount: Int) -&amp;gt; () -&amp;gt; Int {
+    var runningTotal = 0
+    func incrementer() -&amp;gt; Int {
+        runningTotal += amount
+        return runningTotal
+    }
+    return incrementer
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The return type of &lt;code&gt;makeIncrementer&lt;/code&gt; is &lt;code&gt;() -&amp;gt; Int&lt;/code&gt;. This means that it returns a function, rather than a simple value. The function it returns has no parameters, and returns an Int value each time it is called.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code&gt;makeIncrementer(forIncrement:)&lt;/code&gt; function defines an integer variable called &lt;code&gt;runningTotal&lt;/code&gt;, to store the current running total of the incrementer that will be returned. This variable is initialized with a value of 0.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code&gt;makeIncrementer(forIncrement:)&lt;/code&gt; function has a single Int parameter with an external name of &lt;code&gt;forIncrement&lt;/code&gt;, and a local name of &lt;code&gt;amount&lt;/code&gt;. The argument value passed to this parameter specifies how much &lt;code&gt;runningTotal&lt;/code&gt; should be incremented by each time the returned &lt;code&gt;incrementer&lt;/code&gt; function is called.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;makeIncrementer&lt;/code&gt; defines a nested function called &lt;code&gt;incrementer&lt;/code&gt;, which performs the actual incrementing. This function simply adds &lt;code&gt;amount&lt;/code&gt; to &lt;code&gt;runningTotal&lt;/code&gt;, and returns the result.&lt;/p&gt;
+
+&lt;p&gt;When considered in isolation, the nested &lt;code&gt;incrementer()&lt;/code&gt; function might seem unusual:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;func incrementer() -&amp;gt; Int {
+    runningTotal += amount
+    return runningTotal
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code&gt;incrementer()&lt;/code&gt; function doesn’t have any parameters, and yet it refers to &lt;code&gt;runningTotal&lt;/code&gt; and &lt;code&gt;amount&lt;/code&gt; from within its function body. It does this by capturing a reference to &lt;code&gt;runningTotal&lt;/code&gt; and &lt;code&gt;amount&lt;/code&gt; from the surrounding function and using them within its own function body. Capturing by reference ensures that &lt;code&gt;runningTotal&lt;/code&gt; and &lt;code&gt;amount&lt;/code&gt; do not disappear when the call to &lt;code&gt;makeIncrementer&lt;/code&gt; ends, and also ensures that &lt;code&gt;runningTotal&lt;/code&gt; is available the next time the &lt;code&gt;incrementer&lt;/code&gt; function is called.&lt;/p&gt;
+
+&lt;p&gt;Here’s an example of &lt;code&gt;makeIncrementer&lt;/code&gt; in action:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;// This example sets a constant called incrementByTen to refer to an incrementer function that
+// adds 10 to its runningTotal variable each time it is called.
+let incrementByTen = makeIncrementer(forIncrement: 10)
+
+incrementByTen()  // returns a value of 10
+incrementByTen()  // returns a value of 20
+incrementByTen()  // returns a value of 30
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;type-casting-as-as-as&#34;&gt;Type Casting (as, as?, as!)&lt;/h2&gt;
+
+&lt;p&gt;Type casting changes the type of a particular instance to another compatible type. There are 3 ways to accomplish this with Swift:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Guaranteed conversion&lt;/strong&gt; with &lt;code&gt;as&lt;/code&gt; =&amp;gt; This is the safest cast. It will never fail since the compiler can guarantee the cast will work. Use this when you are upcasting from a child class to its parent or doing something like &lt;code&gt;1 as Float&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;  // Guaranteed conversion as the compiler can verify this will succeed
+  let myFloat = 1 as Float
+
+  // Guaranteed conversion as upcasting from a type to its parent type is safe 
+  // UIView is a parent of UITableView
+  let myView = myTableView as UIView
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Conditional conversion&lt;/strong&gt; with &lt;code&gt;as?&lt;/code&gt; =&amp;gt; This is a cautious cast. If the cast fails, it will return &lt;code&gt;nil&lt;/code&gt;. This is needed when downcasting from a parent type to a child type.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;  // If myView is actually a tableView, the downcast will succeed, otherwise it will fail safely
+  if let myTableView = myView as? UITableView {
+      print(&amp;quot;The downcast succeeded!&amp;quot;)
+  } else {
+      print(&amp;quot;The downcast failed!&amp;quot;)        
+  }
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Forced conversion&lt;/strong&gt; with &lt;code&gt;as!&lt;/code&gt; =&amp;gt; This is a dangerous cast that you should avoid using. If the cast fails, this will crash your app. Use this cast carefully.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;  // DANGEROUS: If myView is actually a tableView, the downcast will succeed
+  // Otherwise it will crash the app
+  let myTableView = myView as! UITableView
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;understanding-the-question-mark&#34;&gt;Understanding the Question Mark (?)&lt;/h2&gt;
+
+&lt;p&gt;There are various places where you&amp;rsquo;ll come across the need for using question marks in your code. The following examples are meant to capture the major types of use cases for the question mark operator that can cause confusion when first learning Swift.&lt;/p&gt;
+
+&lt;p&gt;When defining a type as &lt;strong&gt;optional&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;// Designates that optionalName can either have a value or be nil
+var optionalName: String? = &amp;quot;Hello&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;When safely accessing methods or properties (called &lt;strong&gt;optional chaining&lt;/strong&gt;):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;// When myInstance IS nil, x = nil
+// When myInstance is NOT nil, x = myInstance.count
+// If any part of the chain is nil, it stops evaluating and returns
+// nil, ignoring everything to the right.
+let x = myInstance?.count
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;When type casting (called &lt;strong&gt;safe conditional conversion&lt;/strong&gt;):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;// If myView is actually a tableView the downcast will succeed, otherwise it will fail safely
+if let myTableView = myView as? UITableView {
+    print(&amp;quot;The downcast succeeded!&amp;quot;)
+} else {
+    print(&amp;quot;The downcast failed!&amp;quot;)   	   
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;When using the &lt;strong&gt;nil coalescing operator&lt;/strong&gt; (&lt;code&gt;??&lt;/code&gt;) to provide a default value:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let nickName: String? = nil  // nickName is an optional that might be nil
+let fullName: String = &amp;quot;Bob Smith&amp;quot;
+
+// prints the nickName if it is NOT nil, otherwise prints fullName
+let informalGreeting = &amp;quot;Hi \(nickName ?? fullName)&amp;quot;   // Prints &amp;quot;Hi Bob Smith&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;understanding-the-exclamation-mark&#34;&gt;Understanding the Exclamation Mark (!)&lt;/h2&gt;
+
+&lt;p&gt;There are various places you might come across an exclamation mark in Swift code. The following examples are meant to capture the major types of use cases for the exclamation mark operator that can cause confusion when first learning Swift.&lt;/p&gt;
+
+&lt;p&gt;When getting the actual value out of an optional (called &lt;strong&gt;unwrapping an optional&lt;/strong&gt;):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let possibleString: String? = &amp;quot;An optional string.&amp;quot;
+
+// DANGEROUS: possibleString must NOT be nil or this will crash
+let forcedString: String = possibleString! 
+
+// SAFE: Will only enter the if clause if possibleString is NOT nil
+if let actualString = possibleString {
+    // do something with actualString
+}
+
+// SAFE: Generally preferred alternate syntax to &amp;quot;if let&amp;quot; that can exit early
+guard let actualString = possibleString else {
+    // exit early or throw exception
+}
+// do something with actualString
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;When type casting (called &lt;strong&gt;forced conversion&lt;/strong&gt;):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;// DANGEROUS: If myView is actually a tableView, the downcast will succeed
+// Otherwise it will crash the app
+let myTableView = myView as! UITableView
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;When defining variables that are initially &lt;code&gt;nil&lt;/code&gt; but get set soon afterwards and are guaranteed not to be nil after that (called &lt;strong&gt;implicitly unwrapped optionals&lt;/strong&gt;):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let assumedString: String! = &amp;quot;An implicitly unwrapped optional string.&amp;quot;
+
+// no need for an exclamation mark since assumedString is an implicitly unwrapped optional
+let implicitString: String = assumedString
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;working-with-json&#34;&gt;Working with JSON&lt;/h2&gt;
+
+&lt;p&gt;A lot of the time when working with REST API&amp;rsquo;s (like Instagram, Twitter, etc), the data that comes back will be JSON. JSON is a human readable data format (very similar to XML).&lt;/p&gt;
+
+&lt;p&gt;Below is an example of JSON that simulates the type of JSON you might get back when using an endpoint that returns movies and their ratings:
+  * An open curly brace means the start of a dictionary
+  * An open bracket means the start of an array&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+    &amp;quot;status&amp;quot;: &amp;quot;OK&amp;quot;,
+    &amp;quot;movies&amp;quot;: [
+        {
+            &amp;quot;title&amp;quot;: &amp;quot;Whiplash&amp;quot;,
+            &amp;quot;rating&amp;quot;: 8.5
+        }, 
+        {
+            &amp;quot;title&amp;quot;: &amp;quot;Feast&amp;quot;,
+            &amp;quot;rating&amp;quot;: 5.2
+        }, 
+        {
+            &amp;quot;title&amp;quot;: &amp;quot;Kung Fury&amp;quot;,
+            &amp;quot;rating&amp;quot;: 7.1
+        }
+    ]
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Below is an example of how&amp;rsquo;d you extract the movies and ratings out of that response:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;// data returned from the network response will typically be of type
+// NSData (which is a buffer of bytes)
+let responseData: NSData = // ... some value retrieved from the network response ...
+
+// Wrap our code in a do catch as our code might throw an exception which we need to handle
+do {
+    // Start by converting the NSData to a dictionary - a dictionary for the entire response
+    if let responseDictionary = try NSJSONSerialization.JSONObjectWithData(responseData,
+        options:NSJSONReadingOptions(rawValue:0)) as? [String:AnyObject] {
+
+            // Dip inside the response to find the &amp;quot;movies&amp;quot; key and get the array of movies
+            if let movies = responseDictionary[&amp;quot;movies&amp;quot;] as? [AnyObject] {
+
+                // Get each movie dictionary from the array of movies
+                for movie in movies {
+                
+                    // Use the movie &amp;quot;title&amp;quot; key and &amp;quot;rating&amp;quot; key to get their values
+                    if let title = movie[&amp;quot;title&amp;quot;] as? String {
+                        if let rating = movie[&amp;quot;rating&amp;quot;] as? Double {
+                            print(&amp;quot;Title:\(title), rating:\(rating)&amp;quot;)
+                        }
+                    }
+                }
+            }
+    }
+} catch {
+    print(&amp;quot;Error parsing JSON&amp;quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;playgrounds&#34;&gt;Playgrounds&lt;/h2&gt;
+
+&lt;p&gt;Xcode includes a very useful tool for learning Swift called &amp;ldquo;Playgrounds&amp;rdquo;. It&amp;rsquo;s very easy to &lt;a href=&#34;https://developer.apple.com/library/ios/recipes/Playground_Help/Chapters/CreateAndEdit.html#//apple_ref/doc/uid/TP40015166-CH36-SW1&#34;&gt;create a new playground&lt;/a&gt; through Xcode.&lt;/p&gt;
+
+&lt;p&gt;Once inside of a playground, you can write Swift code and see it run immediately (without needing to build and run a project each time). This allows you to try out different syntax and test out your code before including it into your app.&lt;/p&gt;
+
+&lt;p&gt;We highly recommend checking out Playgrounds while you are learning Swift.&lt;/p&gt;
+
+&lt;h2 id=&#34;references&#34;&gt;References&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://developer.apple.com/videos/wwdc/2014/#402&#34;&gt;WWDC 2014: Introduction to Swift&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://developer.apple.com/library/prerelease/ios/documentation/Swift/Conceptual/Swift_Programming_Language/GuidedTour.html&#34;&gt;iOS Developer Library: A Swift Tour&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://itunes.apple.com/us/book/swift-programming-language/id881256329&#34;&gt;iBooks: The Swift Programming Language&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.murage.ca/downcasting-in-swift-1-2-with-as-exclamation&#34;&gt;Swift Type Casting&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

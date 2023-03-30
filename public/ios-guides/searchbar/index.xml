@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Searchbar-rsses on Xamarin iOS Guides</title>
+    <link>http://guides.peruzal.com/ios-guides/searchbar/index.xml</link>
+    <description>Recent content in Searchbar-rsses on Xamarin iOS Guides</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Peruzal</copyright>
+    <lastBuildDate>Mon, 12 Dec 2016 02:09:57 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/ios-guides/searchbar/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Search Bar Controller</title>
+      <link>http://guides.peruzal.com/ios-guides/searchbar/</link>
+      <pubDate>Mon, 12 Dec 2016 02:09:57 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/ios-guides/searchbar/</guid>
+      <description>
+
+&lt;p&gt;&lt;a href=&#34;http://imgur.com/8YFquIY&#34;&gt;&lt;img src=&#34;http://i.imgur.com/8YFquIY.gif&#34; title=&#34;source: imgur.com&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+
+&lt;p&gt;Providing a way for users to search through a collection of items is a
+fairly common task in iOS projects.  A standard interface for
+implementing search behaviors is the &lt;a href=&#34;https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/UIKitUICatalog/UISearchBar.html#//apple_ref/doc/uid/TP40012857-UISearchBar-SW1&#34;&gt;search bar&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;There are a few common ways to work with Search Bars:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Directly using a &lt;a href=&#34;https://developer.apple.com/library/ios/documentation/UIKit/Reference/UISearchBar_Class/&#34;&gt;&lt;code&gt;UISearchBar&lt;/code&gt;&lt;/a&gt;&lt;/strong&gt;.  This is the most
+bare bones way to use &lt;code&gt;UISearchBars&lt;/code&gt;.  This can be extremely flexible if
+you want to design and program your own search interface, however does
+not provide as many built-in features as the other methods.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Using a &lt;a href=&#34;https://developer.apple.com/library/prerelease/ios/documentation/UIKit/Reference/UISearchDisplayController_Class/&#34;&gt;&lt;code&gt;UISearchDisplayController&lt;/code&gt;&lt;/a&gt; to
+help manage a search interface.&lt;/strong&gt;  The &lt;code&gt;UISearchDisplayController&lt;/code&gt;
+allows you to present a standard search interface with built-in
+animations.  This method forces you to display search results in a table
+view. - &lt;strong&gt;DEPRECATED&lt;/strong&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Using a &lt;a href=&#34;https://developer.apple.com/library/ios/documentation/UIKit/Reference/UISearchController/&#34;&gt;&lt;code&gt;UISearchController&lt;/code&gt;&lt;/a&gt; to help manage a
+search interface.&lt;/strong&gt;  The &lt;code&gt;UISearchController&lt;/code&gt;  is a newer controller
+(available only in iOS 8+) that helps you present a search interface
+using any kind of view to display the search results.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This guide covers the very basics of working with each of these classes.
+None of these classes actually implements the &amp;ldquo;searching&amp;rdquo; behavior of
+finding items that match a given query string, since determining which
+objects match will vary with the domain specific use case (e.g. when
+searching for &amp;ldquo;people&amp;rdquo; you might want to match on just their names,
+whereas you may want a full-text pre-indexed search when searching
+through e-mails).  You&amp;rsquo;ll have to implement any search/filtering
+behavior yourself.&lt;/p&gt;
+
+&lt;h2 id=&#34;working-with-uisearchbars-directly&#34;&gt;Working with UISearchBars directly&lt;/h2&gt;
+
+&lt;p&gt;At its core, a search bar is nothing more than a glorified text field
+packaged with a &lt;a href=&#34;#search-bar-scopes&#34;&gt;scope&lt;/a&gt; control and some animations
+and a couple of buttons.  Each search bar has a delegate that gives you
+an opportunity to respond to user actions.  The most important delegate
+methods are:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://developer.apple.com/library/ios/documentation/UIKit/Reference/UISearchBarDelegate_Protocol/index.html#//apple_ref/occ/intfm/UISearchBarDelegate/searchBar:textDidChange:&#34;&gt;&lt;code&gt;textDidChange&lt;/code&gt;&lt;/a&gt; - most of the time you&amp;rsquo;ll respond to
+this event by updating the displayed set of search results as the user
+is typing out a query&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://developer.apple.com/library/ios/documentation/UIKit/Reference/UISearchBarDelegate_Protocol/index.html#//apple_ref/occ/intfm/UISearchBarDelegate/searchBarSearchButtonClicked:&#34;&gt;&lt;code&gt;searchBarSearchButtonClicked&lt;/code&gt;&lt;/a&gt; - in some cases
+if the search operation is slow (e.g. requires making a slow API call)
+you&amp;rsquo;ll want to wait until the user taps the search button before
+updating the search results.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;example-searching-a-table&#34;&gt;Example searching a table&lt;/h3&gt;
+
+&lt;p&gt;We start out with a single view application with &lt;a href=&#34;Table-View-Guide#reusing-uitableviewcells&#34;&gt;a basic
+UITableView&lt;/a&gt;.  You can add a
+&lt;code&gt;UISearchBar&lt;/code&gt; as you would with any other control by dragging one to
+your view controller in interface builder or by programmatically adding
+it.&lt;/p&gt;
+
+&lt;p&gt;The delegate property of search bar must be set to an object that
+implements UISearchBarDelegate. Typically you make your view controller
+implement UISearchBarDelegate and set &lt;code&gt;searchBar.delegate = self&lt;/code&gt;
+in &lt;code&gt;viewDidLoad&lt;/code&gt; method.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://imgur.com/TbVI3Yv&#34;&gt;&lt;img src=&#34;http://i.imgur.com/TbVI3Yv.gif&#34; title=&#34;source: imgur.com&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;The code to implement the search behavior is as follows.  We maintain an
+additional array &lt;code&gt;filteredData&lt;/code&gt; to represent rows of data that match our
+search text.  When the search text changes we update &lt;code&gt;filteredData&lt;/code&gt; and
+reload our table.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;class ViewController: UIViewController, UITableViewDataSource, UISearchBarDelegate {
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
+
+    let data = [&amp;quot;New York, NY&amp;quot;, &amp;quot;Los Angeles, CA&amp;quot;, &amp;quot;Chicago, IL&amp;quot;, &amp;quot;Houston, TX&amp;quot;,
+        &amp;quot;Philadelphia, PA&amp;quot;, &amp;quot;Phoenix, AZ&amp;quot;, &amp;quot;San Diego, CA&amp;quot;, &amp;quot;San Antonio, TX&amp;quot;,
+        &amp;quot;Dallas, TX&amp;quot;, &amp;quot;Detroit, MI&amp;quot;, &amp;quot;San Jose, CA&amp;quot;, &amp;quot;Indianapolis, IN&amp;quot;,
+        &amp;quot;Jacksonville, FL&amp;quot;, &amp;quot;San Francisco, CA&amp;quot;, &amp;quot;Columbus, OH&amp;quot;, &amp;quot;Austin, TX&amp;quot;,
+        &amp;quot;Memphis, TN&amp;quot;, &amp;quot;Baltimore, MD&amp;quot;, &amp;quot;Charlotte, ND&amp;quot;, &amp;quot;Fort Worth, TX&amp;quot;]
+
+    var filteredData: [String]!
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tableView.dataSource = self
+        searchBar.delegate = self
+        filteredData = data
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -&amp;gt; UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: &amp;quot;TableCell&amp;quot;, for: indexPath) as UITableViewCell
+        cell.textLabel?.text = filteredData[indexPath.row]
+        return cell
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -&amp;gt; Int {
+        return filteredData.count
+    }
+
+    // This method updates filteredData based on the text in the Search Box
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        // When there is no text, filteredData is the same as the original data
+        // When user has entered text into the search box
+        // Use the filter method to iterate over all items in the data array
+        // For each item, return true if the item should be included and false if the
+        // item should NOT be included
+        filteredData = searchText.isEmpty ? data : data.filter({(dataString: String) -&amp;gt; Bool in
+            // If dataItem matches the searchText, return true to include it
+            return dataString.range(of: searchText, options: .caseInsensitive) != nil
+        })
+        
+        tableView.reloadData()
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here&amp;rsquo;s what this looks like when running.  Notice that the search
+results are displayed in the same table, and there is no presentation of
+a separate search interface.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://imgur.com/xDqRQEJ&#34;&gt;&lt;img src=&#34;http://i.imgur.com/xDqRQEJ.gif&#34; title=&#34;source: imgur.com&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;example-searching-a-collection-view&#34;&gt;Example searching a collection view&lt;/h3&gt;
+
+&lt;p&gt;Since the &lt;code&gt;UISearchBar&lt;/code&gt; is quite simple, it can be combined with any
+abitrary view to build your own search interface.  Here&amp;rsquo;s what it might
+look like paired with a collection view.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://imgur.com/PKY6m7O&#34;&gt;&lt;img src=&#34;http://i.imgur.com/PKY6m7O.gif&#34; title=&#34;source: imgur.com&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;The code for this is essentially the same as in the case with table views.&lt;/p&gt;
+
+&lt;h3 id=&#34;cancelling-out-of-search-and-hiding-keyboard&#34;&gt;Cancelling out of Search and hiding keyboard&lt;/h3&gt;
+
+&lt;p&gt;Once user taps on search bar, the keyboard will appear, and you will notice
+that it won&amp;rsquo;t go away when you tap on X.
+You can show Cancel button when user taps on search bar, and when user taps
+on Cancel, hide the keyboard.&lt;/p&gt;
+
+&lt;p&gt;There is a nifty &lt;code&gt;searchBarTextDidBeginEditing&lt;/code&gt; method for UISearchBarDelegate
+that gets called when user starts editing search text. You can show Cancel
+button in that method:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        self.searchBar.showsCancelButton = true
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;When user taps on cancel button, delegate&amp;rsquo;s &lt;code&gt;searchBarCancelButtonClicked&lt;/code&gt;
+method gets called. At this point, you can hide the Cancel button,
+clear existing text in search bar and hide the keyboard like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false
+        searchBar.text = &amp;quot;&amp;quot;
+        searchBar.resignFirstResponder()
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;using-uisearchcontrollers-ios-8&#34;&gt;Using UISearchControllers (iOS 8+)&lt;/h2&gt;
+
+&lt;p&gt;A newer way to manage the presentation of a search interface (only
+available in iOS 8 and above) is via the &lt;code&gt;UISearchController&lt;/code&gt;.  This
+controller handles some of the logic and animation of presenting a
+separate search interface for you while still allowing you to specify
+how your search results are displayed.&lt;/p&gt;
+
+&lt;h3 id=&#34;example-searching-a-table-1&#34;&gt;Example searching a table&lt;/h3&gt;
+
+&lt;p&gt;There is currently no built-in object in the Interface Builder Object
+Library for a &lt;code&gt;UISearchController&lt;/code&gt;.  The easiest way to create one is to
+do it programatically.  This also creates a &lt;code&gt;UISearchBar&lt;/code&gt; and sets the
+search controller&amp;rsquo;s
+&lt;a href=&#34;https://developer.apple.com/library/ios/documentation/UIKit/Reference/UISearchController/#//apple_ref/occ/instp/UISearchController/searchBar&#34;&gt;&lt;code&gt;searchBar&lt;/code&gt;&lt;/a&gt;
+property to it.  You can add this search bar to your view hierarchy
+programatically.&lt;/p&gt;
+
+&lt;p&gt;In order to update your search results you&amp;rsquo;ll have to implement the
+&lt;a href=&#34;https://developer.apple.com/library/ios/documentation/UIKit/Reference/UISearchResultsUpdating_ClassRef/&#34;&gt;&lt;code&gt;UISearchResultsUpdating&lt;/code&gt;&lt;/a&gt;
+protocol and set the search controller&amp;rsquo;s &lt;a href=&#34;https://developer.apple.com/library/ios/documentation/UIKit/Reference/UISearchController/#//apple_ref/occ/instp/UISearchController/searchResultsUpdater&#34;&gt;&lt;code&gt;searchResultsUpdater&lt;/code&gt;&lt;/a&gt; property.&lt;/p&gt;
+
+&lt;p&gt;You don&amp;rsquo;t need to implement the
+&lt;a href=&#34;https://developer.apple.com/library/ios/documentation/UIKit/Reference/UISearchControllerDelegate_Ref/index.html#//apple_ref/swift/intf/UISearchControllerDelegate&#34;&gt;&lt;code&gt;UISearchControllerDelegate&lt;/code&gt;&lt;/a&gt;
+unless you need to hook into the events around the presentation of the
+search interface.&lt;/p&gt;
+
+&lt;p&gt;Putting it all together the code looks like this.  Notice that we have
+to read the search text from the search bar in
+&lt;code&gt;updateSearchResultsForSearchController&lt;/code&gt;.  One other thing to note is
+that we set this view controller&amp;rsquo;s &lt;code&gt;definesPresentationContext&lt;/code&gt; property
+to true.  This means that the search controller should use this view
+controller&amp;rsquo;s frame (as oppposed to the root view controller) when
+presenting the search interface.  In this case it means that the search
+interface will expand above the carrier bar.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;class ViewController: UIViewController, UITableViewDataSource, UISearchResultsUpdating {
+    @IBOutlet weak var tableView: UITableView!
+
+    let data = [&amp;quot;New York, NY&amp;quot;, &amp;quot;Los Angeles, CA&amp;quot;, &amp;quot;Chicago, IL&amp;quot;, &amp;quot;Houston, TX&amp;quot;,
+        &amp;quot;Philadelphia, PA&amp;quot;, &amp;quot;Phoenix, AZ&amp;quot;, &amp;quot;San Diego, CA&amp;quot;, &amp;quot;San Antonio, TX&amp;quot;,
+        &amp;quot;Dallas, TX&amp;quot;, &amp;quot;Detroit, MI&amp;quot;, &amp;quot;San Jose, CA&amp;quot;, &amp;quot;Indianapolis, IN&amp;quot;,
+        &amp;quot;Jacksonville, FL&amp;quot;, &amp;quot;San Francisco, CA&amp;quot;, &amp;quot;Columbus, OH&amp;quot;, &amp;quot;Austin, TX&amp;quot;,
+        &amp;quot;Memphis, TN&amp;quot;, &amp;quot;Baltimore, MD&amp;quot;, &amp;quot;Charlotte, ND&amp;quot;, &amp;quot;Fort Worth, TX&amp;quot;]
+
+    var filteredData: [String]!
+
+    var searchController: UISearchController!
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        tableView.dataSource = self
+        filteredData = data
+
+        // Initializing with searchResultsController set to nil means that
+        // searchController will use this view controller to display the search results
+        searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self
+
+        // If we are using this same view controller to present the results
+        // dimming it out wouldn&#39;t make sense. Should probably only set
+        // this to yes if using another controller to display the search results.
+        searchController.dimsBackgroundDuringPresentation = false
+
+        searchController.searchBar.sizeToFit()
+        tableView.tableHeaderView = searchController.searchBar
+
+        // Sets this view controller as presenting view controller for the search interface
+        definesPresentationContext = true
+    }
+
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -&amp;gt; UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier(&amp;quot;TableCell&amp;quot;) as UITableViewCell
+        cell.textLabel?.text = filteredData[indexPath.row]
+        return cell
+    }
+
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -&amp;gt; Int {
+        return filteredData.count
+    }
+
+    func updateSearchResultsForSearchController(searchController: UISearchController) {
+        if let searchText = searchController.searchBar.text {
+            filteredData = searchText.isEmpty ? data : data.filter({(dataString: String) -&amp;gt; Bool in
+                return dataString.rangeOfString(searchText, options: .CaseInsensitiveSearch) != nil
+            })
+
+            tableView.reloadData()
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here&amp;rsquo;s what this looks like when running.  Notice that unlike in the
+search display controller example, we are using the same table view to
+display the search results instead of overlaying of a separate table
+view.  However, unlike when working with just the search bar, we still
+have the built in animation when transitioning to the search interface.&lt;/p&gt;
+
+&lt;p&gt;Also, you get the logic to show Cancel button and hide keyboard when
+user taps on cancel button for free when you use this.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://imgur.com/AgUYVoN&#34;&gt;&lt;img src=&#34;http://i.imgur.com/AgUYVoN.gif&#34; title=&#34;source: imgur.com&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;example-searching-a-collection-view-1&#34;&gt;Example searching a collection view&lt;/h3&gt;
+
+&lt;p&gt;We can just as easily use the search controller to search a collection
+view in place.   We still have the presentation of a search interface,
+but unlike when working with the search display controller we are not
+restricted to using a table view to display the search results.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://imgur.com/ZEyaPyz&#34;&gt;&lt;img src=&#34;http://i.imgur.com/ZEyaPyz.gif&#34; title=&#34;source: imgur.com&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;The code for this is almost the same as when searching the the table
+view above.  The only notable difference is that we had to introduce a
+placeholder view in interface builder for the search bar since there are
+still some quirks with placing a search controller&amp;rsquo;s search bar inside a
+collection view&amp;rsquo;s supplementary view.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;class ViewController: UIViewController, UICollectionViewDataSource, UISearchResultsUpdating {
+    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var searchBarPlaceholder: UIView!
+    ...
+    override func viewDidLoad() {
+        ...
+        searchController.searchBar.sizeToFit()
+        searchBarPlaceholder.addSubview(searchController.searchBar)
+        automaticallyAdjustsScrollViewInsets = false
+        definesPresentationContext = true
+    }
+
+    ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;search-bar-in-navigation-view&#34;&gt;Search Bar in Navigation View&lt;/h2&gt;
+
+&lt;p&gt;A common requirement is to place the search bar inside the navigation
+bar.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://imgur.com/RDnRxNO&#34;&gt;&lt;img src=&#34;http://i.imgur.com/RDnRxNO.gif&#34; title=&#34;source: imgur.com&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;This can be configured programatically in your view controller&amp;rsquo;s
+&lt;code&gt;viewDidLoad&lt;/code&gt; as follows.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;When working directly with a search bar:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;        // create the search bar programatically since you won&#39;t be
+        // able to drag one onto the navigation bar
+        searchBar = UISearchBar()
+        searchBar.sizeToFit()
+
+        // the UIViewController comes with a navigationItem property
+        // this will automatically be initialized for you if when the
+        // view controller is added to a navigation controller&#39;s stack
+        // you just need to set the titleView to be the search bar
+        navigationItem.titleView = searchBar
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Using a search display controller:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;        searchDisplayController?.displaysSearchBarInNavigationBar = true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Using a search controller:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;        searchController.searchBar.sizeToFit()
+        navigationItem.titleView = searchController.searchBar
+
+        // By default the navigation bar hides when presenting the
+        // search interface.  Obviously we don&#39;t want this to happen if
+        // our search bar is inside the navigation bar.
+        searchController.hidesNavigationBarDuringPresentation = false
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;!--
+Search Bar Scopes
+--&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

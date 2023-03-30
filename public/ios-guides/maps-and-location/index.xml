@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Maps-and-location-rsses on Xamarin iOS Guides</title>
+    <link>http://guides.peruzal.com/ios-guides/maps-and-location/index.xml</link>
+    <description>Recent content in Maps-and-location-rsses on Xamarin iOS Guides</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Peruzal</copyright>
+    <lastBuildDate>Mon, 21 Nov 2016 23:25:00 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/ios-guides/maps-and-location/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Maps and Location</title>
+      <link>http://guides.peruzal.com/ios-guides/maps-and-location/</link>
+      <pubDate>Mon, 21 Nov 2016 23:25:00 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/ios-guides/maps-and-location/</guid>
+      <description>
+
+&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+
+&lt;p&gt;This guide is an introduction to using MapKit to set up a map view, plot locations, and draw overlays on it in your app.&lt;/p&gt;
+
+&lt;h2 id=&#34;map-view-set-up&#34;&gt;Map View Set Up&lt;/h2&gt;
+
+&lt;p&gt;Drag a Map Kit View from the Object Library onto your storyboard:
+&lt;img src=&#34;http://i.imgur.com/8CAY8rt.gif&#34; alt=&#34;Place Map Kit View&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Add MapKit framework to your view controller:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;import MapKit
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Create an outlet:&lt;br /&gt;
+Control-drag the map view in the storyboard inside your view controller definition.
+Release and name the outlet: mapView
+&lt;img src=&#34;http://i.imgur.com/0zspz18.gif&#34; alt=&#34;Create Map Kit View outlet&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;You should now see a map when you build and run your project!&lt;/p&gt;
+
+&lt;h2 id=&#34;set-up-initial-properties&#34;&gt;Set Up Initial Properties&lt;/h2&gt;
+
+&lt;p&gt;You probably want to see a particular area of the world in your app rather than the entire world. So let’s set up so initial properties of the map.&lt;/p&gt;
+
+&lt;p&gt;For example, let’s center the map in San Francisco (37.7833, -122.4167).
+There are two things you need to center the map at a location:
+1. The coordinates&lt;br /&gt;
+2. A region to display to get the correct zoom level of the map. Create a MKCoordinateSpan that defines the area spanned by the region you want to display. One degree of latitude is approximately 111 km or 69 miles.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;override func viewDidLoad() {
+    super.viewDidLoad()
+
+    // set the region to display, this also sets a correct zoom level
+    // set starting center location in San Francisco
+    let centerLocation = CLLocation(latitude: 37.7833, longitude: -122.4167)
+    goToLocation(centerLocation)
+}
+
+func goToLocation(location: CLLocation) {
+    let span = MKCoordinateSpanMake(0.1, 0.1)
+    let region = MKCoordinateRegionMake(location.coordinate, span)
+    mapView.setRegion(region, animated: false)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Build and run your app again. You should see your map centered in San Francisco (or your desired location).&lt;/p&gt;
+
+&lt;p&gt;MKMapView already supports standard interactions like scrolling to a different part of the map and adjusting the zoom level. These interactions are enabled by default, but you can disable them by accessing the properties in the map view: zoomEnabled, scrollEnabled, pitchEnabled, rotateEnabled&lt;/p&gt;
+
+&lt;h2 id=&#34;display-and-navigate-to-user-s-location&#34;&gt;Display and Navigate to User&amp;rsquo;s location&lt;/h2&gt;
+
+&lt;p&gt;You can also center the map at the user&amp;rsquo;s current location.
+First, request permission to use the user&amp;rsquo;s location:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://i.imgur.com/Vgq2ecI.png&#34; alt=&#34;Request permission&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Import CoreLocation framework&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;import CoreLocation
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Add a locationManager:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;class MapViewController: UIViewController, CLLocationManagerDelegate {
+  @IBOutlet weak var mapView: MKMapView!
+  var locationManager : CLLocationManager!
+
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    ...
+    locationManager = CLLocationManager()
+    locationManager.delegate = self
+    locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+    locationManager.distanceFilter = 200
+    locationManager.requestWhenInUseAuthorization()
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Edit the Info.plist to tell users why we&amp;rsquo;re requesting their location:&lt;br /&gt;
+Click on Info.plist and add a new row with key: NSLocationWhenInUseUsageDescription and value: To show your location on the map
+&lt;img src=&#34;http://i.imgur.com/2hz5Mok.png&#34; alt=&#34;Info.plist&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;To show the user&amp;rsquo;s location on the map:
+Click on your map view and then check Shows User Location in the Attributes Inspector&lt;br /&gt;
+&lt;img src=&#34;http://i.imgur.com/CAChYxf.png&#34; alt=&#34;Show User Location&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Go to the user&amp;rsquo;s location when permission has been given:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+    if status == CLAuthorizationStatus.authorizedWhenInUse {
+        locationManager.startUpdatingLocation()
+    }
+}
+
+func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    if let location = locations.first {
+        let span = MKCoordinateSpanMake(0.1, 0.1)
+        let region = MKCoordinateRegionMake(location.coordinate, span)
+        mapView.setRegion(region, animated: false)
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;set-current-location-in-iphone-simulator&#34;&gt;Set current location in iPhone simulator&lt;/h3&gt;
+
+&lt;p&gt;In the simulator, select Debug &amp;gt; Location&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://i.imgur.com/ktDU1oI.png&#34; alt=&#34;Apple&#34; /&gt;&lt;br /&gt;
+&lt;em&gt;Location with Apple selected&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;add-map-annotations&#34;&gt;Add Map Annotations&lt;/h2&gt;
+
+&lt;p&gt;MKAnnotation is used for annotations in a map. It contains the coordinate of the annotation only. A MKAnnotationView is used to display an annotation.
+We&amp;rsquo;ll go over different ways to display an annotation:&lt;/p&gt;
+
+&lt;h3 id=&#34;mkpointannotation&#34;&gt;MKPointAnnotation&lt;/h3&gt;
+
+&lt;p&gt;MKPointAnnotation is a simple annotation and supports a title.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://i.imgur.com/7tskBjZ.png&#34; alt=&#34;MKPointAnnotation&#34; /&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;// add an Annotation with a coordinate: CLLocationCoordinate2D
+func addAnnotationAtCoordinate(coordinate: CLLocationCoordinate2D) {
+    let annotation = MKPointAnnotation()
+    annotation.coordinate = coordinate
+    annotation.title = &amp;quot;An annotation!&amp;quot;
+    mapView.addAnnotation(annotation)
+}
+
+// add an annotation with an address: String
+func addAnnotationAtAddress(address: String, title: String) {
+    let geocoder = CLGeocoder()
+    geocoder.geocodeAddressString(address) { (placemarks, error) in
+        if let placemarks = placemarks {
+            if placemarks.count != 0 {
+                let coordinate = placemarks.first!.location!
+                let annotation = MKPointAnnotation()
+                annotation.coordinate = coordinate.coordinate
+                annotation.title = title
+                self.mapView.addAnnotation(annotation)
+            }
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;mkannotationview&#34;&gt;MKAnnotationView&lt;/h3&gt;
+
+&lt;p&gt;MKAnnotationView is used to create an annotation with a custom image.
+We&amp;rsquo;ll need MKMapViewDelegate&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;class MapViewController: UIViewController, MKMapViewDelegate {
+  ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Also implement the following in the view controller:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -&amp;gt; MKAnnotationView? {
+    let identifier = &amp;quot;customAnnotationView&amp;quot;
+
+    // custom image annotation
+    var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(identifier)
+    if (annotationView == nil) {
+        annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+    }
+    else {
+        annotationView!.annotation = annotation
+    }
+    annotationView!.image = UIImage(named: &amp;quot;customAnnotationImage&amp;quot;)
+
+    return annotationView
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://i.imgur.com/J4MJYFm.png&#34; alt=&#34;MKAnnotationView&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;mkpinannotationview&#34;&gt;MKPinAnnotationView&lt;/h3&gt;
+
+&lt;p&gt;MKPinAnnotationView is a subclass of MKAnnotationView. It uses the pin graphic as the annotation image, and you can set the pin color and drop animation.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -&amp;gt; MKAnnotationView? {
+    let identifier = &amp;quot;customAnnotationView&amp;quot;
+    // custom pin annotation
+    var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(identifier) as? MKPinAnnotationView
+    if (annotationView == nil) {
+        annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+    }
+    else {
+        annotationView!.annotation = annotation
+    }
+    annotationView!.pinTintColor = UIColor.greenColor()
+
+    return annotationView
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://i.imgur.com/CAaXABK.png&#34; alt=&#34;MKPinAnnotationView&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;draw-map-overlays&#34;&gt;Draw Map Overlays&lt;/h2&gt;
+
+&lt;p&gt;Here&amp;rsquo;s an example of a circular overlay centered at a coordinate.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;override func viewDidLoad() {
+    super.viewDidLoad()
+    ...
+    mapView.delegate = self
+    // draw circular overlay centered in San Francisco
+    let coordinate = CLLocationCoordinate2D(latitude: 37.7833, longitude: -122.4167)
+    let circleOverlay: MKCircle = MKCircle(centerCoordinate: coordinate, radius: 1000)
+    mapView.addOverlay(circleOverlay)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Implement the following in the view controller:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -&amp;gt; MKOverlayRenderer {
+    let circleView = MKCircleRenderer(overlay: overlay)
+    circleView.strokeColor = UIColor.redColor()
+    circleView.lineWidth = 1
+    return circleView
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://i.imgur.com/lZUFlbz.png&#34; alt=&#34;Map Overlay&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;alternative-options&#34;&gt;Alternative Options&lt;/h2&gt;
+
+&lt;p&gt;In addition to MapKit, you can integrate other map SDKs in your app.
+One reason to use alternate maps is for cross platform consistency.&lt;/p&gt;
+
+&lt;h3 id=&#34;google-maps&#34;&gt;Google Maps&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://developers.google.com/maps/documentation/ios-sdk/?hl=en&#34;&gt;Google Maps SDK for iOS&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;The Google Places SDK is also packaged in Google Maps SDK, useful for autocomplete searching.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;mapbox&#34;&gt;Mapbox&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.mapbox.com/mapbox-ios-sdk-legacy/&#34;&gt;Mapbox iOS SDK&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Mapbox is a set of open source tools used to create custom maps.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;openstreetmap&#34;&gt;OpenStreetMap&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://wiki.openstreetmap.org/wiki/API&#34;&gt;OpenStreetMap API&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;OpenStreetMap is a project that creates and distributes data of the world.&lt;/li&gt;
+&lt;li&gt;OpenStreetMap API allows reading and editing raw data, and does not provide a way to embed a map (like in MapKit or Google Maps).&lt;/li&gt;
+&lt;li&gt;OpenStreetMap has a lot of &lt;a href=&#34;http://wiki.openstreetmap.org/wiki/Map_Features&#34;&gt;map features&lt;/a&gt; like buildings, highways, shops&amp;hellip;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;references&#34;&gt;References&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/LocationAwarenessPG/Introduction/Introduction.html&#34;&gt;Apple&amp;rsquo;s Location and Maps Programming Guide&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://developer.apple.com/library/mac/documentation/MapKit/Reference/MapKit_Framework_Reference/index.html&#34;&gt;Apple&amp;rsquo;s MapKit Framework Reference&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+  
+  
+  
+  
+   <html class="no-js"> 
+
+  <head lang="en-us">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=10" />
+    <title>Android Insecure Data Storage - Mobile Device Security and Penetration Testing Guide</title>
+    <meta name="generator" content="Hugo 0.31.1" />
+
+    
+    <meta name="description" content="Mobile Device Security and Penetration Testing guide">
+    
+    <link rel="canonical" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-insecure-data-storage/">
+    
+    <meta name="author" content="Peruzal">
+    
+
+    <meta property="og:url" content="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-insecure-data-storage/">
+    <meta property="og:title" content="Mobile Device Security and Penetration Testing Guide">
+    <meta property="og:image" content="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/images/logo.png">
+    <meta name="apple-mobile-web-app-title" content="Mobile Device Security and Penetration Testing Guide">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="shortcut icon" type="image/x-icon" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/images/favicon.ico">
+
+    <style>
+      @font-face {
+        font-family: 'Icon';
+        src: url('https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/fonts/icon.eot');
+        src: url('https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/fonts/icon.eot')
+               format('embedded-opentype'),
+             url('https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/fonts/icon.woff')
+               format('woff'),
+             url('https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/fonts/icon.ttf')
+               format('truetype'),
+             url('https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/fonts/icon.svg')
+               format('svg');
+        font-weight: normal;
+        font-style: normal;
+      }
+    </style>
+
+    <link rel="stylesheet" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/stylesheets/application.css">
+    <link rel="stylesheet" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/stylesheets/temporary.css">
+    <link rel="stylesheet" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/stylesheets/palettes.css">
+    <link rel="stylesheet" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/stylesheets/highlight/highlight.css">
+
+    
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ubuntu:400,700|Ubuntu&#43;Mono">
+    <style>
+      body, input {
+        font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+      }
+      pre, code {
+        font-family: 'Ubuntu Mono', 'Courier New', 'Courier', monospace;
+      }
+    </style>
+
+    
+    <script src="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/javascripts/modernizr.js"></script>
+
+    
+
+  </head>
+  <body class="palette-primary-red palette-accent-teal">
+
+
+
+
+<div class="backdrop">
+	<div class="backdrop-paper"></div>
+</div>
+
+<input class="toggle" type="checkbox" id="toggle-drawer">
+<input class="toggle" type="checkbox" id="toggle-search">
+<label class="toggle-button overlay" for="toggle-drawer"></label>
+
+<header class="header">
+	<nav aria-label="Header">
+  <div class="bar default">
+    <div class="button button-menu" role="button" aria-label="Menu">
+      <label class="toggle-button icon icon-menu" for="toggle-drawer">
+        <span></span>
+      </label>
+    </div>
+    <div class="stretch">
+      <div class="title">
+        Android Insecure Data Storage
+      </div>
+    </div>
+
+    
+    <div class="button button-twitter" role="button" aria-label="Twitter">
+       <a href="https://twitter.com/peruzal" title="@peruzal on Twitter" target="_blank" class="toggle-button icon icon-twitter"></a>
+    </div>
+    
+
+    
+    <div class="button button-github" role="button" aria-label="GitHub">
+      <a href="https://github.com/peruzal" title="@peruzal on GitHub" target="_blank" class="toggle-button icon icon-github"></a>
+    </div>
+    
+    
+        
+  </div>
+  <div class="bar search">
+    <div class="button button-close" role="button" aria-label="Close">
+      <label class="toggle-button icon icon-back" for="toggle-search"></label>
+    </div>
+    <div class="stretch">
+      <div class="field">
+        <input class="query" type="text" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck>
+      </div>
+    </div>
+    <div class="button button-reset" role="button" aria-label="Search">
+      <button class="toggle-button icon icon-close" id="reset-search"></button>
+    </div>
+  </div>
+</nav>
+</header>
+
+<main class="main">
+	<div class="drawer">
+		<nav aria-label="Navigation">
+  <a href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide" class="project">
+    <div class="banner">
+      
+        <div class="logo">
+          <img src="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guideimages/logo.png">
+        </div>
+      
+      <div class="name">
+        <strong>Mobile Device Security and Penetration Testing Guide <span class="version">1.0.0</span></strong>
+        
+      </div>
+    </div>
+  </a>
+
+  <div class="scrollable">
+    <div class="wrapper">
+      
+
+      <div class="toc">
+        
+        <ul>
+          
+
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Getting Started" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/getting-started/">
+	
+	Getting Started
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Mobile App Ecosystem" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/mobile-app-ecosystem/">
+	
+	Mobile App Ecosystem
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Mobie App Attack Vectors" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/mobile-device-attack-vectors/">
+	
+	Mobie App Attack Vectors
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Setting Up Android Lab Environment" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/setting-up-android-lab-environment/">
+	
+	Setting Up Android Lab Environment
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Android  Fundamentals" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-fundamentals/">
+	
+	Android  Fundamentals
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Rooting Android Devices" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/rooting-android-devices/">
+	
+	Rooting Android Devices
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Android Security Model" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-security-model/">
+	
+	Android Security Model
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Android Forensic Tools" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-forensic-tools/">
+	
+	Android Forensic Tools
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Android Data Extraction" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-data-extraction/">
+	
+	Android Data Extraction
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="OWASP Mobile Top 10 Risks" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/owasp-mobile-top-10-risks/">
+	
+	OWASP Mobile Top 10 Risks
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a class="current" title="Android Insecure Data Storage" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-insecure-data-storage/">
+	
+	Android Insecure Data Storage
+</a>
+
+
+<ul id="scrollspy">
+</ul>
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Setting Up iOS Development Environment" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/setting-up-ios-development-environment/">
+	
+	Setting Up iOS Development Environment
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Setting Up an iOS Pentesting Lab" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/setting-up-ios-pentesting-lab/">
+	
+	Setting Up an iOS Pentesting Lab
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Jailbreaking iOS Devices" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/jailbreaking-ios-devices/">
+	
+	Jailbreaking iOS Devices
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="iOS Internals Overview" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-internals/">
+	
+	iOS Internals Overview
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Data Acqusition from iOS Devices" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-data-acqusition/">
+	
+	Data Acqusition from iOS Devices
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="iOS Data Analysis and Recovery" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-data-analysis-and-recovery/">
+	
+	iOS Data Analysis and Recovery
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="iOS Insecure Local Data Storage" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-insecure-local-data-storage/">
+	
+	iOS Insecure Local Data Storage
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="iOS Unintended Data Leakage" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-unintended-data-leakage/">
+	
+	iOS Unintended Data Leakage
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="iOS Traffic Analysis" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-traffic-analysis/">
+	
+	iOS Traffic Analysis
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="iOS Runtime Analysis" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-runtime-analysis/">
+	
+	iOS Runtime Analysis
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="iOS Network Attacks" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-network-attacks/">
+	
+	iOS Network Attacks
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Mobile Malware" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/mobile-malware/">
+	
+	Mobile Malware
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="License" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/license/">
+	
+	License
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Mobile App Device Security and Penetration Testing" href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/">
+	
+	Mobile App Device Security and Penetration Testing
+</a>
+
+
+
+  
+</li>
+
+
+        </ul>
+        
+
+        
+        <hr>
+        <span class="section">The author</span>
+        
+        <ul>
+          
+          <li>
+            <a href="https://twitter.com/peruzal" target="_blank" title="@peruzal on Twitter">
+              @peruzal on Twitter
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="https://github.com/peruzal" target="_blank" title="@peruzal on GitHub">
+              @peruzal on GitHub
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="mailto:info@peruzal.co.za" title="Email of info@peruzal.co.za">
+              Contact via email
+            </a>
+          </li>
+          
+        </ul>
+        
+      </div>
+    </div>
+  </div>
+</nav>
+
+	</div>
+
+	<article class="article">
+		<div class="wrapper">
+			<h1>Android Insecure Data Storage </h1>
+
+			
+
+<p>Android apps usually store data locally on these places:</p>
+
+<ul>
+<li>Shared preferences</li>
+<li>SQLite databases</li>
+<li>Internal storage</li>
+<li>External storage</li>
+</ul>
+
+<h2 id="shared-preferences">Shared preferences</h2>
+
+<p>The shared preferences are stored in an XML file. They are stored in the app&rsquo;s data folder under the <code>shared_prefs</code> folder.</p>
+
+<h2 id="sqlite-databases">SQLite databases</h2>
+
+<p>SQLite databases are relational files that use a single file for storing data. The SQLite are suited for storing structured data on mobile.
+The database is only accessible to the app and not outside. To access this data a content provider is used.</p>
+
+<h2 id="internal-storage">Internal storage</h2>
+
+<p>Apps can also create folders under the their private folder in <code>/data/data/&lt;package name&gt;</code>.
+This folder is private to the app and other apps can not access it.</p>
+
+<h2 id="external-storage">External storage</h2>
+
+<p>External storage is world readable and writable, any app with the <code>WRITE_EXTERNAL_STORAGE</code> and <code>READ_EXTERNAL_STORAGE</code> permissions.</p>
+
+<h2 id="insecure-storage-demo">Insecure Storage Demo</h2>
+
+<p>We are going to be using the OWASP Goatdroid Android app for the demo.</p>
+
+<h3 id="install-the-goatdroid-android-apk">Install the Goatdroid Android apk</h3>
+
+<pre><code class="language-sh">adb push OWASP\ GoatDroid-\ FourGoats\ Android\ App.apk
+</code></pre>
+
+<h3 id="start-the-server">Start the server</h3>
+
+<p>The Android app connects to a web service. Lets start the web service. Navigate to the folder with unzipped OWASP Goatdroid .</p>
+
+<pre><code class="language-sh">java -jar goatdroid-0.9.jar
+</code></pre>
+
+<ul>
+<li>Click <code>Configure</code></li>
+<li>Click <code>Edit Configuration</code></li>
+<li>Choose the &lsquo;SDK Path&rsquo; under the <code>Android</code> tab</li>
+<li>Click the <code>Web Services</code> tab and change the HTTP and HTTPs port if required, otherwise leave them on the default.</li>
+<li>Open the the device and on the home screen open the <code>FourGoats</code> app</li>
+<li>Open <code>Settings</code> and put the IP address and port of the web server</li>
+</ul>
+
+<p>You should now be able to login.</p>
+
+<h3 id="finding-the-default-login">Finding the default login</h3>
+
+<p>The app have a default login and its stored insecurely. Lets find out what is the default username and password.</p>
+
+<h3 id="get-a-shell-to-the-device">Get a shell to the device</h3>
+
+<pre><code class="language-sh">adb shell
+</code></pre>
+
+<h3 id="navigate-to-the-fourgoats-data-folder">Navigate to the FourGoats data folder</h3>
+
+<pre><code class="language-sh">cd /data/data/org.owasp.goatdroid.fourgoats/
+</code></pre>
+
+<p>Lets see the different folders for the app :</p>
+
+<pre><code class="language-sh"># ls -l
+drwxrwx--x u0_a49   u0_a49            2017-01-08 20:45 cache
+drwxrwx--x u0_a49   u0_a49            2017-01-08 20:45 databases
+drwxr-xr-x system   system            2017-01-08 20:45 lib
+drwxrwx--x u0_a49   u0_a49            2017-01-08 20:48 shared_prefs
+</code></pre>
+
+<p>The two interesting folders are <code>databases</code> and <code>shared_prefs</code>. Lets look into each one of them.</p>
+
+<pre><code class="language-sh">cd shared_prefs
+</code></pre>
+
+<p>Lets check the files here :</p>
+
+<pre><code class="language-sh"># ls -l
+-rw-rw-r-- u0_a49   u0_a49        197 2017-01-08 20:48 credentials.xml
+-rw-rw-r-- u0_a49   u0_a49        148 2017-01-08 20:48 destination_info.xml
+-rw-rw-r-- u0_a49   u0_a49        140 2017-01-08 20:48 proxy_info.xml
+</code></pre>
+
+<p>The <code>credentials.xml</code> file looks interesting, lets open the file :</p>
+
+<pre><code class="language-sh"># cat credentials.xml
+&lt;?xml version='1.0' encoding='utf-8' standalone='yes' ?&gt;
+&lt;map&gt;
+&lt;string name=&quot;password&quot;&gt;goatdroid&lt;/string&gt;
+&lt;boolean name=&quot;remember&quot; value=&quot;true&quot; /&gt;
+&lt;string name=&quot;username&quot;&gt;goatdroid&lt;/string&gt;
+&lt;/map&gt;
+</code></pre>
+
+<p>There we have it, lets go and try login with the username and password we have found. Surely the username and password combination works.
+Alternatively we could have reverse engineered the app and looked at the code and check what happens on login.</p>
+
+<h3 id="lab-exercise">Lab Exercise</h3>
+
+<ul>
+<li><p>Install the <a href="https://play.google.com/store/apps/details?id=com.whatsapplock&amp;hl=en">Whatsapp Lock</a> app. This apps claim to prevent users
+snooping on your Whatsapp and Facebook messenger. Try recover the 4 digit PIN for the app.</p></li>
+
+<li><p>Set security questions and try to find where the questions are stored and use them to recover the PIN</p></li>
+</ul>
+
+<h2 id="user-dictionary-cache">User dictionary cache</h2>
+
+<p>Android have a user dictionary databases thats used to remember frequently typed numbers and words.
+This dictionary can contain passwords, usernames or PINs</p>
+
+<h3 id="extract-user-dictionary">Extract user dictionary</h3>
+
+<pre><code class="language-sh">adb pull /data/data/com.android.providers.userdictionary/databases/user_dict.db
+</code></pre>
+
+<p>Go into the database folder open the <code>user_dict.db</code> with sqlite3 terminal app or the SQLite data browser.</p>
+
+<pre><code class="language-sh">sqlite3 user_dict.db
+</code></pre>
+
+<p>and show the tables with</p>
+
+<pre><code class="language-sh">sqlite&gt; .table
+android_metadata  words
+</code></pre>
+
+<p>then select all row from the <code>words</code> table</p>
+
+<pre><code class="language-sh">select * from words;
+</code></pre>
+
+<h2 id="data-acqusition-from-backups">Data Acqusition from backups</h2>
+
+<p>If the Android device is not rooted you are not out of luck. You can still access the app&rsquo;s data by performing a backup.
+The adb tool allows backuping the whole device or a specific app.</p>
+
+<h3 id="backup-the-app">Backup the app</h3>
+
+<p>Backup the app using its package name</p>
+
+<pre><code class="language-sh">adb backup –f whatsapplock.ab com.whatsapplock
+</code></pre>
+
+<h3 id="convert-the-backup-file-to-tar">Convert the backup file to tar</h3>
+
+<p>We need to convert the <code>.ab</code> file format to a tar archive. Download the Android Zip Archive from <a href="http://sourceforge.net/projects/adbextractor/">here</a>.</p>
+
+<pre><code class="language-sh">java -jar abe.jar -debug unpack backup.ab backup.tar
+</code></pre>
+
+<p>We now have a tar archive, let extract it</p>
+
+<pre><code class="language-sh">tar xvf backup.tar
+</code></pre>
+
+<p>Navigate to the apps folder and they be folder structure as follows :</p>
+
+<p>• _manifest – the AndroidManifest.xml file of the app
+• db – contains .db files used by the application
+• f – the folder used to store the files
+• sp – stores shared preferences XML files
+• r – holds views, logs, and so on</p>
+
+<p>Go to the <code>sp</code> folder.</p>
+
+<pre><code class="language-sh">cd sp
+</code></pre>
+
+<p>The same shared preference files are all here. And getting the PIN is as simple as printing the contents of the file :</p>
+
+<pre><code class="language-sh">cat com.whatsapplock_preferences.xml
+</code></pre>
+
+<h2 id="restoring-modified-backup">Restoring modified backup</h2>
+
+<p>We can change the PIN and put the changed files back.</p>
+
+
+			<aside class="copyright" role="note">
+				
+				&copy; 2018 Peruzal Mobile Device Security and Penetration Testing Guide &ndash;
+				
+				Documentation built with
+				<a href="https://www.gohugo.io" target="_blank">Hugo</a>
+				using the
+				<a href="http://github.com/digitalcraftsman/hugo-material-docs" target="_blank">Material</a> theme.
+			</aside>
+
+			<footer class="footer">
+				
+
+<nav class="pagination" aria-label="Footer">
+  <div class="previous">
+  
+      <a href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-reset-lock-pattern/" title="Resetting Android Lock Screen">
+        <span class="direction">
+          Previous
+        </span>
+        <div class="page">
+          <div class="button button-previous" role="button" aria-label="Previous">
+            <i class="icon icon-back"></i>
+          </div>
+          <div class="stretch">
+            <div class="title">
+              Resetting Android Lock Screen
+            </div>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+
+  <div class="next">
+  
+      <a href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/rooting-android-devices/" title="Rooting Android Devices">
+        <span class="direction">
+          Next
+        </span>
+        <div class="page">
+          <div class="stretch">
+            <div class="title">
+              Rooting Android Devices
+            </div>
+          </div>
+          <div class="button button-next" role="button" aria-label="Next">
+            <i class="icon icon-forward"></i>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+</nav>
+
+
+
+
+
+			</footer>
+		</div>
+	</article>
+
+	<div class="results" role="status" aria-live="polite">
+		<div class="scrollable">
+			<div class="wrapper">
+				<div class="meta"></div>
+				<div class="list"></div>
+			</div>
+		</div>
+	</div>
+</main>
+
+    <script>
+    
+      var base_url = '';
+      var repo_id  = '';
+    
+    </script>
+
+    <script src="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/javascripts/application.js"></script>
+    
+
+    <script>
+      /* Add headers to scrollspy */
+      var headers   = document.getElementsByTagName("h2");
+      var scrollspy = document.getElementById('scrollspy');
+
+      if(scrollspy) {
+        if(headers.length > 0) {
+          for(var i = 0; i < headers.length; i++) {
+            var li = document.createElement("li");
+            li.setAttribute("class", "anchor");
+
+            var a  = document.createElement("a");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", headers[i].innerHTML);
+            a.innerHTML = headers[i].innerHTML;
+
+            li.appendChild(a)
+            scrollspy.appendChild(li);
+          }
+        } else {
+          scrollspy.parentElement.removeChild(scrollspy)
+        }
+
+
+        /* Add permanent link next to the headers */
+        var headers = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+
+        for(var i = 0; i < headers.length; i++) {
+            var a = document.createElement("a");
+            a.setAttribute("class", "headerlink");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", "Permanent link")
+            a.innerHTML = "#";
+            headers[i].appendChild(a);
+        }
+      }
+    </script>
+
+    
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>
+

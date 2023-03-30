@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Camera-rsses on Xamarin iOS Guides</title>
+    <link>http://guides.peruzal.com/ios-guides/camera/index.xml</link>
+    <description>Recent content in Camera-rsses on Xamarin iOS Guides</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Peruzal</copyright>
+    <lastBuildDate>Mon, 12 Dec 2016 02:18:44 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/ios-guides/camera/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Working with Camera</title>
+      <link>http://guides.peruzal.com/ios-guides/camera/</link>
+      <pubDate>Mon, 12 Dec 2016 02:18:44 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/ios-guides/camera/</guid>
+      <description>
+
+&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+
+&lt;p&gt;This is a quickstart guide for using the taking a photo or picking an image from the camera roll using the stock camera and camera roll. In both cases, we&amp;rsquo;ll modally present the &lt;code&gt;UIImagePickerController&lt;/code&gt; class which has a delegate. The delegate has a method which is called after a user takes/picks a picture.&lt;/p&gt;
+
+&lt;h2 id=&#34;taking-a-picture&#34;&gt;Taking a Picture&lt;/h2&gt;
+
+&lt;h3 id=&#34;step-1-instantiate-a-uiimagepickercontroller&#34;&gt;Step 1: Instantiate a UIImagePickerController&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let vc = UIImagePickerController()
+vc.delegate = self
+vc.allowsEditing = true
+vc.sourceType = UIImagePickerControllerSourceType.camera
+
+self.present(vc, animated: true, completion: nil)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;step-2-implement-the-delegate&#34;&gt;Step 2: Implement the delegate&lt;/h3&gt;
+
+&lt;p&gt;In the class interface, declare that it implements two protocols: &lt;code&gt;UIImagePickerControllerDelegate&lt;/code&gt; and &lt;code&gt;UINavigationControllerDelegate&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;func imagePickerController(_ picker: UIImagePickerController, 
+didFinishPickingMediaWithInfo info: [String : Any]) {
+    // Get the image captured by the UIImagePickerController
+    let originalImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+    let editedImage = info[UIImagePickerControllerEditedImage] as! UIImage
+
+    // Do something with the images (based on your use case)
+
+    // Dismiss UIImagePickerController to go back to your original view controller
+    dismiss(animated: true, completion: nil)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;When the user finishes taking the picture, &lt;code&gt;UIImagePickerController&lt;/code&gt; returns a dictionary that contains the image and some other meta data. The full set of keys are listed &lt;a href=&#34;https://developer.apple.com/library/prerelease/ios/documentation/UIKit/Reference/UIImagePickerControllerDelegate_Protocol/index.html#//apple_ref/doc/constant_group/Editing_Information_Keys&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;picking-a-picture-from-the-camera-roll&#34;&gt;Picking a Picture from the Camera Roll&lt;/h2&gt;
+
+&lt;h3 id=&#34;step-1-instantiate-a-uiimagepickercontroller-1&#34;&gt;Step 1: Instantiate a UIImagePickerController&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let vc = UIImagePickerController()
+vc.delegate = self
+vc.allowsEditing = true
+vc.sourceType = UIImagePickerControllerSourceType.photoLibrary
+
+self.present(vc, animated: true, completion: nil)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;step-2-implement-the-delegate-1&#34;&gt;Step 2: Implement the delegate&lt;/h3&gt;
+
+&lt;p&gt;This is the same as Step 2 above.&lt;/p&gt;
+
+&lt;h2 id=&#34;things-to-keep-in-mind&#34;&gt;Things to Keep in Mind&lt;/h2&gt;
+
+&lt;p&gt;Make sure you add &lt;code&gt;UIImagePickerControllerDelegate&lt;/code&gt; and &lt;code&gt;UINavigationControllerDelegate&lt;/code&gt; when defining your class&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

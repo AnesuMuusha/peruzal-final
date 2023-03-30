@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Auto-layout-and-size-classes-rsses on Xamarin iOS Guides</title>
+    <link>http://guides.peruzal.com/ios-guides/auto-layout-and-size-classes/index.xml</link>
+    <description>Recent content in Auto-layout-and-size-classes-rsses on Xamarin iOS Guides</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Peruzal</copyright>
+    <lastBuildDate>Mon, 21 Nov 2016 23:23:58 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/ios-guides/auto-layout-and-size-classes/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>AutoLayout and Size Classes</title>
+      <link>http://guides.peruzal.com/ios-guides/auto-layout-and-size-classes/</link>
+      <pubDate>Mon, 21 Nov 2016 23:23:58 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/ios-guides/auto-layout-and-size-classes/</guid>
+      <description>
+
+&lt;h2 id=&#34;autolayout&#34;&gt;AutoLayout&lt;/h2&gt;
+
+&lt;p&gt;AutoLayout is a constraint based layout system that requires two things, &lt;strong&gt;Size&lt;/strong&gt; and &lt;strong&gt;Position&lt;/strong&gt;, in order to correctly
+position views.&lt;/p&gt;
+
+&lt;h2 id=&#34;size-classes&#34;&gt;Size Classes&lt;/h2&gt;
+
+&lt;p&gt;iOS uses &lt;strong&gt;Size Classes&lt;/strong&gt; for applying &lt;strong&gt;AutoLayout&lt;/strong&gt; constraints to be applied to the different devices. Using Size Classes you could
+define your views so that you could hide certain view or reposition them.&lt;/p&gt;
+
+&lt;h2 id=&#34;autolayout-with-xcode&#34;&gt;AutoLayout with XCode&lt;/h2&gt;
+
+&lt;p&gt;In XCode you have two buttons for applying the size and position of views, &lt;strong&gt;Pin&lt;/strong&gt; and &lt;strong&gt;Align&lt;/strong&gt;.
+&lt;img src=&#34;http://guides.peruzal.com/ios-guides/images/alignandpin.jpg&#34; alt=&#34;Pin and Align&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;resolving-autolayout-issues&#34;&gt;Resolving AutoLayout Issues&lt;/h2&gt;
+
+&lt;p&gt;If the contraints are not satisfied, XCode will highlight the issues, and show either a red border around the view or a yello dotted line.
+To resolve the issues, you have several options :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Update Frames&lt;/strong&gt;: you think the red dotted lines are correct. Clicking this will move your layer to that position.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Update Constraints&lt;/strong&gt;: you think that the red dotted lines are incorrect. Clicking this will change the constraints.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Add Missing Constraint&lt;/strong&gt;: whatever is missing in term of position or size will be added.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/ios-guides/images/autolayoutresolve.jpeg&#34; alt=&#34;Resolve AutoLayout Issues&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;This guide provides a quick overview and basic examples of the most
+common uses cases for using Auto Layout in Interface Builder. You can also check out &lt;a href=&#34;https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/AutolayoutPG&#34;&gt;Apple&amp;rsquo;s
+official Auto Layout guide&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;what-is-auto-layout-and-why-use-it&#34;&gt;What is Auto Layout and why use it?&lt;/h2&gt;
+
+&lt;p&gt;Until the introduction of iPad and iPhone 5, all screens in the iOS
+world had the same &lt;a href=&#34;https://developer.apple.com/library/ios/documentation/2DDrawing/Conceptual/DrawingPrintingiOS/GraphicsDrawingOverview/GraphicsDrawingOverview.html#//apple_ref/doc/uid/TP40010156-CH14-SW7&#34;&gt;point&lt;/a&gt; dimensions of 320x480 width x
+height.  At this point in time it was often possible to describe an
+app&amp;rsquo;s layout by specifying the absolute position and size of views.&lt;/p&gt;
+
+&lt;p&gt;These days, most applications will want their layout to be responsive to
+changes the screen size or the content they are displaying.  &lt;em&gt;Auto Layout&lt;/em&gt;
+provides a convenient way for you to describe how the size and position
+of your &lt;a href=&#34;https://developer.apple.com/library/ios/documentation/WindowsViews/Conceptual/ViewPG_iPhoneOS/Introduction/Introduction.html&#34;&gt;views&lt;/a&gt; should change when the size and position
+their parent views or neighboring views change.  This can happen for
+example when:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;your application is run on different devices&lt;/li&gt;
+&lt;li&gt;the size of or number of neighboring views change to reflect a change
+in the content the application is displaying&lt;/li&gt;
+&lt;li&gt;the user rotates the orientation of the device&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;In Auto Layout you describe a view&amp;rsquo;s layout by providing one or more
+&lt;em&gt;constraints&lt;/em&gt; that describe how it is size and position are related to
+the size and position of other views.&lt;/p&gt;
+
+&lt;h3 id=&#34;example-of-layout-problem&#34;&gt;Example of layout problem&lt;/h3&gt;
+
+&lt;p&gt;To get a sense of the kind of problem that arises when laying out views
+and that Auto Layout can solve for us, consider the following example.
+Using Interface Builder we&amp;rsquo;ve added a single view (colored red) inside
+the view controller&amp;rsquo;s root view.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://imgur.com/ZAuzNug&#34;&gt;&lt;img src=&#34;http://i.imgur.com/ZAuzNug.png&#34; title=&#34;source: imgur.com&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Without adding any layout constraints here is what this interface looks
+likes in some situations where this app might run.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://imgur.com/0WwqszZ&#34;&gt;&lt;img src=&#34;http://i.imgur.com/0WwqszZ.png&#34; title=&#34;source: imgur.com&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Depending on the use case, chances are this is not behavior that we
+want.  For example, if the red view were meant to be a button that is
+always pinned to the upper right corner of the screen, the behavior is
+incorrect for the landscape and iPhone 6 sizes.&lt;/p&gt;
+
+&lt;h2 id=&#34;basic-constraints&#34;&gt;Basic constraints&lt;/h2&gt;
+
+&lt;p&gt;In Auto Layout, you describe your application&amp;rsquo;s layout by adding
+constraints that define relationships between the size and position its
+views.  &lt;strong&gt;In order for Auto Layout to function properly you&amp;rsquo;ll need to
+provide enough constraints for each view so that the system can
+determine its size (width and height) and location (the x and y
+coordinates of the top left corner of the view).&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;You can add constraints in Interface Builder by selecting one or more
+views and using the the Auto Layout controls (boxed in red below).  The
+buttons are from left to right:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Aligntool - specify how views should be aligned relative to each
+other&lt;/li&gt;
+&lt;li&gt;Pin tool - specify that a view should be a fixed distance from
+another view&lt;/li&gt;
+&lt;li&gt;Issues tool - quick fixes for &lt;a href=&#34;#constraint-errors-and-warnings&#34;&gt;errors or warnings&lt;/a&gt; that may come up as you
+add constraints.&lt;/li&gt;
+&lt;li&gt;Resizing settings - changes the way Interface Builder updates
+constraints when you resize views.  You probably won&amp;rsquo;t use this.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://imgur.com/KZsEwNc&#34;&gt;&lt;img src=&#34;http://i.imgur.com/KZsEwNc.png&#34; title=&#34;source: imgur.com&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;You can also add constraints by control-dragging from one view to the
+relevant area of another view and selecting the appropriate item in the
+context menu.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://imgur.com/Z9t4JEM&#34;&gt;&lt;img src=&#34;http://i.imgur.com/Z9t4JEM.gif&#34; title=&#34;source: imgur.com&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Here are some of the most basic situations you&amp;rsquo;ll come across.&lt;/p&gt;
+
+&lt;h3 id=&#34;pinning-to-one-or-more-edges&#34;&gt;Pinning to one or more edges&lt;/h3&gt;
+
+&lt;p&gt;You&amp;rsquo;ll often find yourself wanting to position a view to be a fixed
+distance from an edge of its parent view or one of its neighboring
+views.&lt;/p&gt;
+
+&lt;p&gt;Here we pin the the red view to the top right corner of its parent view.
+This might be useful for example if the red view is a menu button that
+we want to always be accessible from the same location.  Notice that we
+had to specify the height and width of the view as well so that Auto
+Layout would have enough informatin to figure out both the location and
+size of the red view.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://imgur.com/TDwD12X&#34;&gt;&lt;img src=&#34;http://i.imgur.com/TDwD12X.gif&#34; title=&#34;source: imgur.com&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;The result when we run our app is as follows.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://imgur.com/Ewh64iM&#34;&gt;&lt;img src=&#34;http://i.imgur.com/Ewh64iM.png&#34; title=&#34;source: imgur.com&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;resize-with-parent-view&#34;&gt;Resize with parent view&lt;/h3&gt;
+
+&lt;p&gt;Another common situation is for a view to resize its dimensions (either
+height, width or both) to match the parent view&amp;rsquo;s dimensions.&lt;/p&gt;
+
+&lt;p&gt;Here we specify that the red view should be pinned to the top of the
+screen with fixed height, but it should resize to span the width of the
+screen.  This might be useful for example in a situation where the red
+view contains an alert message.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://imgur.com/YVs4hFP&#34;&gt;&lt;img src=&#34;http://i.imgur.com/YVs4hFP.gif&#34; title=&#34;source: imgur.com&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Here&amp;rsquo;s what the result is when running our app:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://imgur.com/UUcCSJH&#34;&gt;&lt;img src=&#34;http://i.imgur.com/UUcCSJH.png&#34; title=&#34;source: imgur.com&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;center-a-view-within-a-parent-view&#34;&gt;Center a view within a parent view&lt;/h3&gt;
+
+&lt;p&gt;Sometimes you&amp;rsquo;ll want to center a view (either vertically, horizontally,
+or both) within another view.&lt;/p&gt;
+
+&lt;p&gt;Here we center the red view vertically on the screen.  This might be
+useful if we need to show our logo in the Launch Screen.  Notice that we
+had select &amp;ldquo;Update Frames&amp;rdquo; after setting our constraints.  More on this
+[below].&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://imgur.com/VfQLiGI&#34;&gt;&lt;img src=&#34;http://i.imgur.com/VfQLiGI.gif&#34; title=&#34;source: imgur.com&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;working-with-constraints-in-interface-builder&#34;&gt;Working with constraints in Interface Builder&lt;/h2&gt;
+
+&lt;p&gt;Here are a few common situations that will come up as you add and modify
+constraints in Interface Builder&lt;/p&gt;
+
+&lt;h3 id=&#34;specifying-the-second-view-to-which-a-constraint-should-be-relative&#34;&gt;Specifying the second view to which a constraint should be relative&lt;/h3&gt;
+
+&lt;p&gt;The pin tool by default will try to create a constraint relative to the
+nearest neighbor.  You can change which view a constraint is relative to
+by clicking on the small arrow and selecting the right view in the drop
+down menu.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://imgur.com/CufGkhG&#34;&gt;&lt;img src=&#34;http://i.imgur.com/CufGkhG.png&#34; title=&#34;source: imgur.com&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;editing-constraints&#34;&gt;Editing constraints&lt;/h3&gt;
+
+&lt;p&gt;Note that constraints added using the align and pin buttons are
+additive.  They do not update existing constraints, but rather create
+entirely new ones.  For example, here we try to set a second height
+constraint which results in a case of &lt;a href=&#34;#conflicting-constraints&#34;&gt;conflicting
+constraints&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://imgur.com/APMxBUm&#34;&gt;&lt;img src=&#34;http://i.imgur.com/APMxBUm.gif&#34; title=&#34;source: imgur.com&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;You can edit an constraint by selecting the view associated with that
+constraint and using the Size inspector, or simply selecting the
+constraint directly in the Scene Outline.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://imgur.com/cOiWvcd&#34;&gt;&lt;img src=&#34;http://i.imgur.com/cOiWvcd.png&#34; title=&#34;source: imgur.com&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Here we update our red view to have a different height and different
+inset distance from it&amp;rsquo;s parent view.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://imgur.com/bd0Uqmg&#34;&gt;&lt;img src=&#34;http://i.imgur.com/bd0Uqmg.gif&#34; title=&#34;source: imgur.com&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;constraint-errors-and-warnings&#34;&gt;Constraint Errors and Warnings&lt;/h3&gt;
+
+&lt;p&gt;The Auto Layout system will give an error if it us unable to determine
+the correct position and size of any of the views in your scene.  It
+will provide you with a warning there is issue that may result
+unexpected behavior&amp;mdash;for example something that would result in
+your interface not looking like it appears in interface builder.&lt;/p&gt;
+
+&lt;h4 id=&#34;misplaced-views&#34;&gt;Misplaced Views&lt;/h4&gt;
+
+&lt;p&gt;As you edit your constraints you&amp;rsquo;ll run into situations where the
+position and/or size of your views as they appear in Interface Builder
+no longer match what would be the result of the constraints you&amp;rsquo;ve
+created.  In this case Auto Layout will will give you a &amp;ldquo;Misplaced
+Views&amp;rdquo; warning.&lt;/p&gt;
+
+&lt;h5 id=&#34;update-frames&#34;&gt;Update frames&lt;/h5&gt;
+
+&lt;p&gt;One way to fix this warning is to update the views&amp;rsquo; sizes and locations
+in the Interface Builder to match the constraints.  You can do this by
+selecting &amp;ldquo;Update frames&amp;rdquo; from the issues button or in the Auto Layout
+error inspector.  You should use this option when you know that your
+constraints are correct, and the way the views are laid out on the
+canvas is wrong.  You should not select this option if you suspect one
+of the constraints is wrong.  In particular, do not select this option
+if Interface Builder says that you have &amp;ldquo;Missing Constraints&amp;rdquo; as this
+will result in confusing placement of your view off screen or having it
+be sized to zero.&lt;/p&gt;
+
+&lt;p&gt;Here we edit the red view&amp;rsquo;s constraints for height, but this is not
+properly updated on our canvas.  After selecting &amp;ldquo;Update Frames&amp;rdquo; the new
+height is properly reflected.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://imgur.com/U4mgd09&#34;&gt;&lt;img src=&#34;http://i.imgur.com/U4mgd09.gif&#34; title=&#34;source: imgur.com&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h5 id=&#34;update-constraints&#34;&gt;Update constraints&lt;/h5&gt;
+
+&lt;p&gt;Other times you&amp;rsquo;ll be editing a view&amp;rsquo;s location or size independently of
+manipulating constraints, and the view&amp;rsquo;s location on the canvas is the
+location you want to keep.  You can update existing constraints to match
+the view&amp;rsquo;s location on the canvas by selecting &amp;ldquo;Update Constraints&amp;rdquo; from
+the issues button or in the Auto Layout error inspector.&lt;/p&gt;
+
+&lt;p&gt;After &amp;ldquo;updating constraints&amp;rdquo;, you should check to see if the system
+modified your constraints in the a sensible way since sometimes
+constraints will be updated in a way you did not intend.  In particular,
+do not use this option if Interface Builder tells you that you have
+&amp;ldquo;Conflicting Constraints&amp;rdquo; since this will update all constraints to fit
+the location of the view on the canvas, and you will end up having
+duplicate or redundant constraints.&lt;/p&gt;
+
+&lt;p&gt;Here we&amp;rsquo;ve decreased the width of the red view.  Selecting &amp;ldquo;Update
+Constraints&amp;rdquo; changes the horizontal space constraints between the red
+view and the parent view to match the new layout.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://imgur.com/VCus7Pg&#34;&gt;&lt;img src=&#34;http://i.imgur.com/VCus7Pg.gif&#34; title=&#34;source: imgur.com&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;conflicting-constraints&#34;&gt;Conflicting Constraints&lt;/h4&gt;
+
+&lt;p&gt;If you create constraints such that Auto Layout cannot simultaneously
+satisfy all of your constraints (i.e. your system is overconstrained),
+then it will give you an error about &amp;ldquo;Conflicting Constraints&amp;rdquo;.  You&amp;rsquo;ll
+have to remove at least one constraint to resolve the issue.  Sometimes
+it&amp;rsquo;s helpful to remove all constraints for a particular view and start
+over.  You can do this by selecting the view and choosing &amp;ldquo;Clear
+Constraints&amp;rdquo; from the issues button.&lt;/p&gt;
+
+&lt;p&gt;Here our constraints on the red view to be centered along the y axis and
+to be a specific distance from the top of the parent view conflict with
+each other.  We resolve the issue by removing the vertical centering
+constraint and updating the frame of the view.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://imgur.com/x2ZKSyE&#34;&gt;&lt;img src=&#34;http://i.imgur.com/x2ZKSyE.gif&#34; title=&#34;source: imgur.com&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;missing-constraints&#34;&gt;Missing Constraints&lt;/h4&gt;
+
+&lt;p&gt;If you do not provide enough information for Auto Layout to determine
+both the x-coordinate and y-coordinate of the top left corner of your
+view &lt;em&gt;and&lt;/em&gt; the width and height of your view, then it will give you an
+error about &amp;ldquo;Missing Constraints&amp;rdquo;.  This can be resolved by adding an
+appropriate constraint.  Be careful when using the automatic issue
+resolver since this may not add the constraint you expected or it may
+add a relatively unintuitive constraint.&lt;/p&gt;
+
+&lt;p&gt;Here when we remove the constraint specifying the distance the red view
+has to be away from the right side of the parent view, Auto Layout
+can no longer determine the width of the red view.  Note that when we
+use the automatic issue resolver it adds a width constraint instead of
+the horizontal space constraint we originally had.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://imgur.com/GjU98SU&#34;&gt;&lt;img src=&#34;http://i.imgur.com/GjU98SU.gif&#34; title=&#34;source: imgur.com&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;dealing-with-flexible-content-size&#34;&gt;Dealing with flexible content size&lt;/h2&gt;
+
+&lt;p&gt;So far we have been only dealing with views whose content (and hence
+size) does not change during run time.  However, many views that we end
+up working with will have dynamic size depending on their content.  The
+most prominent examples are &lt;a href=&#34;https://developer.apple.com/library/ios/documentation/UIKit/Reference/UILabel_Class/&#34;&gt;&lt;code&gt;UILabels&lt;/code&gt;&lt;/a&gt;,
+&lt;a href=&#34;https://developer.apple.com/library/prerelease/ios/documentation/UIKit/Reference/UIButton_Class/index.html&#34;&gt;&lt;code&gt;UIButtons&lt;/code&gt;&lt;/a&gt;, and &lt;a href=&#34;https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIImageView_Class/index.html&#34;&gt;&lt;code&gt;UIImageViews&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&#34;intrinsic-content-size-of-a-view&#34;&gt;Intrinsic content size of a view&lt;/h3&gt;
+
+&lt;p&gt;Views that can determine the size they that &amp;ldquo;should be&amp;rdquo; have what is
+known as an &lt;em&gt;&lt;a href=&#34;https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/AutolayoutPG/ImplementingView/ImplementingView.html#//apple_ref/doc/uid/TP40010853-CH16-SW2&#34;&gt;intrinsic content size&lt;/a&gt;&lt;/em&gt;.  This size
+is the size the view has determined would be best to display its current
+content.  For example a &lt;code&gt;UILabel&lt;/code&gt;&amp;rsquo;s intrinsic content size will change
+depending the text in the label, and a &lt;code&gt;UIImageView&lt;/code&gt;&amp;rsquo;s intrinsic content
+size will depend on the image it has loaded.&lt;/p&gt;
+
+&lt;p&gt;When using Auto Layout, you do not necessary have to provide width and
+height constraints for views with an intrinsic content size since the
+system will take this into account when computing the final layout of
+the views.  To get a sense of how intrinsic content size works we can
+consider some examples.&lt;/p&gt;
+
+&lt;h3 id=&#34;two-labels-one-on-top-of-another&#34;&gt;Two labels: one on top of another&lt;/h3&gt;
+
+&lt;p&gt;Here we add constraints for two labels that located vertically adjacent
+to each other.  We pin the first label to the top left corner, specify
+the vertical space between the labels, pin the second label to the left
+margin and also give both labels a width.  Notice that we did not have
+to specify the height for either label.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://imgur.com/hhHeK7d&#34;&gt;&lt;img src=&#34;http://i.imgur.com/hhHeK7d.gif&#34; title=&#34;source: imgur.com&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Now we make one the labels a multi-line label by setting it&amp;rsquo;s &amp;ldquo;Lines&amp;rdquo;
+property to 0 in the attributes inspector&amp;mdash;this means that the
+label can have an arbitray number of lines.  Once we add sufficiently
+long text and update frames, the first label changes its height to match
+the content and the second label gets automatically pushed lower down
+the canvas so that the vertical space between the two labels is
+maintained.  We had to update the frames manually here, but this would
+be done automatically for us at runtime when we change the content of
+the label.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://imgur.com/FAhPo6v&#34;&gt;&lt;img src=&#34;http://i.imgur.com/FAhPo6v.gif&#34; title=&#34;source: imgur.com&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;left-aligned-label-next-to-right-aligned-label&#34;&gt;Left aligned label next to right aligned label&lt;/h3&gt;
+
+&lt;p&gt;Consider another example where we have two single-line labels
+horizontally adjancent to each other.  We want to pin one label to the
+left margin and the other to the right margin&amp;mdash;this is common for
+example in the design of many table view cells.&lt;/p&gt;
+
+&lt;h4 id=&#34;inequality-constraints&#34;&gt;Inequality constraints&lt;/h4&gt;
+
+&lt;p&gt;We also want to specify that the labels should have a minimum amount of
+horizontal space between them so that they do not run into each other.
+We do not know the exact amount of horizontal space since the contents
+of the labels might change at run time.  One way to accomplish this is
+to define an &lt;em&gt;inequality constraint&lt;/em&gt; where we can specify that a certain
+constraint&amp;rsquo;s value be greater than or less than a constant.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://imgur.com/by5X5AB&#34;&gt;&lt;img src=&#34;http://i.imgur.com/by5X5AB.gif&#34; title=&#34;source: imgur.com&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;compression-resistance&#34;&gt;Compression resistance&lt;/h4&gt;
+
+&lt;p&gt;In this same example, what if the text in our labels becomes long enough
+so overlap is unavoidable?  As seen below, at least one of the labels
+will start to shrink and compress its content (in this case by using
+an ellipsis).&lt;/p&gt;
+
+&lt;p&gt;How do we control this shrinking behavior?  Each view has a horizontal
+and vertical &lt;em&gt;content compression resistance priority&lt;/em&gt; that can be
+modified.  Higher compression resistance means the view is less likely
+to shrink its content.&lt;/p&gt;
+
+&lt;p&gt;In this case we specify that the green label is the one whose content
+should be compressed if there is a conflict by lowering its compression
+resistance priority.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://imgur.com/PhgyniJ&#34;&gt;&lt;img src=&#34;http://i.imgur.com/PhgyniJ.gif&#34; title=&#34;source: imgur.com&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;content-hugging&#34;&gt;Content hugging&lt;/h4&gt;
+
+&lt;p&gt;Sometimes you&amp;rsquo;ll want to views to be a fixed distance from each other
+and for one of the views to expand to fill the available
+space&amp;emdash;this is common for example with buttons.  This can be
+accomplished by pinning the views to the surround views and adding a
+fixed constraint for the space between them.  You can specify which view
+should fill the available space by changing the &lt;em&gt;content hugging
+priority&lt;/em&gt; of a view.  A lower content hugging priority means the view is
+more likely to expand to match constraints, whereas a higher content
+hugging priority means a view wants to be as close to its intrinsic
+content size as possible.&lt;/p&gt;
+
+&lt;p&gt;Here we specify that the red label should expand to fill the available
+space by lowering its content hugging priority.
+&lt;a href=&#34;http://imgur.com/B6txKC3&#34;&gt;&lt;img src=&#34;http://i.imgur.com/B6txKC3.gif&#34; title=&#34;source: imgur.com&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;manipulating-constraints-programmatically&#34;&gt;Manipulating constraints programmatically&lt;/h2&gt;
+
+&lt;h2 id=&#34;vfl&#34;&gt;VFL&lt;/h2&gt;
+
+&lt;p&gt;The Visual Format Language is a declarative language that is used to define Auto Layout constraints for views.&lt;/p&gt;
+
+&lt;p&gt;To use VFL, ensure &lt;code&gt;translatesAutoresizingMaskIntoConstraints&lt;/code&gt; is set to &lt;code&gt;false&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;  func addConstraints() {
+    //Collect Views to apply VFL
+    let buttonsDictionary = [&amp;quot;button1&amp;quot;: flagButton1,
+                         &amp;quot;button2&amp;quot;: flagButton2,
+                         &amp;quot;button3&amp;quot;: flagButton3]
+
+    //Metrics establish Fixed Constants
+    let metrics = [&amp;quot;topSpacing&amp;quot;: 80, &amp;quot;bottomSpacing&amp;quot;: 20, &amp;quot;buttonHeight&amp;quot;: 20, &amp;quot;buttonSpacing&amp;quot;: 20]
+
+    //Note that priorities can be set using @. 1000 for Required. &amp;lt; 100 for Optional. Example: @999
+
+    //Horizontal constraints
+    for buttonName in buttonsDictionary.keys {
+      view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(&amp;quot;H:|-[\(buttonName)]-|&amp;quot;, options: .allZeros, metrics: nil, views: buttonsDictionary))
+    }
+
+    //Vertical constraints
+    view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(&amp;quot;V:|-(==topSpacing)-[button1(&amp;gt;=buttonHeight@997)]-(==buttonSpacing@999)-[button2(==button1)]-(==buttonSpacing@999)-[button3(==button1)]-(&amp;gt;=bottomSpacing@998)-|&amp;quot;, options: .allZeros, metrics: metrics, views: buttonsDictionary))
+  }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;understanding-debug-output&#34;&gt;Understanding debug output&lt;/h3&gt;
+
+&lt;h2 id=&#34;other-topics&#34;&gt;Other topics&lt;/h2&gt;
+
+&lt;h3 id=&#34;springs-and-struts-and-autoresizing-mask&#34;&gt;Springs and Struts and AutoResizing Mask&lt;/h3&gt;
+
+&lt;!---
+- autolayout is per interface builder document:
+- http://stackoverflow.com/questions/9370072/xcode-4-3-not-presenting-autoresizing-panel-in-size-inspector
+- Tip: If you want to remove all constraints and start over, choose Issues &gt; Clear Constraints.
+--&gt;
+
+&lt;!---
+- what is layout?
+- why autolayout?
+- specifies how to respond to change
+
+- examples of most common use cases
+
+
+- auto resizing mask / Springs and struts
+
+- Tip: If you want to remove all constraints and start over, choose Issues &gt; Clear Constraints.
+
+- overconstrained
+- underconstrained
+
+--&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,1374 @@
+<!DOCTYPE html>
+  
+  
+  
+  
+   <html class="no-js"> 
+
+  <head lang="en-us">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=10" />
+    <title>Swift Fundamentals - Xamarin iOS Guides</title>
+    <meta name="generator" content="Hugo 0.17" />
+
+    
+    <meta name="description" content="Xamrin iOS guides for the Peruzal Cross Platform Mobile App Development course">
+    
+    <link rel="canonical" href="http://guides.peruzal.com/ios-guides/swift/">
+    
+    <meta name="author" content="Peruzal">
+    
+
+    <meta property="og:url" content="http://guides.peruzal.com/ios-guides/swift/">
+    <meta property="og:title" content="Xamarin iOS Guides">
+    <meta property="og:image" content="http://guides.peruzal.com/ios-guides/images/logo.png">
+    <meta name="apple-mobile-web-app-title" content="Xamarin iOS Guides">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="shortcut icon" type="image/x-icon" href="http://guides.peruzal.com/ios-guides/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="http://guides.peruzal.com/ios-guides/images/favicon.ico">
+
+    <style>
+      @font-face {
+        font-family: 'Icon';
+        src: url('http://guides.peruzal.com/ios-guides/fonts/icon.eot?52m981');
+        src: url('http://guides.peruzal.com/ios-guides/fonts/icon.eot?#iefix52m981')
+               format('embedded-opentype'),
+             url('http://guides.peruzal.com/ios-guides/fonts/icon.woff?52m981')
+               format('woff'),
+             url('http://guides.peruzal.com/ios-guides/fonts/icon.ttf?52m981')
+               format('truetype'),
+             url('http://guides.peruzal.com/ios-guides/fonts/icon.svg?52m981#icon')
+               format('svg');
+        font-weight: normal;
+        font-style: normal;
+      }
+    </style>
+
+    <link rel="stylesheet" href="http://guides.peruzal.com/ios-guides/stylesheets/application.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/ios-guides/stylesheets/temporary.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/ios-guides/stylesheets/palettes.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/ios-guides/stylesheets/highlight/highlight.css">
+
+    
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ubuntu:400,700|Ubuntu&#43;Mono">
+    <style>
+      body, input {
+        font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+      }
+      pre, code {
+        font-family: 'Ubuntu Mono', 'Courier New', 'Courier', monospace;
+      }
+    </style>
+
+    
+    <script src="http://guides.peruzal.com/ios-guides/javascripts/modernizr.js"></script>
+
+    
+
+  </head>
+  <body class="palette-primary-red palette-accent-teal">
+
+
+
+
+<div class="backdrop">
+	<div class="backdrop-paper"></div>
+</div>
+
+<input class="toggle" type="checkbox" id="toggle-drawer">
+<input class="toggle" type="checkbox" id="toggle-search">
+<label class="toggle-button overlay" for="toggle-drawer"></label>
+
+<header class="header">
+	<nav aria-label="Header">
+  <div class="bar default">
+    <div class="button button-menu" role="button" aria-label="Menu">
+      <label class="toggle-button icon icon-menu" for="toggle-drawer">
+        <span></span>
+      </label>
+    </div>
+    <div class="stretch">
+      <div class="title">
+        Swift Fundamentals
+      </div>
+    </div>
+
+    
+
+    
+    <div class="button button-github" role="button" aria-label="GitHub">
+      <a href="https://github.com/peruzal" title="@peruzal on GitHub" target="_blank" class="toggle-button icon icon-github"></a>
+    </div>
+    
+    
+        
+  </div>
+  <div class="bar search">
+    <div class="button button-close" role="button" aria-label="Close">
+      <label class="toggle-button icon icon-back" for="toggle-search"></label>
+    </div>
+    <div class="stretch">
+      <div class="field">
+        <input class="query" type="text" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck>
+      </div>
+    </div>
+    <div class="button button-reset" role="button" aria-label="Search">
+      <button class="toggle-button icon icon-close" id="reset-search"></button>
+    </div>
+  </div>
+</nav>
+</header>
+
+<main class="main">
+	<div class="drawer">
+		<nav aria-label="Navigation">
+  <a href="http://guides.peruzal.com/ios-guides/" class="project">
+    <div class="banner">
+      
+        <div class="logo">
+          <img src="http://guides.peruzal.com/ios-guides/images/logo.png">
+        </div>
+      
+      <div class="name">
+        <strong>Xamarin iOS Guides <span class="version">1.0.0</span></strong>
+        
+      </div>
+    </div>
+  </a>
+
+  <div class="scrollable">
+    <div class="wrapper">
+      
+
+      <div class="toc">
+        
+        <ul>
+          
+
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="iOS with Swift and Objective-C" href="http://guides.peruzal.com/ios-guides/">
+	
+	iOS with Swift and Objective-C
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Getting Started" href="http://guides.peruzal.com/ios-guides/getting-started/">
+	
+	Getting Started
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Setting up a Project" href="http://guides.peruzal.com/ios-guides/setup/">
+	
+	Setting up a Project
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a class="current" title="Swift Fundamentals" href="http://guides.peruzal.com/ios-guides/swift/">
+	
+	Swift Fundamentals
+</a>
+
+
+<ul id="scrollspy">
+</ul>
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Swift Objective-C Interoperability" href="http://guides.peruzal.com/ios-guides/swift-objective-c-interoperability/">
+	
+	Swift Objective-C Interoperability
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Objective-C Fundamentals" href="http://guides.peruzal.com/ios-guides/objective-c/">
+	
+	Objective-C Fundamentals
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Common Views" href="http://guides.peruzal.com/ios-guides/common-views/">
+	
+	Common Views
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Form Input" href="http://guides.peruzal.com/ios-guides/form-input/">
+	
+	Form Input
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Model View Controller(MVC)" href="http://guides.peruzal.com/ios-guides/mvc/">
+	
+	Model View Controller(MVC)
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Auto Layout and Size Classes" href="http://guides.peruzal.com/ios-guides/auto-layout-and-size-classes/">
+	
+	Auto Layout and Size Classes
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Table View" href="http://guides.peruzal.com/ios-guides/tableview/">
+	
+	Table View
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Collection View" href="http://guides.peruzal.com/ios-guides/collection-view/">
+	
+	Collection View
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Tab Bar" href="http://guides.peruzal.com/ios-guides/tabbar-controller/">
+	
+	Tab Bar
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Scroll View" href="http://guides.peruzal.com/ios-guides/scrollview/">
+	
+	Scroll View
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Search Bar" href="http://guides.peruzal.com/ios-guides/searchbar/">
+	
+	Search Bar
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Navigation Patterns" href="http://guides.peruzal.com/ios-guides/navigation/">
+	
+	Navigation Patterns
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Passing Data between View Controllers" href="http://guides.peruzal.com/ios-guides/passing-data/">
+	
+	Passing Data between View Controllers
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Navigation Controller" href="http://guides.peruzal.com/ios-guides/navigation-controller/">
+	
+	Navigation Controller
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Location" href="http://guides.peruzal.com/ios-guides/location/">
+	
+	Location
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Maps and Location" href="http://guides.peruzal.com/ios-guides/maps-and-location/">
+	
+	Maps and Location
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="iOS Frameworks and Device Sensors" href="http://guides.peruzal.com/ios-guides/ios-frameworks-and-device-sensors/">
+	
+	iOS Frameworks and Device Sensors
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Networking and Threading" href="http://guides.peruzal.com/ios-guides/networking-and-threading/">
+	
+	Networking and Threading
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Animations and Gestures" href="http://guides.peruzal.com/ios-guides/animations-and-gestures/">
+	
+	Animations and Gestures
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Persistence" href="http://guides.peruzal.com/ios-guides/persistence/">
+	
+	Persistence
+</a>
+
+
+
+  
+</li>
+
+
+        </ul>
+        
+
+        
+        <hr>
+        <span class="section">The author</span>
+        
+        <ul>
+          
+
+          
+          <li>
+            <a href="https://github.com/peruzal" target="_blank" title="@peruzal on GitHub">
+              @peruzal on GitHub
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="mailto:info@peruzal.com" title="Email of info@peruzal.com">
+              Contact via email
+            </a>
+          </li>
+          
+        </ul>
+        
+      </div>
+    </div>
+  </div>
+</nav>
+
+	</div>
+
+	<article class="article">
+		<div class="wrapper">
+			<h1>Swift Fundamentals </h1>
+
+			
+
+<h2 id="overview">Overview</h2>
+
+<p>This guide covers the main Swift concepts you&rsquo;ll need as you start building apps. It is meant to introduce each topic in a way that provides enough background to get you started and defers to the <a href="https://itunes.apple.com/us/book/swift-programming-language/id881256329">iBook on Swift</a> for more in depth coverage.</p>
+
+<h2 id="hello-world">Hello World</h2>
+
+<p>It is common to start any tutorial for a new language with the <strong>Hello World</strong> example so we&rsquo;ll start out by showing how easy this is to do in Swift:</p>
+
+<pre><code class="language-swift">print(&quot;Hello World!&quot;)      // Prints &quot;Hello World!&quot; to the output window in Xcode
+</code></pre>
+
+<p>To make this a little more personal, let&rsquo;s look at one of the handy features of Swift (called <strong>string interpolation</strong>) where we can insert values into strings using the <code>\(...)</code> syntax. Below, we&rsquo;ve inserted <code>name</code> into the middle of our string:</p>
+
+<pre><code class="language-swift">let name: String = &quot;Bob&quot;
+print(&quot;Hello \(name)!&quot;)     // Prints &quot;Hello Bob!&quot;
+</code></pre>
+
+<h2 id="when-to-use-let-vs-var">When to use let vs var</h2>
+
+<p>You&rsquo;ll notice in the example above we&rsquo;ve used <code>let</code> to create the new variable for the name &ldquo;Bob&rdquo;. In Swift, you&rsquo;ll choose from the following 2 options when creating a new variable:</p>
+
+<ul>
+<li><p><code>let</code> =&gt; Use <code>let</code> when you are defining a <strong>constant</strong> (a value that will not change)</p>
+
+<pre><code class="language-swift">let numberOfContinents: Int = 7   // Seven continents will not change so we've used &quot;let&quot;
+</code></pre></li>
+
+<li><p><code>var</code> =&gt; Use <code>var</code> when you are defining a <strong>variable</strong> (a value that might change)</p>
+
+<pre><code class="language-swift">var continentsVisited: Int = 2   // Continents visited increases over time so we've used &quot;var&quot;
+</code></pre></li>
+</ul>
+
+<p>In general, it is considered a best practice to use constants (<code>let</code>) whenever possible.</p>
+
+<h2 id="numbers">Numbers</h2>
+
+<p>The two most common types of numbers you&rsquo;ll use in Swift are integers (<code>Int</code>) and doubles (<code>Double</code>):</p>
+
+<p>Integers are whole numbers with no fractional component:</p>
+
+<pre><code class="language-swift">let minValue: Int = -42
+let maxValue: Int = 55 
+</code></pre>
+
+<p>Doubles can have a fractional component:</p>
+
+<pre><code class="language-swift">let pi: Double = 3.14159
+let billAmount: Double = 10.25
+</code></pre>
+
+<h2 id="strings">Strings</h2>
+
+<p>Strings represent a series of characters:</p>
+
+<pre><code class="language-swift">let hello: String = &quot;Hello&quot;
+let world: String = &quot;World&quot;
+</code></pre>
+
+<p>You can use <strong>string interpolation</strong> to construct new strings:</p>
+
+<pre><code class="language-swift">let helloWorld: String = &quot;\(hello) \(world)&quot;    // &quot;Hello World&quot;
+</code></pre>
+
+<p>Or you can use the <code>+</code> operator to combine strings:</p>
+
+<pre><code class="language-swift">let helloWorld: String = hello + &quot; &quot; + world    // &quot;Hello World&quot;
+</code></pre>
+
+<h2 id="booleans">Booleans</h2>
+
+<p>Boolean is a very simple type in Swift as it can only ever be <code>true</code> or <code>false</code>:</p>
+
+<pre><code class="language-swift">let swiftIsCool: Bool = true
+let iMissObjectiveC: Bool = false 
+</code></pre>
+
+<h2 id="arrays">Arrays</h2>
+
+<p>Arrays store a list of values that must be of the same type. Below we&rsquo;ve kept track of the previous bill amounts (which is a list of doubles):</p>
+
+<pre><code class="language-swift">// Notice how we've used &quot;var&quot; here since we want to append new items to the array
+var previousBillAmounts: [Double] = [10.25, 21.32, 15.54]
+</code></pre>
+
+<p>To add a new bill to the array:</p>
+
+<pre><code class="language-swift">previousBillAmounts.append(52.45)    // Result: [10.25, 21.32, 15.54, 52.45]
+</code></pre>
+
+<p>To check on how many bills there are in the array:</p>
+
+<pre><code class="language-swift">let count = previousBillAmounts.count            // Result: 4
+</code></pre>
+
+<p>Or to check the first bill amount in the array:</p>
+
+<pre><code class="language-swift">let firstBillAmount = previousBillAmounts[0]    // Result: 10.25
+</code></pre>
+
+<h2 id="dictionaries">Dictionaries</h2>
+
+<p>Much like you might use a real world dictionary to look up the definition for a word, you can use the dictionary data structure in Swift to create associations between keys (the word in the real world dictionary) and values (the definition in the real world dictionary).</p>
+
+<p>This is easiest seen using an example. Let&rsquo;s say we want to keep track of the ages of people that are using our app. This would be best done using the following dictionary:</p>
+
+<pre><code class="language-swift">var people: [String: Int] = [
+                              &quot;Bob&quot;: 32,
+                              &quot;Cindy&quot;: 25
+                            ]
+</code></pre>
+
+<p>Here, the <strong>key</strong> is the name of the person and the <strong>value</strong> is the person&rsquo;s age.</p>
+
+<p>Later on if we want to find out Bob&rsquo;s age, we can look it up by doing:</p>
+
+<pre><code class="language-swift">let bobsAge = people[&quot;Bob&quot;]
+</code></pre>
+
+<p>If we get a new user we can easily add them to our dictionary using the following syntax:</p>
+
+<pre><code class="language-swift">people[&quot;Dan&quot;] = 56
+</code></pre>
+
+<h2 id="specifying-types">Specifying Types</h2>
+
+<p>In most of the examples in this guide, we are explicit with the types of our constants and variables. Explicit typing looks something like:</p>
+
+<pre><code class="language-swift">let name: String = &quot;Bob&quot;   // Explicitly designating &quot;name&quot; to be of type &quot;String&quot;
+</code></pre>
+
+<p>However, Swift is smart enough to infer the type for us in a lot of cases. The previous example can be shortened to:</p>
+
+<pre><code class="language-swift">let name = &quot;Bob&quot;   // Swift infers &quot;name&quot; is of type &quot;String&quot; since &quot;Bob&quot; is a String
+</code></pre>
+
+<p>In cases where Swift can infer the type, it&rsquo;s not necessary to be explicit with the types for your constants and variables. We just do it in this guide so that the examples are easier to follow.</p>
+
+<h2 id="any-and-anyobject">Any and AnyObject</h2>
+
+<p>Swift has two special &ldquo;catch all types&rdquo; that come in handy when a more specific type cannot be determined.</p>
+
+<ul>
+<li><code>AnyObject</code> can represent an instance of <strong>any class type</strong>.</li>
+<li><code>Any</code> can represent an instance of <strong>any type at all</strong>.</li>
+</ul>
+
+<p>In general it&rsquo;s a best practice to be as specific with your types as possible and avoid the use of <code>AnyObject</code> and <code>Any</code>, but they become particularly helpful when interacting with Objective-C code that is less strict on typing.</p>
+
+<h2 id="optionals">Optionals</h2>
+
+<p>Optionals is a very important concept in Swift and is meant to improve the safety of Swift code. By simply placing a question mark (?) after any type, it declares that variable to be optional. An optional type allows that variable to exist in one of the following two states:</p>
+
+<ol>
+<li>There <strong>is a value and it equals x</strong></li>
+<li>There <strong>isn&rsquo;t a value at all</strong></li>
+</ol>
+
+<p>Let&rsquo;s look at an example to make this more clear. Consider the following 2 examples where we are trying to convert a <code>String</code> to an <code>Int</code>:</p>
+
+<pre><code class="language-swift">// Example 1 (Conversion succeeds)
+let input: String = &quot;123&quot;
+let optionalConvertedInput: Int? = Int(input)  // optionalConvertedInput = 123
+
+// Example 2 (Conversion fails - input is not a number)
+let input: String = &quot;123abc&quot;
+let optionalConvertedInput: Int? = Int(input)  // optionalConvertedInput = nil
+</code></pre>
+
+<p>Swift requires <code>optionalConvertedInput</code> to be of type <code>Int?</code> (or &ldquo;optional Int&rdquo;) so that it is explicit that convertedInput <em>might</em> not contain a value (in the case when the conversion fails). If we were to declare <code>convertedInput</code> as simply <code>Int</code>, we&rsquo;d get a compile error.</p>
+
+<p>There&rsquo;s a handy syntax in Swift that you&rsquo;ll use quite often when working with optionals. If we wanted to use the value of <code>optionalConvertedInput</code> later on in our code, we&rsquo;d have to first check to make sure it&rsquo;s not <code>nil</code>. We can do so using the following code:</p>
+
+<pre><code class="language-swift">if let convertedInput = optionalConvertedInput {
+   // Code that gets executed when optionalConvertedInput is NOT nil
+} else {
+   // OptionalConvertedInput IS nil, do something else
+}
+</code></pre>
+
+<p>In other languages like Java, NullPointerException&rsquo;s (exceptions that are fired when a null reference is accessed) are a common source of crashes. Swift&rsquo;s Optionals goes a long way to reduce this type of programming error.</p>
+
+<h2 id="functions">Functions</h2>
+
+<p>Functions in Swift are very similar to other languages. The simplest function in Swift can be written as:</p>
+
+<pre><code class="language-swift">// This prints &quot;Hello!&quot; to the output window
+func printHello() {
+    print(&quot;Hello!&quot;)
+}
+
+// Calls this function
+printHello()
+</code></pre>
+
+<p>We can extend this function to be a little more personable by taking in a name and returning the greeting instead of printing it out:</p>
+
+<pre><code class="language-swift">// Takes in a &quot;personName&quot; parameter of type String and returns the greeting as a String
+func sayHello(personName: String) -&gt; String {
+    return &quot;Hello \(personName)!&quot;
+}
+
+// Calls this function
+let greeting: String = sayHello(&quot;Bob&quot;)
+</code></pre>
+
+<p>Things get a little more interesting when you start to have multiple parameters as Swift has the concept of <strong>external</strong> and <strong>local</strong> parameter names. An external parameter name is used to label arguments passed to a function call. A local parameter name is the name used in the implementation of the function.</p>
+
+<pre><code class="language-swift">// &quot;to&quot; + &quot;and&quot; are the external parameter names
+// &quot;person&quot; + &quot;anotherPerson&quot; are the local parameter names
+func sayHello(to person: String, and anotherPerson: String) -&gt; String {
+    return &quot;Hello \(person) and \(anotherPerson)!&quot;
+}
+
+// Calls this function using the &quot;external&quot; parameter names
+let greeting: String = sayHello(to: &quot;Bill&quot;, and: &quot;Ted&quot;)
+</code></pre>
+
+<h2 id="control-flow">Control Flow</h2>
+
+<h3 id="conditional-statements">Conditional Statements</h3>
+
+<p>If statements are very similar to other languages and can be expressed as:</p>
+
+<pre><code class="language-swift">let temperatureInFahrenheit: Int = 90
+
+if temperatureInFahrenheit &lt;= 32 {
+    print(&quot;It's very cold. Consider wearing a scarf.&quot;)
+} else if temperatureInFahrenheit &gt;= 86 {
+    print(&quot;It's really warm. Don't forget to wear sunscreen.&quot;)
+} else {
+    print(&quot;It's not that cold. Wear a t-shirt.&quot;)
+}
+</code></pre>
+
+<h3 id="loops">Loops</h3>
+
+<p>The two most common types of loops you&rsquo;ll need in Swift are <strong>for loops</strong> and <strong>for-in loops</strong>.</p>
+
+<p><strong>For loops</strong> work well when you want to do something until a particular condition is met (in the case below until <code>index &gt;= 3</code>):</p>
+
+<pre><code class="language-swift">// Simple for loop that prints &quot;Hello&quot; 3 times
+for var index = 0; index &lt; 3; index++ {
+    print(&quot;Hello&quot;)
+}
+</code></pre>
+
+<p>C-style <strong>for loops</strong> are deprecated and will be removed in future versions of Swift, more info available on the <a href="https://github.com/apple/swift-evolution/blob/master/proposals/0007-remove-c-style-for-loops.md">SE-0007 Proposal</a>.  <strong>For-in loops</strong> are preferred instead. The above example could be re-written as:</p>
+
+<pre><code class="language-swift">        for _ in 0..&lt;3 {
+            print(&quot;Hello&quot;)
+        }
+</code></pre>
+
+<p><strong>For-in loops</strong> come in really handy when you want to do something to each item in a collection (such as an array):</p>
+
+<pre><code class="language-swift">let names = [&quot;Anna&quot;, &quot;Alex&quot;, &quot;Brian&quot;, &quot;Jack&quot;]
+
+// Loops over each name in &quot;names&quot; and prints out a greeting for each person
+for name in names {
+    print(&quot;Hello, \(name)!&quot;)
+}
+</code></pre>
+
+<p>Sometimes you want to loop over each item in an array and also keep track of the index of the item. Array&rsquo;s <code>enumerate()</code> method can help you achieve this:</p>
+
+<pre><code class="language-swift">let names = [&quot;Anna&quot;, &quot;Alex&quot;, &quot;Brian&quot;, &quot;Jack&quot;]
+
+for (index, value) in names.enumerate() {
+    print(&quot;Item \(index + 1): \(value)&quot;)
+}
+</code></pre>
+
+<h2 id="classes">Classes</h2>
+
+<p>Classes are the building blocks of your app’s code. You define properties and methods to add functionality to your classes by using the same syntax as for variables and functions.</p>
+
+<p>Below you can find a <code>Person</code> class that is meant to show an example of the types of things you&rsquo;ll want to do when building your classes.</p>
+
+<pre><code class="language-swift">class Person {
+	
+    // Custom initializer - takes in firstName and lastName
+    init(firstName: String, lastName: String) {
+        self.firstName = firstName
+        self.lastName = lastName
+
+        // Increment type property each time a new person is created
+        Person.numberOfPeople++
+    }
+	
+    // *** Properties ***
+	
+    // Stored Property - Stored as part of the current instance of the class
+    var firstName: String
+    var lastName: String
+
+    // Computed Property - computes &quot;fullName&quot; from &quot;firstName&quot; and &quot;lastName&quot;
+    var fullName: String {
+    	get {
+            return &quot;\(firstName) \(lastName)&quot;
+    	}
+    }
+
+    // Type Property - Single instance for all instances of the class,
+    // similar to a static property in Java
+    static var numberOfPeople = 0   
+    
+    // *** Methods ***
+    
+    // Instance Method
+    func greet() {
+    	// Notice the use of &quot;self&quot; - self refers to the current instance and 
+        // is similar to &quot;this&quot; in Java
+    	print (&quot;Hello \(self.firstName)&quot;)
+    }
+    
+    // Type Method
+    class func printNumberOfPeople() {
+    	print(&quot;Number of people = \(Person.numberOfPeople)&quot;)
+    }
+}
+
+// ... Using the Person Class ...
+
+// Create a new instance of the Person class
+let bob = Person(firstName: &quot;Bob&quot;, lastName: &quot;Smith&quot;)
+
+// Call instance method
+bob.greet()   // Prints &quot;Hello Bob&quot;
+
+// Accessing properies
+print(&quot;Bob's first name is: \(bob.firstName)&quot;)  // Prints &quot;Bob's first name is: Bob&quot;
+print(&quot;Bob's full name is: \(bob.fullName)&quot;)    // Prints &quot;Bob's full name is: Bob Smith&quot;
+
+// Call type method
+// Prints &quot;Number of people = 1&quot; (since we've only created one Person)
+Person.printNumberOfPeople()
+</code></pre>
+
+<h2 id="protocols">Protocols</h2>
+
+<p>Protocols are similar to interfaces in other languages. Think about a protocol as a contract. The contract includes a set of methods that must be implemented. Any classes that choose to implement a protocol sign this contract and implement all the methods that are in the protocol.</p>
+
+<p>Let&rsquo;s say we have the following protocol (<code>MyFriendlyGreeterProtocol</code>) that defines 2 methods <code>sayHello()</code> and <code>sayBye()</code>:</p>
+
+<pre><code class="language-swift">protocol MyFriendlyGreeterProtocol {
+    func sayHello()
+    func sayBye()
+}
+</code></pre>
+
+<p>Any classes that implement this protocol (you implement a protocol by adding its name after the class defintion as shown below), must implement both of these methods:</p>
+
+<pre><code class="language-swift">class MyEnglishPerson: MyFriendlyGreeterProtocol {
+    func sayHello() {
+        print(&quot;Hello!&quot;)
+    }
+
+    func sayBye() {
+        print(&quot;Bye!&quot;)
+    }
+	
+    // ... other methods for this class ...
+
+}
+
+class MySpanishPerson: MyFriendlyGreeterProtocol {
+    func sayHello() {
+        print(&quot;Hola!&quot;)
+    }
+
+    func sayBye() {
+        print(&quot;Adios!&quot;)
+    }
+	
+    // ... other methods for this class ...
+}
+</code></pre>
+
+<p>There is a lot more you can do with protocols as they form one of the key design patterns in iOS. The code above merely shows how to get started with the syntax for protocols.</p>
+
+<h2 id="closures">Closures</h2>
+
+<p>Closures are self-contained blocks of code that can be passed around and used in your code. Closures in Swift are similar to blocks in Objective-C and lambdas in other programming languages.</p>
+
+<p>Closures can capture and store references to any constants and variables from the context in which they are defined. This is known as &ldquo;closing&rdquo; over those constants and variables. Swift handles all of the memory management of capturing for you.</p>
+
+<p>Here’s an example of a function called <code>makeIncrementer</code>, which contains a nested function called <code>incrementer</code>. The nested <code>incrementer()</code> function captures two values, <code>runningTotal</code> and <code>amount</code>, from its surrounding context. After capturing these values, <code>incrementer</code> is returned by <code>makeIncrementer</code> as a closure that increments <code>runningTotal</code> by amount each time it is called.</p>
+
+<pre><code class="language-swift">func makeIncrementer(forIncrement amount: Int) -&gt; () -&gt; Int {
+    var runningTotal = 0
+    func incrementer() -&gt; Int {
+        runningTotal += amount
+        return runningTotal
+    }
+    return incrementer
+}
+</code></pre>
+
+<p>The return type of <code>makeIncrementer</code> is <code>() -&gt; Int</code>. This means that it returns a function, rather than a simple value. The function it returns has no parameters, and returns an Int value each time it is called.</p>
+
+<p>The <code>makeIncrementer(forIncrement:)</code> function defines an integer variable called <code>runningTotal</code>, to store the current running total of the incrementer that will be returned. This variable is initialized with a value of 0.</p>
+
+<p>The <code>makeIncrementer(forIncrement:)</code> function has a single Int parameter with an external name of <code>forIncrement</code>, and a local name of <code>amount</code>. The argument value passed to this parameter specifies how much <code>runningTotal</code> should be incremented by each time the returned <code>incrementer</code> function is called.</p>
+
+<p><code>makeIncrementer</code> defines a nested function called <code>incrementer</code>, which performs the actual incrementing. This function simply adds <code>amount</code> to <code>runningTotal</code>, and returns the result.</p>
+
+<p>When considered in isolation, the nested <code>incrementer()</code> function might seem unusual:</p>
+
+<pre><code class="language-swift">func incrementer() -&gt; Int {
+    runningTotal += amount
+    return runningTotal
+}
+</code></pre>
+
+<p>The <code>incrementer()</code> function doesn’t have any parameters, and yet it refers to <code>runningTotal</code> and <code>amount</code> from within its function body. It does this by capturing a reference to <code>runningTotal</code> and <code>amount</code> from the surrounding function and using them within its own function body. Capturing by reference ensures that <code>runningTotal</code> and <code>amount</code> do not disappear when the call to <code>makeIncrementer</code> ends, and also ensures that <code>runningTotal</code> is available the next time the <code>incrementer</code> function is called.</p>
+
+<p>Here’s an example of <code>makeIncrementer</code> in action:</p>
+
+<pre><code class="language-swift">// This example sets a constant called incrementByTen to refer to an incrementer function that
+// adds 10 to its runningTotal variable each time it is called.
+let incrementByTen = makeIncrementer(forIncrement: 10)
+
+incrementByTen()  // returns a value of 10
+incrementByTen()  // returns a value of 20
+incrementByTen()  // returns a value of 30
+</code></pre>
+
+<h2 id="type-casting-as-as-as">Type Casting (as, as?, as!)</h2>
+
+<p>Type casting changes the type of a particular instance to another compatible type. There are 3 ways to accomplish this with Swift:</p>
+
+<ol>
+<li><p><strong>Guaranteed conversion</strong> with <code>as</code> =&gt; This is the safest cast. It will never fail since the compiler can guarantee the cast will work. Use this when you are upcasting from a child class to its parent or doing something like <code>1 as Float</code>.</p>
+
+<pre><code class="language-swift">  // Guaranteed conversion as the compiler can verify this will succeed
+  let myFloat = 1 as Float
+
+  // Guaranteed conversion as upcasting from a type to its parent type is safe 
+  // UIView is a parent of UITableView
+  let myView = myTableView as UIView
+</code></pre></li>
+
+<li><p><strong>Conditional conversion</strong> with <code>as?</code> =&gt; This is a cautious cast. If the cast fails, it will return <code>nil</code>. This is needed when downcasting from a parent type to a child type.</p>
+
+<pre><code class="language-swift">  // If myView is actually a tableView, the downcast will succeed, otherwise it will fail safely
+  if let myTableView = myView as? UITableView {
+      print(&quot;The downcast succeeded!&quot;)
+  } else {
+      print(&quot;The downcast failed!&quot;)        
+  }
+</code></pre></li>
+
+<li><p><strong>Forced conversion</strong> with <code>as!</code> =&gt; This is a dangerous cast that you should avoid using. If the cast fails, this will crash your app. Use this cast carefully.</p>
+
+<pre><code class="language-swift">  // DANGEROUS: If myView is actually a tableView, the downcast will succeed
+  // Otherwise it will crash the app
+  let myTableView = myView as! UITableView
+</code></pre></li>
+</ol>
+
+<h2 id="understanding-the-question-mark">Understanding the Question Mark (?)</h2>
+
+<p>There are various places where you&rsquo;ll come across the need for using question marks in your code. The following examples are meant to capture the major types of use cases for the question mark operator that can cause confusion when first learning Swift.</p>
+
+<p>When defining a type as <strong>optional</strong>:</p>
+
+<pre><code class="language-swift">// Designates that optionalName can either have a value or be nil
+var optionalName: String? = &quot;Hello&quot;
+</code></pre>
+
+<p>When safely accessing methods or properties (called <strong>optional chaining</strong>):</p>
+
+<pre><code class="language-swift">// When myInstance IS nil, x = nil
+// When myInstance is NOT nil, x = myInstance.count
+// If any part of the chain is nil, it stops evaluating and returns
+// nil, ignoring everything to the right.
+let x = myInstance?.count
+</code></pre>
+
+<p>When type casting (called <strong>safe conditional conversion</strong>):</p>
+
+<pre><code class="language-swift">// If myView is actually a tableView the downcast will succeed, otherwise it will fail safely
+if let myTableView = myView as? UITableView {
+    print(&quot;The downcast succeeded!&quot;)
+} else {
+    print(&quot;The downcast failed!&quot;)   	   
+}
+</code></pre>
+
+<p>When using the <strong>nil coalescing operator</strong> (<code>??</code>) to provide a default value:</p>
+
+<pre><code class="language-swift">let nickName: String? = nil  // nickName is an optional that might be nil
+let fullName: String = &quot;Bob Smith&quot;
+
+// prints the nickName if it is NOT nil, otherwise prints fullName
+let informalGreeting = &quot;Hi \(nickName ?? fullName)&quot;   // Prints &quot;Hi Bob Smith&quot;
+</code></pre>
+
+<h2 id="understanding-the-exclamation-mark">Understanding the Exclamation Mark (!)</h2>
+
+<p>There are various places you might come across an exclamation mark in Swift code. The following examples are meant to capture the major types of use cases for the exclamation mark operator that can cause confusion when first learning Swift.</p>
+
+<p>When getting the actual value out of an optional (called <strong>unwrapping an optional</strong>):</p>
+
+<pre><code class="language-swift">let possibleString: String? = &quot;An optional string.&quot;
+
+// DANGEROUS: possibleString must NOT be nil or this will crash
+let forcedString: String = possibleString! 
+
+// SAFE: Will only enter the if clause if possibleString is NOT nil
+if let actualString = possibleString {
+    // do something with actualString
+}
+
+// SAFE: Generally preferred alternate syntax to &quot;if let&quot; that can exit early
+guard let actualString = possibleString else {
+    // exit early or throw exception
+}
+// do something with actualString
+</code></pre>
+
+<p>When type casting (called <strong>forced conversion</strong>):</p>
+
+<pre><code class="language-swift">// DANGEROUS: If myView is actually a tableView, the downcast will succeed
+// Otherwise it will crash the app
+let myTableView = myView as! UITableView
+</code></pre>
+
+<p>When defining variables that are initially <code>nil</code> but get set soon afterwards and are guaranteed not to be nil after that (called <strong>implicitly unwrapped optionals</strong>):</p>
+
+<pre><code class="language-swift">let assumedString: String! = &quot;An implicitly unwrapped optional string.&quot;
+
+// no need for an exclamation mark since assumedString is an implicitly unwrapped optional
+let implicitString: String = assumedString
+</code></pre>
+
+<h2 id="working-with-json">Working with JSON</h2>
+
+<p>A lot of the time when working with REST API&rsquo;s (like Instagram, Twitter, etc), the data that comes back will be JSON. JSON is a human readable data format (very similar to XML).</p>
+
+<p>Below is an example of JSON that simulates the type of JSON you might get back when using an endpoint that returns movies and their ratings:
+  * An open curly brace means the start of a dictionary
+  * An open bracket means the start of an array</p>
+
+<pre><code class="language-json">{
+    &quot;status&quot;: &quot;OK&quot;,
+    &quot;movies&quot;: [
+        {
+            &quot;title&quot;: &quot;Whiplash&quot;,
+            &quot;rating&quot;: 8.5
+        }, 
+        {
+            &quot;title&quot;: &quot;Feast&quot;,
+            &quot;rating&quot;: 5.2
+        }, 
+        {
+            &quot;title&quot;: &quot;Kung Fury&quot;,
+            &quot;rating&quot;: 7.1
+        }
+    ]
+}
+</code></pre>
+
+<p>Below is an example of how&rsquo;d you extract the movies and ratings out of that response:</p>
+
+<pre><code class="language-swift">// data returned from the network response will typically be of type
+// NSData (which is a buffer of bytes)
+let responseData: NSData = // ... some value retrieved from the network response ...
+
+// Wrap our code in a do catch as our code might throw an exception which we need to handle
+do {
+    // Start by converting the NSData to a dictionary - a dictionary for the entire response
+    if let responseDictionary = try NSJSONSerialization.JSONObjectWithData(responseData,
+        options:NSJSONReadingOptions(rawValue:0)) as? [String:AnyObject] {
+
+            // Dip inside the response to find the &quot;movies&quot; key and get the array of movies
+            if let movies = responseDictionary[&quot;movies&quot;] as? [AnyObject] {
+
+                // Get each movie dictionary from the array of movies
+                for movie in movies {
+                
+                    // Use the movie &quot;title&quot; key and &quot;rating&quot; key to get their values
+                    if let title = movie[&quot;title&quot;] as? String {
+                        if let rating = movie[&quot;rating&quot;] as? Double {
+                            print(&quot;Title:\(title), rating:\(rating)&quot;)
+                        }
+                    }
+                }
+            }
+    }
+} catch {
+    print(&quot;Error parsing JSON&quot;)
+}
+</code></pre>
+
+<h2 id="playgrounds">Playgrounds</h2>
+
+<p>Xcode includes a very useful tool for learning Swift called &ldquo;Playgrounds&rdquo;. It&rsquo;s very easy to <a href="https://developer.apple.com/library/ios/recipes/Playground_Help/Chapters/CreateAndEdit.html#//apple_ref/doc/uid/TP40015166-CH36-SW1">create a new playground</a> through Xcode.</p>
+
+<p>Once inside of a playground, you can write Swift code and see it run immediately (without needing to build and run a project each time). This allows you to try out different syntax and test out your code before including it into your app.</p>
+
+<p>We highly recommend checking out Playgrounds while you are learning Swift.</p>
+
+<h2 id="references">References</h2>
+
+<ul>
+<li><a href="https://developer.apple.com/videos/wwdc/2014/#402">WWDC 2014: Introduction to Swift</a></li>
+<li><a href="https://developer.apple.com/library/prerelease/ios/documentation/Swift/Conceptual/Swift_Programming_Language/GuidedTour.html">iOS Developer Library: A Swift Tour</a></li>
+<li><a href="https://itunes.apple.com/us/book/swift-programming-language/id881256329">iBooks: The Swift Programming Language</a></li>
+<li><a href="https://www.murage.ca/downcasting-in-swift-1-2-with-as-exclamation">Swift Type Casting</a></li>
+</ul>
+
+
+			<aside class="copyright" role="note">
+				
+				&copy; 2016 Peruzal &ndash;
+				
+				Xamarin iOS Guides by 
+				<a href="https://www.peruzal.com" target="_blank">Peruzal</a>
+			</aside>
+
+			<footer class="footer">
+				
+
+<nav class="pagination" aria-label="Footer">
+  <div class="previous">
+  
+      <a href="http://guides.peruzal.com/ios-guides/objective-c/" title="Objective-C Fundamentals">
+        <span class="direction">
+          Previous
+        </span>
+        <div class="page">
+          <div class="button button-previous" role="button" aria-label="Previous">
+            <i class="icon icon-back"></i>
+          </div>
+          <div class="stretch">
+            <div class="title">
+              Objective-C Fundamentals
+            </div>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+
+  <div class="next">
+  
+      <a href="http://guides.peruzal.com/ios-guides/setup/" title="Starting a New Project in Xcode">
+        <span class="direction">
+          Next
+        </span>
+        <div class="page">
+          <div class="stretch">
+            <div class="title">
+              Starting a New Project in Xcode
+            </div>
+          </div>
+          <div class="button button-next" role="button" aria-label="Next">
+            <i class="icon icon-forward"></i>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+</nav>
+
+
+
+
+
+			</footer>
+		</div>
+	</article>
+
+	<div class="results" role="status" aria-live="polite">
+		<div class="scrollable">
+			<div class="wrapper">
+				<div class="meta"></div>
+				<div class="list"></div>
+			</div>
+		</div>
+	</div>
+</main>
+
+    <script>
+    
+      var base_url = '';
+      var repo_id  = '';
+    
+    </script>
+
+    <script src="http://guides.peruzal.com/ios-guides/javascripts/application.js"></script>
+    
+
+    <script>
+      /* Add headers to scrollspy */
+      var headers   = document.getElementsByTagName("h2");
+      var scrollspy = document.getElementById('scrollspy');
+
+      if(scrollspy) {
+        if(headers.length > 0) {
+          for(var i = 0; i < headers.length; i++) {
+            var li = document.createElement("li");
+            li.setAttribute("class", "anchor");
+
+            var a  = document.createElement("a");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", headers[i].innerHTML);
+            a.innerHTML = headers[i].innerHTML;
+            
+            li.appendChild(a)
+            scrollspy.appendChild(li);
+          }
+        } else {
+          scrollspy.parentElement.removeChild(scrollspy)
+        }
+        
+
+        /* Add permanent link next to the headers */
+        var headers = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+
+        for(var i = 0; i < headers.length; i++) {
+            var a = document.createElement("a");
+            a.setAttribute("class", "headerlink");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", "Permanent link")
+            a.innerHTML = "#";
+            headers[i].appendChild(a);
+        }
+      }
+    </script>
+
+    
+
+    <script src="//gohugo.io/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/cs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/json.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/swift.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/xml.min.js"></script>    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/objectivec.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Rooting-android-devices on Mobile Device Security and Penetration Testing Guide</title>
+    <link>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/rooting-android-devices/</link>
+    <description>Recent content in Rooting-android-devices on Mobile Device Security and Penetration Testing Guide</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Peruzal Mobile Device Security and Penetration Testing Guide</copyright>
+    <lastBuildDate>Sat, 07 Jan 2017 12:28:30 +0200</lastBuildDate>
+    
+	<atom:link href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/rooting-android-devices/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Rooting Android Devices</title>
+      <link>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/rooting-android-devices/</link>
+      <pubDate>Sat, 07 Jan 2017 12:28:30 +0200</pubDate>
+      
+      <guid>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/rooting-android-devices/</guid>
+      <description>Android is built on Linux. In Linux they are different users but the super user is called root. This usr can perform any operation on the Android device. The process is enabling the root on the device is called rooting. Once a device is rooted you will have full root access to the device.
+Check for root access To check for root access, first open a shell on the device and change to the root user by running the su command.</description>
+    </item>
+    
+  </channel>
+</rss>

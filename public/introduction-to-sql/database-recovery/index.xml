@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Database-recoveries on Introduction to SQL</title>
+    <link>http://guides.peruzal.com/introduction-to-sql/database-recovery/index.xml</link>
+    <description>Recent content in Database-recoveries on Introduction to SQL</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Copyright 2017 Peruzal</copyright>
+    <lastBuildDate>Wed, 15 Mar 2017 07:23:47 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/introduction-to-sql/database-recovery/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Database Recovery</title>
+      <link>http://guides.peruzal.com/introduction-to-sql/database-recovery/</link>
+      <pubDate>Wed, 15 Mar 2017 07:23:47 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/introduction-to-sql/database-recovery/</guid>
+      <description>
+
+&lt;h2 id=&#34;backup-and-restore-operations&#34;&gt;Backup and Restore Operations&lt;/h2&gt;
+
+&lt;p&gt;Database backup is the process of dumping data (from a database, a transaction log, or a file) into backup devices that the system creates and maintains. A backup device can be a disk file or a tape. The Database Engine provides both static and dynamic backups. Static backup means that during the backup process, the only active session supported by the system is the one that creates the backup. In other words, user processes are not allowed during backup. Dynamic backup means that a database backup can be performed without stopping the database server, removing users, or even closing the files.&lt;/p&gt;
+
+&lt;p&gt;The Database Engine provides four different backup methods:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Full database backup&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Differential backup&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Transaction log backup&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;File (or filegroup) backup&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;full-database-backup&#34;&gt;Full Database Backup&lt;/h3&gt;
+
+&lt;p&gt;A full database backup captures the state of the database at the time the backup is started. During the full database backup, the system copies the data as well as the schema of all tables of the database and the corresponding file structures. If the full database backup is executed dynamically, the database system records any activity that takes place during the backup. Therefore, even all uncommitted transactions in the transaction log are written to the backup media.&lt;/p&gt;
+
+&lt;h3 id=&#34;differential-backup&#34;&gt;Differential Backup&lt;/h3&gt;
+
+&lt;p&gt;A differential backup creates a copy of only the parts of the database that have changed since the last full database backup. The advantage of a differential backup is speed. It minimizes the time required to back up a database, because the amount of data to be backed up has the potential to be considerably smaller than in the case of a full database backup&lt;/p&gt;
+
+&lt;h3 id=&#34;transaction-log-backup&#34;&gt;Transaction Log Backup&lt;/h3&gt;
+
+&lt;p&gt;A transaction log backup considers only the changes recorded in the log. This form of backup is therefore not based on physical parts (pages) of the database, but rather on logical operations—that is, changes executed using the DML statements INSERT, UPDATE, and DELETE. Again, because the amount of data to be backed up has the potential to be considerably smaller, this process can be performed significantly quicker than a full database backup and quicker than a differential backup.&lt;/p&gt;
+
+&lt;h2 id=&#34;file-or-filegroup-backup&#34;&gt;File or Filegroup Backup&lt;/h2&gt;
+
+&lt;p&gt;File (or filegroup) backup allows you to back up specific database files (or filegroups) instead of the entire database.&lt;/p&gt;
+
+&lt;h3 id=&#34;performing-database-backup&#34;&gt;Performing Database Backup&lt;/h3&gt;
+
+&lt;p&gt;You can perform backup operations using the following:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Transact-SQL statements&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;SQL Server Management Studio&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;performing-database-recovery&#34;&gt;Performing Database Recovery&lt;/h2&gt;
+
+&lt;p&gt;Whenever a transaction is submitted for execution, the Database Engine is responsible either for executing the transaction completely and recording its changes permanently in the database or for guaranteeing that the transaction has no effect at all on the database.&lt;/p&gt;
+
+&lt;h3 id=&#34;automatic-recovery&#34;&gt;Automatic Recovery&lt;/h3&gt;
+
+&lt;p&gt;Automatic recovery is a fault-tolerant feature that the Database Engine executes every time it is restarted after a failure or shutdown. The automatic recovery process checks to see if the restoration of databases is necessary. If it is, each database is returned to its last consistent state using the transaction log.&lt;/p&gt;
+
+&lt;p&gt;During automatic recovery, the Database Engine examines the transaction log from the last &lt;strong&gt;checkpoint&lt;/strong&gt; to the point at which the system failed or was shut down. &lt;em&gt;(A checkpoint is the most recent point at which all data changes are written permanently to the database from memory. Therefore, a checkpoint ensures the physical consistency of the data.)&lt;/em&gt; The transaction log contains committed transactions (transactions that are successfully executed, but their changes have not yet been written to the database) and uncommitted transactions (transactions that are not successfully executed before a shutdown or failure occurred). The Database Engine rolls forward all committed transactions, thus making permanent changes to the database, and undoes the part of the uncommitted transactions that occurred before the checkpoint.&lt;/p&gt;
+
+&lt;p&gt;The Database Engine first performs the automatic recovery of the master database, followed by the recovery of all other system databases. Then, all user-defined databases are recovered.&lt;/p&gt;
+
+&lt;h3 id=&#34;manual-recovery&#34;&gt;Manual Recovery&lt;/h3&gt;
+
+&lt;p&gt;A manual recovery of a database specifies the application of the full backup of your database and subsequent application of all transaction logs in the sequence of their creation. (Alternatively, you can use the full database backup together with the last differential backup of the database.) After this, the database is in the same (consistent) state as it was at the point when the transaction log was backed up for the last time.&lt;/p&gt;
+
+&lt;h3 id=&#34;recovery-models&#34;&gt;Recovery Models&lt;/h3&gt;
+
+&lt;p&gt;A recovery model allows you to control to what extent you are ready to risk losing committed transactions if a database is damaged. It also determines the speed and size of your transaction log backups. Additionally, the choice of a recovery model has an impact on the size of the transaction log and therefore on the time period needed to back up the log. The Database Engine supports three recovery models:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Full&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Bulk-logged&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Simple&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;full-recovery-model&#34;&gt;Full Recovery Model&lt;/h3&gt;
+
+&lt;p&gt;During full recovery, all operations are written to the transaction log. Therefore, this model provides complete protection against media failure. This means that you can restore your database up to the last committed transaction that is stored in the log file. Additionally, you can recover data to any point in time (prior to the point of failure). To guarantee this, such operations as SELECT INTO and the execution of the bcp utility are fully logged too.&lt;/p&gt;
+
+&lt;p&gt;The disadvantage of this recovery model is that the corresponding transaction log may be very voluminous and the files on the disk containing the log will be filled up very quickly. Also, for such a voluminous log, you will need significantly more time for backup.&lt;/p&gt;
+
+&lt;div class=&#34;admonition note&#34;&gt;
+&lt;p class=&#34;admonition-title&#34;&gt;Note&lt;/p&gt;
+&lt;p&gt;If you use the full recovery model, the transaction log must be protected from media failure. For this reason, using RAID 1 to protect transaction logs is strongly recommended.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Bulk-Logged Recovery Model
+Bulk-logged recovery supports log backups by using minimal space in the transaction log for certain large-scale or bulk operations. The logging of the following operations is minimal and cannot be controlled on an operation-by-operation basis:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;SELECT INTO&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;CREATE INDEX (including indexed views)&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;bcp utility&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The bulk-logged recovery model allows you to recover a database to the end of a transaction log backup (that is, up to the last committed transaction). Additionally, you can restore your database to any point in time if you haven’t performed any bulk operations.&lt;/p&gt;
+
+&lt;p&gt;The advantage of the bulk-logged recovery model is that bulk operations are performed much faster than under the full recovery model, because they are not fully logged.&lt;/p&gt;
+
+&lt;h3 id=&#34;simple-recovery-model&#34;&gt;Simple Recovery Model&lt;/h3&gt;
+
+&lt;p&gt;In the simple recovery model, the transaction log is truncated whenever a checkpoint occurs. Therefore, you can recover a damaged database only by using the full database backup or the differential backup, because they do not require log backups. Backup strategy for this model is very simple: restore the database using existing database backups and, if differential backups exist, apply the most recent one.&lt;/p&gt;
+
+&lt;div class=&#34;admonition note&#34;&gt;
+&lt;p class=&#34;admonition-title&#34;&gt;Note&lt;/p&gt;
+&lt;p&gt;The simple recovery model doesn’t mean that there is no logging at all. The log content won’t be used for backup purposes, but it is used at the checkpoint time, where all the transactions in the log are committed or rolled back.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The advantages of the simple recovery model are that the performance of all bulk operations is very high and requirements for the log space are very small. On the other hand, in the case of failure, this model requires the most manual work because all changes since the most recent database (or differential) backup must be redone. Point-in-time and page restore are not possible with this recovery model.&lt;/p&gt;
+
+&lt;div class=&#34;admonition note&#34;&gt;
+&lt;p class=&#34;admonition-title&#34;&gt;Note&lt;/p&gt;
+&lt;p&gt;Do not use the simple recovery model for production databases.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;maintenace-plans&#34;&gt;Maintenace Plans&lt;/h2&gt;
+
+&lt;p&gt;The Maintenance Plan Wizard provides you with the set of basic tasks needed to maintain a database. It ensures that your database performs well, is regularly backed up, and is free of inconsistencies.&lt;/p&gt;
+
+&lt;p&gt;To start the Maintenance Plan Wizard, expand the server in SQL Server Management Studio, expand Management, right-click Maintenance Plans, and choose Maintenance Plan Wizard. As you can see on the starting page of the Maintenance Plan Wizard, you can perform the following administration tasks:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Check database integrity&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Perform index maintenance&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Update database statistics&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Perform database backups&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;maintenance-plan-scripts&#34;&gt;Maintenance Plan Scripts&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://ola.hallengren.com/&#34;&gt;https://ola.hallengren.com/&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

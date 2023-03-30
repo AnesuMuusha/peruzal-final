@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+  
+  
+  
+  
+   <html class="no-js"> 
+
+  <head lang="en-us">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=10" />
+    <title>Handling Form Input - Xamarin iOS Guides</title>
+    <meta name="generator" content="Hugo 0.17" />
+
+    
+    <meta name="description" content="Xamrin iOS guides for the Peruzal Cross Platform Mobile App Development course">
+    
+    <link rel="canonical" href="http://guides.peruzal.com/ios-guides/form-input/">
+    
+    <meta name="author" content="Peruzal">
+    
+
+    <meta property="og:url" content="http://guides.peruzal.com/ios-guides/form-input/">
+    <meta property="og:title" content="Xamarin iOS Guides">
+    <meta property="og:image" content="http://guides.peruzal.com/ios-guides/images/logo.png">
+    <meta name="apple-mobile-web-app-title" content="Xamarin iOS Guides">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="shortcut icon" type="image/x-icon" href="http://guides.peruzal.com/ios-guides/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="http://guides.peruzal.com/ios-guides/images/favicon.ico">
+
+    <style>
+      @font-face {
+        font-family: 'Icon';
+        src: url('http://guides.peruzal.com/ios-guides/fonts/icon.eot?52m981');
+        src: url('http://guides.peruzal.com/ios-guides/fonts/icon.eot?#iefix52m981')
+               format('embedded-opentype'),
+             url('http://guides.peruzal.com/ios-guides/fonts/icon.woff?52m981')
+               format('woff'),
+             url('http://guides.peruzal.com/ios-guides/fonts/icon.ttf?52m981')
+               format('truetype'),
+             url('http://guides.peruzal.com/ios-guides/fonts/icon.svg?52m981#icon')
+               format('svg');
+        font-weight: normal;
+        font-style: normal;
+      }
+    </style>
+
+    <link rel="stylesheet" href="http://guides.peruzal.com/ios-guides/stylesheets/application.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/ios-guides/stylesheets/temporary.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/ios-guides/stylesheets/palettes.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/ios-guides/stylesheets/highlight/highlight.css">
+
+    
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ubuntu:400,700|Ubuntu&#43;Mono">
+    <style>
+      body, input {
+        font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+      }
+      pre, code {
+        font-family: 'Ubuntu Mono', 'Courier New', 'Courier', monospace;
+      }
+    </style>
+
+    
+    <script src="http://guides.peruzal.com/ios-guides/javascripts/modernizr.js"></script>
+
+    
+
+  </head>
+  <body class="palette-primary-red palette-accent-teal">
+
+
+
+
+<div class="backdrop">
+	<div class="backdrop-paper"></div>
+</div>
+
+<input class="toggle" type="checkbox" id="toggle-drawer">
+<input class="toggle" type="checkbox" id="toggle-search">
+<label class="toggle-button overlay" for="toggle-drawer"></label>
+
+<header class="header">
+	<nav aria-label="Header">
+  <div class="bar default">
+    <div class="button button-menu" role="button" aria-label="Menu">
+      <label class="toggle-button icon icon-menu" for="toggle-drawer">
+        <span></span>
+      </label>
+    </div>
+    <div class="stretch">
+      <div class="title">
+        Handling Form Input
+      </div>
+    </div>
+
+    
+
+    
+    <div class="button button-github" role="button" aria-label="GitHub">
+      <a href="https://github.com/peruzal" title="@peruzal on GitHub" target="_blank" class="toggle-button icon icon-github"></a>
+    </div>
+    
+    
+        
+  </div>
+  <div class="bar search">
+    <div class="button button-close" role="button" aria-label="Close">
+      <label class="toggle-button icon icon-back" for="toggle-search"></label>
+    </div>
+    <div class="stretch">
+      <div class="field">
+        <input class="query" type="text" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck>
+      </div>
+    </div>
+    <div class="button button-reset" role="button" aria-label="Search">
+      <button class="toggle-button icon icon-close" id="reset-search"></button>
+    </div>
+  </div>
+</nav>
+</header>
+
+<main class="main">
+	<div class="drawer">
+		<nav aria-label="Navigation">
+  <a href="http://guides.peruzal.com/ios-guides/" class="project">
+    <div class="banner">
+      
+        <div class="logo">
+          <img src="http://guides.peruzal.com/ios-guides/images/logo.png">
+        </div>
+      
+      <div class="name">
+        <strong>Xamarin iOS Guides <span class="version">1.0.0</span></strong>
+        
+      </div>
+    </div>
+  </a>
+
+  <div class="scrollable">
+    <div class="wrapper">
+      
+
+      <div class="toc">
+        
+        <ul>
+          
+
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="iOS with Swift and Objective-C" href="http://guides.peruzal.com/ios-guides/">
+	
+	iOS with Swift and Objective-C
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Getting Started" href="http://guides.peruzal.com/ios-guides/getting-started/">
+	
+	Getting Started
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Setting up a Project" href="http://guides.peruzal.com/ios-guides/setup/">
+	
+	Setting up a Project
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Swift Fundamentals" href="http://guides.peruzal.com/ios-guides/swift/">
+	
+	Swift Fundamentals
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Swift Objective-C Interoperability" href="http://guides.peruzal.com/ios-guides/swift-objective-c-interoperability/">
+	
+	Swift Objective-C Interoperability
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Objective-C Fundamentals" href="http://guides.peruzal.com/ios-guides/objective-c/">
+	
+	Objective-C Fundamentals
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Common Views" href="http://guides.peruzal.com/ios-guides/common-views/">
+	
+	Common Views
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a class="current" title="Form Input" href="http://guides.peruzal.com/ios-guides/form-input/">
+	
+	Form Input
+</a>
+
+
+<ul id="scrollspy">
+</ul>
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Model View Controller(MVC)" href="http://guides.peruzal.com/ios-guides/mvc/">
+	
+	Model View Controller(MVC)
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Auto Layout and Size Classes" href="http://guides.peruzal.com/ios-guides/auto-layout-and-size-classes/">
+	
+	Auto Layout and Size Classes
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Table View" href="http://guides.peruzal.com/ios-guides/tableview/">
+	
+	Table View
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Collection View" href="http://guides.peruzal.com/ios-guides/collection-view/">
+	
+	Collection View
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Tab Bar" href="http://guides.peruzal.com/ios-guides/tabbar-controller/">
+	
+	Tab Bar
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Scroll View" href="http://guides.peruzal.com/ios-guides/scrollview/">
+	
+	Scroll View
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Search Bar" href="http://guides.peruzal.com/ios-guides/searchbar/">
+	
+	Search Bar
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Navigation Patterns" href="http://guides.peruzal.com/ios-guides/navigation/">
+	
+	Navigation Patterns
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Passing Data between View Controllers" href="http://guides.peruzal.com/ios-guides/passing-data/">
+	
+	Passing Data between View Controllers
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Navigation Controller" href="http://guides.peruzal.com/ios-guides/navigation-controller/">
+	
+	Navigation Controller
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Location" href="http://guides.peruzal.com/ios-guides/location/">
+	
+	Location
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Maps and Location" href="http://guides.peruzal.com/ios-guides/maps-and-location/">
+	
+	Maps and Location
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="iOS Frameworks and Device Sensors" href="http://guides.peruzal.com/ios-guides/ios-frameworks-and-device-sensors/">
+	
+	iOS Frameworks and Device Sensors
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Networking and Threading" href="http://guides.peruzal.com/ios-guides/networking-and-threading/">
+	
+	Networking and Threading
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Animations and Gestures" href="http://guides.peruzal.com/ios-guides/animations-and-gestures/">
+	
+	Animations and Gestures
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Persistence" href="http://guides.peruzal.com/ios-guides/persistence/">
+	
+	Persistence
+</a>
+
+
+
+  
+</li>
+
+
+        </ul>
+        
+
+        
+        <hr>
+        <span class="section">The author</span>
+        
+        <ul>
+          
+
+          
+          <li>
+            <a href="https://github.com/peruzal" target="_blank" title="@peruzal on GitHub">
+              @peruzal on GitHub
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="mailto:info@peruzal.com" title="Email of info@peruzal.com">
+              Contact via email
+            </a>
+          </li>
+          
+        </ul>
+        
+      </div>
+    </div>
+  </div>
+</nav>
+
+	</div>
+
+	<article class="article">
+		<div class="wrapper">
+			<h1>Handling Form Input </h1>
+
+			
+
+<h2 id="overview">Overview</h2>
+
+<p>This guide covers how to handle basic form input in iOS.</p>
+
+<p>Unlike <a href="http://www.w3.org/TR/html4/interact/forms.html#adef-action">HTML forms</a>, in iOS there is no standard <a href="http://www.w3.org/TR/html4/interact/forms.html#adef-action">form
+submission action</a>.  This means that it is up to you to
+define <em>when</em> a form&rsquo;s contents should be processed.  It also means that
+you are responsible for <em>how</em> to translate a form&rsquo;s state into
+meaningful information for the the application&rsquo;s
+<a href="Application-Architecture#models">models</a>, and vice versa.</p>
+
+<p>We&rsquo;ll focus on the very common use case of embedding form inputs in a
+table view.  This will allow us to highlight some points that require
+extra care when working with inputs in iOS.  For example, if the table
+view uses <a href="Table-View-Guide#reusing-uitableviewcells">reusable cells</a>, a
+cell containing a form input may be removed from memory as soon as it
+disappears from the screen when the user scrolls the table.  This means
+that you cannot necessarily rely on the state of the form itself to
+store information the user has input.  We&rsquo;ll cover how to overcome this and
+other problems below.</p>
+
+<p>Here is a typical example of form inputs in a table view:</p>
+
+<p><a href="http://imgur.com/e4vUMW4"><img src="http://i.imgur.com/e4vUMW4.png" title="source: imgur.com" /></a></p>
+
+<h2 id="static-forms">Static Forms</h2>
+
+<p>One way to avoid some complexity when working with form input in a table
+view is to use <a href="https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/TableView_iPhone/TableViewCells/TableViewCells.html#//apple_ref/doc/uid/TP40007451-CH7-SW20">static cells</a>.  However, this is only
+applicable when using Interface Builder and when your table view is
+backed by a
+<a href="Table-View-Guide#uitableview-vs-uitableviewcontroller">UITableViewController</a>.
+Additionally you should only use static cells when the structure of your
+forms will never change.</p>
+
+<p>To create a table with static cells you&rsquo;ll need to drag a <code>Table View
+Controller</code> into the scene from the Object Library and set <code>Content</code> to
+<code>Static Cells</code> in the Attributes Inspector.</p>
+
+<p><a href="http://imgur.com/dtxyIoX"><img src="http://i.imgur.com/dtxyIoX.png" title="source: imgur.com" /></a></p>
+
+<p>You can now control the number of sections in your table and the the
+number of cells by selecting either the &ldquo;Table View&rdquo; or &ldquo;Section&rdquo; in the
+Outline view and using the Attributes Inspector.  Using Interface
+Builder you can now design each individual cell as it would appear in
+your app.  You can also connect the controls in your cells to
+<code>@IBOutlets</code> and <code>@IBActions</code> in your UITableViewController&rsquo;s
+corresponding subclass.  Since there is no danger of static cells being
+removed from memory when they scroll off screen, you can choose whenever
+you want to process the information from any form inputs into useful
+information for the rest of your app.</p>
+
+<h3 id="example-basic-preferences-page">Example: Basic preferences page</h3>
+
+<p>Here is how we might implement a simple preferences page for an app.  To
+demonstrate the fact that the preferences will be used in the rest of
+the app we have a main <code>ViewController</code> that initializes and displays
+the preferences.  It has an &ldquo;Edit Preferences&rdquo; button that will open up
+our <code>PreferencesTableViewController</code>.</p>
+
+<p><em>NB: In practice, you might instead opt to use the <a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/UserDefaults/Preferences/Preferences.html#//apple_ref/doc/uid/10000059i-CH6-SW5">iOS Settings
+Bundle</a> feature when creating a preferences page.</em></p>
+
+<p><a href="http://imgur.com/jt3Pmf6"><img src="http://i.imgur.com/jt3Pmf6.gif" title="source: imgur.com" /></a></p>
+
+<p>The preferences table has three <em>static</em> cells each containing a single
+<a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UISwitch_Class/index.html">switch</a> corresponding to an on/off preference.  The swiches
+are connected to <code>@IBOutlets</code> in our <code>PreferencesTableViewController</code>.
+The preferences table view controller also has &ldquo;Save&rdquo; and &ldquo;Cancel&rdquo;
+buttons connected to unwind segues in our main <code>ViewController</code>.</p>
+
+<p><a href="http://imgur.com/rF4Ww3W"><img src="http://i.imgur.com/rF4Ww3W.png" title="source: imgur.com" /></a></p>
+
+<p>The <code>Preferences</code> class provides us with a model to store the
+preferences.</p>
+
+<pre><code class="language-swift">class Preferences {
+   var autoRefresh = true, playSounds = true, showPhotos = true
+}
+</code></pre>
+
+<p>In our preferences table view controller we initialize the state of the
+switches to match the current preferences&mdash;which will be set by our
+main view controller.</p>
+
+<p>Notice that when a switch is toggled, we do not mutate the current
+preferences since we might still cancel our changes.  Instead we provide
+a way to create a new <code>Preferences</code> object from the current state of the
+switches in the UI with the <code>preferencesFromTableData</code> method.  We&rsquo;ll use this
+method in the unwind segue associated with the &ldquo;Save&rdquo; button.</p>
+
+<p>We can wait to convert the state of the switches (as they appear in the
+UI) to a <code>Preferences</code> object until we are ready to save because we are
+using <em>static cells</em>.  This means that the cells do not get allocated
+and removed from memory dynamically and that we can obtain <code>@IBOutlets</code>
+to controls inside each specific cell.</p>
+
+<pre><code class="language-swift">import UIKit
+
+class PreferencesTableViewController: UITableViewController {
+
+    @IBOutlet weak var autoRefreshSwitch: UISwitch!
+    @IBOutlet weak var soundsSwitch: UISwitch!
+    @IBOutlet weak var showPhotosSwitch: UISwitch!
+
+    // should be set by the class that instantiates this view controller
+    var currentPrefs: Preferences!
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        currentPrefs = currentPrefs ?? Preferences()
+        initSwitches()
+    }
+
+    private func initSwitches() {
+        autoRefreshSwitch?.on = currentPrefs.autoRefresh
+        soundsSwitch?.on = currentPrefs.playSounds
+        showPhotosSwitch?.on = currentPrefs.showPhotos
+    }
+
+    func preferencesFromTableData() -&gt; Preferences {
+        var newPrefs = Preferences()
+        newPrefs.autoRefresh = autoRefreshSwitch.on
+        newPrefs.playSounds = soundsSwitch.on
+        newPrefs.showPhotos = showPhotosSwitch.on
+        return newPrefs
+    }
+}
+
+</code></pre>
+
+<p>In our main <code>ViewController</code> we set up the
+<code>PreferencesTableViewController</code> with the current preferences before our
+segue.  When coming back from the segue via the &ldquo;Save&rdquo; button we read
+off the new preferences from the switches and update our <code>preferences</code>
+object.  We don&rsquo;t take any action if the edit was &ldquo;Canceled&rdquo; because the
+<code>PreferencesTableViewController</code> does not modify the <code>preferences</code>
+object we pass in.</p>
+
+<pre><code class="language-swift">class ViewController: UIViewController {
+
+    @IBOutlet weak var autoRefreshLabel: UILabel!
+    @IBOutlet weak var playSoundsLabel: UILabel!
+    @IBOutlet weak var showPhotosLabel: UILabel!
+
+    var preferences: Preferences = Preferences() {
+        didSet {
+            updateLabels()
+        }
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        updateLabels()
+    }
+
+    private func updateLabels() {
+        autoRefreshLabel.text = preferences.autoRefresh ? &quot;Yes&quot; : &quot;No&quot;
+        playSoundsLabel.text = preferences.playSounds ? &quot;Yes&quot; : &quot;No&quot;
+        showPhotosLabel.text = preferences.showPhotos ? &quot;Yes&quot; : &quot;No&quot;
+    }
+
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == &quot;showPreferencesSegue&quot; {
+            // we wrapped our PreferencesTableViewController inside a UINavigationController
+            let navController = segue.destinationViewController as UINavigationController
+            let prefsVC = navController.topViewController as PreferencesTableViewController
+            prefsVC.currentPrefs = self.preferences
+        }
+    }
+
+    @IBAction func didSavePreferences(segue: UIStoryboardSegue) {
+        if let prefsVC = segue.sourceViewController as? PreferencesTableViewController {
+            self.preferences = prefsVC.preferencesFromTableData()
+        }
+    }
+
+    @IBAction func didCancelPreferences(segue: UIStoryboardSegue) {
+        // do nothing
+    }
+}
+</code></pre>
+
+<h2 id="dynamic-forms">Dynamic Forms</h2>
+
+<p>Static cells are quite limited because single <code>UITableView</code> has to
+contain either <em>all static cells</em> or have <em>all</em> of its content be
+provided dynamically.  For example it would not be possible to use
+static cells if the number of rows in <em>any</em> section of your table was
+based on data loaded at runtime.</p>
+
+<p>Furthermore, you can only use static cells in Interface Builder and when
+your table view is backed by <code>UITableViewController</code>.</p>
+
+<h3 id="challenges-of-tables-with-dynamically-created-form-inputs">Challenges of tables with dynamically created form inputs</h3>
+
+<p>There are a few additional challenges to overcome when working with form
+inputs in a table with dynamic content:</p>
+
+<ol>
+<li><p>Since the cells are dynamically allocated, <em>inside your view
+controller</em> there is no way to obtain <code>@IBOutlets</code> to an form input
+inside a specific cell.  You must arrange a way for the cells to read
+the state of its own form inputs and for the view controller to get this
+information from the cell.</p></li>
+
+<li><p>Likewise, if your view controller needs to respond to events from an
+individual cell, you must arrange a way for the cell to propagate the
+event to the view controller.  You cannot simply associate an
+<code>@IBAction</code> inside the view controller with an element inside a specific
+cell.</p></li>
+
+<li><p>Generally you&rsquo;ll be getting reusable cells to configure by calling
+<code>dequeueReusableCellWithIdentifier</code>.  This means you cannot rely on
+the information contained in the form inputs in an individual cell to
+persist when it scrolls off screen.  You will have to maintain all the
+information necessary to populate the state of all form inputs in each
+cell somewhere else.</p></li>
+
+<li><p>You&rsquo;ll also have to update this information immediately if the user
+interacts with the cell because, again, the form input itself cannot be
+used to to store information once the cell is no longer on the screen.</p></li>
+
+<li><p>If your form is used for editing data and provides a &ldquo;Cancel&rdquo; option,
+you must maintain an additional copy of the data seperate from the
+initial data and seperate from the current value inside the form inputs.</p></li>
+</ol>
+
+<h3 id="example-basic-preferences-page-revisited">Example: Basic preferences page revisited</h3>
+
+<p>To see how these factors come into play, we&rsquo;ll reimplement our basic
+preferences page example from <a href="#example-basic-preferences-page">above</a>
+to use dynamically created cells based on <a href="Table-View-Guide#using-prototype-cells">prototype
+cells</a> instead of static cells.</p>
+
+<p>As before we have a main <code>ViewController</code> displays the current
+preferences and has an &ldquo;Edit Preferences&rdquo; button that does a modal segue
+to our <code>PreferencesViewController</code>.  The <code>ViewController</code> class also
+contains <code>@IBActions</code> for unwind segues that happen when the user either
+saves or cancels editing preferences.</p>
+
+<p><a href="http://imgur.com/8nbwUnu"><img src="http://i.imgur.com/8nbwUnu.png" title="source: imgur.com" /></a></p>
+
+<p>We renamed our <code>PreferencesTableViewController</code> to
+<code>PreferencesViewController</code>.  It no longer has to be a subclass of
+<code>UITableViewController</code>, and instead it only implements the
+<code>UITableViewDataSource</code> protocol.  Other than replacing this type name,
+the code in our <code>ViewController</code> class remains the same as above.  The
+code for our <code>Preferences</code> model has not changed from above at all.</p>
+
+<p>The bulk of our changes are in <code>PreferencesViewController</code>.  We need to
+maintain the temporary state of our table as we are editing our
+preferences outside of the cells themselves.  We introduce two
+properties <code>tableStructure</code> and <code>prefValues</code> to keep track of this
+state.</p>
+
+<p>We write logic to convert a <code>Preferences</code> object into our <code>prefValues</code>.
+This allow us to update the <code>prefValues</code> to store the state of table as
+we are editing without modifying the original <code>Preferences</code> object that
+is passed in.  Likewise we have a procedure to obtain a new <code>Preferences</code>
+object from the <code>prefValues</code>.  This allows the rest of the application
+to obtain an updated <code>Preferences</code> once the user hits &ldquo;Save&rdquo;.</p>
+
+<pre><code class="language-swift">enum PrefRowIdentifier : String {
+    case AutoRefresh = &quot;Auto Refresh&quot;
+    case PlaySounds = &quot;Play Sounds&quot;
+    case ShowPhotos = &quot;Show Photos&quot;
+}
+
+class PreferencesViewController: UIViewController, UITableViewDataSource, PreferenceSwitchCellDelegate {
+    @IBOutlet weak var tableView: UITableView!
+    let tableStructure: [[PrefRowIdentifier]] = [[.AutoRefresh], [.PlaySounds, .ShowPhotos]]
+    var prefValues: [PrefRowIdentifier: Bool] = [:]
+
+    // should be set by the class that instantiates this view controller
+    var currentPrefs: Preferences! {
+        didSet {
+            prefValues[.AutoRefresh] = currentPrefs.autoRefresh
+            prefValues[.PlaySounds] = currentPrefs.playSounds
+            prefValues[.ShowPhotos] = currentPrefs.showPhotos
+            tableView?.reloadData()
+        }
+    }
+
+    func preferencesFromTableData() -&gt; Preferences {
+        let ret = Preferences()
+        ret.autoRefresh = prefValues[.AutoRefresh] ?? ret.autoRefresh
+        ret.playSounds = prefValues[.PlaySounds] ?? ret.playSounds
+        ret.showPhotos = prefValues[.ShowPhotos] ?? ret.showPhotos
+        return ret
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        currentPrefs = currentPrefs ?? Preferences()
+        tableView.dataSource = self
+    }
+
+    func numberOfSectionsInTableView(tableView: UITableView) -&gt; Int {
+        return tableStructure.count
+    }
+
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -&gt; String? {
+        return &quot; &quot;
+    }
+
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -&gt; Int {
+        return tableStructure[section].count
+    }
+
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -&gt; UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier(&quot;PreferenceSwitchCell&quot;) as PreferenceSwitchCell
+        let prefIdentifier = tableStructure[indexPath.section][indexPath.row]
+        cell.prefRowIdentifier = prefIdentifier
+        cell.onOffSwitch.on = prefValues[prefIdentifier]!
+        cell.delegate = self
+        return cell
+    }
+
+    func preferenceSwitchCellDidToggle(cell: PreferenceSwitchCell, newValue: Bool) {
+        prefValues[cell.prefRowIdentifier] = newValue
+    }
+}
+
+</code></pre>
+
+<!--- TODO link to delegate pattern -->
+
+<p>Finally we need a way for our custom cell containing a single switch to
+know which preference it represents and to notify our view controller
+immediately once its switch is toggled.  We do this by implementing a
+custom <code>PreferenceSwitchCell</code> class with a corresponding delegate
+<code>PreferenceSwitchCellDelegate</code> that is implemented by our
+<code>PreferencesViewController</code>.</p>
+
+<p>The action of the switch in our protoype cell is connected to our code
+in <code>PreferenceSwitchCell</code> by an <code>@IBAction</code>.  We notify our view
+controller once this event is triggered by propagating the change
+through the delegate.</p>
+
+<pre><code class="language-swift">protocol PreferenceSwitchCellDelegate: class {
+    func preferenceSwitchCellDidToggle(cell: PreferenceSwitchCell, newValue:Bool)
+}
+
+class PreferenceSwitchCell: UITableViewCell {
+    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var onOffSwitch: UISwitch!
+
+    weak var delegate: PreferenceSwitchCellDelegate?
+
+    var prefRowIdentifier: PrefRowIdentifier! {
+        didSet {
+            descriptionLabel?.text = prefRowIdentifier?.rawValue
+        }
+    }
+
+    @IBAction func didToggleSwitch(sender: AnyObject) {
+        delegate?.preferenceSwitchCellDidToggle(self, newValue: onOffSwitch.on)
+    }
+}
+
+</code></pre>
+
+<!---
+### Example: Multi-Select with Dynamic Content
+
+### Example: Drop-Down Select
+-->
+
+
+			<aside class="copyright" role="note">
+				
+				&copy; 2016 Peruzal &ndash;
+				
+				Xamarin iOS Guides by 
+				<a href="https://www.peruzal.com" target="_blank">Peruzal</a>
+			</aside>
+
+			<footer class="footer">
+				
+
+<nav class="pagination" aria-label="Footer">
+  <div class="previous">
+  
+      <a href="http://guides.peruzal.com/ios-guides/searchbar/" title="Search Bar Controller">
+        <span class="direction">
+          Previous
+        </span>
+        <div class="page">
+          <div class="button button-previous" role="button" aria-label="Previous">
+            <i class="icon icon-back"></i>
+          </div>
+          <div class="stretch">
+            <div class="title">
+              Search Bar Controller
+            </div>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+
+  <div class="next">
+  
+      <a href="http://guides.peruzal.com/ios-guides/passing-data/" title="Passing Data between View Controllers">
+        <span class="direction">
+          Next
+        </span>
+        <div class="page">
+          <div class="stretch">
+            <div class="title">
+              Passing Data between View Controllers
+            </div>
+          </div>
+          <div class="button button-next" role="button" aria-label="Next">
+            <i class="icon icon-forward"></i>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+</nav>
+
+
+
+
+
+			</footer>
+		</div>
+	</article>
+
+	<div class="results" role="status" aria-live="polite">
+		<div class="scrollable">
+			<div class="wrapper">
+				<div class="meta"></div>
+				<div class="list"></div>
+			</div>
+		</div>
+	</div>
+</main>
+
+    <script>
+    
+      var base_url = '';
+      var repo_id  = '';
+    
+    </script>
+
+    <script src="http://guides.peruzal.com/ios-guides/javascripts/application.js"></script>
+    
+
+    <script>
+      /* Add headers to scrollspy */
+      var headers   = document.getElementsByTagName("h2");
+      var scrollspy = document.getElementById('scrollspy');
+
+      if(scrollspy) {
+        if(headers.length > 0) {
+          for(var i = 0; i < headers.length; i++) {
+            var li = document.createElement("li");
+            li.setAttribute("class", "anchor");
+
+            var a  = document.createElement("a");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", headers[i].innerHTML);
+            a.innerHTML = headers[i].innerHTML;
+            
+            li.appendChild(a)
+            scrollspy.appendChild(li);
+          }
+        } else {
+          scrollspy.parentElement.removeChild(scrollspy)
+        }
+        
+
+        /* Add permanent link next to the headers */
+        var headers = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+
+        for(var i = 0; i < headers.length; i++) {
+            var a = document.createElement("a");
+            a.setAttribute("class", "headerlink");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", "Permanent link")
+            a.innerHTML = "#";
+            headers[i].appendChild(a);
+        }
+      }
+    </script>
+
+    
+
+    <script src="//gohugo.io/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/cs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/json.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/swift.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/xml.min.js"></script>    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/objectivec.min.js"></script>
+  </body>
+</html>

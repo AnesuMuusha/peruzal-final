@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Installing-sql-servers on Introduction to SQL</title>
+    <link>http://guides.peruzal.com/introduction-to-sql/installing-sql-server/index.xml</link>
+    <description>Recent content in Installing-sql-servers on Introduction to SQL</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Copyright 2017 Peruzal</copyright>
+    <lastBuildDate>Wed, 15 Mar 2017 07:21:17 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/introduction-to-sql/installing-sql-server/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Installing SQL Server</title>
+      <link>http://guides.peruzal.com/introduction-to-sql/installing-sql-server/</link>
+      <pubDate>Wed, 15 Mar 2017 07:21:17 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/introduction-to-sql/installing-sql-server/</guid>
+      <description>
+
+&lt;h2 id=&#34;sql-server-editions&#34;&gt;SQL Server Editions&lt;/h2&gt;
+
+&lt;p&gt;They are various versions of SQL Server available. Before you proceed to the installation of the system, you need to develop an installation plan.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Express Edition&lt;/strong&gt; The lightweight version of SQL Server, designed for use by application developers. For this reason, the product supports Common Language Runtime (CLR) integration and native XML. Also, you can download SQL Server Management Studio Express (SSMSE), to easily manage a database. SQL Server Express is available as a free download.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Standard Edition&lt;/strong&gt; Designed for small and medium-sized businesses. It supports up to four processors as well as 2TB of RAM and includes the full range of BI functionality, including Analysis Services, Reporting Services, and Integration Services. This edition does not include many enterprise-based features from Enterprise Edition.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Enterprise Edition&lt;/strong&gt; The special form of the SQL Server system that is intended for time-critical applications with a huge number of users. In contrast to Standard Edition, this edition contains additional features that can be useful for high-end installations with symmetrical multiprocessors or clusters. The most important additional features of Enterprise Edition are data partitioning, database snapshots, and online database maintenance.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Developer Edition&lt;/strong&gt; Allows developers to build and test any type of application with SQL Server. It includes all the functionality of Enterprise Edition, but is licensed only for use in development, testing, and demonstration. Each license of Developer Edition entitles one developer to use the software on as many systems as necessary; additional developers can use the software by purchasing additional licenses. For rapid deployment into production, the database system of Developer Edition can easily be upgraded to Enterprise Edition.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Web Edition&lt;/strong&gt; A low-cost option for the Web, which provides scalability and manageability capabilities for small to large web applications.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;More information between is found the &lt;a href=&#34;https://msdn.microsoft.com/en-us/library/cc645993.aspx&#34;&gt;Microsoft Website&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;management-components&#34;&gt;Management Components&lt;/h2&gt;
+
+&lt;p&gt;The following management components, among others, belong to SQL Server 2016:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;SQL Server Management Studio (SSMS&lt;/strong&gt;) The primary tool for database administrators (DBAs) to interact with the system. Both administrators and end users can use this tool. Chapter 3 describes this component in detail.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;SQL Server Configuration Manager&lt;/strong&gt; The primary tool for managing the services associated with SQL Server, configuring the network protocols used by SQL Server, and managing the network connectivity configuration from SQL Server client computers. It is a Microsoft Management Console (MMC) snap-in that is available from the Start menu. This tool will be used and explained in Chapter 5.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;SQL Server Profiler&lt;/strong&gt; A graphical tool that enables system administrators to monitor and record database and server activities. The tool is described in detail in Chapter 20.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Database Engine Tuning Advisor (DTA)&lt;/strong&gt; A graphical tool that enables DBAs to automate the physical design of their databases. The tool is described together with SQL Server Profiler in Chapter 20.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Data Quality Client&lt;/strong&gt; An application that enables DBAs to create knowledge bases, create and run data quality projects, and perform administrative tasks. The detailed description of the tool is beyond the scope of this guide.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;SQL Server Data Tools (SSDT)&lt;/strong&gt; A management tool that provides one development platform for different business intelligence (BI) applications. Built on Visual Studio, SSDT is an integrated platform for system developers in the BI area.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;planning-phase&#34;&gt;Planning Phase&lt;/h2&gt;
+
+&lt;p&gt;The planning phase is divided into two parts, general recommendations and the other part will go through the actual installation process.&lt;/p&gt;
+
+&lt;h2 id=&#34;general-recommendations&#34;&gt;General Recommendations&lt;/h2&gt;
+
+&lt;p&gt;During the installation process, you have to make many choices. As a general guideline, it is best to familiarize yourself with their effects before installing your system. At the beginning, you should answer the following questions:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Which SQL Server components should be installed?&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Where will the root directory be stored?&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Should multiple instances of SQL Server be used?&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Which authentication mode for SQL Server should be used?&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;which-sql-server-components-should-be-installed&#34;&gt;Which SQL Server Components Should Be Installed?&lt;/h3&gt;
+
+&lt;p&gt;Before you start the installation process, you should know exactly which SQL Server components you want to install.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/sql-server-features.jpg&#34; alt=&#34;SQL Server Features&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;There are two groups of features on the Feature Selection page: &lt;strong&gt;Instance Features&lt;/strong&gt; and &lt;strong&gt;Shared Features&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Instance features&lt;/strong&gt; are the components that are installed once for each instance so that you have multiple copies of them (one for each instance)- &lt;strong&gt;Shared features&lt;/strong&gt; are features that are common across all instances on a given machine. Each of these shared features is designed to be backward compatible with supported SQL Server versions that can be installed side by side.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;instance-features-database-engine-service&#34;&gt;Instance Features - Database Engine Service&lt;/h3&gt;
+
+&lt;p&gt;The &lt;strong&gt;Database Engine&lt;/strong&gt; is the relational database system of SQL Server.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;SQL Server Replication&lt;/strong&gt;, allows you to replicate data from one system to another.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;R Services&lt;/strong&gt;, this is an optional feature of the Database Engine that lets you execute scripts written in the R language. This feature lets you deploy R packages to SQL Server, execute R solutions in the context of SQL Server, and easily work with SQL Server data in R.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Full-Text and Semantic Extractions for Search&lt;/strong&gt;, Full-Text Search is a component of SQL Server that allows you to store and query unstructured data&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Data Quality Services&lt;/strong&gt;, this feature have already been discussed previously.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;PolyBase Query Service for External Data&lt;/strong&gt;, PolyBase is a new component of SQL Server that builds a gateway from SQL to Hadoop.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;other-instance-features&#34;&gt;Other Instance Features&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Reporting Services, and Integration Services&lt;/strong&gt;, which are components related to business intelligence (BI).&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Analysis Services&lt;/strong&gt; is a group of services that is used to manage and query data that is stored in a data warehouse.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Reporting Services&lt;/strong&gt; allows you to create and manage reports.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;where-will-the-root-directory-be-stored&#34;&gt;Where Will the Root Directory Be Stored?&lt;/h2&gt;
+
+&lt;p&gt;The &lt;em&gt;root directory&lt;/em&gt; is where the Setup program stores all program files and those files that do not change as you use the SQL Server system. By default, the installation process stores all program files in the subdirectory Microsoft SQL Server, although you can change this setting during the installation process. Using the default name is recommended because it uniquely determines the version of the system.&lt;/p&gt;
+
+&lt;h2 id=&#34;should-multiple-instances-of-sql-server-be-used&#34;&gt;Should Multiple Instances of SQL Server Be Used?&lt;/h2&gt;
+
+&lt;p&gt;An instance is a database server that does not share its system and user databases with other instances (servers) running on the same computer.&lt;/p&gt;
+
+&lt;p&gt;There are two instance types:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Default&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Named&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The &lt;em&gt;default instance&lt;/em&gt; operates the same way as the database server versions of SQL Server, where support for only one database server exists. The computer name on which the instance is running specifies solely the name of the default instance. Any instance of the database server other than the default instance is called a named instance.&lt;/p&gt;
+
+&lt;p&gt;You should consider using multiple instances if both of the following are true:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;You have different types of databases on your computer.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Your computer is powerful enough to manage multiple instances.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;A single-processor machine will not be the right hardware platform to run multiple instances of the Database Engine, because of limited resources. For this reason, you should consider the use of multiple instances only with multiprocessor computers.&lt;/p&gt;
+
+&lt;h2 id=&#34;which-authentication-mode-for-sql-server-should-be-used&#34;&gt;Which Authentication Mode for SQL Server Should Be Used?&lt;/h2&gt;
+
+&lt;p&gt;In relation to the Database Engine, there are two different authentication modes:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Windows mode&lt;/strong&gt; Specifies security exclusively at the operating system level—that is, it specifies the way in which users connect to the Windows operating system using their user accounts and group memberships.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Mixed mode&lt;/strong&gt; Allows users to connect to the Database Engine using Windows authentication or SQL Server authentication. This means that some user accounts can be set up to use the Windows security subsystem, while others can use the SQL Server security subsystem in addition to the Windows security subsystem.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;admonition note&#34;&gt;
+&lt;p class=&#34;admonition-title&#34;&gt;Which is the recommended authentication mechanisms&lt;/p&gt;
+&lt;p&gt;Microsoft recommends the use of Windows mode.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;installing-sql-server-step-by-step&#34;&gt;Installing SQL Server - Step by Step&lt;/h2&gt;
+
+&lt;p&gt;To start the SQL Server installation, mount the image of the SQL Server 2016 software. After that, click the “Setup” execution file to open SQL Server Installation Center.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/installation-center.jpg&#34; alt=&#34;Installation Center&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;From the Planning page, you can execute the following tasks, among others:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Hardware and Software Requirements&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Security Documentation&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Online Release Notes&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;System Configuration Checker&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Download Upgrade Advisor&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;hardware-requirements&#34;&gt;Hardware Requirements&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Windows operating systems are supported on the Intel and AMD hardware platforms.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Processor speed should be 1.4 GHz at a minimum, but 2 GHz or faster is recommended.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Officially, the minimum requirement for main memory is 1MB. (Express Edition needs only 512KB.) However, almost everybody recognizes that such a minimal configuration will not perform very well, and as a general guideline, main memory of your computer should be at least 4GB.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;The minimum hard disk space is 6GB.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;security-documentation&#34;&gt;Security Documentation&lt;/h2&gt;
+
+&lt;p&gt;When you click Security Documentation, the system takes you to the Microsoft page that discusses general considerations concerning security. One of the most important security measures is to isolate services from each other. To isolate services, run separate SQL Server services under separate Windows accounts&lt;/p&gt;
+
+&lt;h3 id=&#34;online-release-notes&#34;&gt;Online Release Notes&lt;/h3&gt;
+
+&lt;p&gt;There are two main sources to get information concerning all the features of the SQL Server system: Books Online and Online Release Notes.&lt;/p&gt;
+
+&lt;h3 id=&#34;system-configuration-checker&#34;&gt;System Configuration Checker&lt;/h3&gt;
+
+&lt;p&gt;One of the most important planning tasks is to check whether all conditions are fulfilled for a successful installation of the database system. When you click System Configuration Checker, the component called Global Rules is automatically started. Setup Global Rules identifies problems that might occur when you install SQL Server support files. After finishing this task, the system shows you how many operations were checked and how many of them failed. All failures have to be corrected before the installation can continue.&lt;/p&gt;
+
+&lt;h2 id=&#34;installing-sql-server&#34;&gt;Installing SQL Server&lt;/h2&gt;
+
+&lt;p&gt;After starting the installation, the installation rules runs and verifies if SQL Server can be installed.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/installation-rules.jpg&#34; alt=&#34;Installation Rules&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;choose-installation-type&#34;&gt;Choose Installation Type&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/inew-installation.jpg&#34; alt=&#34;Choose installation type&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;feature-selection&#34;&gt;Feature Selection&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/feature-selection.jpg&#34; alt=&#34;Feature Selection&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;instance-configuration&#34;&gt;Instance Configuration&lt;/h3&gt;
+
+&lt;p&gt;On the Instance Configuration page, you can choose between the installation of a default or named instance.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/instance-configuration.jpg&#34; alt=&#34;Instance Configuration&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;To install a new named instance, click Named Instance and type a new name in the given text box. In the lower part of the page, you can see the list of instances already installed on your system. (MSSQLSERVER is the name of the default instance for SQL Server.) Click Next to continue.&lt;/p&gt;
+
+&lt;h3 id=&#34;server-configuration&#34;&gt;Server Configuration&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/server-configuration.jpg&#34; alt=&#34;Server Configuration&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The next page, Server Configuration, contains two tabs. The first one, Service Accounts, allows you to specify usernames and corresponding passwords for services of all components that will be installed during the installation process.&lt;/p&gt;
+
+&lt;p&gt;To choose the collation of your instance, click the second tab of the same page. You can either choose the default collations for the components that will be installed, or click Customize to select some other collations that are supported by the system. Click Next to continue.&lt;/p&gt;
+
+&lt;h3 id=&#34;database-engine-configuration&#34;&gt;Database Engine Configuration&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/database-configuration.jpg&#34; alt=&#34;Database Configuration&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The Database Engine Configuration page has several different tabs. The first tab, Server Configuration , allows you to choose the authentication mode for your Database Engine system.&lt;/p&gt;
+
+&lt;p&gt;The second tab of the &lt;strong&gt;Database Engine Configuration&lt;/strong&gt; page, Data Directories, allows you to specify the locations for the directories in which Database Engine–related files are stored. In other words, the installation process lists default directories where the installation process will store different SQL Server components and which you can modify.&lt;/p&gt;
+
+&lt;p&gt;The third tab, TempDB, is a new one in SQL Server 2016 and relates to the &lt;em&gt;tempdb&lt;/em&gt; system database. (This database provides storage space for temporary objects that are needed.) On this tab you can configure the number of data files assigned to tempdb. By default, the installation process sets the default to the number of cores on your machine. If your machine has more than eight cores, this initial number of tempdb data files will be set to 8.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/tempdb.jpg&#34; alt=&#34;TempDB&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The last tab, FILESTREAM, allows you to enable FILESTREAM. By default FILESTREAM is disabled. To enable it, check the Enable FILESTREAM for Transact-SQL Access box.&lt;/p&gt;
+
+&lt;p&gt;What appears for the next step depends on whether or not you chose to install Analysis Services and/or Reporting Services.&lt;/p&gt;
+
+&lt;h3 id=&#34;completing-the-installation&#34;&gt;Completing the Installation&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/introduction-to-sql/images/completing-the-installation.jpg&#34; alt=&#34;Completing the installation&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

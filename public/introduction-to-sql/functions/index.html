@@ -1,0 +1,1761 @@
+<!DOCTYPE html>
+  
+  
+  
+  
+   <html class="no-js"> 
+
+  <head lang="en-us">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=10" />
+    <title>Functions - Introduction to SQL</title>
+    <meta name="generator" content="Hugo 0.19" />
+
+    
+    <meta name="description" content="Introduction to SQL Guide">
+    
+    <link rel="canonical" href="http://guides.peruzal.com/introduction-to-sql/functions/">
+    
+    <meta name="author" content="Peruzal">
+    
+
+    <meta property="og:url" content="http://guides.peruzal.com/introduction-to-sql/functions/">
+    <meta property="og:title" content="Introduction to SQL">
+    <meta property="og:image" content="http://guides.peruzal.com/images/logo.png">
+    <meta name="apple-mobile-web-app-title" content="Introduction to SQL">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="shortcut icon" type="image/x-icon" href="http://guides.peruzal.com/introduction-to-sql/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="http://guides.peruzal.com/introduction-to-sql/images/favicon.ico">
+
+    <style>
+      @font-face {
+        font-family: 'Icon';
+        src: url('http://guides.peruzal.com/introduction-to-sql/fonts/icon.eot');
+        src: url('http://guides.peruzal.com/introduction-to-sql/fonts/icon.eot')
+               format('embedded-opentype'),
+             url('http://guides.peruzal.com/introduction-to-sql/fonts/icon.woff')
+               format('woff'),
+             url('http://guides.peruzal.com/introduction-to-sql/fonts/icon.ttf')
+               format('truetype'),
+             url('http://guides.peruzal.com/introduction-to-sql/fonts/icon.svg')
+               format('svg');
+        font-weight: normal;
+        font-style: normal;
+      }
+    </style>
+
+    <link rel="stylesheet" href="http://guides.peruzal.com/introduction-to-sql/stylesheets/application.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/introduction-to-sql/stylesheets/temporary.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/introduction-to-sql/stylesheets/palettes.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/introduction-to-sql/stylesheets/highlight/highlight.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/github-gist.min.css">
+
+    
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ubuntu:400,700|Ubuntu&#43;Mono">
+    <style>
+      body, input {
+        font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+      }
+      pre, code {
+        font-family: 'Ubuntu Mono', 'Courier New', 'Courier', monospace;
+      }
+    </style>
+
+    
+    <script src="http://guides.peruzal.com/introduction-to-sql/javascripts/modernizr.js"></script>
+
+    
+
+  </head>
+  <body class="palette-primary-deep-orange palette-accent-light-blue">
+
+
+
+
+<div class="backdrop">
+	<div class="backdrop-paper"></div>
+</div>
+
+<input class="toggle" type="checkbox" id="toggle-drawer">
+<input class="toggle" type="checkbox" id="toggle-search">
+<label class="toggle-button overlay" for="toggle-drawer"></label>
+
+<header class="header">
+	<nav aria-label="Header">
+  <div class="bar default">
+    <div class="button button-menu" role="button" aria-label="Menu">
+      <label class="toggle-button icon icon-menu" for="toggle-drawer">
+        <span></span>
+      </label>
+    </div>
+    <div class="stretch">
+      <div class="title">
+        Functions
+      </div>
+    </div>
+
+    
+    <div class="button button-twitter" role="button" aria-label="Twitter">
+       <a href="https://twitter.com/peruzal" title="@peruzal on Twitter" target="_blank" class="toggle-button icon icon-twitter"></a>
+    </div>
+    
+
+    
+    <div class="button button-github" role="button" aria-label="GitHub">
+      <a href="https://github.com/peruzal" title="@peruzal on GitHub" target="_blank" class="toggle-button icon icon-github"></a>
+    </div>
+    
+    
+        
+  </div>
+  <div class="bar search">
+    <div class="button button-close" role="button" aria-label="Close">
+      <label class="toggle-button icon icon-back" for="toggle-search"></label>
+    </div>
+    <div class="stretch">
+      <div class="field">
+        <input class="query" type="text" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck>
+      </div>
+    </div>
+    <div class="button button-reset" role="button" aria-label="Search">
+      <button class="toggle-button icon icon-close" id="reset-search"></button>
+    </div>
+  </div>
+</nav>
+</header>
+
+<main class="main">
+	<div class="drawer">
+		<nav aria-label="Navigation">
+  <a href="http://guides.peruzal.com/introduction-to-sql" class="project">
+    <div class="banner">
+      
+        <div class="logo">
+          <img src="http://guides.peruzal.com/introduction-to-sql/images/logo.png">
+        </div>
+      
+      <div class="name">
+        <strong>Introduction to SQL <span class="version">1.0.0</span></strong>
+        
+      </div>
+    </div>
+  </a>
+
+  <div class="scrollable">
+    <div class="wrapper">
+      
+
+      <div class="toc">
+        
+        <ul>
+          
+
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Understanding SQL" href="http://guides.peruzal.com/introduction-to-sql/understanding-sql/">
+	
+	Understanding SQL
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Retrieving Data" href="http://guides.peruzal.com/introduction-to-sql/retrieving-data/">
+	
+	Retrieving Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Sorting Data" href="http://guides.peruzal.com/introduction-to-sql/sorting-data/">
+	
+	Sorting Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Filtering Data" href="http://guides.peruzal.com/introduction-to-sql/filtering-data/">
+	
+	Filtering Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a class="current" title="Functions Data" href="http://guides.peruzal.com/introduction-to-sql/functions/">
+	
+	Functions Data
+</a>
+
+
+<ul id="scrollspy">
+</ul>
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Grouping Data" href="http://guides.peruzal.com/introduction-to-sql/grouping-data/">
+	
+	Grouping Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Sub Queries" href="http://guides.peruzal.com/introduction-to-sql/subqueries/">
+	
+	Sub Queries
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Joining Tables" href="http://guides.peruzal.com/introduction-to-sql/joining-tables/">
+	
+	Joining Tables
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Inserting Data" href="http://guides.peruzal.com/introduction-to-sql/inserting-data/">
+	
+	Inserting Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Updating Data" href="http://guides.peruzal.com/introduction-to-sql/updating-data/">
+	
+	Updating Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Deleting Data" href="http://guides.peruzal.com/introduction-to-sql/deleting-data/">
+	
+	Deleting Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Working with Tables" href="http://guides.peruzal.com/introduction-to-sql/working-with-tables/">
+	
+	Working with Tables
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Views" href="http://guides.peruzal.com/introduction-to-sql/views/">
+	
+	Views
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Stored Procedures" href="http://guides.peruzal.com/introduction-to-sql/stored-procedures/">
+	
+	Stored Procedures
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Transaction" href="http://guides.peruzal.com/introduction-to-sql/transactions/">
+	
+	Transaction
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Advanced SQL Features" href="http://guides.peruzal.com/introduction-to-sql/advanced-sql-features/">
+	
+	Advanced SQL Features
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Calculated Fields" href="http://guides.peruzal.com/introduction-to-sql/calculated-fields/">
+	
+	Calculated Fields
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Installing SQL Server" href="http://guides.peruzal.com/introduction-to-sql/installing-sql-server/">
+	
+	Installing SQL Server
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="SQL Server Architecture" href="http://guides.peruzal.com/introduction-to-sql/sql-server-architecture/">
+	
+	SQL Server Architecture
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Database Recovery" href="http://guides.peruzal.com/introduction-to-sql/database-recovery/">
+	
+	Database Recovery
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Security" href="http://guides.peruzal.com/introduction-to-sql/database-security/">
+	
+	Security
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="AlwaysOn Availability Groups" href="http://guides.peruzal.com/introduction-to-sql/sql-server-alwayson/">
+	
+	AlwaysOn Availability Groups
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Intro to SQL" href="http://guides.peruzal.com/introduction-to-sql/">
+	
+	Intro to SQL
+</a>
+
+
+
+  
+</li>
+
+
+        </ul>
+        
+
+        
+        <hr>
+        <span class="section">The author</span>
+        
+        <ul>
+          
+          <li>
+            <a href="https://twitter.com/peruzal" target="_blank" title="@peruzal on Twitter">
+              @peruzal on Twitter
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="https://github.com/peruzal" target="_blank" title="@peruzal on GitHub">
+              @peruzal on GitHub
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="mailto:hello@peruzal.com" title="Email of hello@peruzal.com">
+              Contact via email
+            </a>
+          </li>
+          
+        </ul>
+        
+      </div>
+    </div>
+  </div>
+</nav>
+
+	</div>
+
+	<article class="article">
+		<div class="wrapper">
+			<h1>Functions </h1>
+
+			
+
+<p>Functions are operations that are usually performed on data, usually to facilitate conversion and manipulation. You can use expressions in the <strong>SELECT</strong>, <strong>WHERE</strong>, and <strong>ORDER BY</strong> clauses as well as in other clauses</p>
+
+<h3 id="using-functions">Using Functions</h3>
+
+<p>SQL supports a lot of functions, they are functions to handle the following :</p>
+
+<ul>
+<li>Text</li>
+<li>Numbers</li>
+<li>Dates</li>
+<li>System</li>
+</ul>
+
+<h2 id="text-functions">Text Functions</h2>
+
+<p>These functions are used to manipulate text</p>
+
+<ul>
+<li>UPPER</li>
+<li>LOWER</li>
+<li>RTRIM</li>
+<li>LTRIM</li>
+<li>TRIM</li>
+<li>SUBSTRING</li>
+<li>LENGTH</li>
+</ul>
+
+<h3 id="upper-and-lower">UPPER and LOWER</h3>
+
+<p>Use UPPER and LOWER to change a string to either uppercase or lowercase. You may need to display all uppercase data in a report, for example. The syntax is very simple.</p>
+
+<p><code>UPPER(&lt;string&gt;)</code>
+<code>LOWER(&lt;string&gt;)</code></p>
+
+<pre><code class="language-sql">USE AdventureWorks2012;
+GO
+SELECT LastName, UPPER(LastName) AS &quot;UPPER&quot;,
+    LOWER(LastName) AS &quot;LOWER&quot;
+FROM Person.Person
+WHERE BusinessEntityID IN (293,295,211,297,299,3057,15027);
+</code></pre>
+
+<div class="admonition note">
+<p class="admonition-title">Case sensitivity when searching</p>
+<p>You may think that you will use UPPER or LOWER often in the WHERE clause to make sure that the case of the value does not affect the results, but usually you don’t need to do this. By default, searching in T-SQL is case insensitive. The collation of the column determines whether the search will be case sensitive. This is defined at the server, but you can specify a different collation of the database, table, or column</p>
+</div>
+
+<h3 id="rtrim-and-ltrim">RTRIM and LTRIM</h3>
+
+<p>The RTRIM and LTRIM functions remove spaces from the right side (RTRIM) or left side (LTRIM) of a string.</p>
+
+<pre><code class="language-sql"> Using RTRIM and LTRIM
+
+--Create the temp table
+CREATE TABLE #trimExample (COL1 VARCHAR(10));
+GO
+--Populate the table
+INSERT INTO #trimExample (COL1)
+VALUES ('a  '),('b  '),('  c'),('  d  ');
+
+--Select the values using the functions
+SELECT COL1, '*' + RTRIM(COL1) + '*' AS &quot;RTRIM&quot;,
+    '*' + LTRIM(COL1) + '*' AS &quot;LTRIM&quot;
+FROM #trimExample;
+
+--Clean up
+DROP TABLE #trimExample;
+</code></pre>
+
+<h3 id="analysis">Analysis</h3>
+
+<p>The RTRIM function removed the spaces from the right side; the LTRIM function removed the spaces from the left side. T-SQL doesn’t contain a native function that removes the spaces from both sides of the string</p>
+
+<h3 id="left-and-right">LEFT and RIGHT</h3>
+
+<p>The LEFT and RIGHT functions return a specified number of characters on the left or right side of a string. Developers use these functions to parse strings. For example, you may need to retrieve the three-character extension from file path data by using RIGHT. Take a look at the syntax.</p>
+
+<p><code>LEFT(&lt;string&gt;,&lt;number of characters)</code>
+<code>RIGHT(&lt;string&gt;,&lt;number of characters)</code></p>
+
+<pre><code class="language-sql">USE AdventureWorks2012;
+GO
+SELECT LastName,LEFT(LastName,5) AS &quot;LEFT&quot;,
+    RIGHT(LastName,4) AS &quot;RIGHT&quot;
+FROM Person.Person
+WHERE BusinessEntityID IN (293,295,211,297,299,3057,15027);
+</code></pre>
+
+<h3 id="analysis-1">Analysis</h3>
+
+<p>Notice that even if the value contains fewer characters than the number specified in the second parameter, the function still works to return as many characters as possible.</p>
+
+<h3 id="len-and-datalength">LEN and DATALENGTH</h3>
+
+<p>Use LEN to return the number of characters in a string. Developers sometimes use another function, DATALENGTH, incorrectly in place of LEN. DATALENGTH returns the number of bytes in a string. The problem occurs when using DATALENGTH on NCHAR or NVARCHAR data types, which take two byes per characters. In this case, the DATALENGTH value is two times the LEN value.</p>
+
+<p>The syntax is very simple.</p>
+
+<p><code>LEN(&lt;string&gt;)</code>
+<code>DATALENGTH(&lt;string&gt;)</code></p>
+
+<pre><code class="language-sql">USE AdventureWorks2012;
+GO
+
+SELECT LastName,LEN(LastName) AS &quot;Length&quot;,
+    DATALENGTH(LastName) AS &quot;Data Length&quot;
+FROM Person.Person
+WHERE BusinessEntityID IN (293,295,211,297,299,3057,15027);
+</code></pre>
+
+<h3 id="charindex">CHARINDEX</h3>
+
+<p>Use CHARINDEX to find the numeric starting position of a search string inside another string. By checking to see whether the value returned by CHARINDEX is greater than zero, you can use the function to just determine whether the search string exists inside the second value.</p>
+
+<p>The following is the syntax; remember that the third parameter is optional (square brackets surround optional parameters in the syntax):</p>
+
+<p><code>CHARINDEX(&lt;search string&gt;,&lt;target string&gt;[,&lt;start location&gt;])</code></p>
+
+<pre><code class="language-sql">USE AdventureWorks2012;
+GO
+SELECT LastName, CHARINDEX('e',LastName) AS &quot;Find e&quot;,
+    CHARINDEX('e',LastName,4) AS &quot;Skip 4 Characters&quot;,
+    CHARINDEX('be',LastName) AS &quot;Find be&quot;,
+    CHARINDEX('Be',LastName) AS &quot;Find B&quot;
+FROM Person.Person
+WHERE BusinessEntityID IN (293,295,211,297,299,3057,15027);
+</code></pre>
+
+<h3 id="analysis-2">Analysis</h3>
+
+<p>The Skip 4 Characters column displays the first location of the letter e when the first four characters of the LastName value are ignored. Finally, the Find be column demonstrates that you can use the function with search strings that are more than one character in length. Notice how “Be” returns a value of “Bell”. This is due to the case sensitivity of the AdventureWorks2012 database, which differentiates between an upper and lowercase “b.”</p>
+
+<h3 id="substring">SUBSTRING</h3>
+
+<p>Use SUSTRING to return a portion of a string starting at a given position and for a specified number of characters. For example, an order-entry application may assign a customer ID based on the first seven letters of the customer’s last name plus digits 4–9 of the phone number. The SUBSTRING function requires three parameters: the string, a starting location, and the number of characters to retrieve.</p>
+
+<p>Here is the syntax of SUBSTRING:</p>
+
+<p><code>SUBSTRING(&lt;string&gt;,&lt;start location&gt;,&lt;length&gt;)</code></p>
+
+<pre><code class="language-sql">USE AdventureWorks2012;
+GO
+SELECT LastName, SUBSTRING(LastName,1,4) AS &quot;First 4&quot;,
+    SUBSTRING(LastName,5,50) AS &quot;Characters 5 and later&quot;
+FROM Person.Person
+WHERE BusinessEntityID IN (293,295,211,297,299,3057,15027);
+</code></pre>
+
+<h3 id="analysis-3">Analysis</h3>
+
+<p>Notice in the results that if the starting point is located after the available characters (Abel and Bell), an empty string is returned.</p>
+
+<h3 id="reverse">REVERSE</h3>
+
+<p>REVERSE returns a string in reverse order.</p>
+
+<pre><code class="language-sql">SELECT REVERSE('!dlroW ,olleH')
+</code></pre>
+
+<h3 id="replace">REPLACE</h3>
+
+<p>Use REPLACE to substitute one string value for another. REPLACE has three required parameters, but it is very easy to use. Use REPLACE to clean up data; for example, you may need to replace slashes (/) in a phone number column with hyphens (-) for a report. Here is the syntax:</p>
+
+<p><code>REPLACE(&lt;string value&gt;,&lt;string to replace&gt;,&lt;replacement&gt;)</code></p>
+
+<pre><code class="language-sql">USE AdventureWorks2012;
+GO
+
+--1
+SELECT LastName, REPLACE(LastName,'A','Z') AS &quot;Replace A&quot;,
+    REPLACE(LastName,'A','ZZ') AS &quot;Replace with 2 characters&quot;,
+    REPLACE(LastName,'ab','') AS &quot;Remove string&quot;
+FROM Person.Person
+WHERE BusinessEntityID IN (293,295,211,297,299,3057,15027);
+
+--2
+SELECT BusinessEntityID,LastName,MiddleName,
+    REPLACE(LastName,'a',MiddleName) AS &quot;Replace with MiddleName&quot;,
+    REPLACE(LastName,MiddleName,'a') AS &quot;Replace MiddleName&quot;
+FROM Person.Person
+WHERE BusinessEntityID IN (285,293,10314);
+</code></pre>
+
+<h3 id="nesting-functions">Nesting Functions</h3>
+
+<p>The previous section showed how to use one function at a time to manipulate strings. If the results of one expression must be used as a parameter of another function call, you can nest functions. For example, you can nest the LTRIM and RTRIM functions to remove the spaces from the beginning and ending of a string like this: <code>LTRIM(RTRIM(' test '))</code>.</p>
+
+<pre><code class="language-sql">USE AdventureWorks2012;
+GO
+
+--1
+SELECT EmailAddress,
+    SUBSTRING(EmailAddress,CHARINDEX('@',EmailAddress) + 1,LEN(EmailAddress)) AS DOMAIN
+FROM Production.ProductReview;
+
+--2
+SELECT EmailAddress,
+RIGHT(EmailAddress, CHARINDEX('@', REVERSE(EmailAddress))-1) AS DOMAIN
+FROM Production.ProductReview;
+</code></pre>
+
+<h3 id="exercise">Exercise</h3>
+
+<p>Use the AdventureWorks2012 database to complete this exercise.</p>
+
+<ol>
+<li><p>Write a query that displays the first 10 characters of the AddressLine1 column in the Person.Address table.</p></li>
+
+<li><p>Write a query that displays characters 10 to 15 of the AddressLine1 column in the Person.Address table.</p></li>
+
+<li><p>Write a query displaying the first and last names from the Person.Person table all in uppercase.</p></li>
+
+<li><p>The ProductNumber in the Production.Product table contains a hyphen (-). Write a query that uses the SUBSTRING function and the CHARINDEX function to display the characters in the product number following the hyphen. Note: there is also a second hyphen in many of the rows; ignore the second hyphen for this question. Hint: Try writing this statement in two steps, the first using the CHARINDEX function and the second adding the SUBSTRING function.</p></li>
+</ol>
+
+<h2 id="date-and-time-functions">Date and Time Functions</h2>
+
+<p>Just as T-SQL features a rich set of functions for working with string data, it also boasts an impressive list of functions for working with date and time data types.</p>
+
+<h3 id="getdate-and-sysdatetime">GETDATE and SYSDATETIME</h3>
+
+<p>Use GETDATE or SYSDATETIME to return the current date and time of the server. The difference is that SYSDATETIME returns seven decimal places after the second, while GETDATE returns only three places. GETDATE and SYSDATETIME are nondeterministic functions. This means that they return different values each time they are called.</p>
+
+<pre><code class="language-sql">SELECT GETDATE(), SYSDATETIME();
+</code></pre>
+
+<h3 id="dateadd">DATEADD</h3>
+
+<p>Use DATEADD to add a number of time units to a date. The function requires three parameters: the date part, the number, and a date. T-SQL doesn’t have a DATESUBTRACT function, but you can use a negative number to accomplish the same thing. You might use DATEADD to calculate an expiration date or a date that a payment is due.</p>
+
+<p>Here is the syntax for DATEADD:</p>
+
+<p><code>DATEADD(&lt;date part&gt;,&lt;number&gt;,&lt;date&gt;)</code></p>
+
+<pre><code class="language-sql">Use AdventureWorks2012
+GO
+--1
+SELECT OrderDate, DATEADD(year,1,OrderDate) AS OneMoreYear,
+    DATEADD(month,1,OrderDate) AS OneMoreMonth,
+    DATEADD(day,-1,OrderDate) AS OneLessDay
+FROM Sales.SalesOrderHeader
+WHERE SalesOrderID in (43659,43714,60621);
+--2
+SELECT DATEADD(month,1,'1/29/2009') AS FebDate;
+</code></pre>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Notice in the results of query 2 that since there is no 29th day of February 2009, adding one month to January 29, 2009, returns February 28, the last possible day in February that year.</p>
+</div>
+
+<h3 id="datediff">DATEDIFF</h3>
+
+<p>The DATEDIFF function allows you to find the difference between two dates. The function requires three parameters: the date part and the two dates. The DATEDIFF function might be used to calculate how many days have passed since unshipped orders were taken, for example. Here is the syntax:</p>
+
+<p><code>DATEDIFF(&lt;datepart&gt;,&lt;early date&gt;,&lt;later date&gt;)</code></p>
+
+<pre><code class="language-sql">Use AdventureWorks2012;
+GO
+
+--1
+SELECT OrderDate, GETDATE() CurrentDateTime,
+    DATEDIFF(year,OrderDate,GETDATE()) AS YearDiff,
+    DATEDIFF(month,OrderDate,GETDATE()) AS MonthDiff,
+    DATEDIFF(day,OrderDate,GETDATE()) AS DayDiff
+FROM Sales.SalesOrderHeader
+WHERE SalesOrderID in (43659,43714,60621);
+
+--2
+SELECT DATEDIFF(year,'12/31/2008','1/1/2009') AS YearDiff,
+    DATEDIFF(month,'12/31/2008','1/1/2009') AS MonthDiff,
+    DATEDIFF(day,'12/31/2008','1/1/2009') AS DayDiff;
+</code></pre>
+
+<h3 id="analysis-4">Analysis</h3>
+
+<p>Even though query 2 compares the difference between two dates that are just one day apart, the differences in years and months are both 1. The DATEDIFF rounds up the result to the nearest integer and doesn’t display decimal results.</p>
+
+<h3 id="datename-and-datepart">DATENAME and DATEPART</h3>
+
+<p>The DATENAME and DATEPART functions return the part of the date specified. Developers use the DATENAME and DATEPART functions to display just the year or month on reports, for example. DATEPART always returns a numeric value. DATENAME returns the actual name when the date part is the month or the day of the week.</p>
+
+<p>The syntax for the two functions is similar.</p>
+
+<p><code>DATENAME(&lt;datepart&gt;,&lt;date&gt;)</code>
+<code>DATEPART(&lt;datepart&gt;,&lt;date&gt;)</code></p>
+
+<pre><code class="language-sql">Use AdventureWorks2012
+GO
+--1
+SELECT OrderDate, DATEPART(year,OrderDate) AS OrderYear,
+    DATEPART(month,OrderDate) AS OrderMonth,
+    DATEPART(day,OrderDate) AS OrderDay,
+    DATEPART(weekday,OrderDate) AS OrderWeekDay
+FROM Sales.SalesOrderHeader
+WHERE SalesOrderID in (43659,43714,60621);
+
+--2
+SELECT OrderDate, DATENAME(year,OrderDate) AS OrderYear,
+    DATENAME(month,OrderDate) AS OrderMonth,
+    DATENAME(day,OrderDate) AS OrderDay,
+    DATENAME(weekday,OrderDate) AS OrderWeekDay
+FROM Sales.SalesOrderHeader
+WHERE SalesOrderID in (43659,43714,60621);
+</code></pre>
+
+<h3 id="analysis-5">Analysis</h3>
+
+<p>You will see that the results are the same except for spelling out the month and weekday in query 2. One other thing to keep in mind is that the value returned from DATEPART is always an integer, while the value returned from DATENAME is always a string, even when the expression returns a number.</p>
+
+<h3 id="day-month-and-year">DAY, MONTH, and YEAR</h3>
+
+<p>The DAY, MONTH, and YEAR functions work just like DATEPART. These functions are just alternate ways to get the day, month, or year from a date. Here is the syntax:</p>
+
+<p><code>DAY(&lt;date&gt;)</code>
+<code>MONTH(&lt;date&gt;)</code>
+<code>YEAR(&lt;date&gt;)</code></p>
+
+<pre><code class="language-sql">Use AdventureWorks2012
+GO
+
+SELECT OrderDate, YEAR(OrderDate) AS OrderYear,
+    MONTH(OrderDate) AS OrderMonth,
+    DAY(OrderDate) AS OrderDay
+FROM Sales.SalesOrderHeader
+WHERE SalesOrderID in (43659,43714,60621);
+</code></pre>
+
+<h3 id="convert">CONVERT</h3>
+
+<p>The CONVERT function has an optional parameter called style that can be used to format a date.</p>
+
+<p>I have frequently seen code that used the DATEPART function to break a date into its parts and then cast the parts into strings and concatenate them back together to format the date. It is so much easier just to use CONVERT to accomplish the same thing! Here is the syntax:</p>
+
+<p><code>CONVERT(&lt;data type, usually varchar&gt;,&lt;date&gt;,&lt;style&gt;)</code></p>
+
+<p>Using CONVERT to Format a Date/Time Value</p>
+
+<pre><code class="language-sql">--1 The hard way!
+SELECT CAST(DATEPART(YYYY,GETDATE()) AS VARCHAR) + '/' +
+    CAST(DATEPART(MM,GETDATE()) AS VARCHAR) +
+    '/' +  CAST(DATEPART(DD,GETDATE()) AS VARCHAR) AS DateCast;
+--2 The easy way!
+SELECT CONVERT(VARCHAR,GETDATE(),111) AS DateConvert;
+--3
+USE AdventureWorks2012
+GO
+SELECT CONVERT(VARCHAR,OrderDate,1) AS &quot;1&quot;,
+    CONVERT(VARCHAR,OrderDate,101) AS &quot;101&quot;,
+    CONVERT(VARCHAR,OrderDate,2) AS &quot;2&quot;,
+    CONVERT(VARCHAR,OrderDate,102) AS &quot;102&quot;
+FROM Sales.SalesOrderHeader
+WHERE SalesOrderID in (43659,43714,60621);
+</code></pre>
+
+<pre><code class="language-sql">SELECT order_num
+FROM Orders
+WHERE DATEPART(yy, order_date) = 2012;
+</code></pre>
+
+<p>Take a look at the SQL Server Books Online article “CAST and CONVERT” for a list of all the possible formats.</p>
+
+<h3 id="format">FORMAT</h3>
+
+<p>SQL Server 2012 introduces the FORMAT function. The primary purpose is to simplify the conversion of date/time values as string values. Another purpose of the format function is to convert date/time values to their cultural equivalencies. Here is the syntax:</p>
+
+<p>FORMAT ( value, format [, culture ] )
+The FORMAT function greatly simplifies how date/time values are converted, and it should be used for date/time values instead of the CAST or CONVERT functions</p>
+
+<pre><code class="language-sql">SELECT FORMAT( GETDATE(), 'dd', 'en-US' ) AS Result;
+SELECT FORMAT( GETDATE(), 'd/M/y', 'en-US' ) AS Result;
+SELECT FORMAT( GETDATE(), 'dd/MM/yyyy', 'en-US' ) AS Result;
+</code></pre>
+
+<p>SQL 2012 also introduces a simple method to derive a date, time, or date and time from a list of values. The primary function is called DATEFROMPARTS but there is also a version of the function for time, and date and time</p>
+
+<pre><code class="language-sql">SELECT DATEFROMPARTS(2012, 3, 10) AS RESULT;
+SELECT TIMEFROMPARTS(12, 10, 32, 0, 0) AS RESULT;
+SELECT DATETIME2FROMPARTS (2012, 3, 10, 12, 10, 32, 0, 0) AS RESULT;
+</code></pre>
+
+<h3 id="exercise-1">Exercise</h3>
+
+<p>Use the AdventureWorks2012 database to complete this exercise.</p>
+
+<ol>
+<li><p>Write a query that calculates the number of days between the date an order was placed and the date that it was shipped using the Sales.SalesOrderHeader table. Include the SalesOrderID, OrderDate, and ShipDate columns.</p></li>
+
+<li><p>Write a query that displays only the date, not the time, for the order date and ship date in the Sales.SalesOrderHeader table.</p></li>
+
+<li><p>Write a query that adds six months to each order date in the Sales.SalesOrderHeader table. Include the SalesOrderID and OrderDate columns.</p></li>
+
+<li><p>Write a query that displays the year of each order date and the numeric month of each order date in separate columns in the results. Include the SalesOrderID and OrderDate columns.</p></li>
+
+<li><p>Change the query written in question 4 to display the month name instead.</p></li>
+</ol>
+
+<h2 id="concatenating-strings">Concatenating Strings</h2>
+
+<p>The concatenation  operator (+) allows you to add together two strings. The syntax is simple:<code>&lt;string or column name&gt; + &lt;string or column name&gt;</code>.</p>
+
+<pre><code class="language-sql">USE AdventureWorks2012;
+GO
+
+--1
+SELECT 'ab' + 'c';
+
+--2
+SELECT BusinessEntityID, FirstName + ' ' + LastName AS &quot;Full Name&quot;
+FROM Person.Person;
+--3
+SELECT BusinessEntityID, LastName + ', ' + FirstName AS &quot;Full Name&quot;
+FROM Person.Person;
+</code></pre>
+
+<h3 id="concatenating-strings-and-null">Concatenating Strings and NULL</h3>
+
+<p>When concatenating a string with a NULL, NULL is returned. The following demonstrates the problem :</p>
+
+<pre><code class="language-sql">USE AdventureWorks2012;
+GO
+
+SELECT BusinessEntityID, FirstName + ' ' + MiddleName +
+    ' ' + LastName AS &quot;Full Name&quot;
+FROM Person.Person;
+</code></pre>
+
+<h3 id="analysis-6">Analysis</h3>
+
+<p>The query combines the FirstName, MiddleName, and LastName columns into a Full Name column. The MiddleName column is optional; that is, NULL values are allowed. Only the rows where the MiddleName value has been entered show the expected results. The rows where MiddleName is NULL return NULL.</p>
+
+<h3 id="concat">CONCAT</h3>
+
+<p>SQL 2012 introduces another powerful tool for concatenating strings. The <strong>CONCAT</strong> statement takes any number of strings as arguments and automatically concatenates them together. The values can be passed to the <strong>CONCAT</strong> statement as variables or as regular strings. The output is always implicitly converted to a string <em>datatype</em>.</p>
+
+<pre><code class="language-sql">-- Simple CONCAT statement
+SELECT CONCAT ('I ', 'love', ' writing', ' T-SQL') AS RESULT;
+
+--Using variable with CONCAT
+DECLARE @a VARCHAR(30) = 'My birthday is on '
+DECLARE @b DATE = '08/25/1980'
+SELECT CONCAT (@a, @b) AS RESULT;
+
+--Using CONCAT with table rows
+USE AdventureWorks2012
+SELECT CONCAT (AddressLine1, PostalCode) AS Address
+FROM Person.Address;
+</code></pre>
+
+<h3 id="isnull-and-coalesce">ISNULL and COALESCE</h3>
+
+<p>Two functions are available to replace NULL values with another value. The first function, <strong>ISNULL</strong>, requires two parameters: the value to check and the replacement for NULL values. <strong>COALESCE</strong> works a bit differently. COALESCE will take any number of parameters and return the first non-NULL value. T-SQL developers often prefer COALESCE over ISNULL because COALESCE meets ANSI standards, while ISNULL does not. Also, COALESCE is more versatile. Here is the syntax for the two functions:</p>
+
+<pre><code class="language-sql">ISNULL(&lt;value&gt;,&lt;replacement&gt;)
+COALESCE(&lt;value1&gt;,&lt;value2&gt;,...,&lt;valueN&gt;)
+</code></pre>
+
+<p>Here is an example :</p>
+
+<pre><code class="language-sql">USE AdventureWorks2012;
+GO
+
+--1
+SELECT BusinessEntityID, FirstName + ' ' + ISNULL(MiddleName,'') +
+    ' ' + LastName AS &quot;Full Name&quot;
+FROM Person.Person;
+--2
+SELECT BusinessEntityID, FirstName + ISNULL(' ' + MiddleName,'') +
+    ' ' + LastName AS &quot;Full Name&quot;
+FROM Person.Person;
+
+--3
+SELECT BusinessEntityID, FirstName + COALESCE(' ' + MiddleName,'') +
+    ' ' + LastName AS &quot;Full Name&quot;
+FROM Person.Person
+</code></pre>
+
+<p>Query 1 uses the ISNULL function to replace any missing MiddleName values with an empty string in order to build Full Name.</p>
+
+<h3 id="concatenating-other-data-types-to-strings">Concatenating Other Data Types to Strings</h3>
+
+<p>To concatenate nonstring values to strings, the nonstring value must be converted to a string. If the string value can be implicitly converted to a number, the values will be added together instead. Run this statement to see what happens: <code>SELECT 1 + '1';</code>. If the desired result is 11 instead of 2, the numeric value must be converted to a string using either the CAST or CONVERT function.</p>
+
+<p>Use one of the functions, CAST or CONVERT, to convert a numeric or temporal value to a string. Here is the syntax:</p>
+
+<pre><code class="language-sql">CAST(&lt;value&gt; AS &lt;new data type&gt;)
+CONVERT(&lt;new data type&gt;,&lt;value&gt;)
+</code></pre>
+
+<p>Here is an example of using them :</p>
+
+<pre><code class="language-sql">USE AdventureWorks2012
+GO
+
+--1
+SELECT CAST(BusinessEntityID AS NVARCHAR) + ': ' + LastName
+    + ', ' + FirstName AS ID_Name
+FROM Person.Person;
+
+--2
+SELECT CONVERT(NVARCHAR(10),BusinessEntityID) + ': ' + LastName
+    + ', ' + FirstName AS ID_Name
+FROM Person.Person;
+
+--3
+SELECT BusinessEntityID, BusinessEntityID + 1 AS &quot;Adds 1&quot;,
+    CAST(BusinessEntityID AS NVARCHAR(10)) + '1'AS &quot;Appends 1&quot;
+FROM Person.Person;
+</code></pre>
+
+<p>The functions in queries 1 and 2 have very different syntaxes, but they accomplish the same result.. They both change the BusinessEntityID values from integers into a string data type (NVARCHAR) so that it can be concatenated to a string. Many programmers prefer CAST over CONVERT because CAST is compliant with the ANSI SQL-99 standard.</p>
+
+<h3 id="exercise-2">Exercise</h3>
+
+<ol>
+<li><p>Write a query that returns data from the <em>Person.Address</em> table in this format <em>AddressLine1 (City PostalCode</em>) from the <em>Person.Address</em> table.</p></li>
+
+<li><p>Write a query using the <em>Production.Product</em> table displaying the_ product ID, color, and name_ columns. If the color column contains a NULL value, replace the color with <em>No Color</em>.</p></li>
+
+<li><p>Modify the query written in question 2 so that the description of the product is returned formatted as <em>Name: Color</em>. Make sure that all rows display a value even if the <em>Color</em> value is missing.</p></li>
+
+<li><p>Write a query using the <em>Production.Product</em> table displaying a description with the <em>ProductID: Name</em> format. Hint: You will need to use a function to write this query.</p></li>
+
+<li><p>Explain the difference between the <strong>ISNULL</strong> and <strong>COALESCE</strong> functions.</p></li>
+</ol>
+
+<h2 id="using-mathematical-operators">Using Mathematical Operators</h2>
+
+<p>You can use several operators to perform simple mathematical operations on numeric values. Use the plus symbol (+) to perform addition, the minus symbol (–) to perform subtraction, the asterisk (*) to perform multiplication, and the slash (/) to perform division. Use the modulo operator (%) to perform remainder division.</p>
+
+<pre><code class="language-sql">--1
+SELECT 1 + 1 AS ADDITION, 10.0 / 3 AS DIVISION, 10 / 3 AS [Integer Division], 10 % 3 AS MODULO;
+
+--2
+SELECT OrderQty, OrderQty * 10 AS Times10
+FROM Sales.SalesOrderDetail;
+
+--3
+SELECT OrderQty * UnitPrice * (1.0 - UnitPriceDiscount)
+    AS Calculated, LineTotal
+FROM Sales.SalesOrderDetail;
+
+--4
+SELECT SpecialOfferID,MaxQty,DiscountPct,
+    DiscountPct * ISNULL(MaxQty, 1000) AS MaxDiscount
+FROM Sales.SpecialOffer;
+</code></pre>
+
+<h3 id="analysis-7">Analysis</h3>
+
+<p>Note that 10 / 3 does not equal 3.333. Because the two operators in that expression are integers, the result is also an integer. Query 2 shows the result of multiplying the values stored in the OrderQty column by 10.</p>
+
+<h3 id="exercise-3">Exercise</h3>
+
+<p>Use the AdventureWorks database to complete this exercise. You can find the solutions at the end of the chapter.</p>
+
+<ol>
+<li><p>Write a query using the_ Sales.SpecialOffer_ table. Display the difference between the <em>MinQty</em> and <em>MaxQty</em> columns along with the <em>SpecialOfferID</em> and <em>Description</em> columns.</p></li>
+
+<li><p>Write a query using the <em>Sales.SpecialOffer</em> table. Multiply the <em>MinQty</em> column by the <em>DiscountPct</em> column. Include the <em>SpecialOfferID</em> and <em>Description</em> columns in the results.</p></li>
+
+<li><p>Write a query using the <em>Sales.SpecialOffer</em> table that multiplies the <em>MaxQty</em> column by the <em>DiscountPct</em> column. If the <em>MaxQty</em> value is NULL, replace it with the value 10. Include the <em>SpecialOfferID</em> and Description columns in the results.</p></li>
+
+<li><p>Describe the difference between division and modulo.</p></li>
+</ol>
+
+<h3 id="solution">Solution</h3>
+
+<p>Use the <em>AdventureWorks</em> database to complete this exercise.</p>
+
+<p><strong>Question 1</strong></p>
+
+<p>Write a query using the Sales.SpecialOffer table. Display the difference between the MinQty and MaxQty columns along with the SpecialOfferID and Description columns.</p>
+
+<pre><code class="language-sql">SELECT SpecialOfferID, Description,
+     MaxQty - MinQty AS Diff 
+FROM Sales.SpecialOffer;
+</code></pre>
+
+<p><strong>Question 2</strong></p>
+
+<p>Write a query using the Sales.SpecialOffer table. Multiply the MinQty column by the DiscountPct column. Include the SpecialOfferID and Description columns in the results.</p>
+
+<pre><code class="language-sql">SELECT SpecialOfferID, Description, MinQty * DiscountPct AS Discount 
+FROM Sales.SpecialOffer;
+</code></pre>
+
+<p><strong>Question 3</strong></p>
+
+<p>Write a query using the Sales.SpecialOffer table that multiplies the MaxQty column by the DiscountPct column. If the MaxQty value is NULL, replace it with the value 10. Include the SpecialOfferID and Description columns in the results.</p>
+
+<pre><code class="language-sql">SELECT SpecialOfferID, Description,     ISNULL(MaxQty,10) * DiscountPct AS Discount 
+FROM Sales.SpecialOffer;
+</code></pre>
+
+<p><strong>Question 4</strong></p>
+
+<p>Describe the difference between division and modulo.</p>
+
+<p>When performing division, you divide two numbers, and the result, the quotient, is the answer. If you are using modulo, you divide two numbers, but the reminder is the answer. If the numbers are evenly divisible, the answer will be zero.</p>
+
+<h2 id="mathematical-functions">Mathematical Functions</h2>
+
+<h3 id="abs">ABS</h3>
+
+<p>The ABS function returns the absolute value of the number—the difference between the number and zero. Type in and execute this code to see how to use ABS:</p>
+
+<pre><code class="language-sql">SELECT ABS(2) AS &quot;2&quot;, ABS(-2) AS &quot;-2&quot;
+</code></pre>
+
+<h3 id="power">POWER</h3>
+
+<p>The POWER function returns the power of one number to another number. The syntax is simple.</p>
+
+<p><code>POWER(&lt;number&gt;,&lt;power&gt;)</code></p>
+
+<p>There may not be many uses for POWER in business applications, but you may use it in scientific or academic applications.</p>
+
+<pre><code class="language-sql">SELECT POWER(10,1) AS &quot;Ten to the First&quot;,
+    POWER(10,2) AS &quot;Ten to the Second&quot;,
+    POWER(10,3) AS &quot;Ten to the Third&quot;;
+</code></pre>
+
+<p>The POWER function returns a FLOAT value. Caution must be taken, however, with this function. The results will increase in size very quickly and can cause an overflow error.</p>
+
+<h3 id="square-and-sqrt">SQUARE and SQRT</h3>
+
+<p>The SQUARE function returns the square of a number, or the number multiplied to itself. The SQRT function returns the opposite, the square root of a number.</p>
+
+<pre><code class="language-sql">SELECT SQUARE(10) AS &quot;Square of 10&quot;,
+    SQRT(10) AS &quot;Square Root of 10&quot;,
+    SQRT(SQUARE(10)) AS &quot;The Square Root of the Square of 10&quot;;
+</code></pre>
+
+<h3 id="round">ROUND</h3>
+
+<p>The ROUND function allows you to round a number to a given precision. The ROUND function is used frequently to display only the number of decimal places required in the report or application. The ROUND function requires two parameters, the number and the length, which can be either positive or negative. It also has an optional third parameter that causes the function to just truncate instead of rounding if a nonzero value is supplied. Here is the syntax:</p>
+
+<p><code>ROUND(&lt;number&gt;,&lt;length&gt;[,&lt;function&gt;])</code></p>
+
+<pre><code class="language-sql">SELECT ROUND(1234.1294,2) AS &quot;2 places on the right&quot;,
+    ROUND(1234.1294,-2) AS &quot;2 places on the left&quot;,
+    ROUND(1234.1294,2,1) AS &quot;Truncate 2&quot;,
+    ROUND(1234.1294,-2,1) AS &quot;Truncate -2&quot;;
+</code></pre>
+
+<p>When the expression contains a negative number as the second parameter, the function rounds on the left side of the decimal point. Notice the difference when 1 is used as the third parameter, causing the function to truncate instead of rounding. When rounding 1234.1294, the expression returns 1234.1300. When truncating 1234.1294, the expression returns 1234.1200. It doesn’t round the value; it just changes the specified digits to zero.</p>
+
+<h3 id="rand">RAND</h3>
+
+<p>RAND returns a float value between 0 and 1. RAND can be used to generate a random value. This might be used to generate data for testing an application, for example. The RAND function takes one optional integer parameter, @seed. When the RAND expression contains the seed value, the function returns the same value each time. If the expression doesn’t contain a seed value, SQL Server randomly assigns a seed, effectively providing a random number.</p>
+
+<pre><code class="language-sql">SELECT CAST(RAND() * 100 AS INT) + 1 AS &quot;1 to 100&quot;,
+    CAST(RAND()* 1000 AS INT) + 900 AS &quot;900 to 1900&quot;,
+    CAST(RAND() * 5 AS INT)+ 1 AS &quot;1 to 5&quot;;
+</code></pre>
+
+<p>If you supply a seed value to one of the calls to RAND within a batch of statements, that seed affects the other calls. The value is not the same, but the values are predictable. Run this statement several times to see what happens when a seed value is used:</p>
+
+<pre><code class="language-sql">SELECT RAND(3),RAND(),RAND();
+</code></pre>
+
+<p>If you leave out the seed, you will see different results each time. Another interesting thing is that, even though you see different values in each column, you will see the same values in each row. Run this statement multiple times to see what happens:</p>
+
+<pre><code>SELECT RAND(),RAND(),RAND(),RAND()
+FROM sys.objects;
+</code></pre>
+
+<h3 id="exercise-4">Exercise</h3>
+
+<p>Use the AdventureWorks2012 database to complete this exercise.</p>
+
+<ol>
+<li><p>Write a query using the Sales.SalesOrderHeader table that displays the SubTotal rounded to two decimal places. Include the SalesOrderID column in the results.</p></li>
+
+<li><p>Modify the query from question 1 so that the SubTotal is rounded to the nearest dollar but still displays two zeros to the right of the decimal place.</p></li>
+
+<li><p>Write a query that calculates the square root of the SalesOrderID value from the Sales.SalesOrderHeader table.</p></li>
+
+<li><p>Write a statement that generates a random number between 1 and 10 each time it is run.</p></li>
+</ol>
+
+<h2 id="logical-functions-and-expressions">Logical Functions and Expressions</h2>
+
+<p>T-SQL contains a number of functions and the CASE expression that allow you to add conditional expressions to a query. You can return a value that depends on another value or the results of an expression.</p>
+
+<p>Use the CASE expression to evaluate a list of expressions and return the first one that evaluates to true. For example, a report may need to display the season of the year based on one of the date columns in the table.</p>
+
+<p>There are two ways to write a CASE expression: simple or searched.</p>
+
+<h3 id="simple-case">Simple CASE</h3>
+
+<p>To write the simple CASE expression, come up with an expression that you want to evaluate, often a column name, and a list of possible values. Here is the syntax:</p>
+
+<pre><code class="language-sql">CASE &lt;test expression&gt;
+    WHEN &lt;comparison expression1&gt; THEN &lt;return value1&gt;
+    WHEN &lt;comparison expression2&gt; THEN &lt;return value2&gt;
+    [ELSE &lt;value3&gt;] END
+</code></pre>
+
+<p>Here is an example of using the case statement :</p>
+
+<pre><code class="language-sql">SELECT Title,
+    CASE Title
+    WHEN 'Mr.' THEN 'Male'
+    WHEN 'Ms.' THEN 'Female'
+    WHEN 'Mrs.' THEN 'Female'
+    WHEN 'Miss' THEN 'Female'
+    ELSE 'Unknown' END AS Gender
+FROM Person.Person
+WHERE BusinessEntityID IN (1,5,6,357,358,11621,423);
+</code></pre>
+
+<p>Even though the CASE expression took up a lot of room in the query, it is producing only one column in the results. For each row returned, the expression evaluates the Title column to see whether it matches any of the possibilities listed and returns the appropriate value. If the value from Title doesn’t match or is NULL, then whatever is in the ELSE part of the expression is returned. If no ELSE exists, the expression returns NULL.</p>
+
+<h3 id="searched-case">Searched CASE</h3>
+
+<p>Developers often use the searched CASE syntax when the expression is too complicated for the simple CASE syntax. For example, you might want to compare the value from a column to several values in an IN list or use greater-than or less-than operators. The CASE expression returns the first expression that returns true. This is the syntax for the searched CASE:</p>
+
+<pre><code class="language-sql">CASE WHEN &lt;test expression1&gt; THEN &lt;value1&gt;
+[WHEN &lt;test expression2&gt; THEN &lt;value2&gt;]
+[ELSE &lt;value3&gt;] END
+</code></pre>
+
+<p>Here is the same query re-written using the Search Case statement :</p>
+
+<pre><code class="language-sql">SELECT Title,
+    CASE WHEN Title IN ('Ms.','Mrs.','Miss') THEN 'Female'
+    WHEN Title = 'Mr.' THEN 'Male'
+    ELSE 'Unknown' END AS Gender
+FROM Person.Person
+WHERE BusinessEntityID IN (1,5,6,357,358,11621,423);
+</code></pre>
+
+<p>The CASE expression evaluates each WHEN expression independently until finding the first one that returns true. It then returns the appropriate value. If none of the expressions returns true, the function returns the value from the ELSE part or NULL if no ELSE is available.</p>
+
+<div class="admonition note">
+<p class="admonition-title">Note the return value</p>
+<p>The data type returned from the CASE statement needs to be the same otherwise you will get an error.</p>
+</div>
+
+<p>Try the following and notice you get an error because of the different data types :</p>
+
+<pre><code class="language-sql">SELECT Title,
+    CASE WHEN Title IN ('Ms.','Mrs.','Miss') THEN 1
+    WHEN Title = 'Mr.' THEN 'Male'
+    ELSE '1' END AS Gender
+FROM Person.Person
+WHERE BusinessEntityID IN (1,5,6,357,358,11621,423);
+</code></pre>
+
+<h3 id="listing-a-column-as-the-return-value">Listing a Column as the Return Value</h3>
+
+<p>It is also possible to list a column name instead of hard-coded values in the THEN part of the CASE expression. This means that you can display one column for some of the rows and another column for other rows.</p>
+
+<pre><code class="language-sql">SELECT VacationHours,SickLeaveHours,
+    CASE WHEN VacationHours &gt; SickLeaveHours THEN VacationHours
+    ELSE SickLeaveHours END AS 'More Hours'
+FROM HumanResources.Employee;
+</code></pre>
+
+<p>If there are more VacationHours than SickLeaveHours, the query displays the VacationHours column from the HumanResources.Employee table in the More Hours column. Otherwise, the query returns the SickLeaveHours.</p>
+
+<h3 id="iif">IIF</h3>
+
+<p>SQL Server 2012 introduced one easier method of writing a simple CASE expression. Starting with SQL Server 2012 you can now use an IIF function to return a result based on whether a Boolean expression is true or false. Here is the basic syntax for the IIF function:</p>
+
+<pre><code class="language-sql">IIF ( boolean_expression, true_value, false_value )
+</code></pre>
+
+<p>Here is an example of using the IIF function</p>
+
+<pre><code class="language-sql">--1 IIF function without variables
+SELECT IIF (50 &gt; 20, 'TRUE', 'FALSE') AS RESULT;
+
+--2 IIF function with variables
+DECLARE @a INT = 50
+DECLARE @b INT = 25
+SELECT IIF (@a &gt; @b, 'TRUE', 'FALSE') AS RESULT;
+</code></pre>
+
+<h3 id="coalesce">COALESCE</h3>
+
+<p>You can use COALESCE with other data types as well and with any number of arguments to return the first non-NULL value. You can use the COALESCE function in place of ISNULL. If a list of values must be evaluated instead of one value, you must use COALESCE instead of ISNULL. COALESCE may be used when concatenating strings or any time that a replacement for NULL must be found.</p>
+
+<pre><code class="language-sql">SELECT ProductID,Size, Color,
+    COALESCE(Size, Color,'No color or size') AS 'Description'
+FROM Production.Product
+where ProductID in (1,2,317,320,680,706);
+</code></pre>
+
+<h3 id="exercise-5">Exercise</h3>
+
+<ol>
+<li><p>Write a query using the HumanResources.Employee table to display the BusinessEntityID column. Also include a CASE expression that displays “Even” when the BusinessEntityID value is an even number or “Odd” when it is odd. Hint: Use the modulo operator.</p></li>
+
+<li><p>Write a query using the Sales.SalesOrderDetail table to display a value (“Under 10” or “10–19” or “20–29” or “30–39” or “40 and over”) based on the OrderQty value by using the CASE expression. Include the SalesOrderID and OrderQty columns in the results.</p></li>
+
+<li><p>Using the Person.Person table, build the full names using the Title, FirstName, MiddleName, LastName, and Suffix columns. Check the table definition to see which columns allow NULL values and use the COALESCE function on the appropriate columns.</p></li>
+
+<li><p>Look up the SERVERPROPERTY function in Books Online. Write a statement that displays the edition, instance name, and machine name using this function.</p></li>
+</ol>
+
+<h3 id="solution-1">Solution</h3>
+
+<p><strong>1.</strong></p>
+
+<p>Write a query using the HumanResources.Employee table to display the BusinessEntityID column. Also include a CASE expression that displays “Even” when the BusinessEntityID value is an even number or “Odd” when it is odd. Hint: Use the modulo operator.</p>
+
+<pre><code class="language-sql">SELECT BusinessEntityID,
+     CASE BusinessEntityID % 2
+     WHEN 0 THEN 'Even' ELSE 'Odd' END 
+FROM HumanResources.Employee;
+</code></pre>
+
+<p><strong>2.</strong></p>
+
+<p>Write a query using the Sales.SalesOrderDetail table to display a value (“Under 10” or “10–19” or “20–29” or “30–39” or “40 and over”) based on the OrderQty value by using the CASE expression. Include the SalesOrderID and OrderQty columns in the results.</p>
+
+<pre><code class="language-sql">SELECT SalesOrderID, OrderQty,
+     CASE WHEN OrderQty BETWEEN 0 AND 9
+            THEN 'Under 10'
+        WHEN OrderQty BETWEEN 10 AND 19
+            THEN '10-19'
+        WHEN OrderQty BETWEEN 20 AND 29
+            THEN '20-29'
+        WHEN OrderQty BETWEEN 30 AND 39
+            THEN '30-39'
+        ELSE '40 and over' end AS range 
+FROM Sales.SalesOrderDetail;
+</code></pre>
+
+<p><strong>3.</strong></p>
+
+<p>Using the Person.Person table, build the full names using the Title, FirstName, MiddleName, LastName, and Suffix columns. Check the table definition to see which columns allow NULL values and use the COALESCE function on the appropriate columns.</p>
+
+<pre><code class="language-sql">SELECT COALESCE(Title + ' ','') + FirstName +
+     COALESCE(' ' + MiddleName,'') + ' ' + LastName +
+     COALESCE(', ' + Suffix,'') 
+FROM Person.Person;
+</code></pre>
+
+<p><strong>4.</strong></p>
+
+<p>Look up the SERVERPROPERTY function in Books Online. Write a statement that displays the edition, instance name, and machine name using this function.</p>
+
+<pre><code class="language-sql">SELECT SERVERPROPERTY('Edition'),
+     SERVERPROPERTY('InstanceName'),
+     SERVERPROPERTY('MachineName');
+</code></pre>
+
+<h2 id="administrative-functions">Administrative Functions</h2>
+
+<p>T-SQL contains many administrative functions that are useful for developers.</p>
+
+<p>Here are some system functions :</p>
+
+<pre><code class="language-sql">SELECT 
+    @@VERSION 'Database Version',
+    DB_ID() 'Database ID',
+    DB_NAME() AS &quot;Database Name&quot;,
+    HOST_NAME() AS &quot;Host Name&quot;,
+    CURRENT_USER AS &quot;Current User&quot;,
+    SUSER_NAME() AS &quot;Login&quot;,
+    USER_NAME() AS &quot;User Name&quot;,
+    ORIGINAL_LOGIN() 'Original Login',
+    USER 'User',
+    SYSTEM_USER as 'System User',
+    APP_NAME() AS &quot;App Name&quot;;  
+</code></pre>
+
+<h2 id="using-functions-in-the-where-and-order-by-clauses">Using Functions in the WHERE and ORDER BY Clauses</h2>
+
+<p>So far you have seen functions used in the SELECT list. You may also use functions in the WHERE and ORDER BY clauses.</p>
+
+<pre><code class="language-sql">--1
+SELECT FirstName
+FROM Person.Person
+WHERE CHARINDEX('ke',FirstName) &gt; 0;
+
+--2
+SELECT LastName,REVERSE(LastName)
+FROM Person.Person
+ORDER BY REVERSE(LastName);
+
+--3
+SELECT BirthDate
+FROM HumanResources.Employee
+ORDER BY YEAR(BirthDate);
+</code></pre>
+
+<p>Even though it is very easy to use a function on a column in the WHERE clause, it is important to note that performance may suffer. If the database designer created an index on the searched column, the database engine must evaluate each row one at a time when a function is applied to a column. It still may search the column in the index, one value at a time, which could still be better than searching every row of the table.</p>
+
+<h3 id="exercise-6">Exercise</h3>
+
+<p>Use the AdventureWorks database to complete this exercise. You will find the solutions to the questions at the end of the chapter.</p>
+
+<ol>
+<li><p>Write a query using the Sales.SalesOrderHeader table to display the orders placed during 2005 by using a function. Include the SalesOrderID and OrderDate columns in the results.</p></li>
+
+<li><p>Write a query using the Sales.SalesOrderHeader table listing the sales in order of the month the order was placed and then the year the order was placed. Include the SalesOrderID and OrderDate columns in the results.</p></li>
+
+<li><p>Write a query that displays the PersonType and the name columns from the Person.Person table. Sort the results so that rows with a PersonType of IN, SP, or SC sort by LastName. The other rows should sort by FirstName. Hint: Use the CASE expression</p></li>
+</ol>
+
+<h3 id="solution-2">Solution</h3>
+
+<p>Use the AdventureWorks database to complete this exercise.</p>
+
+<p><strong>1.</strong></p>
+
+<p>Write a query using the Sales.SalesOrderHeader table to display the orders placed during 2005 by using a function. Include the SalesOrderID and OrderDate columns in the results.</p>
+
+<pre><code class="language-sql">--one possible solution. 
+SELECT SalesOrderID, OrderDate 
+FROM Sales.SalesOrderHeader 
+WHERE YEAR(OrderDate) = 2005;
+</code></pre>
+
+<p><strong>2.</strong></p>
+
+<p>Write a query using the Sales.SalesOrderHeader table listing the sales in order of the month the order was placed and then the year the order was placed. Include the SalesOrderID and OrderDate columns in the results.</p>
+
+<pre><code class="language-sql">SELECT SalesOrderID, OrderDate 
+FROM Sales.SalesOrderHeader 
+ORDER BY MONTH(OrderDate), YEAR(OrderDate);
+</code></pre>
+
+<p><strong>3.</strong></p>
+
+<p>Write a query that displays the PersonType and the name columns from the Person.Person table. Sort the results so that rows with a PersonType of IN, SP, or SC sort by LastName. The other rows should sort by FirstName. Hint: Use the CASE expression.</p>
+
+<pre><code class="language-sql">SELECT PersonType, FirstName, MiddleName, LastName 
+FROM Person.Person 
+ORDER BY CASE WHEN PersonType IN ('IN','SP','SC')
+      THEN LastName ELSE FirstName END;
+</code></pre>
+
+<h3 id="the-top-keyword">The TOP Keyword</h3>
+
+<p>Use the TOP keyword to limit the number or percentage of rows returned from a query. Here is the syntax:</p>
+
+<pre><code class="language-sql">SELECT TOP(&lt;number&gt;) [PERCENT] [WITH TIES] &lt;col1&gt;,&lt;col2&gt;
+FROM &lt;table1&gt; [ORDER BY &lt;col1&gt;]
+</code></pre>
+
+<p>The ORDER BY clause is optional, but most of the time, you will use it to determine which rows the query returns when using TOP. Sometimes you will see the same rows returned over and over even when not using an ORDER BY.</p>
+
+<pre><code class="language-sql">--1
+DECLARE @Rows INT = 2;
+SELECT TOP(@Rows) PERCENT CustomerID, OrderDate, SalesOrderID
+FROM Sales.SalesOrderHeader
+ORDER BY SalesOrderID;
+
+--2
+SELECT TOP(2) CustomerID, OrderDate, SalesOrderID
+FROM Sales.SalesOrderHeader
+ORDER BY OrderDate;
+
+--3
+SELECT TOP(2) WITH TIES CustomerID, OrderDate, SalesOrderID
+FROM Sales.SalesOrderHeader
+ORDER BY OrderDate;
+
+--4
+SELECT TOP(2) CustomerID, OrderDate, SalesOrderID
+FROM Sales.SalesOrderHeader
+ORDER BY NEWID();
+</code></pre>
+
+<p>Query 1 shows that you can use a variable along with TOP. This has been possible since version 2005 of SQL Server. It also demonstrates the use of the PERCENT option. Query 2 is a typical example returning just two rows. Query 3 demonstrates the WITH TIES option. Otherwise, it is identical to Query 2. It returns many more rows because there are many orders placed on the same date. Query 4 demonstrates a trick to get random rows. If you sort by the NEWID function, you will get different rows each time you run the query.</p>
+
+<h2 id="performance-exercise">Performance Exercise</h2>
+
+<p>You should limit the use of functions in a WHERE clause. Indexes might be used when a function is used to manipulate a column. For this exercise, lets create an index on the <em>OrderDate</em> column :</p>
+
+<pre><code class="language-sql">CREATE NONCLUSTERED INDEX [DEMO_SalesOrderHeader_OrderDate]
+    ON [Sales].[SalesOrderHeader]
+([OrderDate] ASC);
+</code></pre>
+
+<p>Run the queries and compare the results :</p>
+
+<p>Compare the Performance When Using a Function in the WHERE Clause</p>
+
+<pre><code class="language-sql">--1
+SELECT SalesOrderID, OrderDate
+FROM Sales.SalesOrderHeader
+WHERE OrderDate &gt;= '2005-01-01 00:00:00'
+    AND OrderDate &lt;= '2006-01-01 00:00:00';
+
+--2
+SELECT SalesOrderID, OrderDate
+FROM Sales.SalesOrderHeader
+WHERE YEAR(OrderDate) = 2005;
+</code></pre>
+
+<p>Query 1 finds all the orders placed in 2005 without using a function. Query 2 uses the YEAR function to return the same results.</p>
+
+<p>Drop the index :</p>
+
+<pre><code class="language-sql">IF  EXISTS (SELECT * FROM sys.indexes WHERE object_id =
+    OBJECT_ID(N'[Sales].[SalesOrderHeader]')
+    AND name = N'DEMO_SalesOrderHeader_OrderDate')
+DROP INDEX [DEMO_SalesOrderHeader_OrderDate]
+ON [Sales].[SalesOrderHeader] WITH ( ONLINE = OFF );
+</code></pre>
+
+<p>Run again now that the index is gone. From the query plan the performance is almost identical. Now the database engine must perform a scan of the table (in this case, the clustered index) to find the correct rows in both of the queries.</p>
+
+
+			<aside class="copyright" role="note">
+				
+				&copy; 2017 Copyright 2017 Peruzal &ndash;
+				
+				Documentation built with
+				<a href="https://www.gohugo.io" target="_blank">Hugo</a>
+				using the
+				<a href="http://github.com/digitalcraftsman/hugo-material-docs" target="_blank">Material</a> theme.
+			</aside>
+
+			<footer class="footer">
+				
+
+<nav class="pagination" aria-label="Footer">
+  <div class="previous">
+  
+      <a href="http://guides.peruzal.com/introduction-to-sql/grouping-data/" title="Grouping Data">
+        <span class="direction">
+          Previous
+        </span>
+        <div class="page">
+          <div class="button button-previous" role="button" aria-label="Previous">
+            <i class="icon icon-back"></i>
+          </div>
+          <div class="stretch">
+            <div class="title">
+              Grouping Data
+            </div>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+
+  <div class="next">
+  
+      <a href="http://guides.peruzal.com/introduction-to-sql/filtering-data/" title="Filtering Data">
+        <span class="direction">
+          Next
+        </span>
+        <div class="page">
+          <div class="stretch">
+            <div class="title">
+              Filtering Data
+            </div>
+          </div>
+          <div class="button button-next" role="button" aria-label="Next">
+            <i class="icon icon-forward"></i>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+</nav>
+
+
+
+
+
+			</footer>
+		</div>
+	</article>
+
+	<div class="results" role="status" aria-live="polite">
+		<div class="scrollable">
+			<div class="wrapper">
+				<div class="meta"></div>
+				<div class="list"></div>
+			</div>
+		</div>
+	</div>
+</main>
+
+    <script>
+    
+      var base_url = '';
+      var repo_id  = '';
+    
+    </script>
+
+    <script src="http://guides.peruzal.com/introduction-to-sql/javascripts/application.js"></script>
+    
+
+    <script>
+      /* Add headers to scrollspy */
+      var headers   = document.getElementsByTagName("h2");
+      var scrollspy = document.getElementById('scrollspy');
+
+      if(scrollspy) {
+        if(headers.length > 0) {
+          for(var i = 0; i < headers.length; i++) {
+            var li = document.createElement("li");
+            li.setAttribute("class", "anchor");
+
+            var a  = document.createElement("a");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", headers[i].innerHTML);
+            a.innerHTML = headers[i].innerHTML;
+
+            li.appendChild(a)
+            scrollspy.appendChild(li);
+          }
+        } else {
+          scrollspy.parentElement.removeChild(scrollspy)
+        }
+
+
+        /* Add permanent link next to the headers */
+        var headers = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+
+        for(var i = 0; i < headers.length; i++) {
+            var a = document.createElement("a");
+            a.setAttribute("class", "headerlink");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", "Permanent link")
+            a.innerHTML = "#";
+            headers[i].appendChild(a);
+        }
+      }
+    </script>
+
+    
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>
+

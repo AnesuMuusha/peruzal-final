@@ -1,0 +1,1530 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="Understanding Android Permissions">
+      
+      
+        <link rel="canonical" href="https://guides.peruzal.com/xamarin-forms-guide/android-permissions/">
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.0">
+    
+    
+      
+        <title>Understanding Android Permissions - Android Mobile App Development Guide</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.0284f74d.css">
+      
+        <link rel="stylesheet" href="../assets/stylesheets/application-palette.01803549.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#ffa000">
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.74668098.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../assets/fonts/material-icons.css">
+    
+    
+    
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="amber" data-md-color-accent="deep-orange">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#android-permissions" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://guides.peruzal.com/xamarin-forms-guide" title="Android Mobile App Development Guide" class="md-header-nav__button md-logo">
+          
+            <img src="../images/logo-lines.png" width="24" height="24">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              Android Mobile App Development Guide
+            </span>
+            <span class="md-header-nav__topic">
+              
+                Understanding Android Permissions
+              
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/Peruzal/xamarin-forms-guide/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    Github
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://guides.peruzal.com/xamarin-forms-guide" title="Android Mobile App Development Guide" class="md-nav__button md-logo">
+      
+        <img src="../images/logo-lines.png" width="48" height="48">
+      
+    </a>
+    Android Mobile App Development Guide
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/Peruzal/xamarin-forms-guide/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    Github
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Getting Started" class="md-nav__link">
+      Getting Started
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../project-structure/" title="Android Project Structure" class="md-nav__link">
+      Android Project Structure
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../android-resources/" title="Understanding App Resources" class="md-nav__link">
+      Understanding App Resources
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Android Common View
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        Android Common View
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/view-attributes/" title="View Attributes" class="md-nav__link">
+      View Attributes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/textview/" title="TextView" class="md-nav__link">
+      TextView
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/button/" title="Button" class="md-nav__link">
+      Button
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/edittext/" title="EditText" class="md-nav__link">
+      EditText
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/image-view/" title="ImageView" class="md-nav__link">
+      ImageView
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/image-button/" title="ImageButton" class="md-nav__link">
+      ImageButton
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/radio-button/" title="RadioButton" class="md-nav__link">
+      RadioButton
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/view/" title="View" class="md-nav__link">
+      View
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/spinner/" title="Spinner" class="md-nav__link">
+      Spinner
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/checkbox/" title="CheckBox" class="md-nav__link">
+      CheckBox
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/switch/" title="Switch" class="md-nav__link">
+      Switch
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/seek-bar/" title="SeekBar" class="md-nav__link">
+      SeekBar
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/rating-bar/" title="RatingBar" class="md-nav__link">
+      RatingBar
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/progress-bar/" title="ProgressBar" class="md-nav__link">
+      ProgressBar
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../android-common-views/search-view/" title="SearchView" class="md-nav__link">
+      SearchView
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Layouts
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        Layouts
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../layouts/overview/" title="Layouts Overview" class="md-nav__link">
+      Layouts Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../layouts/linear-layout/" title="Linear Layout" class="md-nav__link">
+      Linear Layout
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../layouts/relative-layout/" title="Relative Layout" class="md-nav__link">
+      Relative Layout
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../layouts/frame-layout/" title="Frame Layout" class="md-nav__link">
+      Frame Layout
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../layouts/layout-prformance/" title="Optimizing Layout Performance" class="md-nav__link">
+      Optimizing Layout Performance
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../activities/" title="Activities" class="md-nav__link">
+      Activities
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      Navigation
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        Navigation
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../navigation/common-navigation-patterns/" title="Common Navigation Patterns" class="md-nav__link">
+      Common Navigation Patterns
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../navigation/intents/" title="Navigation with Intents" class="md-nav__link">
+      Navigation with Intents
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../navigation/swipe-tabbed-navigation/" title="Swipe and Tabbed Navigation" class="md-nav__link">
+      Swipe and Tabbed Navigation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../navigation/navigation-drawer/" title="Navigation Drawer" class="md-nav__link">
+      Navigation Drawer
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../navigation/bottom-navigation/" title="Bottom Navigation" class="md-nav__link">
+      Bottom Navigation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../navigation/task-stacks/" title="Navigation and Task Stacks" class="md-nav__link">
+      Navigation and Task Stacks
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../navigation/common-intents/" title="Common Intents" class="md-nav__link">
+      Common Intents
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../fragments/" title="Fragments" class="md-nav__link">
+      Fragments
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../common-intents/" title="Common Intents" class="md-nav__link">
+      Common Intents
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Understanding Android Permissions
+      </label>
+    
+    <a href="./" title="Understanding Android Permissions" class="md-nav__link md-nav__link--active">
+      Understanding Android Permissions
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#understanding-app-permissions" title="Understanding App Permissions" class="md-nav__link">
+    Understanding App Permissions
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#permissions-before-marshmallow" title="Permissions before Marshmallow" class="md-nav__link">
+    Permissions before Marshmallow
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#permission-updates-in-marshmallow" title="Permission Updates in Marshmallow" class="md-nav__link">
+    Permission Updates in Marshmallow
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#normal-permissions" title="Normal Permissions" class="md-nav__link">
+    Normal Permissions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#runtime-permissions" title="Runtime Permissions" class="md-nav__link">
+    Runtime Permissions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#permission-groups" title="Permission Groups" class="md-nav__link">
+    Permission Groups
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backwards-compatibility" title="Backwards Compatibility" class="md-nav__link">
+    Backwards Compatibility
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-ask-for-permissions" title="How to Ask For Permissions" class="md-nav__link">
+    How to Ask For Permissions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#storage-permissions" title="Storage permissions" class="md-nav__link">
+    Storage permissions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#managing-permissions-using-adb" title="Managing Permissions using ADB" class="md-nav__link">
+    Managing Permissions using ADB
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#managing-runtime-permissions-with-permissionsdispatcher" title="Managing Runtime Permissions with PermissionsDispatcher" class="md-nav__link">
+    Managing Runtime Permissions with PermissionsDispatcher
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dangerous-permissions" title="Dangerous Permissions" class="md-nav__link">
+    Dangerous Permissions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installation" title="Installation" class="md-nav__link">
+    Installation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usage" title="Usage" class="md-nav__link">
+    Usage
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#permission-event-handling" title="Permission Event Handling" class="md-nav__link">
+    Permission Event Handling
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alternatives" title="Alternatives" class="md-nav__link">
+    Alternatives
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../networking/" title="Networking" class="md-nav__link">
+      Networking
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#understanding-app-permissions" title="Understanding App Permissions" class="md-nav__link">
+    Understanding App Permissions
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#permissions-before-marshmallow" title="Permissions before Marshmallow" class="md-nav__link">
+    Permissions before Marshmallow
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#permission-updates-in-marshmallow" title="Permission Updates in Marshmallow" class="md-nav__link">
+    Permission Updates in Marshmallow
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#normal-permissions" title="Normal Permissions" class="md-nav__link">
+    Normal Permissions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#runtime-permissions" title="Runtime Permissions" class="md-nav__link">
+    Runtime Permissions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#permission-groups" title="Permission Groups" class="md-nav__link">
+    Permission Groups
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backwards-compatibility" title="Backwards Compatibility" class="md-nav__link">
+    Backwards Compatibility
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-ask-for-permissions" title="How to Ask For Permissions" class="md-nav__link">
+    How to Ask For Permissions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#storage-permissions" title="Storage permissions" class="md-nav__link">
+    Storage permissions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#managing-permissions-using-adb" title="Managing Permissions using ADB" class="md-nav__link">
+    Managing Permissions using ADB
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#managing-runtime-permissions-with-permissionsdispatcher" title="Managing Runtime Permissions with PermissionsDispatcher" class="md-nav__link">
+    Managing Runtime Permissions with PermissionsDispatcher
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dangerous-permissions" title="Dangerous Permissions" class="md-nav__link">
+    Dangerous Permissions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installation" title="Installation" class="md-nav__link">
+    Installation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usage" title="Usage" class="md-nav__link">
+    Usage
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#permission-event-handling" title="Permission Event Handling" class="md-nav__link">
+    Permission Event Handling
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alternatives" title="Alternatives" class="md-nav__link">
+    Alternatives
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/Peruzal/xamarin-forms-guide/edit/master/docs/android-permissions.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="android-permissions">Android Permissions<a class="headerlink" href="#android-permissions" title="Permanent link">&para;</a></h1>
+<h2 id="understanding-app-permissions">Understanding App Permissions<a class="headerlink" href="#understanding-app-permissions" title="Permanent link">&para;</a></h2>
+<p>By default, an Android app starts with zero permissions granted to it. When the app needs to use any of the protected features of the device (sending network requests, accessing the camera, sending an SMS, etc) it must obtain the appropriate permission from the user to do so.</p>
+<p>Before Marshmallow, permissions were handled at install-time and specified in the <code>AndroidManifest.xml</code> within the project. Full list of permissions can be <a href="http://developer.android.com/reference/android/Manifest.permission.html">found here</a>. After Marshmallow, permissions must now be <strong>requested at runtime</strong> before being used. There are a <a href="https://gist.github.com/dlew/2a21b06ee8715e0f7338">number of libraries available</a> to make runtime permissions easier. If you to get started quickly, check out our guide on [[managing runtime permissions with PermissionsDispatcher]].</p>
+<h3 id="permissions-before-marshmallow">Permissions before Marshmallow<a class="headerlink" href="#permissions-before-marshmallow" title="Permanent link">&para;</a></h3>
+<p>Permissions were much simpler before Marshmallow (API 23). All permissions were handled at install-time. When a user went to install an app from the <a href="https://play.google.com/store">Google Play Store</a>, the user was presented a list of permissions that the app required (some people referred to this as a "wall of permissions". The user could either accept <strong>all</strong> the permissions and continue to install the app or decide not to install the app. It was an all or nothing approach. There was no way to grant only certain permissions to the app and no way for the user to revoke certain permissions after the app was installed. </p>
+<p>Example of pre-Marshmallow permissions requested by the Dropbox app: </p>
+<p><img alt="Imgur" src="http://i.imgur.com/XeRdzOT.png" /></p>
+<p>For an app developer, permissions were very simple. To request <a href="http://developer.android.com/reference/android/Manifest.permission.html">one of the many permissions</a>, simply specify it in the <code>AndroidManifest.xml</code>:</p>
+<p>For example, an application that needs to read the user's contacts would add the following to it's <code>AndroidManifest.xml</code>:</p>
+<div class="codehilite"><pre><span></span><span class="nt">&lt;manifest</span> <span class="na">xmlns:android=</span><span class="s">&quot;http://schemas.android.com/apk/res/android&quot;</span>
+    <span class="na">package=</span><span class="s">&quot;com.android.app.myapp&quot;</span> <span class="nt">&gt;</span>
+
+    <span class="nt">&lt;uses-permission</span> <span class="na">android:name=</span><span class="s">&quot;android.permission.READ_CONTACTS&quot;</span> <span class="nt">/&gt;</span>
+    ...
+<span class="nt">&lt;/manifest&gt;</span>
+</pre></div>
+
+
+<p>That's all there was to it. The user had no way of changing permissions, even after installing the app. This made it easy for developers to deal with permissions, but wasn't the best user experience.</p>
+<h2 id="permission-updates-in-marshmallow">Permission Updates in Marshmallow<a class="headerlink" href="#permission-updates-in-marshmallow" title="Permanent link">&para;</a></h2>
+<p>Marshmallow brought large changes to the permissions model. It introduced the concept of runtime permissions. These are permissions that are requested while the app is running (instead of before the app is installed). These permission can then be allowed or denied by the user. For approved permissions, these can also be revoked at a later time.</p>
+<p>This means there are a couple more things to consider when working with permissions for a <strong>Marshmallow</strong> app. Keep in mind that your <code>targetSdkVersion</code> must be &gt;= <code>23</code> and your emulator / device must be running Marshmallow to see the new permissions model. If this isn't the case, see the [[backwards compatibility|Understanding App Permissions#backwards-compatibility]] section to understand how permissions will behave on your configuration.</p>
+<h3 id="normal-permissions">Normal Permissions<a class="headerlink" href="#normal-permissions" title="Permanent link">&para;</a></h3>
+<p>When you need to add a new permission, first check <a href="http://developer.android.com/guide/topics/security/normal-permissions.html">this page</a> to see if the permission is considered a <a href="http://developer.android.com/reference/android/content/pm/PermissionInfo.html#PROTECTION_NORMAL"><code>PROTECTION_NORMAL</code></a> permission. In Marshmallow, Google has designated certain permissions to be "safe" and called these "Normal Permissions". These are things like <code>ACCESS_NETWORK_STATE</code>, <code>INTERNET</code>, etc. which can't do much harm. Normal permissions are automatically granted at install time and <strong>never</strong> prompt the user asking for permission.</p>
+<p><strong>Important:</strong> Normal Permissions must be added to the <code>AndroidManifest</code>:</p>
+<div class="codehilite"><pre><span></span><span class="nt">&lt;manifest</span> <span class="na">xmlns:android=</span><span class="s">&quot;http://schemas.android.com/apk/res/android&quot;</span>
+    <span class="na">package=</span><span class="s">&quot;com.android.app.myapp&quot;</span> <span class="nt">&gt;</span>
+
+    <span class="nt">&lt;uses-permission</span> <span class="na">android:name=</span><span class="s">&quot;android.permission.INTERNET&quot;</span> <span class="nt">/&gt;</span>
+    ...
+<span class="nt">&lt;/manifest&gt;</span>
+</pre></div>
+
+
+<h3 id="runtime-permissions">Runtime Permissions<a class="headerlink" href="#runtime-permissions" title="Permanent link">&para;</a></h3>
+<p>If the permission you need to add isn't listed under the normal permissions, you'll need to deal with "Runtime Permissions". Runtime permissions are permissions that are requested as they are needed while the app is running. These permissions will show a dialog to the user, similar to the following one:</p>
+<p><img alt="Imgur" src="http://i.imgur.com/er8yE9J.png" /></p>
+<p>The first step when adding a "Runtime Permission" is to add it to the <code>AndroidManifest</code>:</p>
+<div class="codehilite"><pre><span></span><span class="nt">&lt;manifest</span> <span class="na">xmlns:android=</span><span class="s">&quot;http://schemas.android.com/apk/res/android&quot;</span>
+    <span class="na">package=</span><span class="s">&quot;com.codepath.androidpermissionsdemo&quot;</span> <span class="nt">&gt;</span>
+
+    <span class="nt">&lt;uses-permission</span> <span class="na">android:name=</span><span class="s">&quot;android.permission.READ_CONTACTS&quot;</span> <span class="nt">/&gt;</span>
+    ...
+<span class="nt">&lt;/manifest&gt;</span>
+</pre></div>
+
+
+<p>Next, you'll need to initiate the permission request and handle the result. The following code shows how to do this in the context of an <code>Activity</code>, but this is also possible from within a <code>Fragment</code>. </p>
+<div class="codehilite"><pre><span></span><span class="c1">// MainActivity.java</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span> <span class="kd">extends</span> <span class="n">AppCompatActivity</span> <span class="o">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+        <span class="n">setContentView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_main</span><span class="o">);</span>
+
+        <span class="c1">// In an actual app, you&#39;d want to request a permission when the user performs an action</span>
+        <span class="c1">// that requires that permission.</span>
+        <span class="n">getPermissionToReadUserContacts</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="c1">// Identifier for the permission request</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">READ_CONTACTS_PERMISSIONS_REQUEST</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+
+    <span class="c1">// Called when the user is performing an action which requires the app to read the</span>
+    <span class="c1">// user&#39;s contacts</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">getPermissionToReadUserContacts</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// 1) Use the support library version ContextCompat.checkSelfPermission(...) to avoid</span>
+        <span class="c1">// checking the build version since Context.checkSelfPermission(...) is only available</span>
+        <span class="c1">// in Marshmallow</span>
+        <span class="c1">// 2) Always check for permission (even if permission has already been granted)</span>
+        <span class="c1">// since the user can revoke permissions at any time through Settings</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">ContextCompat</span><span class="o">.</span><span class="na">checkSelfPermission</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">Manifest</span><span class="o">.</span><span class="na">permission</span><span class="o">.</span><span class="na">READ_CONTACTS</span><span class="o">)</span>
+                <span class="o">!=</span> <span class="n">PackageManager</span><span class="o">.</span><span class="na">PERMISSION_GRANTED</span><span class="o">)</span> <span class="o">{</span>
+
+            <span class="c1">// The permission is NOT already granted.</span>
+            <span class="c1">// Check if the user has been asked about this permission already and denied</span>
+            <span class="c1">// it. If so, we want to give more explanation about why the permission is needed.</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">shouldShowRequestPermissionRationale</span><span class="o">(</span>
+                    <span class="n">Manifest</span><span class="o">.</span><span class="na">permission</span><span class="o">.</span><span class="na">READ_CONTACTS</span><span class="o">))</span> <span class="o">{</span>
+                <span class="c1">// Show our own UI to explain to the user why we need to read the contacts</span>
+                <span class="c1">// before actually requesting the permission and showing the default UI</span>
+            <span class="o">}</span>
+
+            <span class="c1">// Fire off an async request to actually get the permission</span>
+            <span class="c1">// This will show the standard permission request dialog UI</span>
+            <span class="n">requestPermissions</span><span class="o">(</span><span class="k">new</span> <span class="n">String</span><span class="o">[]{</span><span class="n">Manifest</span><span class="o">.</span><span class="na">permission</span><span class="o">.</span><span class="na">READ_CONTACTS</span><span class="o">},</span>
+                    <span class="n">READ_CONTACTS_PERMISSIONS_REQUEST</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="c1">// Callback with the request from calling requestPermissions(...)</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onRequestPermissionsResult</span><span class="o">(</span><span class="kt">int</span> <span class="n">requestCode</span><span class="o">,</span>
+                                           <span class="nd">@NonNull</span> <span class="n">String</span> <span class="n">permissions</span><span class="o">[],</span>
+                                           <span class="nd">@NonNull</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">grantResults</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// Make sure it&#39;s our original READ_CONTACTS request</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">requestCode</span> <span class="o">==</span> <span class="n">READ_CONTACTS_PERMISSIONS_REQUEST</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">grantResults</span><span class="o">.</span><span class="na">length</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span>
+                    <span class="n">grantResults</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">==</span> <span class="n">PackageManager</span><span class="o">.</span><span class="na">PERMISSION_GRANTED</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">Toast</span><span class="o">.</span><span class="na">makeText</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="s">&quot;Read Contacts permission granted&quot;</span><span class="o">,</span> <span class="n">Toast</span><span class="o">.</span><span class="na">LENGTH_SHORT</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
+            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                <span class="c1">// showRationale = false if user clicks Never Ask Again, otherwise true</span>
+                <span class="kt">boolean</span> <span class="n">showRationale</span> <span class="o">=</span> <span class="n">shouldShowRequestPermissionRationale</span><span class="o">(</span> <span class="k">this</span><span class="o">,</span> <span class="n">Manifest</span><span class="o">.</span><span class="na">permission</span><span class="o">.</span><span class="na">READ_CONTACTS</span><span class="o">);</span>
+
+                <span class="k">if</span> <span class="o">(</span><span class="n">showRationale</span><span class="o">)</span> <span class="o">{</span>
+                   <span class="c1">// do something here to handle degraded mode</span>
+                <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                   <span class="n">Toast</span><span class="o">.</span><span class="na">makeText</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="s">&quot;Read Contacts permission denied&quot;</span><span class="o">,</span> <span class="n">Toast</span><span class="o">.</span><span class="na">LENGTH_SHORT</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="kd">super</span><span class="o">.</span><span class="na">onRequestPermissionsResult</span><span class="o">(</span><span class="n">requestCode</span><span class="o">,</span> <span class="n">permissions</span><span class="o">,</span> <span class="n">grantResults</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<h3 id="permission-groups">Permission Groups<a class="headerlink" href="#permission-groups" title="Permanent link">&para;</a></h3>
+<p><a href="http://developer.android.com/preview/features/runtime-permissions.html#perm-groups">Permission Groups</a> avoids spamming the user with a lot of permission requests while allowing the app developer to only request the minimal amount of permissions needed at any point in time.</p>
+<p>Related permissions are grouped into <a href="http://developer.android.com/reference/android/Manifest.permission_group.html">one of the permission groups</a>. When an app requests a permission that belongs to a particular permission group (i.e. <a href="http://developer.android.com/reference/android/Manifest.permission.html#READ_CONTACTS">READ_CONTACTS</a>), Android asks the user about the higher level group instead (<a href="http://developer.android.com/reference/android/Manifest.permission_group.html#CONTACTS">CONTACTS</a>). This way when the app later needs the <a href="http://developer.android.com/reference/android/Manifest.permission.html#WRITE_CONTACTS">WRITE_CONTACTS</a> permission, Android can automatically grant this itself without prompting the user.</p>
+<p>In most of your interaction with the permission API's you'll be working with the individual permissions and not the permission groups, but pay close attention to what the API expects as both permissions and permission groups are Strings.</p>
+<h3 id="backwards-compatibility">Backwards Compatibility<a class="headerlink" href="#backwards-compatibility" title="Permanent link">&para;</a></h3>
+<p>There are 2 main scenarios to think about when it comes to backwards compatibility:</p>
+<ol>
+<li>Your app is targeting an API less than Marshmallow (<code>TargetSdkVersion</code> &lt; <code>23</code>), but the emulator / device is Marshmallow:</li>
+<li>Your app will continue to use the old permissions model.</li>
+<li>All permissions listed in the <code>AndroidManifest</code> will be asked for at install time.</li>
+<li>Users will be able to revoke permissions after the app is installed. It's important to test this scenario since the results of certain actions without the appropriate permission can be unexpected. </li>
+<li>The emulator / device is running something older than Marshmallow, but you app targets Marshmallow (<code>TargetSdkVersion</code> &gt;= <code>23</code>):</li>
+<li>Your app will continue to use the old permissions model.</li>
+<li>All permissions listed in the <code>AndroidManifest</code> will be asked for at install time.</li>
+</ol>
+<h3 id="how-to-ask-for-permissions">How to Ask For Permissions<a class="headerlink" href="#how-to-ask-for-permissions" title="Permanent link">&para;</a></h3>
+<p>Google recommends in this <a href="https://youtu.be/5xVh-7ywKpE?t=9m15s">video</a> that there are four patterns to consider when thinking about permissions:</p>
+<p><img src="http://imgur.com/nZ2WX8W.png"></p>
+<p>Each pattern dictates a different way of requesting permissions.  For instance, when requesting for critical but unclear permissions, use a warm welcome screen to help understand a permission is requested.  For critical permissions, such as a camera app that needs camera permission, ask up-front for it.  Secondary features 
+can be requested later in context, such as a geotagging app when asking for a location permission.  For permissions that are secondary and unclear, you should include a rationale explanation if you really need them.</p>
+<h3 id="storage-permissions">Storage permissions<a class="headerlink" href="#storage-permissions" title="Permanent link">&para;</a></h3>
+<p>Rethink about whether you need read/write storage permissions (i.e. <code>android.permission.WRITE_EXTERNAL_STORAGE</code> or <code>android.permission.READ_EXTERNAL_STORAGE</code>), which give you all files on the SD card.  Instead, you should use methods on Context to access package-specific directories on external storage.  Your app always have access to read/write to these directories,so there is no need to permissions to request it:</p>
+<div class="codehilite"><pre><span></span><span class="c1">// Application-specific call that doesn&#39;t require external storage permissions</span>
+<span class="c1">// Can be Environment.DIRECTORY_PICTURES, Environment.DIRECTORY_PODCASTS, Environment.DIRECTORY_RINGTONES, </span>
+<span class="c1">// Environment.DIRECTORY_NOTIFICATIONS, Environment.DIRECTORY_PICTURES, or Environment.MOVIES</span>
+<span class="n">File</span> <span class="n">dir</span> <span class="o">=</span> <span class="n">MyActivity</span><span class="o">.</span><span class="na">this</span><span class="o">.</span><span class="na">getExternalFilesDir</span><span class="o">(</span><span class="n">Environment</span><span class="o">.</span><span class="na">DIRECTORY_PICTURES</span><span class="o">);</span>
+</pre></div>
+
+
+<h3 id="managing-permissions-using-adb">Managing Permissions using ADB<a class="headerlink" href="#managing-permissions-using-adb" title="Permanent link">&para;</a></h3>
+<p>Permissions can also be managed on the command-line using <code>adb</code> with the following commands. </p>
+<p>Show all Android permissions:</p>
+<div class="codehilite"><pre><span></span>$ adb shell pm list permissions -d -g
+</pre></div>
+
+
+<p>Dumping app permission state:</p>
+<div class="codehilite"><pre><span></span><span class="nv">$adb</span> shell dumpsys package com.PackageName.enterprise
+</pre></div>
+
+
+<p>Granting and revoking runtime permissions:</p>
+<div class="codehilite"><pre><span></span><span class="nv">$adb</span> shell pm grant com.PackageName.enterprise some.permission.NAME
+<span class="nv">$adb</span> shell pm revoke com.PackageName.enterprise android.permission.READ_CONTACTS
+</pre></div>
+
+
+<p>Installing an app with all permissions granted:</p>
+<div class="codehilite"><pre><span></span><span class="nv">$adb</span> install -g myAPP.apk
+</pre></div>
+
+
+<h2 id="managing-runtime-permissions-with-permissionsdispatcher">Managing Runtime Permissions with PermissionsDispatcher<a class="headerlink" href="#managing-runtime-permissions-with-permissionsdispatcher" title="Permanent link">&para;</a></h2>
+<p>As of API 23 (Marshmallow), the permission model for Android [[has changed significantly|Understanding-App-Permissions]]. Now, rather than all being setup at install-time, certain <a href="http://developer.android.com/guide/topics/security/permissions.html#normal-dangerous">dangerous permissions</a> must be checked and activated at runtime instead. </p>
+<p>For a full breakdown of how runtime permissions work, check out the [[understanding app permissions|Understanding-App-Permissions#permission-updates-in-marshmallow]] guide. This guide is focused on the practical approach for managing runtime permissions, requesting access to a feature, and managing error cases where the permission is denied.</p>
+<p>The easiest way to manage runtime permissions is by using third-party libraries. In this guide, we will be taking a look at the <a href="https://github.com/hotchemi/PermissionsDispatcher">PermissionsDispatcher</a> library. The library is 100% reflection-free and as such does not cause significant performance penalties. </p>
+<h3 id="dangerous-permissions">Dangerous Permissions<a class="headerlink" href="#dangerous-permissions" title="Permanent link">&para;</a></h3>
+<p>First, we need to recognize the <a href="http://developer.android.com/guide/topics/security/permissions.html#normal-dangerous">dangerous permissions</a> that require us to request runtime permissions. This includes but is not limited to the following common permissions:</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Manifest.permission.READ_CALENDAR</code></td>
+<td>Read calendar events</td>
+</tr>
+<tr>
+<td><code>Manifest.permission.WRITE_CALENDAR</code></td>
+<td>Write calendar events</td>
+</tr>
+<tr>
+<td><code>Manifest.permission.CAMERA</code></td>
+<td>Access camera object</td>
+</tr>
+<tr>
+<td><code>Manifest.permission.READ_CONTACTS</code></td>
+<td>Read phone contacts</td>
+</tr>
+<tr>
+<td><code>Manifest.permission.WRITE_CONTACTS</code></td>
+<td>Write phone contacts</td>
+</tr>
+<tr>
+<td><code>Manifest.permission.ACCESS_FINE_LOCATION</code></td>
+<td>Access precise location</td>
+</tr>
+<tr>
+<td><code>Manifest.permission.ACCESS_COARSE_LOCATION</code></td>
+<td>Access general location</td>
+</tr>
+<tr>
+<td><code>Manifest.permission.RECORD_AUDIO</code></td>
+<td>Record with microphone</td>
+</tr>
+<tr>
+<td><code>Manifest.permission.CALL_PHONE</code></td>
+<td>Call using the dialer</td>
+</tr>
+<tr>
+<td><code>Manifest.permission.READ_EXTERNAL_STORAGE</code></td>
+<td>Read external or SD</td>
+</tr>
+<tr>
+<td><code>Manifest.permission.WRITE_EXTERNAL_STORAGE</code></td>
+<td>Write to external or SD</td>
+</tr>
+</tbody>
+</table>
+<p>The full list of <a href="http://developer.android.com/guide/topics/security/permissions.html#normal-dangerous">dangerous permissions</a> contains all permissions that require runtime management. Please note that permissions in the <a href="http://developer.android.com/guide/topics/security/normal-permissions.html">normal permission group</a> <strong>do not require run-time checks</strong> as [[outlined here|Understanding-App-Permissions#normal-permissions]].</p>
+<h3 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h3>
+<p>Make sure to [[upgrade|Getting-Started-with-Gradle#upgrading-gradle]] to the latest Gradle version. </p>
+<p>And on your app module in <code>app/build.gradle</code>:</p>
+<div class="codehilite"><pre><span></span><span class="n">dependencies</span> <span class="err">{</span>
+  <span class="n">compile</span> <span class="s1">&#39;com.github.hotchemi:permissionsdispatcher:2.0.7&#39;</span>
+  <span class="n">annotationProcessor</span> <span class="s1">&#39;com.github.hotchemi:permissionsdispatcher-processor:2.0.7&#39;</span>
+<span class="err">}</span>
+</pre></div>
+
+
+<p>Be sure to use the latest version: <a href="https://bintray.com/hotchemi/maven/permissionsdispatcher/_latestVersion"><img alt="Download" src="https://api.bintray.com/packages/hotchemi/maven/permissionsdispatcher/images/download.svg" /></a> available.</p>
+<h3 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h3>
+<p>Suppose we wanted to record be able to call a number using the phone's dialer. Since this is a dangerous permission, we need to ask the user for the permission at runtime with the <code>Manifest.permission.CALL_PHONE</code> permission. This requires us to do the following:</p>
+<ol>
+<li>Annotate the activity or fragment with <code>@RuntimePermissions</code></li>
+<li>Annotate the method that requires the permission with <code>@NeedsPermission</code></li>
+<li>Delegate the permissions events to a compiled helper class</li>
+<li>Invoke the helper class in order to trigger the action with permission request</li>
+<li><strong>Optional:</strong> Annotate a method which explains the reasoning with a dialog</li>
+<li><strong>Optional:</strong> Annotate a method which fires if the permission is denied</li>
+<li><strong>Optional:</strong> Annotate a method which fires if the permission will never be asked for again.</li>
+</ol>
+<p>First, we need to annotate the activity or fragment with <code>@RuntimePermissions</code>:</p>
+<div class="codehilite"><pre><span></span><span class="nd">@RuntimePermissions</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span> <span class="kd">extends</span> <span class="n">AppCompatActivity</span> <span class="o">{</span>
+  <span class="c1">// ...</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>Next, we need to annotate the method that requires the permission with <code>@NeedsPermission</code> tag:</p>
+<div class="codehilite"><pre><span></span><span class="nd">@RuntimePermissions</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span> <span class="kd">extends</span> <span class="n">AppCompatActivity</span> <span class="o">{</span>
+    <span class="nd">@NeedsPermission</span><span class="o">(</span><span class="n">Manifest</span><span class="o">.</span><span class="na">permission</span><span class="o">.</span><span class="na">CALL_PHONE</span><span class="o">)</span>
+    <span class="kt">void</span> <span class="nf">callPhone</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// Trigger the calling of a number here</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>After compiling the project, we need to delegate the permission events to the generated helper class ([Activity Name] + PermissionsDispatcher):</p>
+<div class="codehilite"><pre><span></span><span class="nd">@RuntimePermissions</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span> <span class="kd">extends</span> <span class="n">AppCompatActivity</span> <span class="o">{</span>
+    <span class="c1">// ...</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onRequestPermissionsResult</span><span class="o">(</span><span class="kt">int</span> <span class="n">requestCode</span><span class="o">,</span> <span class="n">String</span><span class="o">[]</span> <span class="n">permissions</span><span class="o">,</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">grantResults</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onRequestPermissionsResult</span><span class="o">(</span><span class="n">requestCode</span><span class="o">,</span> <span class="n">permissions</span><span class="o">,</span> <span class="n">grantResults</span><span class="o">);</span>
+        <span class="c1">// NOTE: delegate the permission handling to generated method</span>
+        <span class="n">MainActivityPermissionsDispatcher</span><span class="o">.</span><span class="na">onRequestPermissionsResult</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">requestCode</span><span class="o">,</span> <span class="n">grantResults</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>In the code base, we can trigger the call with the appropriate runtime permission checks using the generated methods suffixed with <code>WithCheck</code> on the helper class:</p>
+<div class="codehilite"><pre><span></span><span class="c1">// NOTE: delegate the permission handling to generated method</span>
+<span class="n">MainActivityPermissionsDispatcher</span><span class="o">.</span><span class="na">callPhoneWithCheck</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+</pre></div>
+
+
+<p>This will invoke the <code>callPhone</code> method wrapped with the appropriate permission checks. </p>
+<h3 id="permission-event-handling">Permission Event Handling<a class="headerlink" href="#permission-event-handling" title="Permanent link">&para;</a></h3>
+<p>We can also optionally configure the rationale dialog, handle the denial of a permission or manage when the user requests never to be asked again:</p>
+<div class="codehilite"><pre><span></span><span class="nd">@RuntimePermissions</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span> <span class="kd">extends</span> <span class="n">AppCompatActivity</span> <span class="o">{</span>
+
+    <span class="c1">// ...</span>
+
+    <span class="c1">// Annotate a method which explains why the permission/s is/are needed. </span>
+    <span class="c1">// It passes in a `PermissionRequest` object which can continue or abort the current permission</span>
+    <span class="nd">@OnShowRationale</span><span class="o">(</span><span class="n">Manifest</span><span class="o">.</span><span class="na">permission</span><span class="o">.</span><span class="na">CALL_PHONE</span><span class="o">)</span>
+    <span class="kt">void</span> <span class="nf">showRationaleForPhoneCall</span><span class="o">(</span><span class="n">PermissionRequest</span> <span class="n">request</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">new</span> <span class="n">AlertDialog</span><span class="o">.</span><span class="na">Builder</span><span class="o">(</span><span class="k">this</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">setMessage</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">string</span><span class="o">.</span><span class="na">permission_phone_rationale</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">setPositiveButton</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">string</span><span class="o">.</span><span class="na">button_allow</span><span class="o">,</span> <span class="o">(</span><span class="n">dialog</span><span class="o">,</span> <span class="n">button</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">request</span><span class="o">.</span><span class="na">proceed</span><span class="o">())</span>
+            <span class="o">.</span><span class="na">setNegativeButton</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">string</span><span class="o">.</span><span class="na">button_deny</span><span class="o">,</span> <span class="o">(</span><span class="n">dialog</span><span class="o">,</span> <span class="n">button</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">request</span><span class="o">.</span><span class="na">cancel</span><span class="o">())</span>
+            <span class="o">.</span><span class="na">show</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="c1">// Annotate a method which is invoked if the user doesn&#39;t grant the permissions</span>
+    <span class="nd">@OnPermissionDenied</span><span class="o">(</span><span class="n">Manifest</span><span class="o">.</span><span class="na">permission</span><span class="o">.</span><span class="na">CALL_PHONE</span><span class="o">)</span>
+    <span class="kt">void</span> <span class="nf">showDeniedForPhoneCall</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">Toast</span><span class="o">.</span><span class="na">makeText</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">R</span><span class="o">.</span><span class="na">string</span><span class="o">.</span><span class="na">permission_call_denied</span><span class="o">,</span> <span class="n">Toast</span><span class="o">.</span><span class="na">LENGTH_SHORT</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="c1">// Annotates a method which is invoked if the user </span>
+    <span class="c1">// chose to have the device &quot;never ask again&quot; about a permission</span>
+    <span class="nd">@OnNeverAskAgain</span><span class="o">(</span><span class="n">Manifest</span><span class="o">.</span><span class="na">permission</span><span class="o">.</span><span class="na">CALL_PHONE</span><span class="o">)</span>
+    <span class="kt">void</span> <span class="nf">showNeverAskForPhoneCall</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">Toast</span><span class="o">.</span><span class="na">makeText</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">R</span><span class="o">.</span><span class="na">string</span><span class="o">.</span><span class="na">permission_call_neverask</span><span class="o">,</span> <span class="n">Toast</span><span class="o">.</span><span class="na">LENGTH_SHORT</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>With that we can easily handle all of our runtime permission needs.</p>
+<h2 id="alternatives">Alternatives<a class="headerlink" href="#alternatives" title="Permanent link">&para;</a></h2>
+<p>In addition the the <a href="https://github.com/hotchemi/PermissionsDispatcher">PermissionsDispatcher</a> outlined above, there are many other popular permissions libraries with various APIs and alternate designs including the following: </p>
+<ul>
+<li><a href="https://github.com/Karumi/Dexter">Dexter</a></li>
+<li><a href="https://github.com/googlesamples/easypermissions">easypermissions</a></li>
+<li><a href="https://github.com/canelmas/let">let</a></li>
+<li><a href="https://github.com/ZeroBrain/AndroidPermissions">AndroidPermissions</a></li>
+<li><a href="https://github.com/anthonycr/Grant">Grant</a></li>
+<li><a href="https://github.com/afollestad/assent">Assent</a></li>
+<li><a href="https://github.com/00ec454/Ask">Ask</a></li>
+</ul>
+<p>A full list of permissions libraries <a href="https://gist.github.com/dlew/2a21b06ee8715e0f7338">can be found here</a>.</p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../common-intents/" title="Common Intents" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Common Intents
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../networking/" title="Networking" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Networking
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset" style="background-color: #ff9900; color: #fff">
+    <div class="md-grid" style="display: flex;">
+      <div style="flex: 1;">
+        <h2>Consulting</h2>
+        <ul style="list-style: none; margin-left: -15px;">
+          <li><a href="https://www.peruzal.com/mobile-app-development" target="_blank">Mobile App Development</a></li>
+          <li><a href="https://www.peruzal.com/mobile-app-device-security-and-penetration-testing" target="_blank">Mobile App Security and Penetration Testing</a></li>
+          <li><a href="https://www.peruzal.com/database-and-web-application-performance-tuning-and-consulting" target="_blank">Database Performance Tuning</a></li>
+        </ul>
+      </div>
+      <div style="flex: 1;">
+        <h2>Training</h2>
+        <ul style="list-style: none; margin-left: -15px;">
+          <li><a href="https://training.peruzal.com/courses/mobile/android-mobile-app-development-training-certification" target="_blank">Android Mobile App Development Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/mobile/ios-mobile-app-development-training-with-swift" target="_blank">iOS Mobile App Development Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/mobile/xamarin/xamarin-forms-mobile-app-development-training" target="_blank">Xamarin Forms Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/mobile/xamarin/android-mobile-app-development-training-with-xamarin" target="_blank">Xamarin Android Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/mobile/xamarin/ios-mobile-app-development-training-with-xamarin" target="_blank">Xamarin iOS Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/web/reactjs-front-end-web-application-development" target="_blank">ReactJS Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/web/reactjs-front-end-web-application-development" target="_blank">React Native Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/gaming/unity-certified-game-development-training-south-africa" target="_blank">Unity Game Development Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/database/mysql-database-administration-training-certification-south-africa" target="_blank">MySQL Database Adminstration Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/programming/java-programming-training-certification" target="_blank">Java Programming Training</a></li>
+          <li><a href="https://training.peruzal.com/courses/programming/ruby-programming-training-certification" target="_blank">Ruby Programming Training</a></li>
+        </ul>
+      </div>
+      <div style="flex: 1">
+        <h2>Resources</h2>
+        <ul style="list-style: none; margin-left: -15px;">
+          <li><a href="http://guides.peruzal.com/xamarin-forms-guide" target="_blank">Xamarin Forms Guide</a></li>
+          <li><a href="http://guides.peruzal.com/v1/android-guides" target="_blank">Android Development Guides</a></li>
+          <li><a href="http://guides.peruzal.com/xamarin-ios" target="_blank">iOS Development Guides</a></li>
+          <li><a href="http://xamarin-android-guide.peruzal.com/" target="_blank">Xamarin Android Guides</a></li>
+          <li><a href="http://xamarin-ios-guide.peruzal.com/" target="_blank">Xamarin iOS Guide</a></li>
+          <li><a href="http://unity-certified-associate-guide.peruzal.com/" target="_blank">Unity Game Development Guide</a></li>
+          <li><a href="https://josephkandi.gitbooks.io/mysql-5-6-database-administration-certification-g/content/" target="_blank">MySQL Database Adminstration Guide</a></li>
+          <li><a href="https://josephkandi.gitbooks.io/learn-java-by-developing-an-android-app/content/" target="_blank">Java Programming Guide</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="md-footer-meta__inner" style="background-color: rgba(0,0,0,.87)">
+      <div style="text-align: center; font-size: 0.7rem">
+          <div class="md-footer-copyright__highlight">
+            <a href="https://www.peruzal.com" target="_blank">Copyright &copy 2019 - Peruzal</a>
+          </div>
+      </div>
+      
+  <div style="text-align: center">
+    <link rel="stylesheet" href="../assets/fonts/font-awesome.css">
+    
+      <a href="https://github.com/peruzal" target="_blank" class="md-footer-social__link fa fa-github"></a>
+    
+      <a href="https://twitter.com/peruzal" target="_blank" class="md-footer-social__link fa fa-twitter"></a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-40772582-8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-40772582-8');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-6342782466521705",
+          enable_page_level_ads: true
+     });
+</script>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application.245445c6.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
+      
+        <script src="../assets/js/utils.js"></script>
+      
+        <script src="../assets/js/mixpanel.js"></script>
+      
+        <script src="../assets/js/track.js"></script>
+      
+        <script src="../assets/js/drift.js"></script>
+      
+    
+  </body>
+</html>

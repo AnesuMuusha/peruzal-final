@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Index-fragmentation-analyses on SQL Server Performance and Tuning</title>
+    <link>http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/index-fragmentation-analysis/index.xml</link>
+    <description>Recent content in Index-fragmentation-analyses on SQL Server Performance and Tuning</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Copyright 2017 Peruzal</copyright>
+    <lastBuildDate>Sat, 18 Mar 2017 14:53:22 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/index-fragmentation-analysis/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Index Fragmentation Analysis</title>
+      <link>http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/index-fragmentation-analysis/</link>
+      <pubDate>Sat, 18 Mar 2017 14:53:22 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/index-fragmentation-analysis/</guid>
+      <description>
+
+&lt;h2 id=&#34;causes-of-fragmentation&#34;&gt;Causes of Fragmentation&lt;/h2&gt;
+
+&lt;p&gt;Fragmentation occurs when data is modified in a table. When you insert or update data in a table (via INSERT or UPDATE), the table’s corresponding clustered indexes and the affected nonclustered indexes are modified. This can cause an index leaf page split if the modification to an index can’t be accommodated in the same page. A new leaf page will then be added that contains part of the original page and maintains the logical order of the rows in the index key. Although the new leaf page maintains the logical order of the data rows in the original page, this new page usually won’t be physically adjacent to the original page on the disk. Or, put a slightly different way, the logical key order of the index doesn’t match the physical order within the file.&lt;/p&gt;
+
+&lt;p&gt;SQL Server 2014 exposes the leaf and nonleaf pages and other data through a dynamic management view called sys.dm_db_index_physical_stats. It stores both the index size and the fragmentation.&lt;/p&gt;
+
+&lt;h2 id=&#34;fragmentation-overhead&#34;&gt;Fragmentation Overhead&lt;/h2&gt;
+
+&lt;p&gt;Both internal and external fragmentations adversely affect data retrieval performance. External fragmentation causes a noncontiguous sequence of index pages on the disk, with new leaf pages far from the original leaf pages and with their physical ordering different from their logical ordering.&lt;/p&gt;
+
+&lt;p&gt;For better performance, it is preferable to use sequential I/O, since this can read a whole extent (eight 8KB pages together) in a single disk I/O operation. By contrast, a noncontiguous layout of pages requires nonsequential or random I/O operations to retrieve the index pages from the disk, and a random I/O operation can read only 8KB of data in a single disk operation (this may be acceptable, however, if you are retrieving only one row).&lt;/p&gt;
+
+&lt;h2 id=&#34;analyzing-the-amount-of-fragmentation&#34;&gt;Analyzing the Amount of Fragmentation&lt;/h2&gt;
+
+&lt;p&gt;You can analyze the fragmentation ratio of an index by using the &lt;code&gt;sys.dm_db_index_physical_ stats&lt;/code&gt; dynamic management function.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT  ddips.avg_fragmentation_in_percent,
+        ddips.fragment_count,
+        ddips.page_count,
+        ddips.avg_page_space_used_in_percent,
+        ddips.record_count,
+        ddips.avg_record_size_in_bytes
+FROM    sys.dm_db_index_physical_stats(DB_ID(&#39;AdventureWorks2012&#39;),
+                                       OBJECT_ID(N&#39;Person.Person&#39;),NULL,
+                            NULL,&#39;Sampled&#39;) AS ddips;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;fragmentation-resolutions&#34;&gt;Fragmentation Resolutions&lt;/h2&gt;
+
+&lt;p&gt;You can resolve fragmentation in an index by rearranging the index rows and pages so that their physical and logical orders match. To reduce external fragmentation, you can physically reorder the leaf pages of the index to follow the logical order of the index. You achieve this through the following techniques:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Dropping and re-creating the index&lt;/li&gt;
+&lt;li&gt;Re-creating the index with the DROP_EXISTING = ON clause&lt;/li&gt;
+&lt;li&gt;Executing the ALTER INDEX REBUILD statement on the index&lt;/li&gt;
+&lt;li&gt;Executing the ALTER INDEX REORGANIZE statement on the index&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;significance-of-the-fill-factor&#34;&gt;Significance of the Fill Factor&lt;/h2&gt;
+
+&lt;p&gt;The internal fragmentation of an index is reduced by getting more rows per leaf page in an index. Getting more rows within a leaf page reduces the total number of pages required for the index and in turn decreases disk I/O and the logical reads required to retrieve a range of index rows. On the other hand, if the index key values are highly transactional, then having fully used index pages will cause page splits. Therefore, for a transactional table, a good balance between maximizing the number of rows in a page and avoiding page splits is required&lt;/p&gt;
+
+&lt;p&gt;SQL Server allows you to control the amount of free space within the leaf pages of the index by using the fill factor. If you know that there will be enough INSERT queries on the table or UPDATE queries on the index key columns, then you can pre-add free space to the index leaf page using the fill factor to minimize page splits. If the table is read-only, you can create the index with a high fill factor to reduce the number of index pages.&lt;/p&gt;
+
+&lt;p&gt;The default fill factor is 0, which means the leaf pages are packed to 100 percent, although some free space is left in the branch nodes of the B-tree structure.&lt;/p&gt;
+
+&lt;h2 id=&#34;automatic-maintenance&#34;&gt;Automatic Maintenance&lt;/h2&gt;
+
+&lt;p&gt;In a database with a great deal of transactions, tables and indexes become fragmented over time. Thus, to improve performance, you should check the fragmentation of the tables and indexes regularly, and you should defragment the ones with a high amount of fragmentation. You also may need to take into account the workload and defragment indexes as dictated by the load as well as the fragmentation level of the index. You can do this analysis for a database by following these steps:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Identify all user tables in the current database to analyze fragmentation.&lt;/li&gt;
+&lt;li&gt;Determine fragmentation of every user table and index.&lt;/li&gt;
+&lt;li&gt;Determine user tables and indexes that require defragmentation by taking into account the following considerations:
+
+&lt;ol&gt;
+&lt;li&gt;A high level of fragmentation where avg_fragmentation_in_percent is greater than 20 percent&lt;/li&gt;
+&lt;li&gt;Not a very small table/index—that is, pagecount is greater than 8&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;li&gt;Defragment tables and indexes with high fragmentation.&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

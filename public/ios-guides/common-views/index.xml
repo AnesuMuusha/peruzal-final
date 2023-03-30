@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Common-views-rsses on Xamarin iOS Guides</title>
+    <link>http://guides.peruzal.com/ios-guides/common-views/index.xml</link>
+    <description>Recent content in Common-views-rsses on Xamarin iOS Guides</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Peruzal</copyright>
+    <lastBuildDate>Mon, 21 Nov 2016 23:24:15 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/ios-guides/common-views/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Common Views</title>
+      <link>http://guides.peruzal.com/ios-guides/common-views/</link>
+      <pubDate>Mon, 21 Nov 2016 23:24:15 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/ios-guides/common-views/</guid>
+      <description>
+
+&lt;p&gt;Views are the building blocks for constructing a user interface in iOS.
+The views are used to present content and also to support navigation. Each view represents a particular portion of your user interface and is generally optimized for a specific type of content.
+Views are subclasses of the &lt;strong&gt;UIView&lt;/strong&gt; class and their properties can be changed in the storyboard properties window. &lt;img src=&#34;http://guides.peruzal.com/ios-guides/images/view-properties.png&#34; alt=&#34;View Porperties&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;label&#34;&gt;Label&lt;/h2&gt;
+
+&lt;p&gt;A label displays static text. Labels are often used in conjunction with controls to describe their intended purpose, such as explaining which value a button or slider affects&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Purpose&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Labels allow the user to:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Understand the purpose of controls in an app&lt;/li&gt;
+&lt;li&gt;Receive instructions or context in an app&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Configuring the Label properties&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The label properties can be changed in storyboard properties window.
+&lt;img src=&#34;http://guides.peruzal.com/ios-guides/images/label-properties.png&#34; alt=&#34;Label Properties&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;textfield&#34;&gt;TextField&lt;/h2&gt;
+
+&lt;p&gt;Text fields allows the user to input a single line of text into an app. You typically use text fields to gather small amounts of text from the user and perform some immediate action, such as a search operation, based on that text.
+The text field is a subclass of the &lt;strong&gt;UITextField&lt;/strong&gt; class.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/ios-guides/images/textfield.png&#34; alt=&#34;TextField&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;configuration&#34;&gt;Configuration&lt;/h3&gt;
+
+&lt;p&gt;You can configure the properties of the textfield in interface builder. Some properties of the texfield can not be changed with the properties
+window, they can only be changed in code.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/ios-guides/images/textfield-properties.png&#34; alt=&#34;Configure Textfield&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;textfiled-delegate&#34;&gt;Textfiled Delegate&lt;/h3&gt;
+
+&lt;p&gt;The texfield requires a delegate to handle most of its functions. You will usually set this to be the view controller. The view controller
+needs to implement the &lt;strong&gt;UITextfieldDelegate&lt;/strong&gt; methods. Xamarin uses events instead of using the iOS &lt;strong&gt;delegation pattern&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;class TextFieldDelegate : UITextFieldDelegate {
+    public virtual void EditingEnded(UITextField textField) { }
+    public virtual void EditingStarted(UITextField textField) { }
+    public virtual bool ShouldBeginEditing(UITextField textField){ }
+    public virtual bool ShouldChangeCharacters(UITextField textField, NSRange range, string replacementString) {}
+    public virtual bool ShouldClear(UITextField textField) { }
+    public virtual bool ShouldEndEditing(UITextField textField) { }
+    public virtual bool ShouldReturn(UITextField textField) { }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;button&#34;&gt;Button&lt;/h2&gt;
+
+&lt;p&gt;Buttons let a user initiate behavior with a tap. You communicate a button’s function through a textual label or with an image.
+The button is a class of type &lt;strong&gt;UIButton&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/ios-guides/images/buttons.png&#34; alt=&#34;Buttons&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;button-configuration&#34;&gt;Button Configuration&lt;/h3&gt;
+
+&lt;p&gt;The properties of the button can be changed in the properties window in the storyboard.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/ios-guides/images/button-properties.png&#34; alt=&#34;Button Properties&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;button-events&#34;&gt;Button events&lt;/h2&gt;
+
+&lt;p&gt;The default button event is &lt;strong&gt;TouchUpInside&lt;/strong&gt;. The event can be added from the &lt;strong&gt;Events&lt;/strong&gt; tab in the storyboard or directly in code.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/ios-guides/images/button-click-event.png&#34; alt=&#34;Button Click Event&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Once you add the click event in the storyboard, Xamarin Studio automatically jumps to code and lets you choose where to create the event handler method.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/ios-guides/images/button-event.png&#34; alt=&#34;Button Event Method&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;slider&#34;&gt;Slider&lt;/h2&gt;
+
+&lt;p&gt;Sliders enable users to interactively modify some adjustable value in an app, such as speaker volume or screen brightness. For example, in GarageBand, sliders allow users to mix different settings for various effects. Users control a slider by moving its current value indicator along a continuous range of values between a specified minimum and maximum.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/ios-guides/images/slider.png&#34; alt=&#34;Slider&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;slider-properties&#34;&gt;Slider Properties&lt;/h3&gt;
+
+&lt;p&gt;Sliders are simple controls and do not have a lot of properties to configure.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/ios-guides/images/slider-properties.png&#34; alt=&#34;Slider Properties&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;slider-events&#34;&gt;Slider Events&lt;/h3&gt;
+
+&lt;p&gt;The default event for the slider is &lt;strong&gt;ValueChanged&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;partial void OnChangeVolume(UISlider slider)
+{
+    Console.WriteLine(slider.Value);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/ios-guides/images/slider-events.png&#34; alt=&#34;Slider Event&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;imageview&#34;&gt;ImageView&lt;/h2&gt;
+
+&lt;p&gt;An image view displays an image or an animated sequence of images. An image view lets you efficiently draw an image (such as a JPEG or PNG file) or an animated series of images onscreen, scaling the images automatically to fit within the current size of the view. Image views can optionally display a different image or series of images whenever the view is highlighted.&lt;/p&gt;
+
+&lt;h3 id=&#34;imageview-properties&#34;&gt;ImageView Properties&lt;/h3&gt;
+
+&lt;p&gt;The image view only have the &lt;strong&gt;image&lt;/strong&gt; property to choose the image to display and optional a different image when the image is highlighted.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/ios-guides/images/imageview-properties.png&#34; alt=&#34;Image Properties&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The imageview by default does not receive user input, you will need to enable &lt;strong&gt;User Interaction Enabled&lt;/strong&gt; for the imageview to receive input.&lt;/p&gt;
+
+&lt;h3 id=&#34;loading-images-from-asset-catalog&#34;&gt;Loading Images from Asset Catalog&lt;/h3&gt;
+
+&lt;p&gt;You can choose an image from the &lt;strong&gt;Asset Catalog&lt;/strong&gt; and set the &lt;strong&gt;image&lt;/strong&gt; property. You can also load an image in code from the Assets Catalog
+or from the &lt;strong&gt;Resources&lt;/strong&gt; folder or from a file.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;public override void ViewDidLoad()
+{
+    base.ViewDidLoad();
+    profileImageView.Image = UIImage.FromBundle(&amp;quot;placeholder&amp;quot;);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;loading-from-the-network&#34;&gt;Loading from the Network&lt;/h3&gt;
+
+&lt;p&gt;You can also load images from the network. The easiest is to use a library like &lt;strong&gt;SDWebImage&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;profileImageView.SetImage (
+    url: new NSUrl (&amp;quot;http://db.tt/ayAqtbFy&amp;quot;), 
+    placeholder: UIImage.FromBundle (&amp;quot;placeholder.png&amp;quot;)
+);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;actionsheet&#34;&gt;ActionSheet&lt;/h2&gt;
+
+&lt;p&gt;Action sheets display a set of buttons representing several alternative choices to complete a task initiated by the user. For example, when the user taps the Share button in an app’s toolbar,
+ an action sheet appears offering a list of choices, such as Email, Print, and so on.&lt;/p&gt;
+
+&lt;p&gt;Actionsheet van only be created with code, you can not create them within the storyboard.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;var actionSheet = UIAlertController.Create(&amp;quot;Choose Event&amp;quot;, null, UIAlertControllerStyle.ActionSheet);
+var gameViewAction = UIAlertAction.Create(&amp;quot;Game Viewing&amp;quot;, UIAlertActionStyle.Default, null);
+var paintBallAction = UIAlertAction.Create(&amp;quot;Paint Ball&amp;quot;, UIAlertActionStyle.Default, null);
+var dragRacingAction = UIAlertAction.Create(&amp;quot;Drag Racing&amp;quot;, UIAlertActionStyle.Default, null);
+
+actionSheet.AddAction(gameViewAction);
+actionSheet.AddAction(paintBallAction);
+actionSheet.AddAction(dragRacingAction);
+
+PresentViewController(actionSheet, true, null);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;alertview&#34;&gt;AlertView&lt;/h2&gt;
+
+&lt;p&gt;Alert views display a concise and informative alert message to the user. Alert views convey important information about an app or the device, interrupting the user and requiring them to
+stop what they’re doing to choose an action or dismiss the alert. For example, iOS uses alerts to warn the user
+that battery power is running low, so they can connect a power adapter before their work is interrupted. An alert view appears on top of app content, and must be manually dismissed by the user before he can resume interaction with the app.&lt;/p&gt;
+
+&lt;p&gt;You change the style of the &lt;strong&gt;UIAlertController&lt;/strong&gt; to &lt;strong&gt;UIAlertControllerStyle.Alert&lt;/strong&gt; in order to get an alert.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/ios-guides/images/alert.png&#34; alt=&#34;Alert&#34; /&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;var alert = UIAlertController.Create(&amp;quot;No connection&amp;quot;, null, UIAlertControllerStyle.Alert);
+var okAction = UIAlertAction.Create(&amp;quot;OK&amp;quot;, UIAlertActionStyle.Default, null);
+alert.AddAction(okAction);
+
+PresentViewController(alert, true, null);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;segmented-button&#34;&gt;Segmented Button&lt;/h2&gt;
+
+&lt;p&gt;A segmented control is a horizontal control made of multiple segments, each segment functioning as a discrete button. The segment control is of type
+&lt;strong&gt;UISegmentControl&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/ios-guides/images/segmentcontrol.png&#34; alt=&#34;Segmented Control&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;segment-control-properties&#34;&gt;Segment Control Properties&lt;/h3&gt;
+
+&lt;p&gt;Segmented Control properties can be in the storyboard properties, but some properties can only be changes in code.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/ios-guides/images/segmented-control-properties.png&#34; alt=&#34;Segmented Control Properties&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;segmented-control-events&#34;&gt;Segmented Control Events&lt;/h3&gt;
+
+&lt;p&gt;The default event for the segmented control is the &lt;strong&gt;ValueChanged&lt;/strong&gt; event.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;partial void DidSelectSegment(UISegmentedControl sender)
+{
+    Console.WriteLine(sender.SelectedSegment);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;switches&#34;&gt;Switches&lt;/h2&gt;
+
+&lt;p&gt;A switch lets the user turn an option on and off. You see switches used throughout the Settings app to let a user quickly toggle a specific setting.
+The switch is type &lt;strong&gt;UISwitch&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/ios-guides/images/switch.png&#34; alt=&#34;Switch&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;switch-configuration&#34;&gt;Switch Configuration&lt;/h3&gt;
+
+&lt;p&gt;The switch control properties can be configured in the storyboard. The switch have a &lt;strong&gt;state&lt;/strong&gt; property which determines whether its checked or not.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/ios-guides/images/switch-properties.png&#34; alt=&#34;Switch Properties&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;switch-events&#34;&gt;Switch Events&lt;/h3&gt;
+
+&lt;p&gt;The default event for the switch is &lt;strong&gt;ValueChanged&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;partial void SwitchValueChanged(UISwitch sender)
+{
+    Console.WriteLine(sender.Selected);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;stepper&#34;&gt;Stepper&lt;/h2&gt;
+
+&lt;p&gt;A stepper lets the user adjust a value by increasing and decreasing it in small steps. Steppers are used in situations where a user needs to adjust a value by a small amount.
+The stepper control is of type &lt;strong&gt;UIStepper&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/ios-guides/images/stepper.png&#34; alt=&#34;Stepper&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;stepper-configuration&#34;&gt;Stepper Configuration&lt;/h3&gt;
+
+&lt;p&gt;Configuration of the properties can be done in the storyboard properties or in code.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/ios-guides/images/stepper-properties.png&#34; alt=&#34;Stepper Properties&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;stepper-events&#34;&gt;Stepper Events&lt;/h3&gt;
+
+&lt;p&gt;The default event of the stepper control is the &lt;strong&gt;ValueChanged&lt;/strong&gt; event.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-cs&#34;&gt;partial void StepperValueChanged(UIStepper sender)
+{
+    Console.WriteLine(sender.Value);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;date-picker&#34;&gt;Date Picker&lt;/h2&gt;
+
+&lt;p&gt;A date picker is a control used for selecting a specific date, time, or both. It also provides an interface for a countdown timer, although it does not implement the functionality. Date pickers provide a straightforward interface for managing date and time selection, allowing users to specify a particular date quickly and efficiently. The date picker is of type &lt;strong&gt;UIDatePicker&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/ios-guides/images/datepicker.png&#34; alt=&#34;Date Picker&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;date-picker-configuration&#34;&gt;Date Picker Configuration&lt;/h3&gt;
+
+&lt;p&gt;The date picker can be configured in the properties section of the storyboard. Some properties can obly be made in code.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://guides.peruzal.com/ios-guides/images/datepicker-properties.png&#34; alt=&#34;Date Picker Properties&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;date-picker-events&#34;&gt;Date Picker Events&lt;/h3&gt;
+
+&lt;h2 id=&#34;map-view&#34;&gt;Map View&lt;/h2&gt;
+
+&lt;h2 id=&#34;scroll-view&#34;&gt;Scroll View&lt;/h2&gt;
+
+&lt;h2 id=&#34;table-view&#34;&gt;Table View&lt;/h2&gt;
+
+&lt;h2 id=&#34;web-view&#34;&gt;Web View&lt;/h2&gt;
+
+&lt;h2 id=&#34;split-view&#34;&gt;Split View&lt;/h2&gt;
+
+&lt;h2 id=&#34;collection-view&#34;&gt;Collection View&lt;/h2&gt;
+
+&lt;h2 id=&#34;change-status-bar-color&#34;&gt;Change Status Bar Color&lt;/h2&gt;
+
+&lt;p&gt;Starting from iOS 9 you can use the &lt;strong&gt;Appearance API&lt;/strong&gt; to change the color of the status bar.
+If the content is dark you can make the status bar white and if your content is white you can make the
+appearance of the status bar darker.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Open the &lt;strong&gt;Info.plist&lt;/strong&gt; file add a new new. Use the &lt;strong&gt;Source View&lt;/strong&gt;. The key is &lt;strong&gt;UIViewControllerBasedStatusBarAppearance&lt;/strong&gt; and set it to &lt;strong&gt;NO&lt;/strong&gt;
+&lt;img src=&#34;http://guides.peruzal.com/ios-guides/images/status-bar-appearance.png&#34; alt=&#34;Change Status Bar Appearance&#34; /&gt;&lt;/li&gt;
+&lt;li&gt;Go back to the &lt;strong&gt;Info.plist&lt;/strong&gt; file and change &lt;strong&gt;Status bar syle&lt;/strong&gt; to  &lt;strong&gt;Light&lt;/strong&gt; under the  &lt;strong&gt;Deployment Info&lt;/strong&gt; section.
+&lt;img src=&#34;http://guides.peruzal.com/ios-guides/images/light-status-bar.png&#34; alt=&#34;Light Status Bar&#34; /&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+
+&lt;p&gt;Typically images are displayed using the built-in &lt;a href=&#34;https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIImageView_Class&#34;&gt;UIImageView&lt;/a&gt;. UIImageView supports both displaying a single image as well as animating a series of images.&lt;/p&gt;
+
+&lt;h2 id=&#34;usage&#34;&gt;Usage&lt;/h2&gt;
+
+&lt;p&gt;With Interface Builder it&amp;rsquo;s pretty easy to add and configure a UIImageView. The first step is to drag the UIImageView onto your view.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://i.imgur.com/R3gk3Iq.gif&#34; alt=&#34;Add UIImageView|700&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Then open the UIImageView properties pane and select the image asset (assuming you have some images in your project). You can also configure how the underlying image is scaled to fit inside the UIImageView.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://i.imgur.com/GrS8WjX.gif&#34; alt=&#34;Configure UIImageView|700&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;scale-types&#34;&gt;Scale Types&lt;/h3&gt;
+
+&lt;h3 id=&#34;supporting-multiple-screen-densities&#34;&gt;Supporting Multiple Screen Densities&lt;/h3&gt;
+
+&lt;h3 id=&#34;working-with-uiimages&#34;&gt;Working with UIImages&lt;/h3&gt;
+
+&lt;h2 id=&#34;loading-images-from-the-network-with-afnetworking&#34;&gt;Loading Images from the Network with AFNetworking&lt;/h2&gt;
+
+&lt;p&gt;The built-in UIImageView works great when the &lt;strong&gt;image is locally available&lt;/strong&gt;, but doesn&amp;rsquo;t have great support when the image needs to be downloaded over the network. This is where AFNetworking comes in handy. The following steps walk through how to pull in and use AFNetworking for &lt;strong&gt;working with images over the network&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h3 id=&#34;setup-afnetworking&#34;&gt;Setup AFNetworking&lt;/h3&gt;
+
+&lt;p&gt;First, we need to use [[CocoaPods]] to pull in AFNetworking (&lt;code&gt;pod &#39;AFNetworking&#39;&lt;/code&gt;).&lt;/p&gt;
+
+&lt;p&gt;After a &lt;code&gt;pod install&lt;/code&gt;, we can now &lt;code&gt;import AFNetworking&lt;/code&gt; and use the additional methods that are available for UIImageView:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;import AFNetworking
+
+class myViewController {
+    
+    // Outlet for ImageView
+    @IBOutlet weak var myImageView: UIImageView!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        let myImageUrlString = &amp;quot;https://i.imgur.com/tGbaZCY.jpg&amp;quot;
+
+        // AFNetworking extension to UIImageView that allows
+        // specifying a URL for the image
+        myImageView.setImageWithURL(NSURL(string: myImageUrlString)!)
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;improving-the-user-experience&#34;&gt;Improving the User Experience&lt;/h3&gt;
+
+&lt;p&gt;There are a couple of enhancements that can be done when working with images being pulled from the network to improve the user experience.&lt;/p&gt;
+
+&lt;h4 id=&#34;fading-in-an-image-loaded-from-the-network&#34;&gt;Fading in an Image Loaded from the Network&lt;/h4&gt;
+
+&lt;p&gt;It can be a little jarring for the user to have images pop into place once they are downloaded from the network. To prevent this, it&amp;rsquo;s a good idea to fade images in as they are downloaded.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let imageUrl = &amp;quot;https://i.imgur.com/tGbaZCY.jpg&amp;quot;
+let imageRequest = NSURLRequest(URL: NSURL(string: imageUrl)!)
+
+self.myImageView.setImageWithURLRequest(
+    imageRequest,
+    placeholderImage: nil,
+    success: { (imageRequest, imageResponse, image) -&amp;gt; Void in
+        
+        // imageResponse will be nil if the image is cached
+        if imageResponse != nil {
+            print(&amp;quot;Image was NOT cached, fade in image&amp;quot;)
+            self.myImageView.alpha = 0.0
+            self.myImageView.image = image
+            UIView.animateWithDuration(0.3, animations: { () -&amp;gt; Void in
+                self.myImageView.alpha = 1.0
+            })
+        } else {
+            print(&amp;quot;Image was cached so just update the image&amp;quot;)
+            self.myImageView.image = image
+        }
+    },
+    failure: { (imageRequest, imageResponse, error) -&amp;gt; Void in
+        // do something for the failure condition
+})
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;loading-a-low-resolution-image-followed-by-a-high-resolution-image&#34;&gt;Loading a Low Resolution Image followed by a High Resolution Image&lt;/h4&gt;
+
+&lt;p&gt;Since pulling down high resolution images over the network takes time, it&amp;rsquo;s common to first show a low resolution image so the user sees something in the UIImageView and then load the higher resolution image immediately afterwards.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let smallImageRequest = NSURLRequest(URL: NSURL(string: smallImageUrl)!)
+let largeImageRequest = NSURLRequest(URL: NSURL(string: largeImageUrl)!)
+
+self.myImageView.setImageWithURLRequest(
+    smallImageRequest,
+    placeholderImage: nil,
+    success: { (smallImageRequest, smallImageResponse, smallImage) -&amp;gt; Void in
+        
+        // smallImageResponse will be nil if the smallImage is already available
+        // in cache (might want to do something smarter in that case).
+        self.myImageView.alpha = 0.0
+        self.myImageView.image = smallImage;
+        
+        UIView.animateWithDuration(0.3, animations: { () -&amp;gt; Void in
+            
+            self.myImageView.alpha = 1.0
+            
+            }, completion: { (sucess) -&amp;gt; Void in
+                
+                // The AFNetworking ImageView Category only allows one request to be sent at a time
+                // per ImageView. This code must be in the completion block.
+                self.myImageView.setImageWithURLRequest(
+                    largeImageRequest,
+                    placeholderImage: smallImage,
+                    success: { (largeImageRequest, largeImageResponse, largeImage) -&amp;gt; Void in
+                        
+                        self.myImageView.image = largeImage;
+                        
+                    },
+                    failure: { (request, response, error) -&amp;gt; Void in
+                        // do something for the failure condition of the large image request
+                        // possibly setting the ImageView&#39;s image to a default image
+                })
+        })
+    },
+    failure: { (request, response, error) -&amp;gt; Void in
+        // do something for the failure condition
+        // possibly try to get the large image
+})
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;references&#34;&gt;References&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIImageView_Class&#34;&gt;https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIImageView_Class&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

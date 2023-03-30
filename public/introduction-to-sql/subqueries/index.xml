@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Subqueries on Introduction to SQL</title>
+    <link>http://guides.peruzal.com/introduction-to-sql/subqueries/index.xml</link>
+    <description>Recent content in Subqueries on Introduction to SQL</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Copyright 2017 Peruzal</copyright>
+    <lastBuildDate>Tue, 28 Feb 2017 21:51:01 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/introduction-to-sql/subqueries/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Subqueries</title>
+      <link>http://guides.peruzal.com/introduction-to-sql/subqueries/</link>
+      <pubDate>Tue, 28 Feb 2017 21:51:01 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/introduction-to-sql/subqueries/</guid>
+      <description>
+
+&lt;h2 id=&#34;understanding-subqueries&#34;&gt;Understanding Subqueries&lt;/h2&gt;
+
+&lt;p&gt;Subqueries are queries that are embedded into other queries.&lt;/p&gt;
+
+&lt;h2 id=&#34;filtering-by-subquery&#34;&gt;Filtering by Subquery&lt;/h2&gt;
+
+&lt;p&gt;Subqueries allows us to create individual queries that can be joined together to return the required information. An example would to a get a list of all the customers who ordered item RGAN01. This information is contained in separate tables.&lt;/p&gt;
+
+&lt;p&gt;To get the information we would do the following :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Retrieve the order numbers of all orders containing item RGAN01&lt;/li&gt;
+&lt;li&gt;Retrieve the customer ID of all the customers who have orders listed in the order numbers returned in the previous step.&lt;/li&gt;
+&lt;li&gt;Retrieve the customer information for all the customer IDs returned in the previous step.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;retrieve-the-matching-order-numbers&#34;&gt;Retrieve the matching order numbers&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT order_num
+FROM OrderItems
+WHERE prod_id = &#39;RGAN01&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;retrieve-the-customer-id-of-the-customers-who-ordered-the-item&#34;&gt;Retrieve the customer id of the customers who ordered the item&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT cust_id
+FROM Orders
+WHERE order_num IN (20007,20008);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We can get this information with query that uses subqueries to combine the individual queries as follows :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT cust_id
+FROM Orders
+WHERE order_num IN (SELECT order_num
+                    FROM OrderItems
+                    WHERE prod_id = &#39;RGAN01&#39;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Subqueries are always processed starting with the innermost SELECT statement and working outward.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Finally we can run the following to return the results :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT cust_name, cust_contact
+FROM Customers
+WHERE cust_id IN (SELECT cust_id
+                  FROM Orders
+                  WHERE order_num IN (SELECT order_num
+                                      FROM OrderItems
+                                      WHERE prod_id =
+                                            &#39;RGAN01&#39;));
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Subquery SELECT statements can only retrieve a single column. Attempting to retrieve multiple columns will return an error.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&#34;admonition warning&#34;&gt;
+&lt;p class=&#34;admonition-title&#34;&gt;Performance Implications of Subqueries&lt;/p&gt;
+&lt;p&gt;The code shown here works, and it achieves the desired result. However, using subqueries is not always the most efficient way to perform this type of data retrieval.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;using-subqueries-as-calculated-fields&#34;&gt;Using Subqueries as Calculated Fields&lt;/h2&gt;
+
+&lt;p&gt;Another way to use subqueries is in creating calculated fields. Suppose you want to display the total number of orders placed by every customer in your Customers table. Orders are stored in the Orders table along with the appropriate customer ID.
+To perform this operation, follow these steps:
+1. Retrieve the list of customers from the Customers table.
+2. For each customer retrieved, count the number of associated orders in the Orders table.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT COUNT(*) AS orders
+FROM Orders
+WHERE cust_id = &#39;1000000001&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To get the count we can do :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT cust_name,
+       cust_state,
+       (SELECT COUNT(*)
+        FROM Orders
+        WHERE Orders.cust_id = Customers.cust_id) AS orders
+FROM Customers
+ORDER BY cust_name;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You will need to use fully qualified names in order to return the proper results, otherwise you will get incorrect results :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT cust_name,
+       cust_state,
+       (SELECT COUNT(*)
+        FROM Orders
+        WHERE cust_id = cust_id) AS orders
+FROM Customers
+ORDER BY cust_name;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

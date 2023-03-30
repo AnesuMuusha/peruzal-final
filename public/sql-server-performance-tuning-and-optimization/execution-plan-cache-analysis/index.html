@@ -1,0 +1,1938 @@
+<!DOCTYPE html>
+  
+  
+  
+  
+   <html class="no-js"> 
+
+  <head lang="en-us">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=10" />
+    <title>Execution Plan Cache Analysis - SQL Server Performance and Tuning</title>
+    <meta name="generator" content="Hugo 0.18.1" />
+
+    
+    <meta name="description" content="SQL Server Performance and Tuning">
+    
+    <link rel="canonical" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/execution-plan-cache-analysis/">
+    
+    <meta name="author" content="Peruzal">
+    
+
+    <meta property="og:url" content="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/execution-plan-cache-analysis/">
+    <meta property="og:title" content="SQL Server Performance and Tuning">
+    <meta property="og:image" content="http://guides.peruzal.com/images/logo.png">
+    <meta name="apple-mobile-web-app-title" content="SQL Server Performance and Tuning">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="shortcut icon" type="image/x-icon" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/images/favicon.ico">
+
+    <style>
+      @font-face {
+        font-family: 'Icon';
+        src: url('http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/fonts/icon.eot');
+        src: url('http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/fonts/icon.eot')
+               format('embedded-opentype'),
+             url('http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/fonts/icon.woff')
+               format('woff'),
+             url('http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/fonts/icon.ttf')
+               format('truetype'),
+             url('http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/fonts/icon.svg')
+               format('svg');
+        font-weight: normal;
+        font-style: normal;
+      }
+    </style>
+
+    <link rel="stylesheet" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/stylesheets/application.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/stylesheets/temporary.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/stylesheets/palettes.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/stylesheets/highlight/highlight.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/github-gist.min.css">
+
+    
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ubuntu:400,700|Ubuntu&#43;Mono">
+    <style>
+      body, input {
+        font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+      }
+      pre, code {
+        font-family: 'Ubuntu Mono', 'Courier New', 'Courier', monospace;
+      }
+    </style>
+
+    
+    <script src="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/javascripts/modernizr.js"></script>
+
+    
+
+  </head>
+  <body class="palette-primary-deep-orange palette-accent-light-blue">
+
+
+
+
+<div class="backdrop">
+	<div class="backdrop-paper"></div>
+</div>
+
+<input class="toggle" type="checkbox" id="toggle-drawer">
+<input class="toggle" type="checkbox" id="toggle-search">
+<label class="toggle-button overlay" for="toggle-drawer"></label>
+
+<header class="header">
+	<nav aria-label="Header">
+  <div class="bar default">
+    <div class="button button-menu" role="button" aria-label="Menu">
+      <label class="toggle-button icon icon-menu" for="toggle-drawer">
+        <span></span>
+      </label>
+    </div>
+    <div class="stretch">
+      <div class="title">
+        Execution Plan Cache Analysis
+      </div>
+    </div>
+
+    
+    <div class="button button-twitter" role="button" aria-label="Twitter">
+       <a href="https://twitter.com/peruzal" title="@peruzal on Twitter" target="_blank" class="toggle-button icon icon-twitter"></a>
+    </div>
+    
+
+    
+    <div class="button button-github" role="button" aria-label="GitHub">
+      <a href="https://github.com/peruzal" title="@peruzal on GitHub" target="_blank" class="toggle-button icon icon-github"></a>
+    </div>
+    
+    
+        
+  </div>
+  <div class="bar search">
+    <div class="button button-close" role="button" aria-label="Close">
+      <label class="toggle-button icon icon-back" for="toggle-search"></label>
+    </div>
+    <div class="stretch">
+      <div class="field">
+        <input class="query" type="text" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck>
+      </div>
+    </div>
+    <div class="button button-reset" role="button" aria-label="Search">
+      <button class="toggle-button icon icon-close" id="reset-search"></button>
+    </div>
+  </div>
+</nav>
+</header>
+
+<main class="main">
+	<div class="drawer">
+		<nav aria-label="Navigation">
+  <a href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization" class="project">
+    <div class="banner">
+      
+        <div class="logo">
+          <img src="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/images/logo.png">
+        </div>
+      
+      <div class="name">
+        <strong>SQL Server Performance and Tuning <span class="version">1.0.0</span></strong>
+        
+      </div>
+    </div>
+  </a>
+
+  <div class="scrollable">
+    <div class="wrapper">
+      
+
+      <div class="toc">
+        
+        <ul>
+          
+
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Introduction" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/">
+	
+	Introduction
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Performance Tuning Overview" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/performance-tuning-overview/">
+	
+	Performance Tuning Overview
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="SQL Performance Analysis" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/sql-performance-analysis/">
+	
+	SQL Performance Analysis
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="SQL Query Performance Analysis" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/sql-query-performance-analysis/">
+	
+	SQL Query Performance Analysis
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Index Analysis" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/index-analysis/">
+	
+	Index Analysis
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Database Tuning Advisor" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/database-tuning-advisor/">
+	
+	Database Tuning Advisor
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Boomark Lookup Analysis" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/bookmark-lookup-analysis/">
+	
+	Boomark Lookup Analysis
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Statistics Analysis" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/statistics-analysis/">
+	
+	Statistics Analysis
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Index Fragmentation Analysis" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/index-fragmentation-analysis/">
+	
+	Index Fragmentation Analysis
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a class="current" title="Execution Plan Cache Analysis" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/execution-plan-cache-analysis/">
+	
+	Execution Plan Cache Analysis
+</a>
+
+
+<ul id="scrollspy">
+</ul>
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Query Recompilation" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/query-recompilation/">
+	
+	Query Recompilation
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Query Design Analysis" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/query-design-analysis/">
+	
+	Query Design Analysis
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Blocking Analysis" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/blocking-analysis/">
+	
+	Blocking Analysis
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Deadlock Analysis" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/deadlock-analysis/">
+	
+	Deadlock Analysis
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Cursor Cost Analysis" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/cursor-cost-analysis/">
+	
+	Cursor Cost Analysis
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Database Performance Stress Testing" href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/database-performance-stress-testing/">
+	
+	Database Performance Stress Testing
+</a>
+
+
+
+  
+</li>
+
+
+        </ul>
+        
+
+        
+        <hr>
+        <span class="section">The author</span>
+        
+        <ul>
+          
+          <li>
+            <a href="https://twitter.com/peruzal" target="_blank" title="@peruzal on Twitter">
+              @peruzal on Twitter
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="https://github.com/peruzal" target="_blank" title="@peruzal on GitHub">
+              @peruzal on GitHub
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="mailto:hello@peruzal.com" title="Email of hello@peruzal.com">
+              Contact via email
+            </a>
+          </li>
+          
+        </ul>
+        
+      </div>
+    </div>
+  </div>
+</nav>
+
+	</div>
+
+	<article class="article">
+		<div class="wrapper">
+			<h1>Execution Plan Cache Analysis </h1>
+
+			
+
+<h2 id="execution-plan-generation">Execution Plan Generation</h2>
+
+<p>SQL Server uses a cost-based optimization technique to determine the processing strategy of a query. The optimizer considers both the metadata of the database objects, such as unique constraints or index size, and the current distribution statistics of the columns referred to in the query when deciding which index and join strategies should be used.</p>
+
+<p>The following techniques are performed in order :</p>
+
+<ul>
+<li>Parsing</li>
+<li>Binding</li>
+<li>Query optimization</li>
+<li>Execution plan generation, caching, and hash plan generation</li>
+<li>Query execution</li>
+</ul>
+
+<p><img src="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/images/query-optimization-process.jpg" alt="Query Optimization Overview" /></p>
+
+<p>In order to arrive at an optimal plan, the query optimizer uses transformation rules and heuristics. The optimizer uses heuristics to reduce the amount of available optimization options. The plans are stored in memory is a component called the <strong>Memo</strong>. The optimizer adopts different techniques, namely, the following:</p>
+
+<ul>
+<li>Simplification</li>
+<li>Trivial plan match</li>
+<li>Multiple optimization phases</li>
+<li>Parallel plan optimization</li>
+</ul>
+
+<h3 id="view-query-tree">View Query Tree</h3>
+
+<p>We can use some undocumented query hints and view the query that sql server optimizaer generates as follows :</p>
+
+<pre><code class="language-sql">SELECT Count(*)
+FROM Person.Person
+OPTION (RECOMPILE,  QUERYTRACEON 8606, QUERYTRACEON 3604, QUERYTRACEON 8612, QUERYTRACEON 2372);
+-- QUERYTRACEON 3604 Output to console
+-- QUERYTRACEON 8606 Logical operators trees
+-- QUERYTRACEON 8612   -- Add aditional cardinality info
+-- QUERYTRACEON 2372,  -- Optimization stage memory info
+</code></pre>
+
+<h3 id="costing-the-plan">Costing the Plan</h3>
+
+<p>The query optimizer estimates the cost of each operator in the query tree and selects the least expensive one. SQL Server estimates the number of rows returned, cardinality estimate, by looking at the statistics available. It also considers the resources such as I/O, CPU and memory used by each operator.</p>
+
+<h2 id="components-of-the-execution-plan">Components of the Execution Plan</h2>
+
+<p>The execution plan generated by the optimizer contains two components.</p>
+
+<ul>
+<li><strong>Query plan</strong> - This represents the commands that specify all the physical operations required to execute a query.</li>
+<li><strong>Execution context</strong> - This maintains the variable parts of a query within the context of a given user.</li>
+</ul>
+
+<h2 id="aging-of-the-execution-plan">Aging of the Execution Plan</h2>
+
+<p>The procedure cache is part of SQL Server’s buffer cache, which also holds data pages. As new execution plans are added to the procedure cache, the size of the procedure cache keeps growing, affecting the retention of useful data pages in memory. To avoid this, SQL Server dynamically controls the retention of the execution plans in the procedure cache, retaining the frequently used execution plans and discarding plans that are not used for a certain period of time.</p>
+
+<p>When an execution plan is generated, the age field is populated with the cost of generating the plan. A complex query requiring extensive optimization will have an age field value higher than that for a simpler query.</p>
+
+<p>The cheaper the execution plan was to generate, the sooner its cost will be reduced to 0. Once an execution plan’s cost reaches 0, the plan becomes a candidate for removal from memory.</p>
+
+<h2 id="analyzing-the-execution-plan-cache">Analyzing the Execution Plan Cache</h2>
+
+<p>You can obtain a lot of information about the execution plans in the procedure cache by accessing various dynamic management objects. The initial DMO for working with execution plans is sys.dm_exec_cached_plans.</p>
+
+<pre><code class="language-sql">SELECT  *
+FROM    sys.dm_exec_cached_plans;
+</code></pre>
+
+<h2 id="execution-plan-reuse">Execution Plan Reuse</h2>
+
+<p>When a query is submitted, SQL Server checks the procedure cache for a matching execution plan. If one is not found, then SQL Server performs the query compilation and optimization to generate a new execution plan. However, if the plan exists in the procedure cache, it is reused with the private execution context. This saves the CPU cycles that otherwise would have been spent on the plan generation.</p>
+
+<h2 id="query-plan-hash-and-query-hash">Query Plan Hash and Query Hash</h2>
+
+<p>With SQL Server 2008, new functionality around execution plans and the cache was introduced called the query plan hash and the query hash. These are binary objects using an algorithm against the query or the query plan to generate the binary hash value.</p>
+
+<p>To see the hash values in action, create two queries.</p>
+
+<pre><code class="language-sql">SELECT  *
+FROM    Production.Product AS p
+JOIN    Production.ProductSubcategory AS ps
+        ON p.ProductSubcategoryID = ps.ProductSubcategoryID
+JOIN    Production.ProductCategory AS pc
+        ON ps.ProductCategoryID = pc.ProductCategoryID
+WHERE   pc.[Name] = 'Bikes'
+        AND ps.[Name] = 'Touring Bikes';
+
+SELECT  *
+FROM    Production.Product AS p
+JOIN    Production.ProductSubcategory AS ps
+        ON p.ProductSubcategoryID = ps.ProductSubcategoryID
+JOIN    Production.ProductCategory AS pc
+        ON ps.ProductCategoryID = pc.ProductCategoryID
+where   pc.[Name] = 'Bikes'
+        and ps.[Name] = 'Road Bikes';
+</code></pre>
+
+<p>After you execute each of these queries, you can see the results of these format changes from sys.dm_exec_query_stats :</p>
+
+<pre><code class="language-sql">SELECT  deqs.execution_count,
+        deqs.query_hash,
+        deqs.query_plan_hash,
+        dest.text
+FROM    sys.dm_exec_query_stats AS deqs
+CROSS APPLY sys.dm_exec_sql_text(deqs.plan_handle) dest
+WHERE   dest.text LIKE 'SELECT  *
+FROM    Production.Product AS p%';
+</code></pre>
+
+<h2 id="query-plan-caching">Query Plan Caching</h2>
+
+<p>The execution plan of a query generated by the optimizer is saved in a special part of SQL Server’s memory pool called the plan cache or procedure cache. Saving the plan in a cache allows SQL Server to avoid running through the whole query optimization process again when the same query is resubmitted. SQL Server supports different techniques such as plan cache aging and plan cache types to increase the reusability of the cached plans. It also stores two binary values called the <strong>query hash</strong> and the <strong>query plan hash</strong>.</p>
+
+<p><img src="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/images/plan-retrieved-from-cache.png" alt="Query Caching" /></p>
+
+<p>When performing query tuning, you will need to clear the plan cache. You can use the DBCC command as follows :</p>
+
+<pre><code class="language-sql">DBCC FREEPROCCACHE
+</code></pre>
+
+<h3 id="view-cached-query-plan">View Cached Query Plan</h3>
+
+<p>We can view the cached query plans using the DMV <code>sys.dm_exec_cached_plans</code> as follows :</p>
+
+<pre><code class="language-sql">SELECT usecounts, cacheobjtype, plan_handle
+FROM sys.dm_exec_cached_plans
+WHERE cacheobjtype = 'Compiled Plan'
+</code></pre>
+
+<h3 id="view-graphical-execution-plan-from-cache">View Graphical Execution Plan from Cache</h3>
+
+<p>We can use the stored binary plan handle to retrieve the XML and graphical query plans using the DMF <code>sys.dm_exec_query_plan</code> and passing the plan handle as follows :</p>
+
+<pre><code class="language-sql">SELECT query_plan 
+FROM sys.dm_exec_query_plan(&lt;query plan handle here&gt;)
+</code></pre>
+
+<h3 id="view-memory-used-by-cached-plans">View Memory Used by Cached Plans</h3>
+
+<p>We can use the <code>sys.dm_os_memory_cache_entries</code> to see the memory used by cached query plans for both Adhoc queries, stored procedures and bound tree with the following :</p>
+
+<pre><code class="language-sql">SELECT name, in_use_count, original_cost, pages_kb
+FROM sys.dm_os_memory_cache_entries
+WHERE type in ('CACHESTORE_OBJCP', 'CACHESTORE_SQLCP', 'CACHESTORE_PHDR')
+</code></pre>
+
+<h2 id="reading-query-plans">Reading Query Plans</h2>
+
+<p>SQL Server supports displaying the query plans as :</p>
+
+<ul>
+<li>Graphical</li>
+<li>Text</li>
+<li>XML</li>
+</ul>
+
+<h3 id="display-graphical-query-plan">Display Graphical Query Plan</h3>
+
+<p>Using SQL Server Management Studio we can display two types of the execution plan :</p>
+
+<ul>
+<li>Estimated Execution Plan</li>
+<li>Actual Execution Plan</li>
+</ul>
+
+<p>Running the following query on my machine :</p>
+
+<pre><code class="language-sql">USE AdventureWorks2012
+GO
+SELECT DISTINCT(City)
+FROM Person.Address
+</code></pre>
+
+<p>i get the following execution plan.</p>
+
+<p><img src="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/images/graphical-execution-plan.png" alt="Graphical Execution Plans" /></p>
+
+<h3 id="characterstics">Characterstics</h3>
+
+<ul>
+<li>Each node represents an operation implemented by an <strong>iterator</strong>, also called an operator. The logical operation is displayed in brackets. If both logical and physical are the same no brackets are displayed.</li>
+<li>Each node is related to its parent, and data flow is represented with arrows</li>
+<li>Data flows from left to right</li>
+<li>The arrow width represents the relative number of rows returned</li>
+<li>You can hover on the operator for more properties</li>
+</ul>
+
+<p>To perform their job, physical operators implement at least the following three methods:</p>
+
+<ul>
+<li><strong>Open()</strong> - Causes an operator to be initialized, and may include setting up any required data structures</li>
+<li><strong>GetRow()</strong> - Requests a row from the operator</li>
+<li><strong>Close()</strong> - Performs some cleanup operations and shuts down the operator once it has performed its role</li>
+</ul>
+
+<h3 id="display-text-plan">Display Text Plan</h3>
+
+<p>The text plans will be deprecated in future, instead you should use the XML and graphical execution plan. The two options allow you to display estimated execution plans as text. We can also display query plan as text using the SET option <code>SHOWPLAN_TEXT</code> and setting to <strong>ON</strong> and <strong>OFF</strong>  as follows:</p>
+
+<pre><code class="language-sql">USE AdventureWorks2012
+GO
+SET SHOWPLAN_TEXT ON
+GO
+SELECT DISTINCT(City) 
+FROM Person.Address
+GO
+SET SHOWPLAN_TEXT OFF
+</code></pre>
+
+<p>and we will get the follwing output :</p>
+
+<pre><code class="language-sh">StmtText
+----------------------------------------------
+SELECT DISTINCT(City) 
+FROM Person.Address
+
+(1 row(s) affected)
+
+StmtText
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  |--Hash Match(Aggregate, HASH:([AdventureWorks2012].[Person].[Address].[City]), RESIDUAL:([AdventureWorks2012].[Person].[Address].[City] = [AdventureWorks2012].[Person].[Address].[City]))
+       |--Index Scan(OBJECT:([AdventureWorks2012].[Person].[Address].[IX_Address_AddressLine1_AddressLine2_City_StateProvinceID_PostalCode]))
+
+(2 row(s) affected)
+</code></pre>
+
+<p>To display additional information, you can use the <code>SHOWPLAN_ALL</code> SET option as follows :</p>
+
+<pre><code class="language-sql">USE AdventureWorks2012
+GO
+SET SHOWPLAN_ALL ON
+GO
+SELECT DISTINCT(City) 
+FROM Person.Address
+GO
+SET SHOWPLAN_ALL OFF
+</code></pre>
+
+<p>The <code>STATISTICS PROFILE</code> SET options  actually runs the query  and displays the text plan with more detailed results as follows :</p>
+
+<pre><code class="language-sql">Use AdventureWorks2012
+GO
+SET STATISTICS PROFILE ON
+GO
+SELECT DISTINCT(City)
+FROM Person.Address
+GO
+SET STATISTICS PROFILE OFF
+</code></pre>
+
+<p><img src="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/images/statistics-profile-on.png" alt="Statistics Profile" /></p>
+
+<h3 id="missing-indexes-from-graphical-execution">Missing Indexes from Graphical Execution</h3>
+
+<p>The graphical query execution plan can show when a query can benefit from missing indexes.</p>
+
+<p><img src="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/images/missing-index-from-execution-plan.png" alt="Missing Indexes from Graphical Execution Plan" /></p>
+
+<h3 id="additional-plan-properties">Additional Plan Properties</h3>
+
+<p>The query plan properties also display the reason for an early termination in the <strong>Optimization Level</strong> property, e.g when we run the following query :</p>
+
+<pre><code class="language-sql">SELECT * FROM Sales.SalesOrderHeader
+WHERE SalesOrderID = 43666
+</code></pre>
+
+<p>you will notice that the level is displayed as a trivial as follows :</p>
+
+<p><img src="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/images/trivial-plan.png" alt="Trivial Plan" /></p>
+
+<p>but we can use a query hint to disable the trivial plan instead as follows :</p>
+
+<pre><code>SELECT * FROM Sales.SalesOrderHeader
+WHERE SalesOrderID = 43666
+OPTION (QUERYTRACEON 8757)
+</code></pre>
+
+<div class="admonition note">
+<p class="admonition-title">Trace Flags</p>
+<p>The QUERYTRACEON query hint is used to apply a trace flag at the query level.</p>
+</div>
+
+<p>The <strong>CardinalityEstimationModelVersion</strong> attribute refers to the version of the cardinality estimation model used by the query optimizer.  SQL Server 2014 introduces a new cardinality estimator, but you still have the choice of using the old one by changing the database compatibility level or using trace flags 2312 and 9481.</p>
+
+<p>The <strong>NonParallelPlanReason</strong> optimal gives a reason why a parallel plan was not chosen. E.g if we use the option hint to use only one processor by setting the <strong>MAXDOP</strong> to 1 as follows :</p>
+
+<pre><code class="language-sql">SELECT * FROM Sales.SalesOrderHeader
+WHERE SalesOrderID = 43666
+OPTION (MAXDOP 1)
+</code></pre>
+
+<p><img src="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/images/nonparallel-reason.png" alt="Non Paralled Reason" /></p>
+
+<h3 id="warnings-on-execution-plans">Warnings on Execution Plans</h3>
+
+<p>The query plan also shows warnings and these should be carefully reviewed. The following warnings are displayed :</p>
+
+<ul>
+<li>ColumnsWithNoStatistics</li>
+<li>NoJoinPredicate</li>
+<li>SpillToTempDb</li>
+<li>TypeConversion</li>
+<li>Wait</li>
+<li>PlanAffectingConvert</li>
+<li>SpatialGuess</li>
+<li>UnmatchedIndexes</li>
+<li>FullUpdateForOnlineIndexBuild</li>
+</ul>
+
+<h3 id="columnswithnostatistics-warning">ColumnsWithNoStatistics Warning</h3>
+
+<p>They were no statistics available to the query optimizer for the column.</p>
+
+<p>Run the following statement to drop the existing statistics for the VacationHours column, if available:</p>
+
+<pre><code class="language-sql">DROP STATISTICS HumanResources.Employee._WA_Sys_0000000C_49C3F6B7
+</code></pre>
+
+<p>We can view the statistics on the table with the following query :</p>
+
+<pre><code class="language-sql">SELECT s.name, c.name, auto_created 
+FROM sys.stats s
+JOIN sys.columns c
+ON s.object_id = c.object_id and s.stats_id = c.column_id
+WHERE s.object_id = object_id('HumanResources.Employee')
+</code></pre>
+
+<p>Next, temporarily disable automatic creation of statistics at the database level:</p>
+
+<pre><code class="language-sql">ALTER DATABASE AdventureWorks2012
+SET AUTO_CREATE_STATISTICS OFF
+</code></pre>
+
+<p>Then run this query:</p>
+
+<pre><code class="language-sql">SELECT * FROM HumanResources.Employee
+WHERE VacationHours = 48
+</code></pre>
+
+<p>and you will get a query plan as follows :</p>
+
+<p><img src="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/images/missing-column-statistics.png" alt="Query Plan Missing Statistics" /></p>
+
+<p>Enable the auto creating of statistics with the following :</p>
+
+<pre><code class="language-sql">ALTER DATABASE AdventureWorks2012 SET AUTO_CREATE_STATISTICS ON
+</code></pre>
+
+<p>and re-run the query. You will notice the query plan no longer have warnings as the statistics have been auto created.</p>
+
+<h3 id="nojoinpredicate-warning">NoJoinPredicate Warning</h3>
+
+<p>A possible problem while using the old-style ANSI SQL-89 join syntax is accidentally missing the join predicate and getting a NoJoinPredicate warning. Let’s suppose you intend to run the following query but forgot to include the WHERE clause:</p>
+
+<pre><code class="language-sql">SELECT * FROM Sales.SalesOrderHeader soh, Sales.SalesOrderDetail sod WHERE soh.SalesOrderID = sod.SalesOrderID
+</code></pre>
+
+<p>The first indication of a problem could be that the query takes way too long to execute, even for small tables. Later, you will see that the query also returns a huge result set.</p>
+
+<h3 id="planaffectingconvert-warning">PlanAffectingConvert Warning</h3>
+
+<p>This warning shows that type conversions were performed that may impact the performance of the resulting execution plan. Run the following example, which declares a variable as nvarchar and then uses it in a query to compare against a varchar column, CreditCardApprovalCode:</p>
+
+<pre><code class="language-sql">DECLARE @code NVARCHAR(15)
+SET @code = '95555Vi4081'
+SELECT * 
+FROM Sales.SalesOrderHeader
+WHERE CreditCardApprovalCode = @code
+</code></pre>
+
+<p><img src="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/images/plan-convert.png" alt="Plan Convert Issue" /></p>
+
+<h3 id="spilltotempdb-warning">SpillToTempDb Warning</h3>
+
+<p>This warning shows than an operation didn’t have enough memory and had to spill data to disk during execution, which can be a performance problem because of the extra I/O overhead. To simulate this problem, run the following example:</p>
+
+<pre><code class="language-sql">SELECT * FROM Sales.SalesOrderDetail ORDER BY UnitPrice
+</code></pre>
+
+<p>This is a very simple query, and depending on the memory available on your system, you may not get the warning in your test environment, so you may need to try with a larger table instead.</p>
+
+<h3 id="unmatchedindexes">UnmatchedIndexes</h3>
+
+<p>Finally, the UnmatchedIndexes element can show that the query optimizer was not able to match a filtered index for a particular query (for example, when it is not able to see the value of a parameter). Suppose you create the following filtered index:</p>
+
+<pre><code class="language-sql">CREATE INDEX IX_Color ON Production.Product(Name, ProductNumber)
+WHERE Color = ‘White’
+</code></pre>
+
+<p>and then run the query :</p>
+
+<pre><code class="language-sql">DECLARE @color nvarchar(15)
+SET @color = 'White'
+SELECT Name, ProductNumber FROM Production.Product
+WHERE Color = @color
+</code></pre>
+
+<p>You will notice we get an unmatched index, however the following will use an index :</p>
+
+<pre><code class="language-sql">SELECT Name, ProductNumber FROM Production.Product
+WHERE Color = 'White'
+</code></pre>
+
+<p>and remove the index :</p>
+
+<pre><code class="language-sql">DROP INDEX Production.Product.IX_Color
+</code></pre>
+
+<h2 id="getting-plans-from-the-plan-cache">Getting Plans from the Plan Cache</h2>
+
+<p>Most of the times you will not run the queries manually but you will need to invest the queries that have already been ran. We can can retrieve the query plan in cache using the <code>sys.sm_exec_cached_plans</code> or from currently executing queries using <code>sys.dm_exec_requests</code> and from query statistics using <code>sys.dm_exec_query_stats</code> :</p>
+
+<h3 id="retrive-from-current-executing-queries">Retrive from current executing queries</h3>
+
+<pre><code>-- A plan_handle is a hash value that represents a specific execution plan
+SELECT * FROM sys.dm_exec_requests
+CROSS APPLY
+sys.dm_exec_query_plan(plan_handle)
+</code></pre>
+
+<h3 id="from-query-stats">From query stats</h3>
+
+<pre><code class="language-sql">-- The sys.dm_exec_query_stats DMV contains one row per query statement within the cached plan
+SELECT * FROM sys.dm_exec_query_stats
+CROSS APPLY
+sys.dm_exec_query_plan(plan_handle)
+</code></pre>
+
+<h3 id="retrieve-top-10-queries-by-usage">Retrieve top 10 queries by usage</h3>
+
+<pre><code class="language-sql">-- You can run the following query to get this information
+SELECT TOP 10 total_worker_time/execution_count AS avg_cpu_time,
+plan_handle, query_plan
+FROM sys.dm_exec_query_stats
+CROSS APPLY sys.dm_exec_query_plan(plan_handle)
+ORDER BY avg_cpu_time DESC
+</code></pre>
+
+<h3 id="removing-plans-from-the-plan-cache">Removing Plans from the Plan Cache</h3>
+
+<ul>
+<li>The <strong>DBCC FREEPROCCACHE</strong> statement can be used to remove all the entries from the plan cache.</li>
+<li>The <strong>DBCC FREESYSTEMCACHE</strong> statement can be used to remove all the elements from the plan cache or only the elements associated with a Resource Governor pool name.</li>
+<li>The <strong>DBCC FLUSHPROCINDB</strong> can be used to remove all the cached plans for a particular database.</li>
+<li>Not related,  the <strong>DBCC DROPCLEANBUFFERS</strong> statement can be used to remove all the buffers from the buffer pool.</li>
+</ul>
+
+<h2 id="set-statistics-time-io">SET STATISTICS TIME / IO</h2>
+
+<p>You can use SET STATISTICS TIME to see the number of milliseconds required to parse, compile, and execute each statement. For example, run</p>
+
+<pre><code class="language-sql">SET STATISTICS TIME ON
+</code></pre>
+
+<p>and then run the following query:</p>
+
+<pre><code class="language-sql">SELECT DISTINCT(CustomerID)
+FROM Sales.SalesOrderHeader
+</code></pre>
+
+<p>and turn it off :</p>
+
+<pre><code class="language-sql">SET STATISTICS TIME OFF
+</code></pre>
+
+<p><strong>SET STATISTICS IO</strong> displays the amount of disk activity generated by a query. To enable it, run the following statement:</p>
+
+<pre><code class="language-sql">SET STATISTICS IO ON
+</code></pre>
+
+<p>Run this next statement to clean all the buffers from the buffer pool to make sure that no pages for this table are loaded in memory:</p>
+
+<pre><code class="language-sql">DBCC DROPCLEANBUFFERS
+</code></pre>
+
+<p>Then run the following query:</p>
+
+<pre><code class="language-sql">SELECT * FROM Sales.SalesOrderDetail WHERE ProductID = 870
+</code></pre>
+
+<p>It will show an output similar to the following:</p>
+
+<p>Here are the definitions of these items, which all use 8K pages:</p>
+
+<ul>
+<li><strong>Logical reads</strong> Number of pages read from the buffer pool.</li>
+<li><strong>Physical reads</strong> Number of pages read from disk.</li>
+<li><strong>Read-ahead reads</strong> Read-ahead is a performance optimization mechanism that anticipates the needed data pages and reads them from disk. It can read up to 64 contiguous pages from one data file.</li>
+<li><strong>Lob logical reads</strong> Number of large object (LOB) pages read from the buffer pool.</li>
+<li><strong>Lob physical reads</strong> Number of large object (LOB) pages read from disk.</li>
+<li><strong>Lob read-ahead reads</strong> Number of large object (LOB) pages read from disk using the read-ahead mechanism, as explained earlier.</li>
+</ul>
+
+<p>Now, if you run the same query again, you will no longer get physical and read-ahead reads.</p>
+
+<p><strong>Scan count</strong> is defined as the number of seeks or scans started after reaching the leaf level (that is, the bottom level of an index). The only case when scan count will return 0 is when you’re seeking for only one value on a unique index, like in the following example:</p>
+
+<pre><code class="language-sql">SELECT * FROM Sales.SalesOrderHeader WHERE SalesOrderID = 51119
+</code></pre>
+
+<p>If you try the following query, in which SalesOrderID is defined in a nonunique index and can return more than one record, you can see that scan count now returns 1:</p>
+
+<pre><code class="language-sql">SELECT * FROM Sales.SalesOrderDetail WHERE SalesOrderID = 51119
+</code></pre>
+
+<p>Finally, in the following example, scan count is 4 because SQL Server has to perform four seeks:</p>
+
+<pre><code class="language-sql">SELECT * FROM Sales.SalesOrderHeader WHERE SalesOrderID IN (51119, 43664, 63371, 75119)
+</code></pre>
+
+<h2 id="execution-plan-cache-recommendations">Execution Plan Cache Recommendations</h2>
+
+<p>To ensure efficient use of the plan cache, follow these recommendations:</p>
+
+<ul>
+<li>Explicitly parameterize variable parts of a query.</li>
+<li>Use stored procedures to implement business functionality.</li>
+<li>Use sp_executesql to avoid stored procedure maintenance.</li>
+<li>Use the prepare/execute model to avoid resending a query string.</li>
+<li>Avoid ad hoc queries.</li>
+<li>Use sp_executesql over EXECUTE for dynamic queries.</li>
+<li>Parameterize variable parts of queries with care.</li>
+<li>Avoid modifying environment settings between connections.</li>
+<li>Avoid the implicit resolution of objects in queries.</li>
+</ul>
+
+<h2 id="query-optimizer-in-depth">Query Optimizer in-depth</h2>
+
+<p>In this part we will now go in-depth and look at the query optimization process. Here is the major steps of the query optimization process.</p>
+
+<p><img src="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/images/query-optimization-in-depth.png" alt="Query Optimization in Depth" /></p>
+
+<h3 id="dmvs-for-query-optimization-sys-dm-exec-query-optimizer-info">DMVs for Query Optimization sys.dm_exec_query_optimizer_info</h3>
+
+<p>Returns detailed statistics about the operation of the SQL Server query optimizer. You can use this view when tuning a workload to identify query optimization problems or improvements. For example, you can use the total number of optimizations, the elapsed time value, and the final cost value to compare the query optimizations of the current workload and any changes observed during the tuning process. Some counters provide data that is relevant only for SQL Server internal diagnostic use.</p>
+
+<h3 id="viewing-statistics-on-optimizer-execution">Viewing statistics on optimizer execution</h3>
+
+<p>What are the current optimizer execution statistics for this instance of SQL Server?</p>
+
+<pre><code class="language-sql">SELECT * FROM sys.dm_exec_query_optimizer_info;
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Data type</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>counter</td>
+<td>nvarchar(4000)</td>
+<td>Name of optimizer statistics event.</td>
+</tr>
+
+<tr>
+<td>occurrence</td>
+<td>bigint</td>
+<td>Number of occurrences of optimization event for this counter.</td>
+</tr>
+
+<tr>
+<td>value</td>
+<td>float</td>
+<td>Average property value per event occurrence.</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="viewing-the-total-number-of-optimizations">Viewing the total number of optimizations</h3>
+
+<p>How many optimizations are performed?</p>
+
+<pre><code class="language-sql">SELECT occurrence AS Optimizations FROM sys.dm_exec_query_optimizer_info
+WHERE counter = 'optimizations';
+</code></pre>
+
+<h3 id="average-elapsed-time-per-optimization">Average elapsed time per optimization</h3>
+
+<p>What is the average elapsed time per optimization?</p>
+
+<pre><code class="language-sql">SELECT ISNULL(value,0.0) AS ElapsedTimePerOptimization  
+FROM sys.dm_exec_query_optimizer_info WHERE counter = 'elapsed time';  
+</code></pre>
+
+<h3 id="fraction-of-optimizations-that-involve-subqueries">Fraction of optimizations that involve subqueries</h3>
+
+<p>What fraction of optimized queries contained a subquery?</p>
+
+<pre><code class="language-sql">SELECT (SELECT CAST (occurrence AS float) 
+FROM sys.dm_exec_query_optimizer_info WHERE counter = 'contains subquery') /  
+(SELECT CAST (occurrence AS float) FROM sys.dm_exec_query_optimizer_info WHERE counter = 'optimizations')  
+AS ContainsSubqueryFraction;
+</code></pre>
+
+<p>and as a percentage of the total optimizations :</p>
+
+<pre><code class="language-sql">SELECT (SELECT CAST (occurrence AS float) 
+FROM sys.dm_exec_query_optimizer_info WHERE counter = 'contains subquery') /  
+(SELECT CAST (occurrence AS float) FROM sys.dm_exec_query_optimizer_info WHERE counter = 'optimizations') * 100 
+AS ContainsSubqueryFraction ;
+</code></pre>
+
+<h3 id="view-percentage-of-optimization-on-query-with-hints">View percentage of optimization on query with hints</h3>
+
+<p>This will be a good indicator on the flexibility of the application. The application should use hints sparingly.</p>
+
+<pre><code class="language-sql">-- for example, the next query displays the percentage of optimizations in the instance that include hints
+SELECT (SELECT occurrence FROM sys.dm_exec_query_optimizer_info WHERE counter = 'hints' ) * 100.0 / 
+(SELECT occurrence FROM sys.dm_exec_query_optimizer_info WHERE counter = 'optimizations' )
+</code></pre>
+
+<h3 id="check-optimizations-for-a-specific-workload">Check optimizations for a specific workload</h3>
+
+<p>We can use the DMV to check for the optimization applied to a specific workload but they are several issues. There is no easy way but we can get a snapshot of the before optimization and after optimization and subtract the value to have an idea of the optimizations applied.</p>
+
+<p>Here is a query that can do that</p>
+
+<pre><code class="language-sql">-- optimize these queries now
+-- so they do not skew the collected results
+GO
+SELECT *
+INTO after_query_optimizer_info
+FROM sys.dm_exec_query_optimizer_info
+GO
+SELECT *
+INTO before_query_optimizer_info
+FROM sys.dm_exec_query_optimizer_info
+GO
+DROP TABLE before_query_optimizer_info
+DROP TABLE after_query_optimizer_info
+GO
+-- real execution starts
+GO
+SELECT *
+INTO before_query_optimizer_info
+FROM sys.dm_exec_query_optimizer_info
+GO
+-- insert your query here
+SELECT *
+FROM Person.Address
+-- keep this to force a new optimization
+OPTION (RECOMPILE)
+GO
+SELECT *
+INTO after_query_optimizer_info
+FROM sys.dm_exec_query_optimizer_info
+GO
+SELECT a.counter,
+(a.occurrence - b.occurrence) AS occurrence,
+(a.occurrence * a.value - b.occurrence *
+b.value) AS value
+FROM before_query_optimizer_info b
+JOIN after_query_optimizer_info a
+ON b.counter = a.counter
+WHERE b.occurrence &lt;&gt; a.occurrence
+DROP TABLE before_query_optimizer_info
+DROP TABLE after_query_optimizer_info
+</code></pre>
+
+<p>We list some queries twi so that the query optimizer can optimize them first so that when we run again no new optimizations are added.</p>
+
+<h3 id="parsing-and-binding">Parsing and Binding</h3>
+
+<p>The Algebrizer parse and binds the SQL queries. It validates the syntax and uses the query information to build a relation query tree. Parsing only checks for valid SQL syntax without accessing the table names or columns or checking for their existence.</p>
+
+<p>We can test the following in SMSS by setting the options to <strong>PARSE_ONLY</strong></p>
+
+<pre><code class="language-sql">SELECT lname, fname FROM authors
+</code></pre>
+
+<p><img src="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/images/parse-only.png" alt="Parse Only in SSMS" /></p>
+
+<p>The above will pass the syntax since that&rsquo;s valid SQL statement.</p>
+
+<p>The next stage is the binding, which validates the existence of the tables and their columns against the system catalogs and the permissions. The output is a algebrizer tree that is sent to the optimizer for optimization.</p>
+
+<p>The tree contains logical operations that are closely related to the corresponding SQL statement. There is no documentation on this but there&rsquo;s a DMV that have some information on the mappings of the logical operations :</p>
+
+<pre><code class="language-sql">SELECT * FROM sys.dm_xe_map_values 
+WHERE name = 'query_optimizer_tree_id'
+</code></pre>
+
+<p>There are also several undocumented trace flags that can allow you to see these different logical trees. For example, you can use the following query with the undocumented trace flag 8605. But first enable trace flag 3604, as shown next:</p>
+
+<pre><code class="language-sql">DBCC TRACEON(3604)
+</code></pre>
+
+<p>and check in the message tab for the logical query tree :</p>
+
+<pre><code class="language-sql">SELECT * FROM Sales.SalesOrderDetail
+WHERE SalesOrderID = 43659
+OPTION (RECOMPILE, QUERYTRACEON 8605, QUERYTRACEON 3604)
+</code></pre>
+
+<p>The tree gets verbose quickly even for a small query. Unfortunately, there is no documented information to help understand these output trees and their operations.</p>
+
+<h3 id="simplification">Simplification</h3>
+
+<p>At this stage of the optimization process the query tree is simplified into a simpler form to enable quick optimization. Here are some of the things that happens during the simplification stage :</p>
+
+<ul>
+<li>Contradictions are detected and removed and SQL server will not even execute the query. The optimizer can detect that no row will be returned by using a certain set of predicate combination.</li>
+<li>Filters in the WHERE clause are pushed down the tree so that they are evaluated early and reduce the amount of data access and also enable using indexes to retrieve the data. This is called <em>predicate pushdown</em>.</li>
+<li>Subqueries are converted into joins if possible.</li>
+<li>Redudant inner and outer joins are removed, e.g in when a table is join with another table that have a foregin key relationship, the other table might not be needed to retrieve data in what is called a Foreign Key Join elimination.</li>
+</ul>
+
+<h3 id="contradiction-detection">Contradiction Detection</h3>
+
+<p>Let&rsquo;s use a table with a check constraint and see how the optimizer does contradicition detection. There&rsquo;s a check constraint on the <strong>HumanResources.Employee</strong> called <strong>CK_Employee_VacationHours</strong>. This constraint uses the following rule <code>([VacationHours]&gt;=(-40) AND [VacationHours]&lt;=(240))</code>. The value needs to be between -40 and 240.</p>
+
+<p>Let run the following query and look at the query plan :</p>
+
+<pre><code class="language-sql">SELECT * FROM HumanResources.Employee
+WHERE VacationHours &gt; 80
+</code></pre>
+
+<p>SQL Server will use a clustered index scan to retrieve the results, now lets change the value to 300 as follows :</p>
+
+<p><img src="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/images/contradiction-detection.png" alt="Contradiction Detection" /></p>
+
+<pre><code class="language-sql">SELECT * FROM HumanResources.Employee
+WHERE VacationHours &gt; 300
+</code></pre>
+
+<p>The query plan changes and SQL server now uses a constant scan and the table is not even accessed at all. Because there is no need to access the table at all, SQL Server saves resources such as I/O, locks, memory, and CPU, thus making the query execute faster.</p>
+
+<p><img src="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/images/constant-scan.png" alt="Constant Scan" /></p>
+
+<p>Disable the constraint and run again and the index will now be scanned :</p>
+
+<pre><code class="language-sql">ALTER TABLE HumanResources.Employee NOCHECK CONSTRAINT CK_Employee_VacationHours
+</code></pre>
+
+<p>Enable the index back again :</p>
+
+<pre><code>ALTER TABLE HumanResources.Employee WITH CHECK CHECK CONSTRAINT CK_Employee_VacationHours
+</code></pre>
+
+<p>Another contradiction is when the predicate does contain the contradiction as follows :</p>
+
+<pre><code class="language-sql">SELECT * FROM HumanResources.Employee 
+WHERE VacationHours &gt; 10 AND VacationHours &lt; 5
+</code></pre>
+
+<p>A trivial plan might also be used instead of a constant scan operator.</p>
+
+<h3 id="view-the-simplified-tree">View the Simplified Tree</h3>
+
+<p>Using the undocumented query hint from before, we can examine the generated simplified query tree by running following query and looking at the messages tab :</p>
+
+<pre><code class="language-sql">SELECT * FROM HumanResources.Employee
+WHERE VacationHours &gt; 300
+OPTION(RECOMPILE, QUERYTRACEON 8606,QUERYTRACEON 3604)
+</code></pre>
+
+<p>Here is the output truncated :</p>
+
+<pre><code class="language-sql">*** Input Tree: ***
+        LogOp_Project QCOL: [AdventureWorks2012].[HumanResources].[Employee].BusinessEntityID QCOL: [AdventureWorks2012].[HumanResources].
+            LogOp_Select
+*** Simplified Tree: ***
+LogOp_ConstTableGet (0) COL: IsBaseRow1000  QCOL: [AdventureWorks2012].[HumanResources].[Employee].BusinessEntityID QCOL:
+</code></pre>
+
+<h3 id="foreign-key-join-elimination">Foreign Key Join Elimination</h3>
+
+<p>For the demonstration run the following query and observe the execution plan :</p>
+
+<pre><code class="language-sql">SELECT soh.CustomerID, c.AccountNumber
+FROM Sales.SalesOrderHeader soh
+JOIN Sales.Customer c
+on soh.CustomerID = c.CustomerID
+</code></pre>
+
+<p>Here is the generated execution plan :</p>
+
+<p><img src="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/images/join-elimination-1.png" alt="Join Elimination" /></p>
+
+<p>You will notice a merge join was used and both tables are read.</p>
+
+<p>Now comment out the <strong>AccountNumber</strong> column and run the query again :</p>
+
+<pre><code class="language-sql">SELECT soh.CustomerID --, c.AccountNumber
+FROM Sales.SalesOrderHeader soh
+JOIN Sales.Customer c
+on soh.CustomerID = c.CustomerID
+</code></pre>
+
+<p>and here is the generated execution plan :</p>
+
+<p><img src="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/images/join-elimination-2.png" alt="Join Elimination" /></p>
+
+<p>Notice that only <strong>Sales.SalesOrderHeader</strong> table is being read. The optimizer simplified the query using the foreign key constraint and in this case we do not need any rows from the <strong>Customers</strong> table so there is no need to access the table at all, and the foreign key guarantees the data returned is correct.</p>
+
+<p>We can inspect the logical query tree using the trace flags :</p>
+
+<pre><code class="language-sql">SELECT soh.CustomerID --, c.AccountNumber
+FROM Sales.SalesOrderHeader soh
+JOIN Sales.Customer c
+on soh.CustomerID = c.CustomerID
+OPTION(RECOMPILE, QUERYTRACEON 8606,QUERYTRACEON 3604)
+</code></pre>
+
+<p>and the generated query tree truncated looks as follows :</p>
+
+<pre><code class="language-sh">*** Simplified Tree: ***
+        LogOp_Join
+
+            LogOp_Get TBL: Sales.SalesOrderHeader(alias TBL: soh) Sales.SalesOrderHeader
+
+            LogOp_Get TBL: Sales.Customer(alias TBL: c) Sales.Customer
+
+*******************
+*** Join-collapsed Tree: ***
+        LogOp_Get TBL: Sales.SalesOrderHeader(alias TBL: soh) Sales.SalesOrderHeader
+</code></pre>
+
+<p>Notice the simplified query tree still retrieves from both tables but the join collapsed tree only retrieves the data from one table.</p>
+
+<p>Try disabling the constraint and run the query, you will notice the generated plan have to use the join as there is no other way to retrieve the data.</p>
+
+<h3 id="trivial-plan">TRIVIAL PLAN</h3>
+
+<p>The optimizer chooses a trivial plan when there&rsquo;s no other way to run the query. SQL Server uses it to avoid the expensive operation of query optimization for queries that does not involve any cost estimation, e.g the following query will use a trivial plan :</p>
+
+<pre><code>-- for example, testing with a very simple AdventureWorks2012 query, such as
+SELECT * FROM Sales.SalesOrderDetail
+WHERE SalesOrderID = 43659
+</code></pre>
+
+<p>The reason is being the there&rsquo;s a unique index <strong>PK_SalesOrderDetail_SalesOrderID_SalesOrderDetailID</strong> that can only contain 0 or 1 row.
+We can use a trace flag 8757 to disable the use a trivial plan as follows :</p>
+
+<pre><code class="language-sql">-- let’s again add the undocumented trace flag 8757 to avoid a trivial plan
+SELECT * FROM Sales.SalesOrderDetail
+WHERE SalesOrderID = 43659
+OPTION (RECOMPILE, QUERYTRACEON 8757)
+</code></pre>
+
+<p>and you notice from the properties in <strong>SSMS</strong> that we get a full optimization. Use the <code>sys.dm_exec_query_optimizer_info</code> and check the optimization information. You will notice instead of a trivial optimization, we have a hint and the optimization goes to search 1.</p>
+
+<p>Now use a different column and you will get full optimization :</p>
+
+<pre><code class="language-sql">SELECT * FROM Sales.SalesOrderDetail
+WHERE ProductID = 870
+</code></pre>
+
+<p>The reason is because they are several plans available and the query optimizer need to find the optimal plan to execute the query.</p>
+
+<h3 id="statistics">STATISTICS</h3>
+
+<p>The optimizer maintains statistics on columns and indexes that it uses during costing in the optimization process.</p>
+
+<h2 id="query-operators">Query Operators</h2>
+
+<p>The operators or iterators are used by the execution engine to perform the operation of retrieving data based on the execution plan. The operators have different characteristics, some are memory consuming, and some have to build the input before they start executing. In this section we will look at the common operators using the execution engine.</p>
+
+<h2 id="data-access-operators">Data Access Operators</h2>
+
+<p>These are the most common operators as they are used to retrieve data :</p>
+
+<ul>
+<li><img src="https://i-msdn.sec.s-msft.com/dynimg/IC121534.gif" alt="Table Scan" /> Heap Table Scan</li>
+<li><img src="https://i-msdn.sec.s-msft.com/dynimg/IC72069.gif" alt="Index Scan" /> Clustered Index Scan</li>
+<li><img src="https://i-msdn.sec.s-msft.com/dynimg/IC322.gif" alt="Clustered Index Seek" /> Clustered Index Seek</li>
+<li><img src="https://i-msdn.sec.s-msft.com/dynimg/IC72069.gif" alt="Index Scan" /> Non-clustered Index Scan</li>
+
+<li><p><img src="https://i-msdn.sec.s-msft.com/dynimg/IC322.gif" alt="Clustered Index Seek" /> Non-Clustered Index Seek</p></li>
+
+<li><p>A <strong>scan</strong> reads an entire structure, which could be a heap, a clustered index, or a nonclustered index.</p></li>
+
+<li><p>A seek, on the other hand, does not scan an entire structure, but instead efficiently retrieves rows by navigating an index. Can only be performed on a clustered on nonclustered index.</p></li>
+</ul>
+
+<h3 id="scans">Scans</h3>
+
+<p>Let’s start with the simplest example, by scanning a heap, which is performed by the Table Scan operator</p>
+
+<pre><code class="language-sql">-- the following query on the AdventureWorks2012 database will use a Table Scan
+SELECT * FROM DatabaseLog
+</code></pre>
+
+<p>Similarly, the following query will show a Clustered Index Scan operator :</p>
+
+<pre><code class="language-sql">SELECT * FROM Person.Address
+</code></pre>
+
+<p>The scan operator does not guarantee returning sorted results. The storage engine uses efficient methods to return the data without sorting. Some features are only available in the Enterprise Edition. You can check the properties of the query plan to see if the results were return sorted by looking at the <strong>Ordered</strong> property.</p>
+
+<p>Run the following and check the Ordered property :</p>
+
+<pre><code class="language-sql">-- if you want to know whether your data has been sorted, the Ordered property can show if the data 
+SELECT * FROM Person.Address
+ORDER BY AddressID
+</code></pre>
+
+<p>and you will notice that its now true.</p>
+
+<h3 id="non-clustered-index-scan">Non-clustered index scan</h3>
+
+<p>The following query will produce a non-clustered index scan. The data will be returned without querying the base table :</p>
+
+<pre><code class="language-sql">SELECT AddressID, City, StateProvinceID
+FROM Person.Address
+</code></pre>
+
+<p>Each non-clustered index contains a clustering key, so in this case we didn&rsquo;t have to query the base table because the index also contains the clustering key.</p>
+
+<h3 id="seeks">Seeks</h3>
+
+<p>An Index Seek does not scan the entire index, but instead navigates the B-tree index structure to quickly find one or more records. These can be performed by both the Clustered Index Seek and the Index Seek operators.</p>
+
+<p>The following query produces a clustered index seek :</p>
+
+<pre><code class="language-sql"> -- now let’s look at Index Seeks
+SELECT AddressID, City, StateProvinceID FROM Person.Address
+WHERE AddressID = 12037
+</code></pre>
+
+<p>and the following produces a non-clustered index seek :</p>
+
+<pre><code class="language-sql">-- the next query and Figure 4-6 both illustrate a nonclustered Index Seek operator
+SELECT AddressID, StateProvinceID FROM Person.Address
+WHERE StateProvinceID = 32
+</code></pre>
+
+<p>a clustered index seek can also return multiple rows, e,g in the following query :</p>
+
+<pre><code class="language-sql">-- the previous query just returned one row, but you can change it to a new parameter like in the following example:
+SELECT AddressID, StateProvinceID FROM Person.Address
+WHERE StateProvinceID = 9
+</code></pre>
+
+<p>The query have been auto-parameterized, so any query will use the same plan, we can try to drop the cached query plans but you will notice the same query plan will be used.</p>
+
+<pre><code class="language-sql">DBCC FREEPROCCACHE
+GO
+Use AdventureWorks2012
+GO
+-- the previous query just returned one row, but you can change it to a new parameter like in the following example:
+SELECT AddressID, StateProvinceID FROM Person.Address
+WHERE StateProvinceID = 9
+</code></pre>
+
+<p>The query is using a partial ordered scan. It first finds the initial row and continues scanning the index for all matching rows which are logically together in the same leaf pages on the index. In this case, the data was retrieved without ever touching the base table.</p>
+
+<p>A more complicated example of partial ordered scans involves using a nonequality operator or a BETWEEN clause, like in the following example:</p>
+
+<pre><code class="language-sql">-- a more complicated example of partial ordered scans involves using a nonequality operator or a BETWEEN clause
+SELECT AddressID, City, StateProvinceID FROM Person.Address
+WHERE AddressID BETWEEN 10000 and 20000
+</code></pre>
+
+<p>A Clustered Index Seek operation will be used to find the first row that qualifies to the filter predicate and will continue scanning the index, row by row, until the last row that qualifies is found. More accurately, the scan will stop on the first row that does not qualify.</p>
+
+<h3 id="bookmark-lookup">Bookmark Lookup</h3>
+
+<p>The bookmark operator is used when a nonclustered index is useful to find one or more rows but does not cover all the columns in the query. Because the nonclustered index contains the clustering key, the base table is accessed using the clustering key to retrieve the columns not covered by the index.</p>
+
+<p>For example, in our previous query, an existing nonclustered index covers both AddressID and StateProvinceID columns. What if we also request the City and ModifiedDate columns on the same query? This is shown in the next query, which returns one record :</p>
+
+<pre><code class="language-sql">SELECT AddressID, City, StateProvinceID, ModifiedDate
+FROM Person.Address
+WHERE StateProvinceID = 32
+</code></pre>
+
+<p>The query optimizer is choosing the index <strong>IX_Address_StateProvinceID</strong> to find the records quickly. However, because the index does not cover the additional columns, it also needs to use the base table (in this case, the clustered index) to get that additional information. This operation is called a <strong>bookmark lookup</strong>.</p>
+
+<p>Text and XML plans can show whether a Clustered Index Seek operator is performing a bookmark lookup by looking at the LOOKUP keyword and Lookup attributes :</p>
+
+<pre><code class="language-sql">SET SHOWPLAN_TEXT ON
+GO
+SELECT AddressID, City, StateProvinceID, ModifiedDate
+FROM Person.Address
+WHERE StateProvinceID = 32
+GO
+SET SHOWPLAN_TEXT OFF
+GO
+</code></pre>
+
+<p>output :</p>
+
+<pre><code class="language-sql">StmtText
+----------------------------------------------------------------------------------------------------------------------------------------
+  |--Nested Loops(Inner Join, OUTER REFERENCES:([AdventureWorks2012].[Person].[Address].[AddressID]))
+       ....
+       |--Clustered Index Seek(OBJECT:.. SEEK:([Person].[Address].[AddressID]) LOOKUP ORDERED FORWARD)
+
+(3 row(s) affected)
+</code></pre>
+
+<p>Now run the same query, but this time, request StateProvinceID equal to 20. Now this will produce an index scan :</p>
+
+<pre><code class="language-sql">SELECT AddressID, City, StateProvinceID, ModifiedDate
+FROM Person.Address
+WHERE StateProvinceID = 20
+</code></pre>
+
+<p>So the query optimizer is producing two different execution plans for the same query, with the only difference being the value of the StateProvinceID parameter. In this case, the query optimizer uses the value of the query’s <strong>StateProvinceID</strong> parameter to estimate the cardinality of the predicate as it tries to produce an efficient plan for that parameter.</p>
+
+<p>The bookmark lookup performs random I/O so it is an expensive operation when more records need to be returned, so the optimizer instead chose to scan the index. The optimizer is cost based, so it used the statistics to find an optimal plan.</p>
+
+<h2 id="aggregations">Aggregations</h2>
+
+<p>SQL Server have two physical operators for implementing aggregations :</p>
+
+<ul>
+<li>Stream Aggregate</li>
+<li>Hash Aggregate</li>
+</ul>
+
+<h3 id="sorting-and-hashing">Sorting and Hashing</h3>
+
+<p>Lets discuss sorting and hashing before continuing with the rest of the operators as this plays an important roles.  The optimizer employs different methods to provide sorted data :</p>
+
+<ul>
+<li>Use an index</li>
+<li>use the Sort operator</li>
+<li>Use hashing algorithms</li>
+</ul>
+
+<h3 id="stream-aggregate">Stream Aggregate</h3>
+
+<p>The Stream Aggregate is used for scalar aggregates, aggregates that return only a single value, e.g the SUM, COUNT, AVG, ect.c functions.</p>
+
+<pre><code class="language-sql">SELECT AVG(ListPrice) FROM Production.Product
+</code></pre>
+
+<p>and produces the following plan :</p>
+
+<p><img src="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/images/scalar-aggregate.png" alt="Scalar Aggregate" /></p>
+
+<p>Use the ext plan to reveal more information :</p>
+
+<pre><code class="language-sql">SET SHOWPLAN_TEXT ON
+GO
+SELECT AVG(ListPrice) FROM Production.Product
+GO
+SET SHOWPLAN_TEXT OFF
+GO
+</code></pre>
+
+<ul>
+<li>In order to implement the <strong>AVG</strong> aggregation function, the <strong>Stream Aggregate</strong> is computing both a <strong>COUNT</strong> and a <strong>SUM</strong> aggregate, the results of which will be stored in the computed expressions <strong>Expr1003</strong> and <strong>Expr1004</strong>, respectively.</li>
+<li>The <strong>Compute Scalar</strong> verifies that there is no division by zero by using a <strong>CASE</strong> expression.</li>
+</ul>
+
+<h3 id="group-by-clause">Group By Clause</h3>
+
+<p>When using a GROUP BY clause, the input needs to be sorted first, if not an operator is introduced to sort the results first :</p>
+
+<pre><code class="language-sql">-- now let’s see an example of a query using the GROUP BY clause
+SELECT ProductLine, COUNT(*) FROM Production.Product
+GROUP BY ProductLine
+</code></pre>
+
+<p><img src="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/images/group-by-aggregate.png" alt="Group By" /></p>
+
+<p>The first query did not use a sort operator because without a <strong>GROUP BY</strong> clause, the input is considered a single group.</p>
+
+<h3 id="sort-with-an-index">Sort with an Index</h3>
+
+<p>The Stream Aggregate can also use an index to provide sorted results :</p>
+
+<pre><code class="language-sql">-- a Stream Aggregate can also use an index to have its input sorted, as in the following query
+SELECT SalesOrderID, SUM(LineTotal)FROM Sales.SalesOrderDetail
+GROUP BY SalesOrderID
+</code></pre>
+
+<p>output :</p>
+
+<p><img src="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/images/index-sort-aggregate.png" alt="Index Sort" /></p>
+
+<p>No Sort operator is needed in this plan because the Clustered Index Scan provides the data already sorted by <strong>SalesOrderID</strong>, which is part of the clustering key of the <strong>SalesOrderDetail</strong> table</p>
+
+<h3 id="hash-aggregate">Hash Aggregate</h3>
+
+<p>Its implemented with the <strong>Hash Match</strong> physical operator.</p>
+
+<ul>
+<li>Works on unsorted data for big tables</li>
+<li>Cardinality estimates should produce few groups</li>
+<li>Builds a hash table in memory</li>
+</ul>
+
+<p>For example, the <strong>SalesOrderHeader</strong> table has no index on the <strong>TerritoryID</strong> column, so the following query will use a <strong>Hash Aggregate</strong> operator.</p>
+
+<pre><code class="language-sql">-- for example, the SalesOrderHeader table has no index on the TerritoryID column, 
+-- so the following query will use a Hash Aggregate operator
+SELECT TerritoryID, COUNT(*)
+FROM Sales.SalesOrderHeader
+GROUP BY TerritoryID
+</code></pre>
+
+<p>and produces the following output :</p>
+
+<p><img src="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/images/hash-aggregate.png" alt="Hash Aggregate" /></p>
+
+<p>The algorithm for the Hash Aggregate operator is similar to the Stream Aggregate, with the exceptions that, in this case, the input data does not have to be sorted, a hash table is created in memory, and a hash value is calculated for each row processed.</p>
+
+<p>When data is sorted the optimizer might choose a stream aggregate instead, try the following :</p>
+
+<pre><code class="language-sql">-- run the following statement to create an index
+CREATE INDEX IX_TerritoryID ON Sales.SalesOrderHeader(TerritoryID)
+</code></pre>
+
+<p>and re-run the query. Notice the stream aggregate is now used, as the index is providing sorted input.</p>
+
+<p>Drop the index when done :</p>
+
+<pre><code class="language-sql">-- to clean up, drop the index using the following DROP INDEX statement:
+DROP INDEX Sales.SalesOrderHeader.IX_TerritoryID
+</code></pre>
+
+<p>If the input is not sorted and order is explicitly requested in a query, the query optimizer may introduce a Sort operator and a Stream Aggregate, as shown previously, or it may decide to use a Hash Aggregate and then sort the results as in the following query :</p>
+
+<pre><code class="language-sql">-- the query optimizer will estimate which operation is the least expensive
+SELECT TerritoryID, COUNT(*)
+FROM Sales.SalesOrderHeader
+GROUP BY TerritoryID
+ORDER BY TerritoryID
+</code></pre>
+
+<p>and the plan produced :</p>
+
+<p><img src="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/images/sort-with-hash-aggregate.png" alt="Sort with Hash Aggregate" /></p>
+
+<h3 id="distinct-sort">Distinct Sort</h3>
+
+<p>A query using the <strong>DISTINCT</strong> keyword can be implemented by a :</p>
+
+<ul>
+<li>Stream Aggregate</li>
+<li>Hash Aggregate</li>
+<li>Distinct Sort operator</li>
+</ul>
+
+<p>The Distinct Sort operator is used to both remove duplicates and sort its input. In fact, a query using DISTINCT can be rewritten as a GROUP BY query, and both can generate the same execution plan.</p>
+
+<p>The following two queries return the same data and produce the same execution plan :</p>
+
+<pre><code class="language-sql">-- the following two queries return the same data and produce the same execution plan
+SELECT DISTINCT(JobTitle)
+FROM HumanResources.Employee
+GO
+SELECT JobTitle
+FROM HumanResources.Employee
+GROUP BY JobTitle
+</code></pre>
+
+<p><img src="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/images/distinct-sort-operator.png" alt="Distinct Sort" /></p>
+
+<p>Note that the plan is using a Distinct Sort operator. This operator will sort the rows and eliminate duplicates.</p>
+
+<p>If we create an index, the query optimizer may instead use a Stream Aggregate operator because the plan can take advantage of the fact that the data is already sorted. To test it, run this:</p>
+
+<pre><code class="language-sql">CREATE INDEX IX_JobTitle ON HumanResources.Employee(JobTitle)
+</code></pre>
+
+<p>Then run the previous two queries again. Both queries will now produce a plan showing a Stream Aggregate operator. Drop the index before continuing by using this statement:</p>
+
+<pre><code class="language-sql">DROP INDEX HumanResources.Employee.IX_JobTitle
+</code></pre>
+
+<p>Finally, for a bigger table without an index to provide order, a Hash Aggregate may be used, as in the two following examples:</p>
+
+<pre><code class="language-sql">-- finally, for a bigger table without an index to provide order, a Hash Aggregate may be used, as in the two following examples:
+SELECT DISTINCT(TerritoryID)
+FROM Sales.SalesOrderHeader
+GO
+SELECT TerritoryID
+FROM Sales.SalesOrderHeader
+GROUP BY TerritoryID
+</code></pre>
+
+<h2 id="join-operators">Join Operators</h2>
+
+<p>SQL Server uses three physical join operators to implement joins :</p>
+
+<ul>
+<li>Nested Loops Join</li>
+<li>Merge Join</li>
+<li>Hash Join</li>
+</ul>
+
+<h3 id="nested-loops-join">Nested Loops Join</h3>
+
+<p>The optimizer uses the Nested Join for workloads with a small resultset. Lets us the following query and see the query plan :</p>
+
+<pre><code class="language-sql">SELECT e.BusinessEntityID, TerritoryID
+FROM HumanResources.Employee AS e
+JOIN Sales.SalesPerson AS s ON e.BusinessEntityID = s.BusinessEntityID;
+</code></pre>
+
+<h3 id="notes-of-the-nested-loop">Notes of the Nested Loop</h3>
+
+<ul>
+<li>Smaller results</li>
+<li>The operator used to access the outer input is executed only once</li>
+<li>The operator used to access the inner input is executed once for every record that qualifies on the outer input</li>
+<li>The outer table is shown on top in the graphical query plan</li>
+</ul>
+
+<p><img src="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/images/nested-loop-join.png" alt="Nested Loop" />_</p>
+
+<p>This query produces a plan similar to the one shown previously using the SalesPerson as the outer input and a Clustered Index Seek on the Employee table as the inner input. The filter on the SalesPerson table is asking for TerritoryID equal to 1, and only three records qualify this time. As a result, the Clustered Index Seek, which is the operator on the inner input, is executed only three times. You can verify this information by looking at the properties of each operator, as we did for the previous query.</p>
+
+<pre><code class="language-sql">SET STATISTICS PROFILE ON
+GO
+-- let’s change the query to add a filter by TerritoryID:
+SELECT e.BusinessEntityID, HireDate
+FROM HumanResources.Employee AS e
+JOIN Sales.SalesPerson AS s ON e.BusinessEntityID = s.BusinessEntityID
+WHERE TerritoryID = 1
+GO
+SET STATISTICS PROFILE OFF
+</code></pre>
+
+<p><img src="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/images/nested-loop-executions.png" alt="Nested Loop Execution" /></p>
+
+<p>The query optimizer is more likely to choose a Nested Loops Join when the outer input is small and the inner input has an index on the join key. This join type can be especially effective when the inner input is potentially large, as only a few rows, indicated by the outer input, will be searched.</p>
+
+<h3 id="merge-join">Merge Join</h3>
+
+<p>the Mere Join have the following characteristics :</p>
+
+<ul>
+<li>The optimizer chooses for medium workloads</li>
+<li>Requires sorted inputs</li>
+<li>Requires an equality operator</li>
+<li>Can use an index to provide sorted inputs</li>
+<li>Reads the inputs only once</li>
+</ul>
+
+<p>Lets look at an example :</p>
+
+<pre><code class="language-sql">SELECT h.SalesOrderID, s.SalesOrderDetailID, OrderDate
+FROM Sales.SalesOrderHeader h
+JOIN Sales.SalesOrderDetail s ON h.SalesOrderID = s.SalesOrderID
+</code></pre>
+
+<p>and produces the following plan :</p>
+
+<p><img src="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/images/merge-join.png" alt="Merge Join" /></p>
+
+<p>Taking benefit from the fact that both of its inputs are sorted on the join predicate, a Merge Join simultaneously reads a row from each input and compares them. If the rows match, they are returned. If the rows do not match, the smaller value can be discarded—because both inputs are sorted, the discarded row will not match any other row on the other input table.</p>
+
+<p>If the inputs are not already sorted, the query optimizer is not likely to choose a Merge Join. However, it might decide to sort one or even both inputs if it deems the cost is cheaper than the alternatives. Let’s follow an exercise to see what happens if we force a Merge Join on, for example, a Nested Loops join plan.</p>
+
+<pre><code class="language-sql">-- if you run the following query, you will notice that it uses a Nested Loops Join
+SELECT * FROM Sales.SalesOrderDetail s
+JOIN Production.Product p ON s.ProductID = p.ProductID
+WHERE SalesOrderID = 43659
+</code></pre>
+
+<p>and produces the following plan :</p>
+
+<p><img src="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/images/nested-loop-merge-join.png" alt="Nested loop" /></p>
+
+<p>In this case, a good plan is created using efficient Clustered Index Seek operators. If we force a Merge Join using a hint, as in the following query, the query optimizer has to introduce sorted sources such as Clustered Index Scan and Sort operators, both of which can be seen on the plan</p>
+
+<pre><code class="language-sql">-- obviously, these additional operations are more expensive than a Clustered Index Seek
+SELECT * FROM Sales.SalesOrderdetail s
+JOIN Production.Product p ON s.ProductID = p.ProductID
+WHERE SalesOrderID = 43659
+OPTION (MERGE JOIN)
+</code></pre>
+
+<p>produces the following plan :</p>
+
+<p><img src="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/images/merge-join-forced.png" alt="Merge Join Forced" /></p>
+
+<p>In summary, given the nature of the Merge Join, the query optimizer is more likely to choose this algorithm when faced with medium to large inputs, where there is an equality operator on the join predicate, and the inputs are sorted.</p>
+
+<h3 id="hash-join">Hash Join</h3>
+
+<p>The query optimizer uses hash joins to process large, unsorted, non-indexed inputs efficiently. Lets run an example :</p>
+
+<pre><code class="language-sql">SELECT h.SalesOrderID, s.SalesOrderDetailID FROM Sales.SalesOrderHeader h
+JOIN Sales.SalesOrderDetail s ON h.SalesOrderID = s.SalesOrderID
+</code></pre>
+
+<p>which produces the following plan :</p>
+
+<p><img src="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/images/hash-match.png" alt="Hash Match" /></p>
+
+<h3 id="characteristics">Characteristics</h3>
+
+<ul>
+<li>The Hash Join requires an equality operator on the join predicate,</li>
+<li>Unlike the Merge Join, it does not require its inputs to be sorted</li>
+<li>In addition, the operations in both inputs are executed only once</li>
+<li>Hash Join works by creating a hash table in memory</li>
+<li>The query optimizer will use cardinality estimation to detect the smaller of the two inputs, called the <strong>build input</strong>, and will use it to build a hash table in memory</li>
+<li>If there is not enough memory to host the hash table, SQL Server can use a <strong>workfile</strong> in <strong>tempdb</strong>, which can impact the performance of the query.</li>
+<li>A Hash Join is a blocking operation, but only during the time the build input is hashed</li>
+<li>After the build input is hashed, the second table, called the probe input, will be read and compared to the hash table</li>
+</ul>
+
+<p>In summary, the query optimizer can choose a Hash Join for large inputs where there is an equality operator on the join predicate. Because both tables are scanned, the cost of a Hash Join is the sum of both inputs.</p>
+
+<h2 id="references">References</h2>
+
+<ul>
+<li><a href="https://msdn.microsoft.com/en-us/library/ms191158(v=sql.110).aspx">https://msdn.microsoft.com/en-us/library/ms191158(v=sql.110).aspx</a></li>
+<li><a href="https://docs.microsoft.com/en-us/sql/relational-databases/system-dynamic-management-views/sys-dm-exec-query-optimizer-info-transact-sql">https://docs.microsoft.com/en-us/sql/relational-databases/system-dynamic-management-views/sys-dm-exec-query-optimizer-info-transact-sql</a></li>
+</ul>
+
+
+			<aside class="copyright" role="note">
+				
+				&copy; 2017 Copyright 2017 Peruzal &ndash;
+				
+				Documentation built with
+				<a href="https://www.gohugo.io" target="_blank">Hugo</a>
+				using the
+				<a href="http://github.com/digitalcraftsman/hugo-material-docs" target="_blank">Material</a> theme.
+			</aside>
+
+			<footer class="footer">
+				
+
+<nav class="pagination" aria-label="Footer">
+  <div class="previous">
+  
+      <a href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/index-fragmentation-analysis/" title="Index Fragmentation Analysis">
+        <span class="direction">
+          Previous
+        </span>
+        <div class="page">
+          <div class="button button-previous" role="button" aria-label="Previous">
+            <i class="icon icon-back"></i>
+          </div>
+          <div class="stretch">
+            <div class="title">
+              Index Fragmentation Analysis
+            </div>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+
+  <div class="next">
+  
+      <a href="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/query-recompilation/" title="Query Recompilation">
+        <span class="direction">
+          Next
+        </span>
+        <div class="page">
+          <div class="stretch">
+            <div class="title">
+              Query Recompilation
+            </div>
+          </div>
+          <div class="button button-next" role="button" aria-label="Next">
+            <i class="icon icon-forward"></i>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+</nav>
+
+
+
+
+
+			</footer>
+		</div>
+	</article>
+
+	<div class="results" role="status" aria-live="polite">
+		<div class="scrollable">
+			<div class="wrapper">
+				<div class="meta"></div>
+				<div class="list"></div>
+			</div>
+		</div>
+	</div>
+</main>
+
+    <script>
+    
+      var base_url = '';
+      var repo_id  = '';
+    
+    </script>
+
+    <script src="http://guides.peruzal.com/sql-server-performance-tuning-and-optimization/javascripts/application.js"></script>
+    
+
+    <script>
+      /* Add headers to scrollspy */
+      var headers   = document.getElementsByTagName("h2");
+      var scrollspy = document.getElementById('scrollspy');
+
+      if(scrollspy) {
+        if(headers.length > 0) {
+          for(var i = 0; i < headers.length; i++) {
+            var li = document.createElement("li");
+            li.setAttribute("class", "anchor");
+
+            var a  = document.createElement("a");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", headers[i].innerHTML);
+            a.innerHTML = headers[i].innerHTML;
+
+            li.appendChild(a)
+            scrollspy.appendChild(li);
+          }
+        } else {
+          scrollspy.parentElement.removeChild(scrollspy)
+        }
+
+
+        /* Add permanent link next to the headers */
+        var headers = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+
+        for(var i = 0; i < headers.length; i++) {
+            var a = document.createElement("a");
+            a.setAttribute("class", "headerlink");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", "Permanent link")
+            a.innerHTML = "#";
+            headers[i].appendChild(a);
+        }
+      }
+    </script>
+
+    
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>
+

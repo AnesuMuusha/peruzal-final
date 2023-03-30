@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Android-reset-lock-patterns on Mobile Device Security and Penetration Testing Guide</title>
+    <link>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-reset-lock-pattern/</link>
+    <description>Recent content in Android-reset-lock-patterns on Mobile Device Security and Penetration Testing Guide</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Peruzal Mobile Device Security and Penetration Testing Guide</copyright>
+    <lastBuildDate>Thu, 12 Jan 2017 05:16:31 +0200</lastBuildDate>
+    
+	<atom:link href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-reset-lock-pattern/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Resetting Android Lock Screen</title>
+      <link>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-reset-lock-pattern/</link>
+      <pubDate>Thu, 12 Jan 2017 05:16:31 +0200</pubDate>
+      
+      <guid>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-reset-lock-pattern/</guid>
+      <description>The Android lock pattern can be easily reset. Here are the steps to remove the lock screen :
+adb shell  Change to the /data/system folder
+cd /data/system  </description>
+    </item>
+    
+  </channel>
+</rss>

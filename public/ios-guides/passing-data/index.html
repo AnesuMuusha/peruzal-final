@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+  
+  
+  
+  
+   <html class="no-js"> 
+
+  <head lang="en-us">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=10" />
+    <title>Passing Data between View Controllers - Xamarin iOS Guides</title>
+    <meta name="generator" content="Hugo 0.17" />
+
+    
+    <meta name="description" content="Xamrin iOS guides for the Peruzal Cross Platform Mobile App Development course">
+    
+    <link rel="canonical" href="http://guides.peruzal.com/ios-guides/passing-data/">
+    
+    <meta name="author" content="Peruzal">
+    
+
+    <meta property="og:url" content="http://guides.peruzal.com/ios-guides/passing-data/">
+    <meta property="og:title" content="Xamarin iOS Guides">
+    <meta property="og:image" content="http://guides.peruzal.com/ios-guides/images/logo.png">
+    <meta name="apple-mobile-web-app-title" content="Xamarin iOS Guides">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="shortcut icon" type="image/x-icon" href="http://guides.peruzal.com/ios-guides/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="http://guides.peruzal.com/ios-guides/images/favicon.ico">
+
+    <style>
+      @font-face {
+        font-family: 'Icon';
+        src: url('http://guides.peruzal.com/ios-guides/fonts/icon.eot?52m981');
+        src: url('http://guides.peruzal.com/ios-guides/fonts/icon.eot?#iefix52m981')
+               format('embedded-opentype'),
+             url('http://guides.peruzal.com/ios-guides/fonts/icon.woff?52m981')
+               format('woff'),
+             url('http://guides.peruzal.com/ios-guides/fonts/icon.ttf?52m981')
+               format('truetype'),
+             url('http://guides.peruzal.com/ios-guides/fonts/icon.svg?52m981#icon')
+               format('svg');
+        font-weight: normal;
+        font-style: normal;
+      }
+    </style>
+
+    <link rel="stylesheet" href="http://guides.peruzal.com/ios-guides/stylesheets/application.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/ios-guides/stylesheets/temporary.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/ios-guides/stylesheets/palettes.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/ios-guides/stylesheets/highlight/highlight.css">
+
+    
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ubuntu:400,700|Ubuntu&#43;Mono">
+    <style>
+      body, input {
+        font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+      }
+      pre, code {
+        font-family: 'Ubuntu Mono', 'Courier New', 'Courier', monospace;
+      }
+    </style>
+
+    
+    <script src="http://guides.peruzal.com/ios-guides/javascripts/modernizr.js"></script>
+
+    
+
+  </head>
+  <body class="palette-primary-red palette-accent-teal">
+
+
+
+
+<div class="backdrop">
+	<div class="backdrop-paper"></div>
+</div>
+
+<input class="toggle" type="checkbox" id="toggle-drawer">
+<input class="toggle" type="checkbox" id="toggle-search">
+<label class="toggle-button overlay" for="toggle-drawer"></label>
+
+<header class="header">
+	<nav aria-label="Header">
+  <div class="bar default">
+    <div class="button button-menu" role="button" aria-label="Menu">
+      <label class="toggle-button icon icon-menu" for="toggle-drawer">
+        <span></span>
+      </label>
+    </div>
+    <div class="stretch">
+      <div class="title">
+        Passing Data between View Controllers
+      </div>
+    </div>
+
+    
+
+    
+    <div class="button button-github" role="button" aria-label="GitHub">
+      <a href="https://github.com/peruzal" title="@peruzal on GitHub" target="_blank" class="toggle-button icon icon-github"></a>
+    </div>
+    
+    
+        
+  </div>
+  <div class="bar search">
+    <div class="button button-close" role="button" aria-label="Close">
+      <label class="toggle-button icon icon-back" for="toggle-search"></label>
+    </div>
+    <div class="stretch">
+      <div class="field">
+        <input class="query" type="text" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck>
+      </div>
+    </div>
+    <div class="button button-reset" role="button" aria-label="Search">
+      <button class="toggle-button icon icon-close" id="reset-search"></button>
+    </div>
+  </div>
+</nav>
+</header>
+
+<main class="main">
+	<div class="drawer">
+		<nav aria-label="Navigation">
+  <a href="http://guides.peruzal.com/ios-guides/" class="project">
+    <div class="banner">
+      
+        <div class="logo">
+          <img src="http://guides.peruzal.com/ios-guides/images/logo.png">
+        </div>
+      
+      <div class="name">
+        <strong>Xamarin iOS Guides <span class="version">1.0.0</span></strong>
+        
+      </div>
+    </div>
+  </a>
+
+  <div class="scrollable">
+    <div class="wrapper">
+      
+
+      <div class="toc">
+        
+        <ul>
+          
+
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="iOS with Swift and Objective-C" href="http://guides.peruzal.com/ios-guides/">
+	
+	iOS with Swift and Objective-C
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Getting Started" href="http://guides.peruzal.com/ios-guides/getting-started/">
+	
+	Getting Started
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Setting up a Project" href="http://guides.peruzal.com/ios-guides/setup/">
+	
+	Setting up a Project
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Swift Fundamentals" href="http://guides.peruzal.com/ios-guides/swift/">
+	
+	Swift Fundamentals
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Swift Objective-C Interoperability" href="http://guides.peruzal.com/ios-guides/swift-objective-c-interoperability/">
+	
+	Swift Objective-C Interoperability
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Objective-C Fundamentals" href="http://guides.peruzal.com/ios-guides/objective-c/">
+	
+	Objective-C Fundamentals
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Common Views" href="http://guides.peruzal.com/ios-guides/common-views/">
+	
+	Common Views
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Form Input" href="http://guides.peruzal.com/ios-guides/form-input/">
+	
+	Form Input
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Model View Controller(MVC)" href="http://guides.peruzal.com/ios-guides/mvc/">
+	
+	Model View Controller(MVC)
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Auto Layout and Size Classes" href="http://guides.peruzal.com/ios-guides/auto-layout-and-size-classes/">
+	
+	Auto Layout and Size Classes
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Table View" href="http://guides.peruzal.com/ios-guides/tableview/">
+	
+	Table View
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Collection View" href="http://guides.peruzal.com/ios-guides/collection-view/">
+	
+	Collection View
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Tab Bar" href="http://guides.peruzal.com/ios-guides/tabbar-controller/">
+	
+	Tab Bar
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Scroll View" href="http://guides.peruzal.com/ios-guides/scrollview/">
+	
+	Scroll View
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Search Bar" href="http://guides.peruzal.com/ios-guides/searchbar/">
+	
+	Search Bar
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Navigation Patterns" href="http://guides.peruzal.com/ios-guides/navigation/">
+	
+	Navigation Patterns
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a class="current" title="Passing Data between View Controllers" href="http://guides.peruzal.com/ios-guides/passing-data/">
+	
+	Passing Data between View Controllers
+</a>
+
+
+<ul id="scrollspy">
+</ul>
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Navigation Controller" href="http://guides.peruzal.com/ios-guides/navigation-controller/">
+	
+	Navigation Controller
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Location" href="http://guides.peruzal.com/ios-guides/location/">
+	
+	Location
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Maps and Location" href="http://guides.peruzal.com/ios-guides/maps-and-location/">
+	
+	Maps and Location
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="iOS Frameworks and Device Sensors" href="http://guides.peruzal.com/ios-guides/ios-frameworks-and-device-sensors/">
+	
+	iOS Frameworks and Device Sensors
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Networking and Threading" href="http://guides.peruzal.com/ios-guides/networking-and-threading/">
+	
+	Networking and Threading
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Animations and Gestures" href="http://guides.peruzal.com/ios-guides/animations-and-gestures/">
+	
+	Animations and Gestures
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Persistence" href="http://guides.peruzal.com/ios-guides/persistence/">
+	
+	Persistence
+</a>
+
+
+
+  
+</li>
+
+
+        </ul>
+        
+
+        
+        <hr>
+        <span class="section">The author</span>
+        
+        <ul>
+          
+
+          
+          <li>
+            <a href="https://github.com/peruzal" target="_blank" title="@peruzal on GitHub">
+              @peruzal on GitHub
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="mailto:info@peruzal.com" title="Email of info@peruzal.com">
+              Contact via email
+            </a>
+          </li>
+          
+        </ul>
+        
+      </div>
+    </div>
+  </div>
+</nav>
+
+	</div>
+
+	<article class="article">
+		<div class="wrapper">
+			<h1>Passing Data between View Controllers </h1>
+
+			
+
+<h2 id="overview">Overview</h2>
+
+<p>While your application runs, as <a href="https://developer.apple.com/library/ios/documentation/General/Conceptual/Devpedia-CocoaApp/MainEventLoop.html">events are triggered and
+processed</a>, you&rsquo;ll need a way for objects in your
+application to propagate these events and to get the data they need from
+each other in order to respond properly.</p>
+
+<p>In iOS, there are quite a few standard ways to pass data and propagate
+events between objects:</p>
+
+<ul>
+<li>Delegate pattern</li>
+<li>Passing blocks (closures) around</li>
+<li>Target-Action pattern</li>
+<li>Publish/Subscribe message bus with <code>NSNotificationCenter</code></li>
+</ul>
+
+<p>This guide gives an high-level overview of each of these mechanisms with
+a focus on passing data and propagating events between two different
+view controllers and between view controllers and views.  Generally when
+working with view controllers and views, the following steps are typical</p>
+
+<ol>
+<li>A view controller <code>VC1</code> configures a view or another view controller
+<code>V2</code>.  This can be done by calling an initializer or by
+obtaining a reference to and setting properties on <code>V2</code>.</li>
+<li>The second view or view controller <code>V2</code> is loaded and shown on the
+screen.  Additionally <code>V2</code> may request more information from <code>VC1</code>
+while it&rsquo;s on the screen.</li>
+<li>The user triggers an event in <code>V2</code> that needs to be handled in <code>VC1</code>.
+This means that <code>V2</code> will need to propagate the event and possibly
+send some information about it&rsquo;s current state to <code>VC1</code>.</li>
+</ol>
+
+<h2 id="basic-example">Basic example</h2>
+
+<p>To demonstrate this basic use case, we&rsquo;ll use a standard example
+throughout. We&rsquo;ll build a demo app that lets the user change the
+background color of the main view controller by opening up a secondary
+color picker view controller.</p>
+
+<p><a href="http://imgur.com/XgIWavY"><img src="http://i.imgur.com/XgIWavY.gif" title="source: imgur.com" /></a></p>
+
+<h2 id="delegate-pattern">Delegate Pattern</h2>
+
+<p>The <a href="https://developer.apple.com/library/ios/documentation/General/Conceptual/DevPedia-CocoaCore/Delegation.html">delegate pattern</a> is a common pattern in iOS. It can be used to communicate events between multiple
+view controllers, between view controllers and views, etc. If you&rsquo;ve implemented a TableView, then you&rsquo;ve used the delegate pattern when you implemented <a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UITableViewDataSource_Protocol">UITableViewDataSource</a> and <a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UITableViewDelegate_Protocol">UITableViewDelegate</a>.</p>
+
+<p>It can be really useful to create your own delegate. To do so, requires the following 4 steps:</p>
+
+<ol>
+<li><p>Create a <a href="http://guides.codepath.com/ios/Understanding-Swift#protocols">protocol</a> that has methods for each event:</p>
+
+<pre><code class="language-swift">protocol ColorPickerDelegate: class {
+    func colorPicker(picker: ColorPickerViewController, didPickColor color: UIColor?)
+}
+</code></pre></li>
+
+<li><p>In the source class, create a property to hold a reference to the listener.</p>
+
+<pre><code class="language-swift">class ColorPickerViewController: UIViewController {
+    weak var delegate: ColorPickerDelegate?
+
+    // ... Rest of class ...
+}
+</code></pre></li>
+
+<li><p>In the source class, call the appropriate delegate method when an event occurs.</p>
+
+<pre><code class="language-swift">class ColorPickerViewController: UIViewController {
+
+    weak var delegate: ColorPickerDelegate?
+
+    @IBOutlet weak var colorsSegmentedControl: UISegmentedControl!
+
+    let colors = [(&quot;Cyan&quot;, UIColor.cyanColor()),  (&quot;Magenta&quot;, UIColor.magentaColor()), (&quot;Yellow&quot;, UIColor.yellowColor())]
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // initialize segmented control and select the starting color if it is one of our segments
+        colorsSegmentedControl.removeAllSegments()
+        var selectedIndex = UISegmentedControlNoSegment
+
+        for (index, color) in colors.enumerate() {
+            if color.1.isEqual(initialColor) {
+                selectedIndex = index
+            }
+            colorsSegmentedControl.insertSegmentWithTitle(color.0, atIndex: index, animated: false)
+        }
+        colorsSegmentedControl.selectedSegmentIndex = selectedIndex
+    }
+
+    func colorFromSelection() -&gt; UIColor? {
+        let selectedIndex = colorsSegmentedControl.selectedSegmentIndex
+        if selectedIndex != UISegmentedControlNoSegment {
+            return colors[selectedIndex].1
+        }
+        return nil
+    }
+
+    @IBAction func doneButtonTapped(sender: AnyObject) {
+        delegate?.colorPicker(self, didPickColor: colorFromSelection())
+    }
+}
+</code></pre></li>
+
+<li><p>In the listening class, implement the protocol.</p>
+
+<pre><code class="language-swift">class ViewController: UIViewController, ColorPickerDelegate {
+    @IBAction func openColorPickerTapped(sender: AnyObject) {
+        let storyboard = UIStoryboard(name: &quot;Main&quot;, bundle: NSBundle.mainBundle())
+        let colorPickerVC = storyboard.instantiateViewControllerWithIdentifier(&quot;ColorPicker&quot;) as ColorPickerViewController
+        colorPickerVC.delegate = self
+        presentViewController(colorPickerVC, animated: true, completion: nil)
+    }
+
+    func colorPicker(picker: ColorPickerViewController, didPickColor color: UIColor?) {
+        if let selectedColor = color {
+            view.backgroundColor = selectedColor
+        }
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+}
+</code></pre></li>
+</ol>
+
+<h2 id="passing-blocks">Passing blocks</h2>
+
+<p><a href="https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Closures.html">Closures in Swift</a> and <a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/WorkingwithBlocks/WorkingwithBlocks.html">blocks in
+Objective-C</a> are first class concepts.  This means
+that you can pass closures as parameters and assign them to variables to
+be exectuted later.  These concepts allow you to implement a basic
+callback mechanism that can be used to propagate and pass on the
+responsibility of handling an event.</p>
+
+<p>Passing blocks is common in iOS frameworks and libraries where a single
+callback (as opposed to a protocol containing many methods used with
+delegates) is required.  It also provides the advantage of being able to
+define the closure inline so that it <a href="http://en.wikipedia.org/wiki/Closure_%28computer_programming%29">closes over</a> the
+current environment and hence you will have access to any variables that
+are currently in scope.</p>
+
+<p>An example of an iOS library that uses blocks is
+<a href="Network-Programming#nsurlconnection"><code>NSURLConnection</code></a>.  It allows you
+to specify a block that will be executed asynchronously when a network
+request returns.  Another example is the
+<a href="https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSNotificationCenter_Class/#//apple_ref/occ/instm/NSNotificationCenter/addObserverForName:object:queue:usingBlock:"><code>NSNotificationCenter.addObserverForName:object:queue:usingBlock:</code></a>
+method called <a href="#broadcasting-messages-with-nsnotificationcenter">below</a>.</p>
+
+<p>One downside to using blocks is that it may be difficult to get
+the type definitions correct for complicated closures having optionals,
+collection types, or other closures as parameters or return values.</p>
+
+<p>We can see block callbacks in action continuing with our <a href="#basic-example">running
+example</a>.  We still have our <code>ViewController</code>
+instantiate and configure the <code>ColorPickerViewController</code>.  The
+<code>ColorPickerViewController</code> now has a <code>doneHandler</code> which we set to be a
+block that calls our method <code>didPickColor</code>.  We present the
+<code>ColorPickerViewController</code> to the user after finishing our
+configuration.</p>
+
+<p>As before, the method <code>didPickColor</code> updates our background color and
+dismisses the <code>ColorPickerViewController</code>.</p>
+
+<pre><code class="language-swift">class ViewController: UIViewController {
+    @IBAction func openColorPickerTapped(sender: AnyObject) {
+        let storyboard = UIStoryboard(name: &quot;Main&quot;, bundle: NSBundle.mainBundle())
+        let colorPickerVC = storyboard.instantiateViewControllerWithIdentifier(&quot;ColorPicker&quot;) as ColorPickerViewController
+        colorPickerVC.doneHandler = {(color: UIColor?) -&gt; Void in
+            self.didPickColor(color)
+        }
+
+        presentViewController(colorPickerVC, animated: true, completion: nil)
+    }
+
+    func didPickColor(color: UIColor?) {
+        if let selectedColor = color {
+            view.backgroundColor = selectedColor
+        }
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+}
+</code></pre>
+
+<p>In <code>ColorPickerViewController</code> we propagate the action of the user
+clicking on the &ldquo;Done&rdquo; button to <code>ViewController</code> by executing the
+<code>doneHandler</code> that was set.</p>
+
+<pre><code class="language-swift">class ColorPickerViewController: UIViewController {
+    @IBOutlet weak var colorsSegmentedControl: UISegmentedControl!
+
+    let colors = [(&quot;Cyan&quot;, UIColor.cyanColor()),  (&quot;Magenta&quot;, UIColor.magentaColor()), (&quot;Yellow&quot;, UIColor.yellowColor())]
+    var doneHandler: ((UIColor?) -&gt; Void)?
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // initalize segmented control and select the starting color if it is one of our segments
+        colorsSegmentedControl.removeAllSegments()
+        var selectedIndex = UISegmentedControlNoSegment
+
+        for (index, color) in enumerate(colors) {
+            if color.1.isEqual(initialColor) {
+                selectedIndex = index
+            }
+            colorsSegmentedControl.insertSegmentWithTitle(color.0, atIndex: index, animated: false)
+        }
+        colorsSegmentedControl.selectedSegmentIndex = selectedIndex
+    }
+
+    func colorFromSelection() -&gt; UIColor? {
+        let selectedIndex = colorsSegmentedControl.selectedSegmentIndex
+        if selectedIndex != UISegmentedControlNoSegment {
+            return colors[selectedIndex].1
+        }
+        return nil
+    }
+
+    @IBAction func doneButtonTapped(sender: AnyObject) {
+        doneHandler?(colorFromSelection())
+    }
+}
+</code></pre>
+
+<h2 id="the-target-action-pattern">The target-action pattern</h2>
+
+<p>An another construct used to propagate events in iOS is the
+<a href="https://developer.apple.com/library/ios/documentation/General/Conceptual/Devpedia-CocoaApp/TargetAction.html">target-action</a> pattern.  This is an older Objective-C
+pattern that allows a class to register a method (<em>action</em> or
+<em>selector</em>) to be executed on some object (<em>target</em>) at some point
+later.  This pattern is used throughout many iOS libraries for example
+the following code tells the <code>button</code> to call <code>self.onButtonTap()</code> when
+it is tapped.</p>
+
+<p>This pattern is pretty much the same as creating an <code>@IBAction</code>
+from the interface builder in XCode; however, this is done in code.
+It&rsquo;s used when you have to dynamically create view objects in code
+and add actions to it based on control events.</p>
+
+<p>In the following example, you&rsquo;re creating a button dynamically in
+code.</p>
+
+<pre><code class="language-swift">class CodePathViewController: UIViewController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        let button = UIButton()
+        button.addTarget(self, action: &quot;onButtonTap&quot;, forControlEvents: .TouchUpInside)
+        button.frame = CGRectMake(0, 0, 300, 500)
+
+        //Add button to the view
+        self.view.addSubview(letterButton)
+    }
+
+    func onButtonTap() {
+        print(&quot;Button Tapped!&quot;)
+    }
+}
+</code></pre>
+
+<p>Let&rsquo;s take a look at the parameters of <code>addTarget</code> method:
+* target - (<strong>Who to tell</strong>) The target parameter is the object that is going to respond to the control event.
+           In this case, the event is <code>.TouchUpInside</code> (Tap). Usually, the target is the
+           object of the ViewController class in which the button was created.
+           In the example, we reference the object of the ViewController class with the
+           keyword <code>self</code>.</p>
+
+<ul>
+<li><p>action - (<strong>What to tell them</strong>) The action parameter is simply the name of the method that needs to be invoked in
+       the target object.</p></li>
+
+<li><p>forControlEvents - (<strong>When to tell them</strong>) This is where you pass the type of event for your button.
+                 Here&rsquo;s a list of <a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIControl_Class/index.html#//apple_ref/doc/constant_group/Control_Events">events</a> you can use for UIButton.</p></li>
+</ul>
+
+<p>To simplify, in the above example, we let the button know that it has to call the instance
+method <code>onButtonTap</code> of the class <code>CodePathViewController</code> when it is tapped.</p>
+
+<p>One downside is that its is not easy to use the target-action pattern to invoke methods
+that require two or more parameters.</p>
+
+<p><em>TODO: rewrite example in Objective-C to use target-action pattern</em></p>
+
+<h2 id="broadcasting-messages-with-nsnotificationcenter">Broadcasting messages with <code>NSNotificationCenter</code></h2>
+
+<p>Finally, iOS provides a mechanism for implementing a basic
+subcribe/publish message queue via <a href="https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/Notifications/Articles/NotificationCenters.html">notification
+centers</a>.  The basic usage is</p>
+
+<ol>
+<li>Define an identifer to name this particular type of notification</li>
+<li>Subscribe to this kind of notification by adding an observer to a
+notification center for notifications with the given name.  You can
+instatiate new notification centers, but it is common to use
+<code>NSNotificationCenter.defaultCenter</code>.</li>
+<li>Publish notifications to the notification center.  You might include
+additional data in a <code>userInfo</code> dictionary.</li>
+</ol>
+
+<p>The <code>NSNotificationCenter</code> API is normally used to handle app-wide
+events that may be relevant to multiple interested&mdash;possibly
+unrelated&mdash;view controllers (e.g. the logged in state of a user).
+It is not normally used to pass information between two specific view
+controllers.  Nevertheless, we can adapt it our <a href="#basic-example">running
+example</a> as follows.</p>
+
+<p>We define <code>ColorPickerNotification</code> as an identifier that will be used
+as the name for notifications from our <code>ColorPickerViewController</code>.</p>
+
+<p>In <code>ViewController</code>, before presenting the <code>ColorPickerViewController</code>,
+we register an observer for notifications with this name.  In the block
+that is triggered when the notification fires, we extract the selected
+color from the <code>userInfo</code> dictionary and call <code>didPickColor</code>.  The
+<code>didPickColor</code> method sets the background color and dismisses the
+<code>ColorPickerViewController</code>.</p>
+
+<pre><code class="language-swift">class ViewController: UIViewController {
+
+    @IBAction func openColorPickerTapped(sender: AnyObject) {
+        let storyboard = UIStoryboard(name: &quot;Main&quot;, bundle: NSBundle.mainBundle())
+        let colorPickerVC = storyboard.instantiateViewControllerWithIdentifier(&quot;ColorPicker&quot;) as ColorPickerViewController
+        colorPickerVC.initialColor = view.backgroundColor
+
+        NSNotificationCenter.defaultCenter().addObserverForName(ColorPickerNotification, object: nil, queue: NSOperationQueue.mainQueue()) { (notification: NSNotification!) -&gt; Void in
+            let userInfo = notification?.userInfo
+            let selectedColor: UIColor? = userInfo?[ColorPickerSelectedColorKey] as? UIColor
+            self.didPickColor(selectedColor)
+
+        }
+
+        presentViewController(colorPickerVC, animated: true, completion: nil)
+    }
+
+    func didPickColor(color: UIColor?) {
+        if let selectedColor = color {
+            view.backgroundColor = selectedColor
+        }
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+}
+</code></pre>
+
+<p>In <code>ColorPickerViewController</code>, when the &ldquo;Done&rdquo; button is tapped we
+construct a <code>userInfo</code> dictionary containing the currently selected
+color.  Then we fire a notification with the key
+<code>ColorPickerNotification</code> let all subscribers know that the a color has
+been picked by the user.</p>
+
+<pre><code class="language-swift">let ColorPickerNotification = &quot;com.codepath.ColorPickerViewController.didPickColor&quot;
+let ColorPickerSelectedColorKey = &quot;com.codepath.ColorPickerViewController.selectedColor&quot;
+
+class ColorPickerViewController: UIViewController {
+    @IBOutlet weak var colorsSegmentedControl: UISegmentedControl!
+
+    let colors = [(&quot;Cyan&quot;, UIColor.cyanColor()),  (&quot;Magenta&quot;, UIColor.magentaColor()), (&quot;Yellow&quot;, UIColor.yellowColor())]
+    var initialColor: UIColor?
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // initalize segmented control and select the starting color if it is one of our segments
+        colorsSegmentedControl.removeAllSegments()
+        var selectedIndex = UISegmentedControlNoSegment
+
+        for (index, color) in enumerate(colors) {
+            if color.1.isEqual(initialColor) {
+                selectedIndex = index
+            }
+            colorsSegmentedControl.insertSegmentWithTitle(color.0, atIndex: index, animated: false)
+        }
+        colorsSegmentedControl.selectedSegmentIndex = selectedIndex
+    }
+
+    func colorFromSelection() -&gt; UIColor? {
+        let selectedIndex = colorsSegmentedControl.selectedSegmentIndex
+        if selectedIndex != UISegmentedControlNoSegment {
+            return colors[selectedIndex].1
+        }
+        return nil
+    }
+
+    @IBAction func doneButtonTapped(sender: AnyObject) {
+        var selectionInfo: [NSObject : AnyObject] = [:]
+        if let selectedColor = colorFromSelection() {
+            selectionInfo[ColorPickerSelectedColorKey] = selectedColor
+        }
+        NSNotificationCenter.defaultCenter().postNotificationName(ColorPickerNotification, object: self, userInfo: selectionInfo)
+    }
+}
+</code></pre>
+
+
+			<aside class="copyright" role="note">
+				
+				&copy; 2016 Peruzal &ndash;
+				
+				Xamarin iOS Guides by 
+				<a href="https://www.peruzal.com" target="_blank">Peruzal</a>
+			</aside>
+
+			<footer class="footer">
+				
+
+<nav class="pagination" aria-label="Footer">
+  <div class="previous">
+  
+      <a href="http://guides.peruzal.com/ios-guides/form-input/" title="Handling Form Input">
+        <span class="direction">
+          Previous
+        </span>
+        <div class="page">
+          <div class="button button-previous" role="button" aria-label="Previous">
+            <i class="icon icon-back"></i>
+          </div>
+          <div class="stretch">
+            <div class="title">
+              Handling Form Input
+            </div>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+
+  <div class="next">
+  
+      <a href="http://guides.peruzal.com/ios-guides/navigation-controller/" title="Navigation Controller">
+        <span class="direction">
+          Next
+        </span>
+        <div class="page">
+          <div class="stretch">
+            <div class="title">
+              Navigation Controller
+            </div>
+          </div>
+          <div class="button button-next" role="button" aria-label="Next">
+            <i class="icon icon-forward"></i>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+</nav>
+
+
+
+
+
+			</footer>
+		</div>
+	</article>
+
+	<div class="results" role="status" aria-live="polite">
+		<div class="scrollable">
+			<div class="wrapper">
+				<div class="meta"></div>
+				<div class="list"></div>
+			</div>
+		</div>
+	</div>
+</main>
+
+    <script>
+    
+      var base_url = '';
+      var repo_id  = '';
+    
+    </script>
+
+    <script src="http://guides.peruzal.com/ios-guides/javascripts/application.js"></script>
+    
+
+    <script>
+      /* Add headers to scrollspy */
+      var headers   = document.getElementsByTagName("h2");
+      var scrollspy = document.getElementById('scrollspy');
+
+      if(scrollspy) {
+        if(headers.length > 0) {
+          for(var i = 0; i < headers.length; i++) {
+            var li = document.createElement("li");
+            li.setAttribute("class", "anchor");
+
+            var a  = document.createElement("a");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", headers[i].innerHTML);
+            a.innerHTML = headers[i].innerHTML;
+            
+            li.appendChild(a)
+            scrollspy.appendChild(li);
+          }
+        } else {
+          scrollspy.parentElement.removeChild(scrollspy)
+        }
+        
+
+        /* Add permanent link next to the headers */
+        var headers = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+
+        for(var i = 0; i < headers.length; i++) {
+            var a = document.createElement("a");
+            a.setAttribute("class", "headerlink");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", "Permanent link")
+            a.innerHTML = "#";
+            headers[i].appendChild(a);
+        }
+      }
+    </script>
+
+    
+
+    <script src="//gohugo.io/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/cs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/json.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/swift.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/xml.min.js"></script>    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/objectivec.min.js"></script>
+  </body>
+</html>

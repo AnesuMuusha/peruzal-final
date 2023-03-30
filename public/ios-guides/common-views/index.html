@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+  
+  
+  
+  
+   <html class="no-js"> 
+
+  <head lang="en-us">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=10" />
+    <title>Common Views - Xamarin iOS Guides</title>
+    <meta name="generator" content="Hugo 0.17" />
+
+    
+    <meta name="description" content="Xamrin iOS guides for the Peruzal Cross Platform Mobile App Development course">
+    
+    <link rel="canonical" href="http://guides.peruzal.com/ios-guides/common-views/">
+    
+    <meta name="author" content="Peruzal">
+    
+
+    <meta property="og:url" content="http://guides.peruzal.com/ios-guides/common-views/">
+    <meta property="og:title" content="Xamarin iOS Guides">
+    <meta property="og:image" content="http://guides.peruzal.com/ios-guides/images/logo.png">
+    <meta name="apple-mobile-web-app-title" content="Xamarin iOS Guides">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="shortcut icon" type="image/x-icon" href="http://guides.peruzal.com/ios-guides/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="http://guides.peruzal.com/ios-guides/images/favicon.ico">
+
+    <style>
+      @font-face {
+        font-family: 'Icon';
+        src: url('http://guides.peruzal.com/ios-guides/fonts/icon.eot?52m981');
+        src: url('http://guides.peruzal.com/ios-guides/fonts/icon.eot?#iefix52m981')
+               format('embedded-opentype'),
+             url('http://guides.peruzal.com/ios-guides/fonts/icon.woff?52m981')
+               format('woff'),
+             url('http://guides.peruzal.com/ios-guides/fonts/icon.ttf?52m981')
+               format('truetype'),
+             url('http://guides.peruzal.com/ios-guides/fonts/icon.svg?52m981#icon')
+               format('svg');
+        font-weight: normal;
+        font-style: normal;
+      }
+    </style>
+
+    <link rel="stylesheet" href="http://guides.peruzal.com/ios-guides/stylesheets/application.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/ios-guides/stylesheets/temporary.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/ios-guides/stylesheets/palettes.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/ios-guides/stylesheets/highlight/highlight.css">
+
+    
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ubuntu:400,700|Ubuntu&#43;Mono">
+    <style>
+      body, input {
+        font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+      }
+      pre, code {
+        font-family: 'Ubuntu Mono', 'Courier New', 'Courier', monospace;
+      }
+    </style>
+
+    
+    <script src="http://guides.peruzal.com/ios-guides/javascripts/modernizr.js"></script>
+
+    
+
+  </head>
+  <body class="palette-primary-red palette-accent-teal">
+
+
+
+
+<div class="backdrop">
+	<div class="backdrop-paper"></div>
+</div>
+
+<input class="toggle" type="checkbox" id="toggle-drawer">
+<input class="toggle" type="checkbox" id="toggle-search">
+<label class="toggle-button overlay" for="toggle-drawer"></label>
+
+<header class="header">
+	<nav aria-label="Header">
+  <div class="bar default">
+    <div class="button button-menu" role="button" aria-label="Menu">
+      <label class="toggle-button icon icon-menu" for="toggle-drawer">
+        <span></span>
+      </label>
+    </div>
+    <div class="stretch">
+      <div class="title">
+        Common Views
+      </div>
+    </div>
+
+    
+
+    
+    <div class="button button-github" role="button" aria-label="GitHub">
+      <a href="https://github.com/peruzal" title="@peruzal on GitHub" target="_blank" class="toggle-button icon icon-github"></a>
+    </div>
+    
+    
+        
+  </div>
+  <div class="bar search">
+    <div class="button button-close" role="button" aria-label="Close">
+      <label class="toggle-button icon icon-back" for="toggle-search"></label>
+    </div>
+    <div class="stretch">
+      <div class="field">
+        <input class="query" type="text" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck>
+      </div>
+    </div>
+    <div class="button button-reset" role="button" aria-label="Search">
+      <button class="toggle-button icon icon-close" id="reset-search"></button>
+    </div>
+  </div>
+</nav>
+</header>
+
+<main class="main">
+	<div class="drawer">
+		<nav aria-label="Navigation">
+  <a href="http://guides.peruzal.com/ios-guides/" class="project">
+    <div class="banner">
+      
+        <div class="logo">
+          <img src="http://guides.peruzal.com/ios-guides/images/logo.png">
+        </div>
+      
+      <div class="name">
+        <strong>Xamarin iOS Guides <span class="version">1.0.0</span></strong>
+        
+      </div>
+    </div>
+  </a>
+
+  <div class="scrollable">
+    <div class="wrapper">
+      
+
+      <div class="toc">
+        
+        <ul>
+          
+
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="iOS with Swift and Objective-C" href="http://guides.peruzal.com/ios-guides/">
+	
+	iOS with Swift and Objective-C
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Getting Started" href="http://guides.peruzal.com/ios-guides/getting-started/">
+	
+	Getting Started
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Setting up a Project" href="http://guides.peruzal.com/ios-guides/setup/">
+	
+	Setting up a Project
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Swift Fundamentals" href="http://guides.peruzal.com/ios-guides/swift/">
+	
+	Swift Fundamentals
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Swift Objective-C Interoperability" href="http://guides.peruzal.com/ios-guides/swift-objective-c-interoperability/">
+	
+	Swift Objective-C Interoperability
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Objective-C Fundamentals" href="http://guides.peruzal.com/ios-guides/objective-c/">
+	
+	Objective-C Fundamentals
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a class="current" title="Common Views" href="http://guides.peruzal.com/ios-guides/common-views/">
+	
+	Common Views
+</a>
+
+
+<ul id="scrollspy">
+</ul>
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Form Input" href="http://guides.peruzal.com/ios-guides/form-input/">
+	
+	Form Input
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Model View Controller(MVC)" href="http://guides.peruzal.com/ios-guides/mvc/">
+	
+	Model View Controller(MVC)
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Auto Layout and Size Classes" href="http://guides.peruzal.com/ios-guides/auto-layout-and-size-classes/">
+	
+	Auto Layout and Size Classes
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Table View" href="http://guides.peruzal.com/ios-guides/tableview/">
+	
+	Table View
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Collection View" href="http://guides.peruzal.com/ios-guides/collection-view/">
+	
+	Collection View
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Tab Bar" href="http://guides.peruzal.com/ios-guides/tabbar-controller/">
+	
+	Tab Bar
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Scroll View" href="http://guides.peruzal.com/ios-guides/scrollview/">
+	
+	Scroll View
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Search Bar" href="http://guides.peruzal.com/ios-guides/searchbar/">
+	
+	Search Bar
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Navigation Patterns" href="http://guides.peruzal.com/ios-guides/navigation/">
+	
+	Navigation Patterns
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Passing Data between View Controllers" href="http://guides.peruzal.com/ios-guides/passing-data/">
+	
+	Passing Data between View Controllers
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Navigation Controller" href="http://guides.peruzal.com/ios-guides/navigation-controller/">
+	
+	Navigation Controller
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Location" href="http://guides.peruzal.com/ios-guides/location/">
+	
+	Location
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Maps and Location" href="http://guides.peruzal.com/ios-guides/maps-and-location/">
+	
+	Maps and Location
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="iOS Frameworks and Device Sensors" href="http://guides.peruzal.com/ios-guides/ios-frameworks-and-device-sensors/">
+	
+	iOS Frameworks and Device Sensors
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Networking and Threading" href="http://guides.peruzal.com/ios-guides/networking-and-threading/">
+	
+	Networking and Threading
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Animations and Gestures" href="http://guides.peruzal.com/ios-guides/animations-and-gestures/">
+	
+	Animations and Gestures
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Persistence" href="http://guides.peruzal.com/ios-guides/persistence/">
+	
+	Persistence
+</a>
+
+
+
+  
+</li>
+
+
+        </ul>
+        
+
+        
+        <hr>
+        <span class="section">The author</span>
+        
+        <ul>
+          
+
+          
+          <li>
+            <a href="https://github.com/peruzal" target="_blank" title="@peruzal on GitHub">
+              @peruzal on GitHub
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="mailto:info@peruzal.com" title="Email of info@peruzal.com">
+              Contact via email
+            </a>
+          </li>
+          
+        </ul>
+        
+      </div>
+    </div>
+  </div>
+</nav>
+
+	</div>
+
+	<article class="article">
+		<div class="wrapper">
+			<h1>Common Views </h1>
+
+			
+
+<p>Views are the building blocks for constructing a user interface in iOS.
+The views are used to present content and also to support navigation. Each view represents a particular portion of your user interface and is generally optimized for a specific type of content.
+Views are subclasses of the <strong>UIView</strong> class and their properties can be changed in the storyboard properties window. <img src="http://guides.peruzal.com/ios-guides/images/view-properties.png" alt="View Porperties" /></p>
+
+<h2 id="label">Label</h2>
+
+<p>A label displays static text. Labels are often used in conjunction with controls to describe their intended purpose, such as explaining which value a button or slider affects</p>
+
+<p><strong>Purpose</strong></p>
+
+<p>Labels allow the user to:</p>
+
+<ul>
+<li>Understand the purpose of controls in an app</li>
+<li>Receive instructions or context in an app</li>
+</ul>
+
+<p><strong>Configuring the Label properties</strong></p>
+
+<p>The label properties can be changed in storyboard properties window.
+<img src="http://guides.peruzal.com/ios-guides/images/label-properties.png" alt="Label Properties" /></p>
+
+<h2 id="textfield">TextField</h2>
+
+<p>Text fields allows the user to input a single line of text into an app. You typically use text fields to gather small amounts of text from the user and perform some immediate action, such as a search operation, based on that text.
+The text field is a subclass of the <strong>UITextField</strong> class.</p>
+
+<p><img src="http://guides.peruzal.com/ios-guides/images/textfield.png" alt="TextField" /></p>
+
+<h3 id="configuration">Configuration</h3>
+
+<p>You can configure the properties of the textfield in interface builder. Some properties of the texfield can not be changed with the properties
+window, they can only be changed in code.</p>
+
+<p><img src="http://guides.peruzal.com/ios-guides/images/textfield-properties.png" alt="Configure Textfield" /></p>
+
+<h3 id="textfiled-delegate">Textfiled Delegate</h3>
+
+<p>The texfield requires a delegate to handle most of its functions. You will usually set this to be the view controller. The view controller
+needs to implement the <strong>UITextfieldDelegate</strong> methods. Xamarin uses events instead of using the iOS <strong>delegation pattern</strong>.</p>
+
+<pre><code class="language-cs">class TextFieldDelegate : UITextFieldDelegate {
+    public virtual void EditingEnded(UITextField textField) { }
+    public virtual void EditingStarted(UITextField textField) { }
+    public virtual bool ShouldBeginEditing(UITextField textField){ }
+    public virtual bool ShouldChangeCharacters(UITextField textField, NSRange range, string replacementString) {}
+    public virtual bool ShouldClear(UITextField textField) { }
+    public virtual bool ShouldEndEditing(UITextField textField) { }
+    public virtual bool ShouldReturn(UITextField textField) { }
+}
+</code></pre>
+
+<h2 id="button">Button</h2>
+
+<p>Buttons let a user initiate behavior with a tap. You communicate a button’s function through a textual label or with an image.
+The button is a class of type <strong>UIButton</strong>.</p>
+
+<p><img src="http://guides.peruzal.com/ios-guides/images/buttons.png" alt="Buttons" /></p>
+
+<h3 id="button-configuration">Button Configuration</h3>
+
+<p>The properties of the button can be changed in the properties window in the storyboard.</p>
+
+<p><img src="http://guides.peruzal.com/ios-guides/images/button-properties.png" alt="Button Properties" /></p>
+
+<h2 id="button-events">Button events</h2>
+
+<p>The default button event is <strong>TouchUpInside</strong>. The event can be added from the <strong>Events</strong> tab in the storyboard or directly in code.</p>
+
+<p><img src="http://guides.peruzal.com/ios-guides/images/button-click-event.png" alt="Button Click Event" /></p>
+
+<p>Once you add the click event in the storyboard, Xamarin Studio automatically jumps to code and lets you choose where to create the event handler method.</p>
+
+<p><img src="http://guides.peruzal.com/ios-guides/images/button-event.png" alt="Button Event Method" /></p>
+
+<h2 id="slider">Slider</h2>
+
+<p>Sliders enable users to interactively modify some adjustable value in an app, such as speaker volume or screen brightness. For example, in GarageBand, sliders allow users to mix different settings for various effects. Users control a slider by moving its current value indicator along a continuous range of values between a specified minimum and maximum.</p>
+
+<p><img src="http://guides.peruzal.com/ios-guides/images/slider.png" alt="Slider" /></p>
+
+<h3 id="slider-properties">Slider Properties</h3>
+
+<p>Sliders are simple controls and do not have a lot of properties to configure.</p>
+
+<p><img src="http://guides.peruzal.com/ios-guides/images/slider-properties.png" alt="Slider Properties" /></p>
+
+<h3 id="slider-events">Slider Events</h3>
+
+<p>The default event for the slider is <strong>ValueChanged</strong>.</p>
+
+<pre><code class="language-cs">partial void OnChangeVolume(UISlider slider)
+{
+    Console.WriteLine(slider.Value);
+}
+</code></pre>
+
+<p><img src="http://guides.peruzal.com/ios-guides/images/slider-events.png" alt="Slider Event" /></p>
+
+<h2 id="imageview">ImageView</h2>
+
+<p>An image view displays an image or an animated sequence of images. An image view lets you efficiently draw an image (such as a JPEG or PNG file) or an animated series of images onscreen, scaling the images automatically to fit within the current size of the view. Image views can optionally display a different image or series of images whenever the view is highlighted.</p>
+
+<h3 id="imageview-properties">ImageView Properties</h3>
+
+<p>The image view only have the <strong>image</strong> property to choose the image to display and optional a different image when the image is highlighted.</p>
+
+<p><img src="http://guides.peruzal.com/ios-guides/images/imageview-properties.png" alt="Image Properties" /></p>
+
+<p>The imageview by default does not receive user input, you will need to enable <strong>User Interaction Enabled</strong> for the imageview to receive input.</p>
+
+<h3 id="loading-images-from-asset-catalog">Loading Images from Asset Catalog</h3>
+
+<p>You can choose an image from the <strong>Asset Catalog</strong> and set the <strong>image</strong> property. You can also load an image in code from the Assets Catalog
+or from the <strong>Resources</strong> folder or from a file.</p>
+
+<pre><code class="language-cs">public override void ViewDidLoad()
+{
+    base.ViewDidLoad();
+    profileImageView.Image = UIImage.FromBundle(&quot;placeholder&quot;);
+}
+</code></pre>
+
+<h3 id="loading-from-the-network">Loading from the Network</h3>
+
+<p>You can also load images from the network. The easiest is to use a library like <strong>SDWebImage</strong>.</p>
+
+<pre><code class="language-cs">profileImageView.SetImage (
+    url: new NSUrl (&quot;http://db.tt/ayAqtbFy&quot;), 
+    placeholder: UIImage.FromBundle (&quot;placeholder.png&quot;)
+);
+</code></pre>
+
+<h2 id="actionsheet">ActionSheet</h2>
+
+<p>Action sheets display a set of buttons representing several alternative choices to complete a task initiated by the user. For example, when the user taps the Share button in an app’s toolbar,
+ an action sheet appears offering a list of choices, such as Email, Print, and so on.</p>
+
+<p>Actionsheet van only be created with code, you can not create them within the storyboard.</p>
+
+<pre><code class="language-cs">var actionSheet = UIAlertController.Create(&quot;Choose Event&quot;, null, UIAlertControllerStyle.ActionSheet);
+var gameViewAction = UIAlertAction.Create(&quot;Game Viewing&quot;, UIAlertActionStyle.Default, null);
+var paintBallAction = UIAlertAction.Create(&quot;Paint Ball&quot;, UIAlertActionStyle.Default, null);
+var dragRacingAction = UIAlertAction.Create(&quot;Drag Racing&quot;, UIAlertActionStyle.Default, null);
+
+actionSheet.AddAction(gameViewAction);
+actionSheet.AddAction(paintBallAction);
+actionSheet.AddAction(dragRacingAction);
+
+PresentViewController(actionSheet, true, null);
+</code></pre>
+
+<h2 id="alertview">AlertView</h2>
+
+<p>Alert views display a concise and informative alert message to the user. Alert views convey important information about an app or the device, interrupting the user and requiring them to
+stop what they’re doing to choose an action or dismiss the alert. For example, iOS uses alerts to warn the user
+that battery power is running low, so they can connect a power adapter before their work is interrupted. An alert view appears on top of app content, and must be manually dismissed by the user before he can resume interaction with the app.</p>
+
+<p>You change the style of the <strong>UIAlertController</strong> to <strong>UIAlertControllerStyle.Alert</strong> in order to get an alert.</p>
+
+<p><img src="http://guides.peruzal.com/ios-guides/images/alert.png" alt="Alert" /></p>
+
+<pre><code class="language-cs">var alert = UIAlertController.Create(&quot;No connection&quot;, null, UIAlertControllerStyle.Alert);
+var okAction = UIAlertAction.Create(&quot;OK&quot;, UIAlertActionStyle.Default, null);
+alert.AddAction(okAction);
+
+PresentViewController(alert, true, null);
+</code></pre>
+
+<h2 id="segmented-button">Segmented Button</h2>
+
+<p>A segmented control is a horizontal control made of multiple segments, each segment functioning as a discrete button. The segment control is of type
+<strong>UISegmentControl</strong>.</p>
+
+<p><img src="http://guides.peruzal.com/ios-guides/images/segmentcontrol.png" alt="Segmented Control" /></p>
+
+<h3 id="segment-control-properties">Segment Control Properties</h3>
+
+<p>Segmented Control properties can be in the storyboard properties, but some properties can only be changes in code.</p>
+
+<p><img src="http://guides.peruzal.com/ios-guides/images/segmented-control-properties.png" alt="Segmented Control Properties" /></p>
+
+<h3 id="segmented-control-events">Segmented Control Events</h3>
+
+<p>The default event for the segmented control is the <strong>ValueChanged</strong> event.</p>
+
+<pre><code class="language-cs">partial void DidSelectSegment(UISegmentedControl sender)
+{
+    Console.WriteLine(sender.SelectedSegment);
+}
+</code></pre>
+
+<h2 id="switches">Switches</h2>
+
+<p>A switch lets the user turn an option on and off. You see switches used throughout the Settings app to let a user quickly toggle a specific setting.
+The switch is type <strong>UISwitch</strong>.</p>
+
+<p><img src="http://guides.peruzal.com/ios-guides/images/switch.png" alt="Switch" /></p>
+
+<h3 id="switch-configuration">Switch Configuration</h3>
+
+<p>The switch control properties can be configured in the storyboard. The switch have a <strong>state</strong> property which determines whether its checked or not.</p>
+
+<p><img src="http://guides.peruzal.com/ios-guides/images/switch-properties.png" alt="Switch Properties" /></p>
+
+<h3 id="switch-events">Switch Events</h3>
+
+<p>The default event for the switch is <strong>ValueChanged</strong>.</p>
+
+<pre><code class="language-cs">partial void SwitchValueChanged(UISwitch sender)
+{
+    Console.WriteLine(sender.Selected);
+}
+</code></pre>
+
+<h2 id="stepper">Stepper</h2>
+
+<p>A stepper lets the user adjust a value by increasing and decreasing it in small steps. Steppers are used in situations where a user needs to adjust a value by a small amount.
+The stepper control is of type <strong>UIStepper</strong>.</p>
+
+<p><img src="http://guides.peruzal.com/ios-guides/images/stepper.png" alt="Stepper" /></p>
+
+<h3 id="stepper-configuration">Stepper Configuration</h3>
+
+<p>Configuration of the properties can be done in the storyboard properties or in code.</p>
+
+<p><img src="http://guides.peruzal.com/ios-guides/images/stepper-properties.png" alt="Stepper Properties" /></p>
+
+<h3 id="stepper-events">Stepper Events</h3>
+
+<p>The default event of the stepper control is the <strong>ValueChanged</strong> event.</p>
+
+<pre><code class="language-cs">partial void StepperValueChanged(UIStepper sender)
+{
+    Console.WriteLine(sender.Value);
+}
+</code></pre>
+
+<h2 id="date-picker">Date Picker</h2>
+
+<p>A date picker is a control used for selecting a specific date, time, or both. It also provides an interface for a countdown timer, although it does not implement the functionality. Date pickers provide a straightforward interface for managing date and time selection, allowing users to specify a particular date quickly and efficiently. The date picker is of type <strong>UIDatePicker</strong>.</p>
+
+<p><img src="http://guides.peruzal.com/ios-guides/images/datepicker.png" alt="Date Picker" /></p>
+
+<h3 id="date-picker-configuration">Date Picker Configuration</h3>
+
+<p>The date picker can be configured in the properties section of the storyboard. Some properties can obly be made in code.</p>
+
+<p><img src="http://guides.peruzal.com/ios-guides/images/datepicker-properties.png" alt="Date Picker Properties" /></p>
+
+<h3 id="date-picker-events">Date Picker Events</h3>
+
+<h2 id="map-view">Map View</h2>
+
+<h2 id="scroll-view">Scroll View</h2>
+
+<h2 id="table-view">Table View</h2>
+
+<h2 id="web-view">Web View</h2>
+
+<h2 id="split-view">Split View</h2>
+
+<h2 id="collection-view">Collection View</h2>
+
+<h2 id="change-status-bar-color">Change Status Bar Color</h2>
+
+<p>Starting from iOS 9 you can use the <strong>Appearance API</strong> to change the color of the status bar.
+If the content is dark you can make the status bar white and if your content is white you can make the
+appearance of the status bar darker.</p>
+
+<ol>
+<li>Open the <strong>Info.plist</strong> file add a new new. Use the <strong>Source View</strong>. The key is <strong>UIViewControllerBasedStatusBarAppearance</strong> and set it to <strong>NO</strong>
+<img src="http://guides.peruzal.com/ios-guides/images/status-bar-appearance.png" alt="Change Status Bar Appearance" /></li>
+<li>Go back to the <strong>Info.plist</strong> file and change <strong>Status bar syle</strong> to  <strong>Light</strong> under the  <strong>Deployment Info</strong> section.
+<img src="http://guides.peruzal.com/ios-guides/images/light-status-bar.png" alt="Light Status Bar" /></li>
+</ol>
+
+<h2 id="overview">Overview</h2>
+
+<p>Typically images are displayed using the built-in <a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIImageView_Class">UIImageView</a>. UIImageView supports both displaying a single image as well as animating a series of images.</p>
+
+<h2 id="usage">Usage</h2>
+
+<p>With Interface Builder it&rsquo;s pretty easy to add and configure a UIImageView. The first step is to drag the UIImageView onto your view.</p>
+
+<p><img src="http://i.imgur.com/R3gk3Iq.gif" alt="Add UIImageView|700" /></p>
+
+<p>Then open the UIImageView properties pane and select the image asset (assuming you have some images in your project). You can also configure how the underlying image is scaled to fit inside the UIImageView.</p>
+
+<p><img src="http://i.imgur.com/GrS8WjX.gif" alt="Configure UIImageView|700" /></p>
+
+<h3 id="scale-types">Scale Types</h3>
+
+<h3 id="supporting-multiple-screen-densities">Supporting Multiple Screen Densities</h3>
+
+<h3 id="working-with-uiimages">Working with UIImages</h3>
+
+<h2 id="loading-images-from-the-network-with-afnetworking">Loading Images from the Network with AFNetworking</h2>
+
+<p>The built-in UIImageView works great when the <strong>image is locally available</strong>, but doesn&rsquo;t have great support when the image needs to be downloaded over the network. This is where AFNetworking comes in handy. The following steps walk through how to pull in and use AFNetworking for <strong>working with images over the network</strong>.</p>
+
+<h3 id="setup-afnetworking">Setup AFNetworking</h3>
+
+<p>First, we need to use [[CocoaPods]] to pull in AFNetworking (<code>pod 'AFNetworking'</code>).</p>
+
+<p>After a <code>pod install</code>, we can now <code>import AFNetworking</code> and use the additional methods that are available for UIImageView:</p>
+
+<pre><code class="language-swift">import AFNetworking
+
+class myViewController {
+    
+    // Outlet for ImageView
+    @IBOutlet weak var myImageView: UIImageView!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        let myImageUrlString = &quot;https://i.imgur.com/tGbaZCY.jpg&quot;
+
+        // AFNetworking extension to UIImageView that allows
+        // specifying a URL for the image
+        myImageView.setImageWithURL(NSURL(string: myImageUrlString)!)
+    }
+}
+</code></pre>
+
+<h3 id="improving-the-user-experience">Improving the User Experience</h3>
+
+<p>There are a couple of enhancements that can be done when working with images being pulled from the network to improve the user experience.</p>
+
+<h4 id="fading-in-an-image-loaded-from-the-network">Fading in an Image Loaded from the Network</h4>
+
+<p>It can be a little jarring for the user to have images pop into place once they are downloaded from the network. To prevent this, it&rsquo;s a good idea to fade images in as they are downloaded.</p>
+
+<pre><code class="language-swift">let imageUrl = &quot;https://i.imgur.com/tGbaZCY.jpg&quot;
+let imageRequest = NSURLRequest(URL: NSURL(string: imageUrl)!)
+
+self.myImageView.setImageWithURLRequest(
+    imageRequest,
+    placeholderImage: nil,
+    success: { (imageRequest, imageResponse, image) -&gt; Void in
+        
+        // imageResponse will be nil if the image is cached
+        if imageResponse != nil {
+            print(&quot;Image was NOT cached, fade in image&quot;)
+            self.myImageView.alpha = 0.0
+            self.myImageView.image = image
+            UIView.animateWithDuration(0.3, animations: { () -&gt; Void in
+                self.myImageView.alpha = 1.0
+            })
+        } else {
+            print(&quot;Image was cached so just update the image&quot;)
+            self.myImageView.image = image
+        }
+    },
+    failure: { (imageRequest, imageResponse, error) -&gt; Void in
+        // do something for the failure condition
+})
+</code></pre>
+
+<h4 id="loading-a-low-resolution-image-followed-by-a-high-resolution-image">Loading a Low Resolution Image followed by a High Resolution Image</h4>
+
+<p>Since pulling down high resolution images over the network takes time, it&rsquo;s common to first show a low resolution image so the user sees something in the UIImageView and then load the higher resolution image immediately afterwards.</p>
+
+<pre><code class="language-swift">let smallImageRequest = NSURLRequest(URL: NSURL(string: smallImageUrl)!)
+let largeImageRequest = NSURLRequest(URL: NSURL(string: largeImageUrl)!)
+
+self.myImageView.setImageWithURLRequest(
+    smallImageRequest,
+    placeholderImage: nil,
+    success: { (smallImageRequest, smallImageResponse, smallImage) -&gt; Void in
+        
+        // smallImageResponse will be nil if the smallImage is already available
+        // in cache (might want to do something smarter in that case).
+        self.myImageView.alpha = 0.0
+        self.myImageView.image = smallImage;
+        
+        UIView.animateWithDuration(0.3, animations: { () -&gt; Void in
+            
+            self.myImageView.alpha = 1.0
+            
+            }, completion: { (sucess) -&gt; Void in
+                
+                // The AFNetworking ImageView Category only allows one request to be sent at a time
+                // per ImageView. This code must be in the completion block.
+                self.myImageView.setImageWithURLRequest(
+                    largeImageRequest,
+                    placeholderImage: smallImage,
+                    success: { (largeImageRequest, largeImageResponse, largeImage) -&gt; Void in
+                        
+                        self.myImageView.image = largeImage;
+                        
+                    },
+                    failure: { (request, response, error) -&gt; Void in
+                        // do something for the failure condition of the large image request
+                        // possibly setting the ImageView's image to a default image
+                })
+        })
+    },
+    failure: { (request, response, error) -&gt; Void in
+        // do something for the failure condition
+        // possibly try to get the large image
+})
+</code></pre>
+
+<h2 id="references">References</h2>
+
+<ul>
+<li><a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIImageView_Class">https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIImageView_Class</a></li>
+</ul>
+
+
+			<aside class="copyright" role="note">
+				
+				&copy; 2016 Peruzal &ndash;
+				
+				Xamarin iOS Guides by 
+				<a href="https://www.peruzal.com" target="_blank">Peruzal</a>
+			</aside>
+
+			<footer class="footer">
+				
+
+<nav class="pagination" aria-label="Footer">
+  <div class="previous">
+  
+      <a href="http://guides.peruzal.com/ios-guides/tableview/" title="Table Views">
+        <span class="direction">
+          Previous
+        </span>
+        <div class="page">
+          <div class="button button-previous" role="button" aria-label="Previous">
+            <i class="icon icon-back"></i>
+          </div>
+          <div class="stretch">
+            <div class="title">
+              Table Views
+            </div>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+
+  <div class="next">
+  
+      <a href="http://guides.peruzal.com/ios-guides/auto-layout-and-size-classes/" title="AutoLayout and Size Classes">
+        <span class="direction">
+          Next
+        </span>
+        <div class="page">
+          <div class="stretch">
+            <div class="title">
+              AutoLayout and Size Classes
+            </div>
+          </div>
+          <div class="button button-next" role="button" aria-label="Next">
+            <i class="icon icon-forward"></i>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+</nav>
+
+
+
+
+
+			</footer>
+		</div>
+	</article>
+
+	<div class="results" role="status" aria-live="polite">
+		<div class="scrollable">
+			<div class="wrapper">
+				<div class="meta"></div>
+				<div class="list"></div>
+			</div>
+		</div>
+	</div>
+</main>
+
+    <script>
+    
+      var base_url = '';
+      var repo_id  = '';
+    
+    </script>
+
+    <script src="http://guides.peruzal.com/ios-guides/javascripts/application.js"></script>
+    
+
+    <script>
+      /* Add headers to scrollspy */
+      var headers   = document.getElementsByTagName("h2");
+      var scrollspy = document.getElementById('scrollspy');
+
+      if(scrollspy) {
+        if(headers.length > 0) {
+          for(var i = 0; i < headers.length; i++) {
+            var li = document.createElement("li");
+            li.setAttribute("class", "anchor");
+
+            var a  = document.createElement("a");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", headers[i].innerHTML);
+            a.innerHTML = headers[i].innerHTML;
+            
+            li.appendChild(a)
+            scrollspy.appendChild(li);
+          }
+        } else {
+          scrollspy.parentElement.removeChild(scrollspy)
+        }
+        
+
+        /* Add permanent link next to the headers */
+        var headers = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+
+        for(var i = 0; i < headers.length; i++) {
+            var a = document.createElement("a");
+            a.setAttribute("class", "headerlink");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", "Permanent link")
+            a.innerHTML = "#";
+            headers[i].appendChild(a);
+        }
+      }
+    </script>
+
+    
+
+    <script src="//gohugo.io/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/cs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/json.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/swift.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/xml.min.js"></script>    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/objectivec.min.js"></script>
+  </body>
+</html>

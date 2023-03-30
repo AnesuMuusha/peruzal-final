@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Mobile-device-attack-vectors on Mobile Device Security and Penetration Testing Guide</title>
+    <link>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/mobile-device-attack-vectors/</link>
+    <description>Recent content in Mobile-device-attack-vectors on Mobile Device Security and Penetration Testing Guide</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Peruzal Mobile Device Security and Penetration Testing Guide</copyright>
+    <lastBuildDate>Sun, 01 Jan 2017 11:55:46 +0200</lastBuildDate>
+    
+	<atom:link href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/mobile-device-attack-vectors/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Mobile Device Attack Vectors</title>
+      <link>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/mobile-device-attack-vectors/</link>
+      <pubDate>Sun, 01 Jan 2017 11:55:46 +0200</pubDate>
+      
+      <guid>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/mobile-device-attack-vectors/</guid>
+      <description>Mobile apps usually involves a three tier architecture. The mobile app, the API backend, and its associated database. We will be mainly concerned with attacks on the client side.
+Mobile device threats  Application data at rest Application data in transit Vulnerabilities in code Data leaks in the app Platform specific issues  Threats at the backend  Authentication/Authorization Session management Input validation Improper error handling Weak cryptography Attacks on the database  OWASP provides guidelines for testing and securing mobile apps.</description>
+    </item>
+    
+  </channel>
+</rss>

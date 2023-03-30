@@ -1,0 +1,323 @@
+<!doctype html><html lang=en class=no-js> <head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta http-equiv=x-ua-compatible content="ie=edge"><link href=https://github.com/Peruzal/xamarin-android-guide/persistence/ rel=canonical><meta name=lang:clipboard.copy content="Copy to clipboard"><meta name=lang:clipboard.copied content="Copied to clipboard"><meta name=lang:search.language content=en><meta name=lang:search.pipeline.stopwords content=True><meta name=lang:search.pipeline.trimmer content=True><meta name=lang:search.result.none content="No matching documents"><meta name=lang:search.result.one content="1 matching document"><meta name=lang:search.result.other content="# matching documents"><meta name=lang:search.tokenizer content=[\s\-]+><link rel="shortcut icon" href=../images/favicon.ico><meta name=generator content="mkdocs-1.0.4, mkdocs-material-4.4.0"><title>Persistence - Xamarin Android Guide - Peruzal</title><link rel=stylesheet href=../assets/stylesheets/application.0284f74d.css><link rel=stylesheet href=../assets/stylesheets/application-palette.01803549.css><meta name=theme-color content=#fb8c00><script src=../assets/javascripts/modernizr.74668098.js></script><link href=https://fonts.gstatic.com rel=preconnect crossorigin><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono&display=fallback"><style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style><link rel=stylesheet href=../assets/fonts/material-icons.css></head> <body dir=ltr data-md-color-primary=orange data-md-color-accent=orange> <svg class=md-svg> <defs> <svg xmlns=http://www.w3.org/2000/svg width=416 height=448 viewbox="0 0 416 448" id=__github><path fill=currentColor d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg> </defs> </svg> <input class=md-toggle data-md-toggle=drawer type=checkbox id=__drawer autocomplete=off> <input class=md-toggle data-md-toggle=search type=checkbox id=__search autocomplete=off> <label class=md-overlay data-md-component=overlay for=__drawer></label> <a href=#persistence-in-android tabindex=1 class=md-skip> Skip to content </a> <header class=md-header data-md-component=header> <nav class="md-header-nav md-grid"> <div class=md-flex> <div class="md-flex__cell md-flex__cell--shrink"> <a href=https://github.com/Peruzal/xamarin-android-guide title="Xamarin Android Guide - Peruzal" class="md-header-nav__button md-logo"> <img src=../images/logo.png width=24 height=24> </a> </div> <div class="md-flex__cell md-flex__cell--shrink"> <label class="md-icon md-icon--menu md-header-nav__button" for=__drawer></label> </div> <div class="md-flex__cell md-flex__cell--stretch"> <div class="md-flex__ellipsis md-header-nav__title" data-md-component=title> <span class=md-header-nav__topic> Xamarin Android Guide - Peruzal </span> <span class=md-header-nav__topic> Persistence </span> </div> </div> <div class="md-flex__cell md-flex__cell--shrink"> <label class="md-icon md-icon--search md-header-nav__button" for=__search></label> <div class=md-search data-md-component=search role=dialog> <label class=md-search__overlay for=__search></label> <div class=md-search__inner role=search> <form class=md-search__form name=search> <input type=text class=md-search__input name=query placeholder=Search autocapitalize=off autocorrect=off autocomplete=off spellcheck=false data-md-component=query data-md-state=active> <label class="md-icon md-search__icon" for=__search></label> <button type=reset class="md-icon md-search__icon" data-md-component=reset tabindex=-1> &#xE5CD; </button> </form> <div class=md-search__output> <div class=md-search__scrollwrap data-md-scrollfix> <div class=md-search-result data-md-component=result> <div class=md-search-result__meta> Type to start searching </div> <ol class=md-search-result__list></ol> </div> </div> </div> </div> </div> </div> <div class="md-flex__cell md-flex__cell--shrink"> <div class=md-header-nav__source> <a href=https://github.com/Peruzal/xamarin-android-guide/ title="Go to repository" class=md-source data-md-source=github> <div class=md-source__icon> <svg viewbox="0 0 24 24" width=24 height=24> <use xlink:href=#__github width=24 height=24></use> </svg> </div> <div class=md-source__repository> Github </div> </a> </div> </div> </div> </nav> </header> <div class=md-container> <main class=md-main> <div class="md-main__inner md-grid" data-md-component=container> <div class="md-sidebar md-sidebar--primary" data-md-component=navigation> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--primary" data-md-level=0> <label class="md-nav__title md-nav__title--site" for=__drawer> <a href=https://github.com/Peruzal/xamarin-android-guide title="Xamarin Android Guide - Peruzal" class="md-nav__button md-logo"> <img src=../images/logo.png width=48 height=48> </a> Xamarin Android Guide - Peruzal </label> <div class=md-nav__source> <a href=https://github.com/Peruzal/xamarin-android-guide/ title="Go to repository" class=md-source data-md-source=github> <div class=md-source__icon> <svg viewbox="0 0 24 24" width=24 height=24> <use xlink:href=#__github width=24 height=24></use> </svg> </div> <div class=md-source__repository> Github </div> </a> </div> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=.. title=Introduction class=md-nav__link> Introduction </a> </li> <li class=md-nav__item> <a href=../hello-xamarin-android/ title="Hello Xamarin.Android" class=md-nav__link> Hello Xamarin.Android </a> </li> <li class=md-nav__item> <a href=../android-components/ title="Android Components" class=md-nav__link> Android Components </a> </li> <li class=md-nav__item> <a href=../android-views/ title="Android Views" class=md-nav__link> Android Views </a> </li> <li class=md-nav__item> <a href=../common-views/ title="Common Views" class=md-nav__link> Common Views </a> </li> <li class=md-nav__item> <a href=../menus/ title=Menus class=md-nav__link> Menus </a> </li> <li class=md-nav__item> <a href=../app-resources/ title="App Resources" class=md-nav__link> App Resources </a> </li> <li class=md-nav__item> <a href=../layouts/ title=Layouts class=md-nav__link> Layouts </a> </li> <li class=md-nav__item> <a href=../activities/ title=Activities class=md-nav__link> Activities </a> </li> <li class=md-nav__item> <a href=../recyclerview/ title=RecyclerView class=md-nav__link> RecyclerView </a> </li> <li class=md-nav__item> <a href=../navigation/ title=Navigation class=md-nav__link> Navigation </a> </li> <li class=md-nav__item> <a href=../fragments/ title=Fragments class=md-nav__link> Fragments </a> </li> <li class=md-nav__item> <a href=../dialogs/ title="Dialogs and Pickers" class=md-nav__link> Dialogs and Pickers </a> </li> <li class=md-nav__item> <a href=../common-intents/ title="Common Intents" class=md-nav__link> Common Intents </a> </li> <li class=md-nav__item> <a href=../networking/ title=Networking class=md-nav__link> Networking </a> </li> <li class=md-nav__item> <a href=../permissions/ title=Permissions class=md-nav__link> Permissions </a> </li> <li class="md-nav__item md-nav__item--active"> <input class="md-toggle md-nav__toggle" data-md-toggle=toc type=checkbox id=__toc> <label class="md-nav__link md-nav__link--active" for=__toc> Persistence </label> <a href=./ title=Persistence class="md-nav__link md-nav__link--active"> Persistence </a> <nav class="md-nav md-nav--secondary"> <label class=md-nav__title for=__toc>Table of contents</label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=#shared-preferences title="Shared Preferences" class=md-nav__link> Shared Preferences </a> <nav class=md-nav> <ul class=md-nav__list> <li class=md-nav__item> <a href=#get-the-default-shared-preferences title="Get the default shared preferences" class=md-nav__link> Get the default shared preferences </a> </li> <li class=md-nav__item> <a href=#creating-a-shared-preference-file title="Creating a shared preference file" class=md-nav__link> Creating a shared preference file </a> </li> <li class=md-nav__item> <a href=#restoring-shared-preferences title="Restoring shared preferences" class=md-nav__link> Restoring shared preferences </a> </li> <li class=md-nav__item> <a href=#clearing-shared-preferences title="Clearing shared preferences" class=md-nav__link> Clearing shared preferences </a> </li> <li class=md-nav__item> <a href=#listening-for-preference-changes title="Listening for preference changes" class=md-nav__link> Listening for preference changes </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#adding-a-setting-screen-using-preferencefragmentcompat title="Adding a Setting Screen Using PreferenceFragmentCompat" class=md-nav__link> Adding a Setting Screen Using PreferenceFragmentCompat </a> </li> <li class=md-nav__item> <a href=#adding-an-xml-resource-file title="Adding an xml Resource File" class=md-nav__link> Adding an xml Resource File </a> </li> <li class=md-nav__item> <a href=#adding-categories title="Adding Categories" class=md-nav__link> Adding Categories </a> <nav class=md-nav> <ul class=md-nav__list> <li class=md-nav__item> <a href=#adding-a-switch-preference title="Adding a Switch Preference" class=md-nav__link> Adding a Switch Preference </a> </li> <li class=md-nav__item> <a href=#adding-a-ringtone-preference title="Adding a Ringtone Preference" class=md-nav__link> Adding a Ringtone Preference </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#adding-a-settings-screen-using-preferenceactivity title="Adding a Settings Screen using PreferenceActivity" class=md-nav__link> Adding a Settings Screen using PreferenceActivity </a> </li> <li class=md-nav__item> <a href=#add-a-menu-option-to-open-the-settings-screen title="Add a Menu option to Open the Settings Screen" class=md-nav__link> Add a Menu option to Open the Settings Screen </a> </li> <li class=md-nav__item> <a href=#adding-a-settings-screen-using-a-preferencefragment title="Adding a Settings Screen Using a PreferenceFragment" class=md-nav__link> Adding a Settings Screen Using a PreferenceFragment </a> <nav class=md-nav> <ul class=md-nav__list> <li class=md-nav__item> <a href=#adding-up-arrow-for-back-navigation title="Adding Up Arrow for Back Navigation" class=md-nav__link> Adding Up Arrow for Back Navigation </a> </li> <li class=md-nav__item> <a href=#adding-a-parent-activity title="Adding a Parent Activity" class=md-nav__link> Adding a Parent Activity </a> </li> </ul> </nav> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=../styles-and-themes/ title="Styles and Themes" class=md-nav__link> Styles and Themes </a> </li> <li class=md-nav__item> <a href=../animations/ title=Animation class=md-nav__link> Animation </a> </li> <li class=md-nav__item> <a href=../notifications/ title=Notifications class=md-nav__link> Notifications </a> </li> <li class=md-nav__item> <a href=../broadcast-receivers/ title="Broadcast Receivers" class=md-nav__link> Broadcast Receivers </a> </li> <li class=md-nav__item> <a href=../services/ title=Services class=md-nav__link> Services </a> </li> <li class=md-nav__item> <a href=../scheduling-alarms/ title="Scheduling Alarms" class=md-nav__link> Scheduling Alarms </a> </li> <li class=md-nav__item> <a href=../maps-and-location/ title="Maps and Location" class=md-nav__link> Maps and Location </a> </li> <li class=md-nav__item> <a href=../testing/ title=Testing class=md-nav__link> Testing </a> </li> <li class=md-nav__item> <a href=../third-party-libraries/ title="Third Party Libraries" class=md-nav__link> Third Party Libraries </a> </li> <li class=md-nav__item> <a href=../deployment/ title=Deployment class=md-nav__link> Deployment </a> </li> </ul> </nav> </div> </div> </div> <div class="md-sidebar md-sidebar--secondary" data-md-component=toc> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--secondary"> <label class=md-nav__title for=__toc>Table of contents</label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=#shared-preferences title="Shared Preferences" class=md-nav__link> Shared Preferences </a> <nav class=md-nav> <ul class=md-nav__list> <li class=md-nav__item> <a href=#get-the-default-shared-preferences title="Get the default shared preferences" class=md-nav__link> Get the default shared preferences </a> </li> <li class=md-nav__item> <a href=#creating-a-shared-preference-file title="Creating a shared preference file" class=md-nav__link> Creating a shared preference file </a> </li> <li class=md-nav__item> <a href=#restoring-shared-preferences title="Restoring shared preferences" class=md-nav__link> Restoring shared preferences </a> </li> <li class=md-nav__item> <a href=#clearing-shared-preferences title="Clearing shared preferences" class=md-nav__link> Clearing shared preferences </a> </li> <li class=md-nav__item> <a href=#listening-for-preference-changes title="Listening for preference changes" class=md-nav__link> Listening for preference changes </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#adding-a-setting-screen-using-preferencefragmentcompat title="Adding a Setting Screen Using PreferenceFragmentCompat" class=md-nav__link> Adding a Setting Screen Using PreferenceFragmentCompat </a> </li> <li class=md-nav__item> <a href=#adding-an-xml-resource-file title="Adding an xml Resource File" class=md-nav__link> Adding an xml Resource File </a> </li> <li class=md-nav__item> <a href=#adding-categories title="Adding Categories" class=md-nav__link> Adding Categories </a> <nav class=md-nav> <ul class=md-nav__list> <li class=md-nav__item> <a href=#adding-a-switch-preference title="Adding a Switch Preference" class=md-nav__link> Adding a Switch Preference </a> </li> <li class=md-nav__item> <a href=#adding-a-ringtone-preference title="Adding a Ringtone Preference" class=md-nav__link> Adding a Ringtone Preference </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#adding-a-settings-screen-using-preferenceactivity title="Adding a Settings Screen using PreferenceActivity" class=md-nav__link> Adding a Settings Screen using PreferenceActivity </a> </li> <li class=md-nav__item> <a href=#add-a-menu-option-to-open-the-settings-screen title="Add a Menu option to Open the Settings Screen" class=md-nav__link> Add a Menu option to Open the Settings Screen </a> </li> <li class=md-nav__item> <a href=#adding-a-settings-screen-using-a-preferencefragment title="Adding a Settings Screen Using a PreferenceFragment" class=md-nav__link> Adding a Settings Screen Using a PreferenceFragment </a> <nav class=md-nav> <ul class=md-nav__list> <li class=md-nav__item> <a href=#adding-up-arrow-for-back-navigation title="Adding Up Arrow for Back Navigation" class=md-nav__link> Adding Up Arrow for Back Navigation </a> </li> <li class=md-nav__item> <a href=#adding-a-parent-activity title="Adding a Parent Activity" class=md-nav__link> Adding a Parent Activity </a> </li> </ul> </nav> </li> </ul> </nav> </div> </div> </div> <div class=md-content> <article class="md-content__inner md-typeset"> <a href=https://github.com/Peruzal/xamarin-android-guide/edit/master/docs/persistence.md title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a> <h1 id=persistence-in-android>Persistence in Android<a class=headerlink href=#persistence-in-android title="Permanent link">&para;</a></h1> <h2 id=shared-preferences>Shared Preferences<a class=headerlink href=#shared-preferences title="Permanent link">&para;</a></h2> <p>You can use shared preferences to save arbitrarily data on the device.</p> <div class="admonition caution"> <p class=admonition-title>Saving sensitive information</p> <p>Please do not save sensitive information in shared preferences since they are stored in plain text files on the device.</p> </div> <p>To save preferences you use the <code>ISharedPreferences</code> interface.</p> <h3 id=get-the-default-shared-preferences>Get the default shared preferences<a class=headerlink href=#get-the-default-shared-preferences title="Permanent link">&para;</a></h3> <p>The default shared preferences are saved in a file thats prefixed your your app's package name. To get the default shared preferences use the the <code>SharedPreferenceManager</code> class as follows:</p> <table class=codehilitetable><tr><td class=linenos><div class=linenodiv><pre><span></span>1</pre></div></td><td class=code><div class=codehilite><pre><span></span><span class=kt>var</span> <span class=n>sharedPreferences</span> <span class=p>=</span> <span class=n>PreferenceManager</span><span class=p>.</span><span class=n>GetDefaultSharedPreferences</span><span class=p>(</span><span class=k>this</span><span class=p>);</span>
+</pre></div> </td></tr></table> <p>Then you can use the <code>ISharedPreferencesEditor</code> to add the preferences as follows:</p> <table class=codehilitetable><tr><td class=linenos><div class=linenodiv><pre><span></span>1</pre></div></td><td class=code><div class=codehilite><pre><span></span><span class=kt>var</span> <span class=n>editor</span> <span class=p>=</span> <span class=n>sharedPreferences</span><span class=p>.</span><span class=n>Edit</span><span class=p>();</span>
+</pre></div> </td></tr></table> <p>You can now use the editor to put the preferences using a key/value pair as follows :</p> <table class=codehilitetable><tr><td class=linenos><div class=linenodiv><pre><span></span>1</pre></div></td><td class=code><div class=codehilite><pre><span></span><span class=n>editor</span><span class=p>.</span><span class=n>PutString</span><span class=p>(</span><span class=s>&quot;NICKNAME&quot;</span><span class=p>,</span> <span class=s>&quot;joseph&quot;</span><span class=p>);</span>
+</pre></div> </td></tr></table> <p>You should call <code>Commit()</code> or <code>Apply()</code> when done to apply the change. <code>Apply()</code> commits the changes asynchronously.</p> <h3 id=creating-a-shared-preference-file>Creating a shared preference file<a class=headerlink href=#creating-a-shared-preference-file title="Permanent link">&para;</a></h3> <p>You can also create a named shared preferences file instead of using the default one. You use the <code>GetSharedPreferences()</code> method and supply a name of the preferences file and the mode to create it as follows:</p> <table class=codehilitetable><tr><td class=linenos><div class=linenodiv><pre><span></span>1</pre></div></td><td class=code><div class=codehilite><pre><span></span><span class=kt>var</span> <span class=n>namesSharedPrefs</span> <span class=p>=</span> <span class=n>GetSharedPreferences</span><span class=p>(</span><span class=s>&quot;colors&quot;</span><span class=p>,</span> <span class=n>FileCreationMode</span><span class=p>.</span><span class=n>Private</span><span class=p>);</span>
+</pre></div> </td></tr></table> <p>You can perform the same operations as with the default shared preferences.</p> <h3 id=restoring-shared-preferences>Restoring shared preferences<a class=headerlink href=#restoring-shared-preferences title="Permanent link">&para;</a></h3> <p>To get the shared preferences, first get the shared preference and use the various get methods to retrieve the preferences as follows:</p> <table class=codehilitetable><tr><td class=linenos><div class=linenodiv><pre><span></span>1</pre></div></td><td class=code><div class=codehilite><pre><span></span><span class=kt>var</span> <span class=n>nickname</span> <span class=p>=</span> <span class=n>sharedPreferences</span><span class=p>.</span><span class=n>GetString</span><span class=p>(</span><span class=s>&quot;NICKNAME&quot;</span><span class=p>,</span> <span class=s>&quot;defaultValue&quot;</span><span class=p>);</span>
+</pre></div> </td></tr></table> <p>You need to specify a default value if the preference is not found.</p> <h3 id=clearing-shared-preferences>Clearing shared preferences<a class=headerlink href=#clearing-shared-preferences title="Permanent link">&para;</a></h3> <p>You can clear all the preferences by calling the <code>Clear()</code> method on the <code>ISharedPreferenceEditor</code> of the shared preferences as follows:</p> <table class=codehilitetable><tr><td class=linenos><div class=linenodiv><pre><span></span>1</pre></div></td><td class=code><div class=codehilite><pre><span></span><span class=n>sharedPreferences</span><span class=p>.</span><span class=n>Edit</span><span class=p>().</span><span class=n>Clear</span><span class=p>().</span><span class=n>Apply</span><span class=p>();</span>
+</pre></div> </td></tr></table> <p>We also called <code>Apply()</code> to commit the changes.</p> <h3 id=listening-for-preference-changes>Listening for preference changes<a class=headerlink href=#listening-for-preference-changes title="Permanent link">&para;</a></h3> <p>You can register a listener to be notified when the preferences changes using the <code>RegisterOnSharedPreferenceChangeListener()</code> method on the shared preferences. You will need to implement the interface <code>ISharedPreferencesOnSharedPreferenceChangeListener</code> as follows:</p> <table class=codehilitetable><tr><td class=linenos><div class=linenodiv><pre><span></span>1</pre></div></td><td class=code><div class=codehilite><pre><span></span><span class=n>PreferenceManager</span><span class=p>.</span><span class=n>GetDefaultSharedPreferences</span><span class=p>(</span><span class=k>this</span><span class=p>).</span><span class=n>RegisterOnSharedPreferenceChangeListener</span><span class=p>(</span><span class=k>this</span><span class=p>);</span>
+</pre></div> </td></tr></table> <p>and then implementing the interface on the activity as follows :</p> <table class=codehilitetable><tr><td class=linenos><div class=linenodiv><pre><span></span>1
+2
+3
+4
+5
+6</pre></div></td><td class=code><div class=codehilite><pre><span></span><span class=k>public</span> <span class=k>class</span> <span class=nc>LoginActivity</span> <span class=p>:</span> <span class=n>AppCompatActivity</span><span class=p>,</span> <span class=n>ISharedPreferencesOnSharedPreferenceChangeListener</span> <span class=p>{</span>
+    <span class=k>public</span> <span class=k>void</span> <span class=nf>OnSharedPreferenceChanged</span><span class=p>(</span><span class=n>ISharedPreferences</span> <span class=n>sharedPreferences</span><span class=p>,</span> <span class=kt>string</span> <span class=n>key</span><span class=p>)</span>
+    <span class=p>{</span>
+        <span class=p>...</span>
+    <span class=p>}</span>
+<span class=p>}</span>
+</pre></div> </td></tr></table> <h2 id=adding-a-setting-screen-using-preferencefragmentcompat>Adding a Setting Screen Using PreferenceFragmentCompat<a class=headerlink href=#adding-a-setting-screen-using-preferencefragmentcompat title="Permanent link">&para;</a></h2> <p>They are several ways to add a Settings/Preference Screen to your app :</p> <ol> <li>Use the PreferenceActivity</li> <li>Use the PreferenceFragment</li> <li>Use the PreferenceFragmentCompat</li> </ol> <h2 id=adding-an-xml-resource-file>Adding an xml Resource File<a class=headerlink href=#adding-an-xml-resource-file title="Permanent link">&para;</a></h2> <p>For both methods you will need an an xml resource file to be added into the Resources folder under the xml directory.</p> <ol> <li>Create the xml folder if it does not yet exists under the Resources directory</li> <li>Create a new xml resource file into the just created xml resource directory or use the existing one.</li> <li>Add the preferences. The preferences have the equivalent names to their views with the additional Preference suffix, e.g to add an EditText preference you use EditTextPreference. Also preferences use keys instead of id since they are stored as key/value pairs</li> </ol> <p><strong>Resources/xml/prefs.xml</strong></p> <table class=codehilitetable><tr><td class=linenos><div class=linenodiv><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36</pre></div></td><td class=code><div class=codehilite><pre><span></span><span class=cp>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class=nt>&lt;PreferenceScreen</span> <span class=na>xmlns:android=</span><span class=s>&quot;http://schemas.android.com/apk/res/android&quot;</span><span class=nt>&gt;</span>
+    <span class=nt>&lt;PreferenceCategory</span> <span class=na>android:title=</span><span class=s>&quot;General&quot;</span><span class=nt>&gt;</span>
+        <span class=nt>&lt;EditTextPreference</span>
+            <span class=na>android:key=</span><span class=s>&quot;nickname&quot;</span>
+            <span class=na>android:title=</span><span class=s>&quot;Nickname&quot;</span> <span class=nt>/&gt;</span>
+    <span class=nt>&lt;/PreferenceCategory&gt;</span>
+    <span class=nt>&lt;PreferenceCategory</span> <span class=na>android:title=</span><span class=s>&quot;Notifications&quot;</span><span class=nt>&gt;</span>
+        <span class=nt>&lt;SwitchPreference</span>
+            <span class=na>android:title=</span><span class=s>&quot;Notifications&quot;</span>
+            <span class=na>android:summary=</span><span class=s>&quot;Get notifications when you receive messages&quot;</span>
+            <span class=na>android:key=</span><span class=s>&quot;notifications&quot;</span>
+            <span class=na>android:defaultValue=</span><span class=s>&quot;true&quot;</span> <span class=nt>/&gt;</span>
+        <span class=nt>&lt;RingtonePreference</span>
+            <span class=na>android:defaultValue=</span><span class=s>&quot;content://settings/system/notification_sound&quot;</span>
+            <span class=na>android:dependency=</span><span class=s>&quot;notifications&quot;</span>
+            <span class=na>android:key=</span><span class=s>&quot;user_joined&quot;</span>
+            <span class=na>android:title=</span><span class=s>&quot;User Joined&quot;</span>
+            <span class=na>android:summary=</span><span class=s>&quot;Alert for when a user joins the chat&quot;</span>
+            <span class=na>android:ringtoneType=</span><span class=s>&quot;notification&quot;</span> <span class=nt>/&gt;</span>
+        <span class=nt>&lt;RingtonePreference</span>
+            <span class=na>android:defaultValue=</span><span class=s>&quot;content://settings/system/notification_sound&quot;</span>
+            <span class=na>android:dependency=</span><span class=s>&quot;notifications&quot;</span>
+            <span class=na>android:key=</span><span class=s>&quot;user_left&quot;</span>
+            <span class=na>android:title=</span><span class=s>&quot;User Left&quot;</span>
+            <span class=na>android:summary=</span><span class=s>&quot;Alert for when a user leaves the chat&quot;</span>
+            <span class=na>android:ringtoneType=</span><span class=s>&quot;notification&quot;</span> <span class=nt>/&gt;</span>
+        <span class=nt>&lt;RingtonePreference</span>
+            <span class=na>android:defaultValue=</span><span class=s>&quot;content://settings/system/notification_sound&quot;</span>
+            <span class=na>android:dependency=</span><span class=s>&quot;notifications&quot;</span>
+            <span class=na>android:key=</span><span class=s>&quot;mew_message&quot;</span>
+            <span class=na>android:title=</span><span class=s>&quot;New Message&quot;</span>
+            <span class=na>android:summary=</span><span class=s>&quot;Alert for when a new message arrives&quot;</span>
+            <span class=na>android:ringtoneType=</span><span class=s>&quot;notification&quot;</span> <span class=nt>/&gt;</span>
+    <span class=nt>&lt;/PreferenceCategory&gt;</span>
+<span class=nt>&lt;/PreferenceScreen&gt;</span>
+</pre></div> </td></tr></table> <p>The settings UI is defined inside the following tags :</p> <table class=codehilitetable><tr><td class=linenos><div class=linenodiv><pre><span></span>1
+2
+3</pre></div></td><td class=code><div class=codehilite><pre><span></span><span class=nt>&lt;PreferenceScreen</span> <span class=na>xmlns:android=</span><span class=s>&quot;http://schemas.android.com/apk/res/android&quot;</span><span class=nt>&gt;</span>
+  ...
+<span class=nt>&lt;/PreferenceScreen&gt;</span>
+</pre></div> </td></tr></table> <h2 id=adding-categories>Adding Categories<a class=headerlink href=#adding-categories title="Permanent link">&para;</a></h2> <p>We add categories to the settings UI by using the</p> <table class=codehilitetable><tr><td class=linenos><div class=linenodiv><pre><span></span>1
+2
+3</pre></div></td><td class=code><div class=codehilite><pre><span></span><span class=nt>&lt;PreferenceCategory</span> <span class=na>android:title=</span><span class=s>&quot;General&quot;</span><span class=nt>&gt;</span>
+  ...
+<span class=nt>&lt;/PreferenceCategory&gt;</span>
+</pre></div> </td></tr></table> <h3 id=adding-a-switch-preference>Adding a Switch Preference<a class=headerlink href=#adding-a-switch-preference title="Permanent link">&para;</a></h3> <table class=codehilitetable><tr><td class=linenos><div class=linenodiv><pre><span></span>1
+2
+3
+4
+5</pre></div></td><td class=code><div class=codehilite><pre><span></span><span class=nt>&lt;SwitchPreference</span>
+   <span class=na>android:title=</span><span class=s>&quot;Notifications&quot;</span>
+   <span class=na>android:summary=</span><span class=s>&quot;Get notifications when you receive messages&quot;</span>
+   <span class=na>android:key=</span><span class=s>&quot;notifications&quot;</span>
+   <span class=na>android:defaultValue=</span><span class=s>&quot;true&quot;</span> <span class=nt>/&gt;</span>
+</pre></div> </td></tr></table> <h3 id=adding-a-ringtone-preference>Adding a Ringtone Preference<a class=headerlink href=#adding-a-ringtone-preference title="Permanent link">&para;</a></h3> <p>The ringtone preference will load the phone ringtones settings into your settings screen and lets the user pick a ringtone. You can also add a default ringtone</p> <table class=codehilitetable><tr><td class=linenos><div class=linenodiv><pre><span></span>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class=code><div class=codehilite><pre><span></span><span class=nt>&lt;RingtonePreference</span>
+     <span class=na>android:defaultValue=</span><span class=s>&quot;content://settings/system/notification_sound&quot;</span>
+     <span class=na>android:dependency=</span><span class=s>&quot;notifications&quot;</span>
+     <span class=na>android:key=</span><span class=s>&quot;user_joined&quot;</span>
+     <span class=na>android:title=</span><span class=s>&quot;User Joined&quot;</span>
+     <span class=na>android:summary=</span><span class=s>&quot;Alert for when a user joins the chat&quot;</span>
+     <span class=na>android:ringtoneType=</span><span class=s>&quot;notification&quot;</span> <span class=nt>/&gt;</span>
+</pre></div> </td></tr></table> <h2 id=adding-a-settings-screen-using-preferenceactivity>Adding a Settings Screen using PreferenceActivity<a class=headerlink href=#adding-a-settings-screen-using-preferenceactivity title="Permanent link">&para;</a></h2> <p>The easiest way to add a settings screen is to create an activity that inherits from the PreferenceActivity class. We will use the xml resource defined above.</p> <ol> <li>Create a new Activity</li> <li>Inherit from PreferenceActivity instead of Activity or AppCompatActivity</li> <li>n the OnCreate method, instead of setting the SetContentView method use AddPreferencesFromResource method. Notice this method is deprecated, so you will need to use the other methods.</li> </ol> <p><strong>PrefsActivity.cs</strong></p> <table class=codehilitetable><tr><td class=linenos><div class=linenodiv><pre><span></span>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class=code><div class=codehilite><pre><span></span><span class=na>[Activity(Label = &quot;PreActivity&quot;)]</span>
+<span class=k>public</span> <span class=k>class</span> <span class=nc>PrefsActivity</span> <span class=p>:</span> <span class=n>PreferenceActivity</span>
+<span class=p>{</span>
+    <span class=k>protected</span> <span class=k>override</span> <span class=k>void</span> <span class=nf>OnCreate</span><span class=p>(</span><span class=n>Bundle</span> <span class=n>savedInstanceState</span><span class=p>)</span>
+    <span class=p>{</span>
+        <span class=k>base</span><span class=p>.</span><span class=n>OnCreate</span><span class=p>(</span><span class=n>savedInstanceState</span><span class=p>);</span>
+        <span class=n>AddPreferencesFromResource</span><span class=p>(</span><span class=n>Resource</span><span class=p>.</span><span class=n>Xml</span><span class=p>.</span><span class=n>prefs</span><span class=p>);</span>
+    <span class=p>}</span>
+<span class=p>}</span>
+</pre></div> </td></tr></table> <h2 id=add-a-menu-option-to-open-the-settings-screen>Add a Menu option to Open the Settings Screen<a class=headerlink href=#add-a-menu-option-to-open-the-settings-screen title="Permanent link">&para;</a></h2> <p>You will need to define a menu so you can use it to open the settings screen.</p> <ol> <li>Add the menu folder in the Resources folder if one does not yet exist</li> <li>Create a menu.xml file</li> </ol> <table class=codehilitetable><tr><td class=linenos><div class=linenodiv><pre><span></span>1
+2
+3
+4
+5
+6</pre></div></td><td class=code><div class=codehilite><pre><span></span><span class=cp>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span>
+<span class=nt>&lt;menu</span> <span class=na>xmlns:android=</span><span class=s>&quot;http://schemas.android.com/apk/res/android&quot;</span><span class=nt>&gt;</span>
+    <span class=nt>&lt;item</span> 
+        <span class=na>android:id=</span><span class=s>&quot;@+id/action_menu&quot;</span>
+        <span class=na>android:title=</span><span class=s>&quot;Settings&quot;</span> <span class=nt>/&gt;</span>
+<span class=nt>&lt;/menu&gt;</span>
+</pre></div> </td></tr></table> <p>We will use the defined id on the menu to find which menu option have been selected.</p> <p>Modify the activity you want to be able to access the settings from and create the menu.</p> <p><strong>MainActivity.cs</strong></p> <table class=codehilitetable><tr><td class=linenos><div class=linenodiv><pre><span></span>1
+2
+3
+4
+5
+6</pre></div></td><td class=code><div class=codehilite><pre><span></span><span class=c1>//Create the options menu</span>
+<span class=k>public</span> <span class=k>override</span> <span class=kt>bool</span> <span class=nf>OnCreateOptionsMenu</span><span class=p>(</span><span class=n>Android</span><span class=p>.</span><span class=n>Views</span><span class=p>.</span><span class=n>IMenu</span> <span class=n>menu</span><span class=p>)</span>
+<span class=p>{</span>
+    <span class=n>MenuInflater</span><span class=p>.</span><span class=n>Inflate</span><span class=p>(</span><span class=n>Resource</span><span class=p>.</span><span class=n>Menu</span><span class=p>.</span><span class=n>menu</span><span class=p>,</span> <span class=n>menu</span><span class=p>);</span>
+    <span class=k>return</span> <span class=k>base</span><span class=p>.</span><span class=n>OnCreateOptionsMenu</span><span class=p>(</span><span class=n>menu</span><span class=p>);</span>
+<span class=p>}</span>
+</pre></div> </td></tr></table> <p>Handle the menu selection as follows :</p> <table class=codehilitetable><tr><td class=linenos><div class=linenodiv><pre><span></span>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class=code><div class=codehilite><pre><span></span><span class=c1>//Handle the selecting of the options menu</span>
+<span class=k>public</span> <span class=k>override</span> <span class=kt>bool</span> <span class=nf>OnOptionsItemSelected</span><span class=p>(</span><span class=n>Android</span><span class=p>.</span><span class=n>Views</span><span class=p>.</span><span class=n>IMenuItem</span> <span class=n>item</span><span class=p>)</span>
+<span class=p>{</span>
+    <span class=kt>var</span> <span class=n>id</span> <span class=p>=</span> <span class=n>item</span><span class=p>.</span><span class=n>ItemId</span><span class=p>;</span>
+    <span class=k>if</span> <span class=p>(</span><span class=n>id</span> <span class=p>==</span> <span class=n>Resource</span><span class=p>.</span><span class=n>Id</span><span class=p>.</span><span class=n>action_menu</span><span class=p>)</span> <span class=p>{</span> 
+        <span class=n>StartActivity</span><span class=p>(</span><span class=k>new</span> <span class=n>Android</span><span class=p>.</span><span class=n>Content</span><span class=p>.</span><span class=n>Intent</span><span class=p>(</span><span class=k>this</span><span class=p>,</span> <span class=k>typeof</span><span class=p>(</span><span class=n>PrefsActivity</span><span class=p>)));</span>
+    <span class=p>}</span>
+    <span class=k>return</span> <span class=k>true</span><span class=p>;</span>
+<span class=p>}</span>
+</pre></div> </td></tr></table> <p>Now when you run you should be able to get an option item called Settings. When click it, the settings screen should load up.</p> <h2 id=adding-a-settings-screen-using-a-preferencefragment>Adding a Settings Screen Using a PreferenceFragment<a class=headerlink href=#adding-a-settings-screen-using-a-preferencefragment title="Permanent link">&para;</a></h2> <p>Use the following steps to create a settings screen using the PreferenceFragment :</p> <ol> <li>Create a class that derives from <code>PreferenceFragment</code></li> <li>In the OnCreate method use the AddPreferenceFromResource method to inflate the preference xml file PrefsFragment.cs <table class=codehilitetable><tr><td class=linenos><div class=linenodiv><pre><span></span>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class=code><div class=codehilite><pre><span></span><span class=k>public</span> <span class=k>class</span> <span class=nc>PrefsFrgament</span> <span class=p>:</span> <span class=n>PreferenceFragment</span>
+<span class=p>{</span>
+    <span class=k>public</span> <span class=k>override</span> <span class=k>void</span> <span class=nf>OnCreate</span><span class=p>(</span><span class=n>Bundle</span> <span class=n>savedInstanceState</span><span class=p>)</span>
+    <span class=p>{</span>
+        <span class=k>base</span><span class=p>.</span><span class=n>OnCreate</span><span class=p>(</span><span class=n>savedInstanceState</span><span class=p>);</span>
+        <span class=n>AddPreferencesFromResource</span><span class=p>(</span><span class=n>Resource</span><span class=p>.</span><span class=n>Xml</span><span class=p>.</span><span class=n>prefs</span><span class=p>);</span>
+    <span class=p>}</span>
+<span class=p>}</span>
+</pre></div> </td></tr></table></li> <li>In the activity you would like to show the preference, replace an exisiting container, usually FrameLayout with the PrefsFragment</li> </ol> <p><strong>Resources/layout/activity_main.axml</strong></p> <table class=codehilitetable><tr><td class=linenos><div class=linenodiv><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class=code><div class=codehilite><pre><span></span><span class=cp>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class=nt>&lt;LinearLayout</span> <span class=na>xmlns:android=</span><span class=s>&quot;http://schemas.android.com/apk/res/android&quot;</span>
+    <span class=na>android:orientation=</span><span class=s>&quot;vertical&quot;</span>
+    <span class=na>android:layout_width=</span><span class=s>&quot;match_parent&quot;</span>
+    <span class=na>android:layout_height=</span><span class=s>&quot;match_parent&quot;</span><span class=nt>&gt;</span>
+    <span class=nt>&lt;FrameLayout</span>
+        <span class=na>android:id=</span><span class=s>&quot;@+id/content&quot;</span>
+        <span class=na>android:layout_width=</span><span class=s>&quot;match_parent&quot;</span>
+        <span class=na>android:layout_height=</span><span class=s>&quot;wrap_content&quot;</span> <span class=nt>/&gt;</span>
+<span class=nt>&lt;/LinearLayout&gt;</span>
+</pre></div> </td></tr></table> <p><strong>PrefsActivity.cs</strong></p> <p>Use the FragmentManager to replace the FrameLayout with the PrefsFragment</p> <table class=codehilitetable><tr><td class=linenos><div class=linenodiv><pre><span></span>1
+2
+3
+4</pre></div></td><td class=code><div class=codehilite><pre><span></span><span class=n>FragmentManager</span>
+    <span class=p>.</span><span class=n>BeginTransaction</span><span class=p>()</span>
+    <span class=p>.</span><span class=n>Replace</span><span class=p>(</span><span class=n>Resource</span><span class=p>.</span><span class=n>Id</span><span class=p>.</span><span class=n>content</span><span class=p>,</span> <span class=k>new</span> <span class=n>PrefsFragment</span><span class=p>())</span>
+    <span class=p>.</span><span class=n>Commit</span><span class=p>();</span>
+</pre></div> </td></tr></table> <p><strong>PrefsActivity.cs</strong></p> <table class=codehilitetable><tr><td class=linenos><div class=linenodiv><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37</pre></div></td><td class=code><div class=codehilite><pre><span></span><span class=k>using</span> <span class=nn>Android.App</span><span class=p>;</span>
+<span class=k>using</span> <span class=nn>Android.OS</span><span class=p>;</span>
+<span class=k>using</span> <span class=nn>Android.Support.V4.App</span><span class=p>;</span>
+<span class=k>using</span> <span class=nn>Android.Support.V7.App</span><span class=p>;</span>
+<span class=k>using</span> <span class=nn>Android.Views</span><span class=p>;</span>
+
+<span class=k>namespace</span> <span class=nn>sharedPreferenceDemo</span>
+<span class=p>{</span>
+<span class=na>    [Activity(Label = &quot;PrefsActivity&quot;, Theme = &quot;@style/AppTheme&quot;, ParentActivity = typeof(MainActivity))]</span>
+
+<span class=na>    [MetaData(&quot;android.support.PARENT_ACTIVITY&quot;, Value = &quot;md51c3958e33f8e72dae9076079df527ba2.MainActivity&quot;)]</span>
+
+    <span class=k>public</span> <span class=k>class</span> <span class=nc>PrefsActivity</span> <span class=p>:</span> <span class=n>AppCompatActivity</span>
+    <span class=p>{</span>
+        <span class=k>protected</span> <span class=k>override</span> <span class=k>void</span> <span class=nf>OnCreate</span><span class=p>(</span><span class=n>Bundle</span> <span class=n>savedInstanceState</span><span class=p>)</span>
+        <span class=p>{</span>
+            <span class=k>base</span><span class=p>.</span><span class=n>OnCreate</span><span class=p>(</span><span class=n>savedInstanceState</span><span class=p>);</span>
+            <span class=n>SetContentView</span><span class=p>(</span><span class=n>Resource</span><span class=p>.</span><span class=n>Layout</span><span class=p>.</span><span class=n>activity_prefs</span><span class=p>);</span>
+            <span class=n>FragmentManager</span>
+                <span class=p>.</span><span class=n>BeginTransaction</span><span class=p>()</span>
+                <span class=p>.</span><span class=n>Replace</span><span class=p>(</span><span class=n>Resource</span><span class=p>.</span><span class=n>Id</span><span class=p>.</span><span class=n>content</span><span class=p>,</span> <span class=k>new</span> <span class=n>PFrgament</span><span class=p>())</span>
+                <span class=p>.</span><span class=n>Commit</span><span class=p>();</span>
+
+            <span class=k>if</span> <span class=p>(</span><span class=n>SupportActionBar</span> <span class=p>!=</span> <span class=k>null</span><span class=p>)</span> <span class=p>{</span> 
+                <span class=n>SupportActionBar</span><span class=p>.</span><span class=n>SetDisplayHomeAsUpEnabled</span><span class=p>(</span><span class=k>true</span><span class=p>);</span>
+            <span class=p>}</span>
+        <span class=p>}</span>
+
+        <span class=k>public</span> <span class=k>override</span> <span class=kt>bool</span> <span class=nf>OnOptionsItemSelected</span><span class=p>(</span><span class=n>IMenuItem</span> <span class=n>item</span><span class=p>)</span>
+        <span class=p>{</span>
+            <span class=k>if</span> <span class=p>(</span><span class=n>item</span><span class=p>.</span><span class=n>ItemId</span> <span class=p>==</span> <span class=n>Android</span><span class=p>.</span><span class=n>Resource</span><span class=p>.</span><span class=n>Id</span><span class=p>.</span><span class=n>Home</span><span class=p>)</span> <span class=p>{</span> 
+                <span class=n>NavUtils</span><span class=p>.</span><span class=n>NavigateUpFromSameTask</span><span class=p>(</span><span class=k>this</span><span class=p>);</span>
+            <span class=p>}</span>
+            <span class=k>return</span> <span class=k>base</span><span class=p>.</span><span class=n>OnOptionsItemSelected</span><span class=p>(</span><span class=n>item</span><span class=p>);</span>
+        <span class=p>}</span>
+    <span class=p>}</span>
+<span class=p>}</span>
+</pre></div> </td></tr></table> <h3 id=adding-up-arrow-for-back-navigation>Adding Up Arrow for Back Navigation<a class=headerlink href=#adding-up-arrow-for-back-navigation title="Permanent link">&para;</a></h3> <p>In the Oncreate method we check if we have an ActionBar and set the up arrow to display :</p> <table class=codehilitetable><tr><td class=linenos><div class=linenodiv><pre><span></span>1
+2
+3</pre></div></td><td class=code><div class=codehilite><pre><span></span><span class=k>if</span> <span class=p>(</span><span class=n>SupportActionBar</span> <span class=p>!=</span> <span class=k>null</span><span class=p>)</span> <span class=p>{</span> 
+    <span class=n>SupportActionBar</span><span class=p>.</span><span class=n>SetDisplayHomeAsUpEnabled</span><span class=p>(</span><span class=k>true</span><span class=p>);</span>
+<span class=p>}</span>
+</pre></div> </td></tr></table> <p>Then we handle the clicking of the up arrow in the OnOptionsItemSelected methods :</p> <table class=codehilitetable><tr><td class=linenos><div class=linenodiv><pre><span></span>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class=code><div class=codehilite><pre><span></span><span class=k>public</span> <span class=k>override</span> <span class=kt>bool</span> <span class=nf>OnOptionsItemSelected</span><span class=p>(</span><span class=n>IMenuItem</span> <span class=n>item</span><span class=p>)</span>
+<span class=p>{</span>
+    <span class=k>if</span> <span class=p>(</span><span class=n>item</span><span class=p>.</span><span class=n>ItemId</span> <span class=p>==</span> <span class=n>Android</span><span class=p>.</span><span class=n>Resource</span><span class=p>.</span><span class=n>Id</span><span class=p>.</span><span class=n>Home</span><span class=p>)</span> <span class=p>{</span> 
+        <span class=n>NavUtils</span><span class=p>.</span><span class=n>NavigateUpFromSameTask</span><span class=p>(</span><span class=k>this</span><span class=p>);</span>
+    <span class=p>}</span>
+    <span class=k>return</span> <span class=k>base</span><span class=p>.</span><span class=n>OnOptionsItemSelected</span><span class=p>(</span><span class=n>item</span><span class=p>);</span>
+<span class=p>}</span>
+</pre></div> </td></tr></table> <h3 id=adding-a-parent-activity>Adding a Parent Activity<a class=headerlink href=#adding-a-parent-activity title="Permanent link">&para;</a></h3> <p>In oder to go back to a parent activity when we click the up arrow, we need to add attribute to the activity. We specify the ParentActivity</p> <table class=codehilitetable><tr><td class=linenos><div class=linenodiv><pre><span></span>1</pre></div></td><td class=code><div class=codehilite><pre><span></span>[Activity(Label = &quot;PrefsActivity&quot;, Theme = &quot;@style/AppTheme&quot;, ParentActivity = typeof(MainActivity))]
+</pre></div> </td></tr></table> <p>For this to also work on older devices, we have to use a MetaData attribute and use the the name as android.support.PARENT_ACTIVITY and the value to be fully qualified name of the activity to navigate back to.</p> <table class=codehilitetable><tr><td class=linenos><div class=linenodiv><pre><span></span>1</pre></div></td><td class=code><div class=codehilite><pre><span></span>[MetaData(&quot;android.support.PARENT_ACTIVITY&quot;, Value = &quot;md51c3958e33f8e72dae9076079df527ba2.MainActivity&quot;)]
+</pre></div> </td></tr></table> <p>You can find the MD5Sum, <code>md51c3958e33f8e72dae9076079df527ba2</code> of the activity by check the generated <code>AndroidManifest.xml</code> file in the obj folder</p> </article> </div> </div> </main> <footer class=md-footer> <div class=md-footer-nav> <nav class="md-footer-nav__inner md-grid"> <a href=../permissions/ title=Permissions class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel=prev> <div class="md-flex__cell md-flex__cell--shrink"> <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i> </div> <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"> <span class=md-flex__ellipsis> <span class=md-footer-nav__direction> Previous </span> Permissions </span> </div> </a> <a href=../styles-and-themes/ title="Styles and Themes" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel=next> <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"> <span class=md-flex__ellipsis> <span class=md-footer-nav__direction> Next </span> Styles and Themes </span> </div> <div class="md-flex__cell md-flex__cell--shrink"> <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i> </div> </a> </nav> </div> <div class="md-footer-meta md-typeset" style="background-color: #ff9900; color: #fff"> <div class=md-grid style="display: flex;"> <div style="flex: 1;"> <h2>Consulting</h2> <ul style="list-style: none; margin-left: -15px;"> <li><a href=https://www.peruzal.com/mobile-app-development target=_blank>Mobile App Development</a></li> <li><a href=https://www.peruzal.com/mobile-app-device-security-and-penetration-testing target=_blank>Mobile App Security and Penetration Testing</a></li> <li><a href=https://www.peruzal.com/database-and-web-application-performance-tuning-and-consulting target=_blank>Database Performance Tuning</a></li> </ul> </div> <div style="flex: 1;"> <h2>Training</h2> <ul style="list-style: none; margin-left: -15px;"> <li><a href=https://training.peruzal.com/courses/mobile/android-mobile-app-development-training-certification target=_blank>Android Mobile App Development Training</a></li> <li><a href=https://training.peruzal.com/courses/mobile/ios-mobile-app-development-training-with-swift target=_blank>iOS Mobile App Development Training</a></li> <li><a href=https://training.peruzal.com/courses/mobile/xamarin/xamarin-forms-mobile-app-development-training target=_blank>Xamarin Forms Training</a></li> <li><a href=https://training.peruzal.com/courses/mobile/xamarin/android-mobile-app-development-training-with-xamarin target=_blank>Xamarin Android Training</a></li> <li><a href=https://training.peruzal.com/courses/mobile/xamarin/ios-mobile-app-development-training-with-xamarin target=_blank>Xamarin iOS Training</a></li> <li><a href=https://training.peruzal.com/courses/web/reactjs-front-end-web-application-development target=_blank>ReactJS Training</a></li> <li><a href=https://training.peruzal.com/courses/web/reactjs-front-end-web-application-development target=_blank>React Native Training</a></li> <li><a href=https://training.peruzal.com/courses/gaming/unity-certified-game-development-training-south-africa target=_blank>Unity Game Development Training</a></li> <li><a href=https://training.peruzal.com/courses/database/mysql-database-administration-training-certification-south-africa target=_blank>MySQL Database Adminstration Training</a></li> <li><a href=https://training.peruzal.com/courses/programming/java-programming-training-certification target=_blank>Java Programming Training</a></li> <li><a href=https://training.peruzal.com/courses/programming/ruby-programming-training-certification target=_blank>Ruby Programming Training</a></li> </ul> </div> <div style="flex: 1"> <h2>Resources</h2> <ul style="list-style: none; margin-left: -15px;"> <li><a href=http://guides.peruzal.com/xamarin-forms-guide target=_blank>Xamarin Forms Guide</a></li> <li><a href=http://guides.peruzal.com/v1/android-guides target=_blank>Android Development Guides</a></li> <li><a href=http://guides.peruzal.com/xamarin-ios target=_blank>iOS Development Guides</a></li> <li><a href=http://xamarin-android-guide.peruzal.com/ target=_blank>Xamarin Android Guides</a></li> <li><a href=http://xamarin-ios-guide.peruzal.com/ target=_blank>Xamarin iOS Guide</a></li> <li><a href=http://unity-certified-associate-guide.peruzal.com/ target=_blank>Unity Game Development Guide</a></li> <li><a href=https://josephkandi.gitbooks.io/mysql-5-6-database-administration-certification-g/content/ target=_blank>MySQL Database Adminstration Guide</a></li> <li><a href=https://josephkandi.gitbooks.io/learn-java-by-developing-an-android-app/content/ target=_blank>Java Programming Guide</a></li> </ul> </div> </div> <div class=md-footer-meta__inner style="background-color: rgba(0,0,0,.87)"> <div style="text-align: center; font-size: 0.7rem"> <div class=md-footer-copyright__highlight> <a href=https://www.peruzal.com target=_blank>Copyright &copy 2019 - Peruzal</a> </div> </div> </div> </div> </footer> <script async src="https://www.googletagmanager.com/gtag/js?id=UA-40772582-8"></script> <script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-40772582-8');
+</script> <script async src=https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js></script> <script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-6342782466521705",
+          enable_page_level_ads: true
+     });
+</script> </div> <script src=../assets/javascripts/application.245445c6.js></script> <script>app.initialize({version:"1.0.4",url:{base:".."}})</script> <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script> <script src=../assets/js/utils.js></script> <script src=../assets/js/mixpanel.js></script> <script src=../assets/js/track.js></script> <script src=../assets/js/drift.js></script> </body> </html>

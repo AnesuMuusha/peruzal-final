@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Networking-and-threading-rsses on Xamarin iOS Guides</title>
+    <link>http://guides.peruzal.com/ios-guides/networking-and-threading/index.xml</link>
+    <description>Recent content in Networking-and-threading-rsses on Xamarin iOS Guides</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Peruzal</copyright>
+    <lastBuildDate>Mon, 21 Nov 2016 23:25:32 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/ios-guides/networking-and-threading/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Networking and Multithreading</title>
+      <link>http://guides.peruzal.com/ios-guides/networking-and-threading/</link>
+      <pubDate>Mon, 21 Nov 2016 23:25:32 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/ios-guides/networking-and-threading/</guid>
+      <description>
+
+&lt;p&gt;Many iOS application are clients of a REST API.  This guide gives an
+overview of common ways to accomplish tasks associated with making
+&lt;em&gt;HTTP&lt;/em&gt; requests and handling responses.  Low level socket programming,
+although possible to do in iOS is out of the scope of this guide.&lt;/p&gt;
+
+&lt;h2 id=&#34;overview-of-popular-network-programming-methods&#34;&gt;Overview of popular network programming methods&lt;/h2&gt;
+
+&lt;p&gt;There is a wide variety of ways to make HTTP requests in iOS with which
+you might at least want to be familiar.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/URLLoadingSystem/Tasks/UsingNSURLConnection.html&#34;&gt;NSURLConnection&lt;/a&gt;&lt;/strong&gt; is a lower level mechanism
+to make URL requests and is part of Apple&amp;rsquo;s Foundation Framework.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;simplest way to make URL request&lt;/li&gt;
+&lt;li&gt;provides synchronous and asynchronous requests via with completion
+handler blocks and delegates&lt;/li&gt;
+&lt;li&gt;does not have much support for authentication or a session concept&lt;/li&gt;
+&lt;li&gt;does not have an &amp;ldquo;operation&amp;rdquo; or &amp;ldquo;task&amp;rdquo; concept associated with
+requests so there&amp;rsquo;s no convenient way to handle queue of requests or
+to pause/resume&lt;/li&gt;
+&lt;li&gt;does not handle parsing of common content types&lt;/li&gt;
+&lt;li&gt;not much built in support for HTTP error codes / request parameters&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/URLLoadingSystem/Articles/UsingNSURLSession.html&#34;&gt;NSURLSession&lt;/a&gt;&lt;/strong&gt; a higher level library that is part
+of Apple&amp;rsquo;s Foundation Framework.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;built on top of NSURLConnection&lt;/li&gt;
+&lt;li&gt;better support for authentication and has a session concept&lt;/li&gt;
+&lt;li&gt;concept of &amp;ldquo;task&amp;rdquo; enables pausing/resuming requests&lt;/li&gt;
+&lt;li&gt;can perform requests while your app is in the background&lt;/li&gt;
+&lt;li&gt;does not handle parsing of common content types&lt;/li&gt;
+&lt;li&gt;not much built in support for HTTP error codes / request parameters&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://github.com/AFNetworking/AFNetworking/&#34;&gt;AFNetworking&lt;/a&gt;&lt;/strong&gt; is the most popular library for and is
+the de facto gold standard for networking tasks in the iOS world.
+&lt;strong&gt;Chances are you will want to use this library if accessing an API
+and making network requests is a key part of your application.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;built on top of NSURLSession&lt;/li&gt;
+&lt;li&gt;built-in support for parsing common content-types&lt;/li&gt;
+&lt;li&gt;great support for common HTTP operations including handling of request
+params, headers, error codes&lt;/li&gt;
+&lt;li&gt;great integration with UIKit components making complex behavior like
+loading remote images asynchronously very easy&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://github.com/Alamofire/Alamofire&#34;&gt;AlamoFire&lt;/a&gt;&lt;/strong&gt; is another networking library by the same
+author as AFNetworking.  It is written in Swift.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Swift only&lt;/li&gt;
+&lt;li&gt;many of the same features as AFNetworking&lt;/li&gt;
+&lt;li&gt;easy to use/read syntax for making common requests&lt;/li&gt;
+&lt;li&gt;no integration with UIKit&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;a-note-about-threading-and-network-requests&#34;&gt;A note about threading and network requests&lt;/h2&gt;
+
+&lt;p&gt;In iOS much of the code that runs in your application is triggered by an
+event on the &lt;a href=&#34;https://developer.apple.com/library/ios/documentation/General/Conceptual/Devpedia-CocoaApp/MainEventLoop.html&#34;&gt;main event loop&lt;/a&gt;.  The main event loop is
+responsible for executing code to respond to things like user
+interaction (e.g triggering an &lt;code&gt;@IBAction&lt;/code&gt;) or events in a view
+controller&amp;rsquo;s lifecycle (e.g.  &lt;code&gt;viewDidLoad&lt;/code&gt;).  Code executed from the
+main event loop is run on the &lt;em&gt;main thread&lt;/em&gt;.  This is convenient for us
+because &lt;strong&gt;any updates to an application&amp;rsquo;s UI elements must happen on the
+main thread&lt;/strong&gt;.  We&amp;rsquo;ll want to keep this rule in mind when working with
+network requests.&lt;/p&gt;
+
+&lt;p&gt;iOS provides a couple of higher level libraries for concurrent
+programming: &lt;a href=&#34;https://developer.apple.com/library/mac/documentation/Performance/Reference/GCD_libdispatch_Ref/index.html&#34;&gt;Grand Central Dispatch&lt;/a&gt; and
+&lt;a href=&#34;https://developer.apple.com/library/mac/documentation/General/Conceptual/ConcurrencyProgrammingGuide/OperationObjects/OperationObjects.html&#34;&gt;NSOperationQueue&lt;/a&gt;.  You&amp;rsquo;ll be able use either to
+ensure you that a piece of code does or does not run on the main thread.&lt;/p&gt;
+
+&lt;p&gt;You should never make a synchronous network request on the main thread
+since this will block thread and UI will appear frozen while our request
+is pending.  You&amp;rsquo;ll rarely run into instances where you&amp;rsquo;ll need
+to make synchronous requests&lt;/p&gt;
+
+&lt;p&gt;When we make an asynchronous request, any of the above libraries will
+execute the request on a background (i.e. not the main) thread.  Some
+methods will allow us to specify the dispatch queue on which we want the
+response handler to run, others will provide no guarantees.  &lt;strong&gt;If we
+need to update the UI in our response handler we must ensure that the
+code that manipulates the UI is run on the main thread.&lt;/strong&gt;  This can be
+tricky because we may call into a method that calls into another method
+that after a long stack of calls eventually updates a UI element.&lt;/p&gt;
+
+&lt;p&gt;One simple way to ensure a block of code is run on the main thread using
+Grand Central Dispatch is as follows&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;dispatch_async(dispatch_get_main_queue(), {
+  // this code will be executed on the main thread
+})
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;making-a-get-and-parsing-a-json-response&#34;&gt;Making a GET and parsing a JSON response&lt;/h2&gt;
+
+&lt;p&gt;In order to provide you with the flavor of each of the major ways of
+making network requests we discussed above, we&amp;rsquo;ll go through an example of each one.&lt;/p&gt;
+
+&lt;h3 id=&#34;nsurlconnection-deprecated-in-ios-9&#34;&gt;NSURLConnection (deprecated in iOS 9)&lt;/h3&gt;
+
+&lt;p&gt;Notice that we are forced to specify a operation queue on which the
+completion handler will run.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;import UIKit
+
+private let apiKey = &amp;quot;53eb9541b4374660d6f3c0001d6249ca:19:70900879&amp;quot;
+private let resourceUrl = NSURL(string: &amp;quot;http://api.nytimes.com/svc/topstories/v1/home.json?api-key=\(apiKey)&amp;quot;)!
+
+class Story {
+    var headline: String?
+    var thumbnailUrl: String?
+
+    init(jsonResult: NSDictionary) {
+        ...
+    }
+
+    class func fetchStories(successCallback: ([Story]) -&amp;gt; Void, error: ((NSError?) -&amp;gt; Void)?) {
+        let request = NSURLRequest(URL: resourceUrl)
+        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()) { (response, data, requestError) -&amp;gt; Void in
+            if let requestError = requestError? {
+                error?(requestError)
+            } else {
+                if let data = data? {
+                    let json = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as NSDictionary
+                    if let results = json[&amp;quot;results&amp;quot;] as? NSArray {
+                        var stories: [Story] = []
+                        for result in results as [NSDictionary] {
+                            stories.append(Story(jsonResult: result))
+                        }
+                        successCallback(stories)
+                    }
+                } else {
+                    // unexpected error happened
+                    error?(nil)
+                }
+            }
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;nsurlsession&#34;&gt;NSURLSession&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://developer.apple.com/library/ios/documentation/Foundation/Reference/NSURLSession_class&#34;&gt;NSURLSession&lt;/a&gt; is now the preferred built-in method of performing network requests on iOS.&lt;/p&gt;
+
+&lt;h4 id=&#34;swift&#34;&gt;Swift&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;class Post {
+
+    // ... 
+
+    class func fetchPosts(successCallback: (NSDictionary) -&amp;gt; Void, errorCallback: ((NSError?) -&amp;gt; Void)?) {
+        let clientId = &amp;quot;Put_Your_Client_Id_Here&amp;quot;
+        let url = NSURL(string:&amp;quot;https://api.instagram.com/v1/media/popular?client_id=\(clientId)&amp;quot;)
+        let request = NSURLRequest(URL: url!)
+        let session = NSURLSession(
+            configuration: NSURLSessionConfiguration.defaultSessionConfiguration(),
+            delegate:nil,
+            delegateQueue:NSOperationQueue.mainQueue()
+        )
+        
+        let task : NSURLSessionDataTask = session.dataTaskWithRequest(request,
+            completionHandler: { (dataOrNil, responseOrNil, errorOrNil) in
+                if let requestError = errorOrNil {
+                    errorCallback?(requestError)
+                } else {
+                    if let data = dataOrNil {
+                        if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
+                            data, options:[]) as? NSDictionary {
+                                NSLog(&amp;quot;response: \(responseDictionary)&amp;quot;)
+                                successCallback(responseDictionary)
+                        }
+                    }
+                }
+        });
+        task.resume()
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;objective-c&#34;&gt;Objective-C&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;NSString *clientId = @&amp;quot;Put_Your_Client_Id_Here&amp;quot;;
+NSString *urlString =
+[@&amp;quot;https://api.instagram.com/v1/media/popular?client_id=&amp;quot; stringByAppendingString:clientId];
+
+NSURL *url = [NSURL URLWithString:urlString];
+NSURLRequest *request = [NSURLRequest requestWithURL:url];
+
+NSURLSession *session =
+[NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]
+                              delegate:nil
+                         delegateQueue:[NSOperationQueue mainQueue]];
+
+NSURLSessionDataTask *task = [session dataTaskWithRequest:request
+                                        completionHandler:^(NSData * _Nullable data,
+                                                            NSURLResponse * _Nullable response,
+                                                            NSError * _Nullable error) {
+                                            if (!error) {
+                                                NSError *jsonError = nil;
+                                                NSDictionary *responseDictionary =
+                                                [NSJSONSerialization JSONObjectWithData:data
+                                                                                options:kNilOptions
+                                                                                  error:&amp;amp;jsonError];
+                                                NSLog(@&amp;quot;Response: %@&amp;quot;, responseDictionary);
+                                            } else {
+                                                NSLog(@&amp;quot;An error occurred: %@&amp;quot;, error.description);
+                                            }
+                                        }];
+[task resume];
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;afnetworking&#34;&gt;AFNetworking&lt;/h3&gt;
+
+&lt;p&gt;This code starts to look a little cleaner with AFNetworking.
+AFNetworking does some error handling for us and gives us a way to
+provide a failure handler.  Also note that we no longer have to parse
+the JSON result ourselves since AFNetworking does this automatically
+based on the content type.  Finally note that we were able to supply our
+GET parameters as a Swift dictionary.  This is not particularly useful
+here, but becomes very nice to have if there is a large number of
+parameters.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;private let params = [&amp;quot;api-key&amp;quot;: &amp;quot;53eb9541b4374660d6f3c0001d6249ca:19:70900879&amp;quot;]
+private let resourceUrl = &amp;quot;http://api.nytimes.com/svc/topstories/v1/home.json&amp;quot;
+
+class Story {
+    var headline: String?
+    var thumbnailUrl: String?
+
+    init(jsonResult: NSDictionary) {
+       ...
+    }
+
+    class func fetchStories(successCallback: ([Story]) -&amp;gt; Void, error: ((NSError?) -&amp;gt; Void)?) {
+        let manager = AFHTTPRequestOperationManager()
+        manager.GET(resourceUrl, parameters: params, success: { (operation ,responseObject) -&amp;gt; Void in
+            if let results = responseObject[&amp;quot;results&amp;quot;] as? NSArray {
+                var stories: [Story] = []
+                for result in results as [NSDictionary] {
+                    stories.append(Story(jsonResult: result))
+                }
+                successCallback(stories)
+            }
+        }, failure: { (operation, requestError) -&amp;gt; Void in
+            if let errorCallback = error? {
+                errorCallback(requestError)
+            }
+        })
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

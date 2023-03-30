@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Scrollview-rsses on Xamarin iOS Guides</title>
+    <link>http://guides.peruzal.com/ios-guides/scrollview/index.xml</link>
+    <description>Recent content in Scrollview-rsses on Xamarin iOS Guides</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Peruzal</copyright>
+    <lastBuildDate>Mon, 12 Dec 2016 02:13:41 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/ios-guides/scrollview/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>ScrollView Guide</title>
+      <link>http://guides.peruzal.com/ios-guides/scrollview/</link>
+      <pubDate>Mon, 12 Dec 2016 02:13:41 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/ios-guides/scrollview/</guid>
+      <description>
+
+&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+
+&lt;p&gt;Scroll views allow you to display content in an area on the screen that
+is smaller than the size of the content.  They allow the user to pan
+(scroll) and/or zoom the content.  The
+&lt;a href=&#34;https://developer.apple.com/library/ios/documentation/UIKit/Reference/UITableView_Class/index.html&#34;&gt;&lt;code&gt;UITableView&lt;/code&gt;&lt;/a&gt; and &lt;a href=&#34;https://developer.apple.com/library/ios/documentation/UIKit/Reference/UICollectionView_class/index.html#//apple_ref/occ/cl/UICollectionView&#34;&gt;&lt;code&gt;UICollectionView&lt;/code&gt;&lt;/a&gt;
+are a subclasses of &lt;a href=&#34;https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIScrollView_Class/index.html&#34;&gt;&lt;code&gt;UIScrollView&lt;/code&gt;&lt;/a&gt;, so many of the
+points below will apply to them as well.&lt;/p&gt;
+
+&lt;h2 id=&#34;basic-usage&#34;&gt;Basic Usage&lt;/h2&gt;
+
+&lt;h3 id=&#34;step-1-add-scroll-view-to-view-hierarchy&#34;&gt;Step 1: Add scroll view to view hierarchy&lt;/h3&gt;
+
+&lt;p&gt;Add a scroll view to your view controller by dragging one from the
+Object Library.  The size of the scroll view is the size of the area
+that is visible to the user.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://imgur.com/oJzRkUE&#34;&gt;&lt;img src=&#34;http://i.imgur.com/oJzRkUE.gif&#34; title=&#34;source: imgur.com&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;step-2-set-content-size&#34;&gt;Step 2: Set content size&lt;/h3&gt;
+
+&lt;p&gt;Tell the scroll view about the size of your content area by setting the
+&lt;code&gt;contentSize&lt;/code&gt; property.  In this example the content has the same width
+as the scroll view and three times its height.  The user will have to
+scroll vertically to access the lower parts of the content area.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;class ViewController: UIViewController {
+    @IBOutlet weak var scrollView: UIScrollView!
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        let contentWidth = scrollView.bounds.width
+        let contentHeight = scrollView.bounds.height * 3
+        scrollView.contentSize = CGSizeMake(contentWidth, contentHeight)
+        ...
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;step-3-add-content-subviews&#34;&gt;Step 3. Add content subviews&lt;/h3&gt;
+
+&lt;p&gt;What is shown in the scrollable content area of a scroll view is
+determined by its subviews.  The frame of each subview is relative to
+the top left of the content area.  A scroll view can contain more than
+one subview.  In this example we add a series differently-colored
+subviews.  Each subview has the same width as the scroll view, but we
+offset the top of their frames so they do not overlap each other.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;class ViewController: UIViewController {
+    @IBOutlet weak var scrollView: UIScrollView!
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        let contentWidth = scrollView.bounds.width
+        let contentHeight = scrollView.bounds.height * 3
+        scrollView.contentSize = CGSizeMake(contentWidth, contentHeight)
+
+        let subviewHeight = CGFloat(120)
+        var currentViewOffset = CGFloat(0);
+
+        while currentViewOffset &amp;lt; contentHeight {
+            let frame = CGRectMake(0, currentViewOffset, contentWidth, subviewHeight).rectByInsetting(dx: 5, dy: 5)
+            let hue = currentViewOffset/contentHeight
+            let subview = UIView(frame: frame)
+            subview.backgroundColor = UIColor(hue: hue, saturation: 1, brightness: 1, alpha: 1)
+            scrollView.addSubview(subview)
+
+            currentViewOffset += subviewHeight
+        }
+    }
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here&amp;rsquo;s what our example looks like when running:
+&lt;a href=&#34;http://imgur.com/nLFfOM4&#34;&gt;&lt;img src=&#34;http://i.imgur.com/nLFfOM4.gif&#34; title=&#34;source: imgur.com&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;scrolling-programatically&#34;&gt;Scrolling programatically&lt;/h2&gt;
+
+&lt;h3 id=&#34;set-content-offset&#34;&gt;Set content offset&lt;/h3&gt;
+
+&lt;p&gt;You can programatically scroll the contents a scroll view by setting its
+&lt;code&gt;contentOffset&lt;/code&gt; property.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;class ViewController: UIViewController {
+    @IBOutlet weak var scrollView: UIScrollView!
+
+    ...
+
+    @IBAction func didTapDownButton(sender: AnyObject) {
+        let newOffset = CGPointMake(scrollView.contentOffset.x, scrollView.contentOffset.y + 300)
+        scrollView.setContentOffset(newOffset, animated: true)
+    }
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://imgur.com/qtu6gAP&#34;&gt;&lt;img src=&#34;http://i.imgur.com/qtu6gAP.gif&#34; title=&#34;source: imgur.com&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;scrolling-to-a-a-subview&#34;&gt;Scrolling to a a subview&lt;/h3&gt;
+
+&lt;p&gt;If you want to make sure a given view is visible on screen you can
+you can use the &lt;code&gt;scrollRectToVisible&lt;/code&gt; method.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;class ViewController: UIViewController {
+    @IBOutlet weak var scrollView: UIScrollView!
+    var grayView: UIView!
+
+    override func viewDidLoad() {
+        ...
+        grayView = UIView(frame: CGRectMake(50, 620, scrollView.contentSize.width - 100, 150))
+        grayView.backgroundColor = UIColor.grayColor()
+        scrollView.addSubview(grayView)
+    }
+
+    @IBAction func didTapScrollButton(sender: AnyObject) {
+        scrollView.scrollRectToVisible(grayView.frame, animated: true)
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://imgur.com/uLlEhV5&#34;&gt;&lt;img src=&#34;http://i.imgur.com/uLlEhV5.gif&#34; title=&#34;source: imgur.com&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;using-paging-mode&#34;&gt;Using paging mode&lt;/h2&gt;
+
+&lt;h3 id=&#34;enabling-paging&#34;&gt;Enabling paging&lt;/h3&gt;
+
+&lt;p&gt;You can force the scroll view to to snap to &amp;ldquo;page&amp;rdquo; boundaries by setting
+the &lt;code&gt;pagingEnabled&lt;/code&gt; property.  The size of a page is equal to the size
+of the scroll view.  You&amp;rsquo;ll generally want to disable to scroll
+indicators when paging is enabled.  Here we allow the user to
+horizontally page through three views.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;class ViewController: UIViewController, UIScrollViewDelegate {
+    @IBOutlet weak var scrollView: UIScrollView!
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        let pageWidth = scrollView.bounds.width
+        let pageHeight = scrollView.bounds.height
+
+        scrollView.contentSize = CGSizeMake(3*pageWidth, pageHeight)
+        scrollView.pagingEnabled = true
+        scrollView.showsHorizontalScrollIndicator = false
+
+        let view1 = UIView(frame: CGRectMake(0, 0, pageWidth, pageHeight))
+        view1.backgroundColor = UIColor.blueColor()
+        let view2 = UIView(frame: CGRectMake(pageWidth, 0, pageWidth, pageHeight))
+        view2.backgroundColor = UIColor.orangeColor()
+        let view3 = UIView(frame: CGRectMake(2*pageWidth, 0, pageWidth, pageHeight))
+        view3.backgroundColor = UIColor.purpleColor()
+
+        scrollView.addSubview(view1)
+        scrollView.addSubview(view2)
+        scrollView.addSubview(view3)
+
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;adding-a-page-control&#34;&gt;Adding a page control&lt;/h3&gt;
+
+&lt;p&gt;The paging behavior is often combined with a &lt;code&gt;UIPageControl&lt;/code&gt; that
+displays a dot for each page and allows the user to switch pages by
+tapping.  This behavior can be achieved by implementing the
+&lt;code&gt;UIScrollViewDelegate&lt;/code&gt; and adding an action handler for the page
+control.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;class ViewController: UIViewController, UIScrollViewDelegate {
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var pageControl: UIPageControl!
+
+    override func viewDidLoad() {
+        ...
+        scrollView.delegate = self
+        pageControl.numberOfPages = 3
+    }
+
+    @IBAction func pageControlDidPage(sender: AnyObject) {
+        let xOffset = scrollView.bounds.width * CGFloat(pageControl.currentPage)
+        scrollView.setContentOffset(CGPointMake(xOffset,0) , animated: true)
+    }
+
+    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+        pageControl.currentPage = Int(scrollView.contentOffset.x / scrollView.bounds.width)
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://imgur.com/PFnCulU&#34;&gt;&lt;img src=&#34;http://i.imgur.com/PFnCulU.gif&#34; title=&#34;source: imgur.com&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;pinch-to-zoom&#34;&gt;Pinch to zoom&lt;/h2&gt;
+
+&lt;p&gt;Basic zooming behavior via pinch gestures is provided by the scroll view
+if you implement the &lt;code&gt;viewForZoomingInScrollView&lt;/code&gt; delegate method.
+Since a scroll view can have more than one subview, this method will
+identify which view will be zoomed when the pinch gesture fires.  You&amp;rsquo;ll
+also need to set the &lt;code&gt;minimumZoomScale&lt;/code&gt; and &lt;code&gt;maximumZoomScale&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;class ViewController: UIViewController, UIScrollViewDelegate {
+    @IBOutlet weak var scrollView: UIScrollView!
+    var imageView: UIImageView!
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        scrollView.delegate = self
+        scrollView.minimumZoomScale = 0.25
+        scrollView.maximumZoomScale = 2
+
+        let image = UIImage(named: &amp;quot;romanesco-broccoli&amp;quot;)
+        imageView = UIImageView(image: image)
+        scrollView.contentSize = image!.size
+        scrollView.addSubview(imageView)
+        scrollView.zoomScale = 0.5
+    }
+
+    func viewForZoomingInScrollView(scrollView: UIScrollView) -&amp;gt; UIView? {
+        return imageView
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://imgur.com/xmLhLet&#34;&gt;&lt;img src=&#34;http://i.imgur.com/xmLhLet.gif&#34; title=&#34;source: imgur.com&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;using-scroll-views-with-auto-layout&#34;&gt;Using scroll views with auto layout&lt;/h2&gt;
+
+&lt;p&gt;As noted &lt;a href=&#34;#basic-usage&#34;&gt;above&lt;/a&gt;, there are two sizes that are relevant
+when working with a scroll view:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;the scroll view&amp;rsquo;s (frame) size.  This determines how the scroll view
+fits inside its parent view and its size as it appears on the screen to the user.&lt;/li&gt;
+&lt;li&gt;the scroll view&amp;rsquo;s &lt;em&gt;content size&lt;/em&gt;.  This determines the size of
+available to the scrollable content within the scroll view.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;In order to use a scroll view with auto layout you must still specify
+&lt;em&gt;both&lt;/em&gt; of these sizes.&lt;/p&gt;
+
+&lt;p&gt;One approach to accomplishing this is to use auto layout constraints
+&lt;em&gt;only&lt;/em&gt; to determine the scroll view&amp;rsquo;s size relative to its parents and
+neighbors.  The content size and size of subviews inside the scroll
+view are still set programatically as we have been doing throughout this
+guide.&lt;/p&gt;
+
+&lt;p&gt;A second approach uses only Auto Layout constraints.  In particular,
+this means there must be a way for Auto Layout to specify the content
+size of a scroll view.  Altogether, the constraints must be enough to
+determine three things:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;The size of the scroll view.  You can use the pin and align tools to
+create constraints to parent and sibling views.  Unlike other views,
+you cannot rely on the size of child views of the scroll view here.&lt;/li&gt;
+&lt;li&gt;The content size of the scroll view.  This is specified by creating
+constraints between the scroll view&amp;rsquo;s edges and the &lt;em&gt;subviews within&lt;/em&gt;
+the scroll view.  Note that these constraints have a different
+meaning than normal constraints between a parent view and its child
+views.  The only size being determined here is the &lt;em&gt;content size&lt;/em&gt; of the
+scroll view.&lt;/li&gt;
+&lt;li&gt;Finally you must set constraints to determine the size of the actual
+subviews containing the scrollable content.
+&lt;strong&gt;These constraints cannot depend on the edges of the scroll
+view&lt;/strong&gt;&amp;mdash;since as we just saw, they would then be interpreted as
+constraints on the content size.  It is typical here to set a fixed size
+for a single main scrollable subview and to place other views inside this
+subview.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;A comprehensive discussion of this topic can be found &lt;a href=&#34;https://developer.apple.com/library/ios/technotes/tn2154/_index.html&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

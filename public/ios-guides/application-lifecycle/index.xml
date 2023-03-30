@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Application-lifecycle-rsses on Xamarin iOS Guides</title>
+    <link>http://guides.peruzal.com/ios-guides/application-lifecycle/index.xml</link>
+    <description>Recent content in Application-lifecycle-rsses on Xamarin iOS Guides</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Peruzal</copyright>
+    <lastBuildDate>Mon, 12 Dec 2016 01:53:19 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/ios-guides/application-lifecycle/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Understanding Application Lifecycle</title>
+      <link>http://guides.peruzal.com/ios-guides/application-lifecycle/</link>
+      <pubDate>Mon, 12 Dec 2016 01:53:19 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/ios-guides/application-lifecycle/</guid>
+      <description>
+
+&lt;p&gt;TODO:
+* Awaking from Push Notifications
+* Awaking from Location Changes&lt;/p&gt;
+
+&lt;h1 id=&#34;state-changes-in-an-ios-app&#34;&gt;State Changes in an iOS app&lt;/h1&gt;
+
+&lt;p&gt;An iOS application can transition between the following states:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Not running&lt;/li&gt;
+&lt;li&gt;Inactive (e.g. there is a phone call)&lt;/li&gt;
+&lt;li&gt;Active&lt;/li&gt;
+&lt;li&gt;Background&lt;/li&gt;
+&lt;li&gt;Suspended&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://i.imgur.com/aeOPsHh.png&#34; alt=&#34;State Changes in an iOS App&#34; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;the-application-delegate&#34;&gt;The application delegate&lt;/h1&gt;
+
+&lt;p&gt;Most of the time, your app reacts to state changes through the application delegate. If you are not using storyboards you will need to set up the window and root view controller of your application in &lt;code&gt;application:didFinishLaunchingWithOptions:&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;For example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;    func application(application: UIApplication,
+            didFinishLaunchingWithOptions launchOptions:[NSObject: AnyObject]?) -&amp;gt; Bool {
+        
+        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        self.rootViewController = ViewController()
+        self.window?.rootViewController = self.rootViewController
+        self.window?.makeKeyAndVisible()
+        
+        return true
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If you are using a storyboard you simply specify specify the &amp;ldquo;main interface&amp;rdquo; in your project settings. (Remember to also set the initial view controller on the storyboard)&lt;/p&gt;
+
+&lt;h2 id=&#34;viewcontroller-lifecycle&#34;&gt;ViewController lifecycle&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://i.stack.imgur.com/g19fw.png&#34; alt=&#34;View Controller Life Cycle Image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;init(coder:)&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;When it is called / When it is used :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;View controller are usually created from storyboards.When this is the case,init(coder:) is the initializer that gets called and you have to override.&lt;/li&gt;
+&lt;li&gt;If provides an NSCoder instance as a parameter, which you need only if you are using iOS serialization APIs. This is not used often, so you can ignore the parameter. If you are curious, serialization transforms an object in a byte stream that you can save on disk or send over the network.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Application :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;During the initalization phase of a view controller, you usually allocate the resources that the view controller will need during its lifetime. These include model objects or other auxiliary controllers, like network controllers.&lt;/li&gt;
+&lt;li&gt;Previous view controllers might also pass these objects to the current one, so you do not always need to instantiate them in every view controller.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Things to take care of :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Beware that the view of the view controller has still not been instantiated at this point. If you try to access it through the view property of UIViewController, the loadView() method will be called. This might create unexpected behavior and bugs, so it’s safer not to access the view until later in the lifecycle.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;init(nibName:bundle:)&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;When it is called / When it is used :
+
+&lt;ul&gt;
+&lt;li&gt;Sometimes you might decide to put your view controller’s interface in a separate nib file instead of a storyboard. This might happen, for example, to work in a larger team where different members need to be change view controller interfaces without affecting the work of others. You also might have a project that was created when storyboards did not exist yet, so every view controller had its own nib file.Keep in mind that if your main storyboard starts getting too big, you can split it into more storyboards. You do not need to move every view controller in a separate nib file.&lt;/li&gt;
+&lt;li&gt;If you create a view controller from a nib file, this initializer is called instead of init(coder:).&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;loadView()&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;This is the method that creates the view for the view controller. You override this method only in case you want to build the whole interface for the view controller from code. Don’t use this unless there is a valid reason.&lt;/li&gt;
+&lt;li&gt;If you are working with storyboards or nib files you do not have to anything with this method and you can ignore it. Its implementation in UIVIewController loads the interface from the interface file and connects all the outlets and actions for you.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;viewDidLoad()&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;When this method gets called, the view of the view controller has been created and you are sure that all the outlets are in place.&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Application :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;It is common to use this method to populate the user interface of the view controller with data before the user sees it.&lt;/li&gt;
+&lt;li&gt;It is also a good place where to start some background activity where you need to have the user interface in place at the end.&lt;/li&gt;
+&lt;li&gt;A common case are network calls that you need to do only once when the screen is loaded.&lt;/li&gt;
+&lt;li&gt;Good place to init and setup objects used in the viewController.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;viewDidLoad V/S viewDidAppear :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;If you need to repeat them (background activity/ UI changes/ make network calls ) to update the data in the view controller ,viewDidAppear(_:) is more appropriate to do so.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Important thing to remember :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;This method is called only once in the lifetime of a view controller, so you use it for things that need to happen only once. If you need to perform some task every time a view controller comes on screen, then you need the next method.&lt;/li&gt;
+&lt;li&gt;Keep in mind that in this lifecycle step the view bounds are not final.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;viewWillAppear(_:)&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;You override this method for tasks that need you need to repeat every time a view controller comes on screen. This method can be called multiple times for the same instance of a view controller.&lt;/li&gt;
+&lt;li&gt;Notifies the view controller that its view is about to be added to a view hierarchy&lt;/li&gt;
+&lt;li&gt;Application :
+
+&lt;ul&gt;
+&lt;li&gt;Usually you use this method to update the user interface with data that might have changed while the view controller was not on the screen.&lt;/li&gt;
+&lt;li&gt;You can also prepare the interface for animations you want to trigger when the view controller appears.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;viewDidLoad V/S viewDidAppear :
+
+&lt;ul&gt;
+&lt;li&gt;Code you need to execute only once should go into an initializer or viewDidLoad().&lt;/li&gt;
+&lt;li&gt;In this step the view has bounds defined but the orientation is not applied&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;viewWillLayoutSubViews:&lt;/strong&gt;
+- Called to notify the view controller that its view is about to layout its subviews.
+- This method is called every time the frame changes like for example when rotate or it’s marked as needing layout. It’s the first step where the view bounds are final.
+- If you are not using autoresizing masks or constraints and the view size changes you probably want to update the subviews here.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;viewDidLayoutSubviews:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Called to notify the view controller that its view has just laid out its subviews.&lt;/li&gt;
+&lt;li&gt;Make additional changes here after the view lays out its subviews.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;viewDidAppear(_:)&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;This method gets called after the view controller appears on screen.&lt;/li&gt;
+&lt;li&gt;You can use it to start animations in the user interface, to start playing a video or a sound, or to start collecting data from the network.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;viewWillDisappear(_:)&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Before the transition to the next view controller happens and the origin view controller gets removed from screen, this method gets called.&lt;/li&gt;
+&lt;li&gt;You rarely need to override this method since there are few common tasks that need to be performed at this point, but you might need it.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;viewDidDisappear(_:)&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;After a view controller gets removed from the screen, this method gets called.&lt;/li&gt;
+&lt;li&gt;You usually override this method to stop tasks that are should not run while a view controller is not on screen.&lt;/li&gt;
+&lt;li&gt;For example, you can stop listening to notifications, observing other objects properties, monitoring the device sensors or a network call that is not needed anymore.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;deinit()&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Like every other object, before a view controller is removed from memory, it gets deinitialized.&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Application :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;You usually override deinit() to clean resources that the view controller has allocated that are not freed by ARC.&lt;/li&gt;
+&lt;li&gt;You can also stop tasks you did not stop in the previous method because you wanted to keep them in the background.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Beware :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;A view controller going out of the screen does not mean that it will be deallocated afterwards. Many containers keep view controllers in memory. For example, as you go deeper in a navigation controller, all the previous view controllers stay in memory. A navigation controller releases view controllers only when navigating back up the hierarchy. For this reason, you have to keep in mind that a view controller that is not on the screen still works normally and receives notifications. Sometimes this is desiderable, other times it isn’t, so you need to keep this in mind while developing your app.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;didReceiveMemoryWarning()&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;iOS devices have a limited amount of memory and power. When the memory starts to fill up, iOS does not use its limited hard disk space to move data out of the memory like a computer does. For this reason you are responsible to keep the memory footprint of your app low. If your app starts using too much memory, iOS will notify it.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Since view controllers perform resource management, these notifications are delivered to them through this method. In this way you can take actions to free some memory. Keep in mind that if you ignore memory warnings and the memory used by your app goes over a certain threshold, iOS will end your app. This will look like a crash to the user and should be avoided.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

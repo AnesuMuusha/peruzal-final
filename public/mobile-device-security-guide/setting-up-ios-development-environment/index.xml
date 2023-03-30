@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Setting-up-ios-development-environments on Mobile Device Security and Penetration Testing Guide</title>
+    <link>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/setting-up-ios-development-environment/</link>
+    <description>Recent content in Setting-up-ios-development-environments on Mobile Device Security and Penetration Testing Guide</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Peruzal Mobile Device Security and Penetration Testing Guide</copyright>
+    <lastBuildDate>Sun, 01 Jan 2017 11:49:54 +0200</lastBuildDate>
+    
+	<atom:link href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/setting-up-ios-development-environment/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Setting Up iOS Development Environment</title>
+      <link>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/setting-up-ios-development-environment/</link>
+      <pubDate>Sun, 01 Jan 2017 11:49:54 +0200</pubDate>
+      
+      <guid>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/setting-up-ios-development-environment/</guid>
+      <description>Hardware and OS requirements  A workstation/laptop running Windows 7 (64-bit) A MacBook running Yosemite OS X 10.10 or higher  Mobile Devices and OS requirements: iPhone or iPad running iOS 8.4 or above (jailbroken)
+Note
+Why do you need a rooted or jailbroken phone for your test environment?
+It is as simple as the ability to customize and install any tools and also to run unsigned apps from nontraditional app stores on the device.</description>
+    </item>
+    
+  </channel>
+</rss>

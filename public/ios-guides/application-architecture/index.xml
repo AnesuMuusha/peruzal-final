@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Application-architecture-rsses on Xamarin iOS Guides</title>
+    <link>http://guides.peruzal.com/ios-guides/application-architecture/index.xml</link>
+    <description>Recent content in Application-architecture-rsses on Xamarin iOS Guides</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Peruzal</copyright>
+    <lastBuildDate>Mon, 12 Dec 2016 01:54:51 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/ios-guides/application-architecture/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Application Architecture</title>
+      <link>http://guides.peruzal.com/ios-guides/application-architecture/</link>
+      <pubDate>Mon, 12 Dec 2016 01:54:51 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/ios-guides/application-architecture/</guid>
+      <description>
+
+&lt;p&gt;An iOS project is composed of many files that define different aspects
+the application.  This guide presents high level overview of the most
+common components of an application and how they fit together.  A more
+comprehensive guide by Apple can be found &lt;a href=&#34;https://developer.apple.com/library/ios/documentation/iPhone/Conceptual/iPhoneOSProgrammingGuide/Introduction/Introduction.html&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;structure-of-a-uiapplication&#34;&gt;Structure of a &lt;code&gt;UIApplication&lt;/code&gt;&lt;/h2&gt;
+
+&lt;p&gt;All iOS applications are instances of &lt;a href=&#34;https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIApplication_Class/&#34;&gt;&lt;code&gt;UIApplication&lt;/code&gt;&lt;/a&gt;.
+Each application has a number of events in its lifecycle (e.g. launched,
+went into the background, terminated).  As with other classes in the
+UIKit framework, you control how the application will respond to these
+events by providing it with a &lt;a href=&#34;http://en.wikipedia.org/wiki/Delegation_pattern&#34;&gt;delegate&lt;/a&gt;.  A
+&lt;code&gt;UIApplication&lt;/code&gt;&amp;rsquo;s delegate must implement the
+&lt;a href=&#34;https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIApplicationDelegate_Protocol/index.html&#34;&gt;&lt;code&gt;UIApplicationDelegate&lt;/code&gt;&lt;/a&gt; protocol.&lt;/p&gt;
+
+&lt;p&gt;When you create a new application in Xcode, the IDE automatically sets
+up the code to instantiate a &lt;code&gt;UIApplication&lt;/code&gt; when the project is run.
+It also generates a class that implements &lt;code&gt;UIApplicationDelegate&lt;/code&gt; called
+&lt;code&gt;AppDelegate&lt;/code&gt; and sets the application&amp;rsquo;s &lt;a href=&#34;https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIApplication_Class/#//apple_ref/occ/instp/UIApplication/delegate&#34;&gt;delegate
+property&lt;/a&gt; to an instance of this class.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;NB: In Swift projects this is done via the &lt;code&gt;@UIApplicationMain&lt;/code&gt;
+&lt;a href=&#34;https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Attributes.html&#34;&gt;attribute&lt;/a&gt;.  In Object-C projects the set up is explicitly done in the
+&lt;code&gt;main.m&lt;/code&gt; file.&lt;/em&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;the-entry-point-to-your-application&#34;&gt;The entry point to your application&lt;/h3&gt;
+
+&lt;p&gt;Of the methods that you can implement in your &lt;code&gt;UIApplicationDelegate&lt;/code&gt;,
+perhaps the most important is
+&lt;a href=&#34;https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIApplicationDelegate_Protocol/index.html#//apple_ref/occ/intfm/UIApplicationDelegate/application:didFinishLaunchingWithOptions:&#34;&gt;didFinishLaunchingWithOptions&lt;/a&gt;.  This method will
+be called once iOS has done most of the system initialization for your
+app.  It is commonly used as an entry point where you can implement
+custom logic that initializes your application and sets up the first
+view controller.  For example, in applications that require log ins,
+this is a good place to check whether there is a current user and
+initialize different view controllers depending on the &amp;ldquo;logged in&amp;rdquo; state.&lt;/p&gt;
+
+&lt;h3 id=&#34;the-root-view-controller&#34;&gt;The root view controller&lt;/h3&gt;
+
+&lt;p&gt;The &lt;code&gt;UIApplicationDelegate&lt;/code&gt; also provides a reference to the
+application&amp;rsquo;s main &lt;a href=&#34;https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIApplicationDelegate_Protocol/index.html#//apple_ref/occ/intfp/UIApplicationDelegate/window&#34;&gt;window&lt;/a&gt; object.  Of particular
+importance is the ability to set the main window&amp;rsquo;s &lt;em&gt;root view
+controller&lt;/em&gt;.  This is the first view controller that will load and
+present its view to the user.  More on root view controllers can be
+found below.&lt;/p&gt;
+
+&lt;h4 id=&#34;the-root-view-controller-in-storyboard-applications&#34;&gt;The root view controller in storyboard applications&lt;/h4&gt;
+
+&lt;p&gt;In simple storyboard applications, you can avoid working with the
+&lt;code&gt;UIApplicationDelegate&lt;/code&gt; and simply set the root view controller directly
+in your &lt;code&gt;Main.storyboard&lt;/code&gt;.  By default Xcode will generate an initial
+view controller for you and set it to be the root view controller.  This
+is indicated by the arrow that points to the view controller.  Once you
+start adding more view controllers to your application, you can change
+the root view controller by dragging this arrow around.  You can
+also select a view controller and set it to be the root view controller
+by using the &lt;code&gt;Is Initial View Controller&lt;/code&gt; checkbox in the Attributes
+Inspector.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://imgur.com/winIGnh&#34;&gt;&lt;img src=&#34;http://i.imgur.com/winIGnhl.png&#34; title=&#34;Setting Root View Controller&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;programatically-setting-the-root-view-controller&#34;&gt;Programatically setting the root view controller&lt;/h4&gt;
+
+&lt;p&gt;In applications not using storyboards, you must programatically set the
+root view controller.  This is done in your &lt;code&gt;UIApplicationDelegate&lt;/code&gt;
+implementation&amp;rsquo;s &lt;code&gt;didFinishLaunchingWithOptions&lt;/code&gt; method.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;import UIKit
+
+@UIApplicationMain
+class AppDelegate: UIResponder, UIApplicationDelegate {
+
+    var window: UIWindow?
+
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -&amp;gt; Bool {
+        let vc = UIViewController()
+
+        let label = UILabel()
+        label.text = &amp;quot;hello, world!&amp;quot;
+        label.frame = vc.view.frame
+
+        // by default a UIViewController&#39;s .view property is set to an instance of UIView
+        // of course you can set this to any custom subclass of UIView
+        // one way to do this is subclass UIViewController and override the loadView method
+        vc.view.backgroundColor = UIColor.cyan
+        vc.view.addSubview(label)
+
+        window = UIWindow(frame: UIScreen.main.bounds)
+
+        // This can be set to any subclass of UIViewController.  You can also use conditional
+        // logic here to set up different view controllers depending on application state
+        window?.rootViewController = vc
+        window?.makeKeyAndVisible()
+
+        return true
+    }
+    ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://imgur.com/fXE9BWw&#34;&gt;&lt;img src=&#34;http://i.imgur.com/fXE9BWwl.png&#34; title=&#34;Setting Root View Controller Programatically&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;other-hooks-in-the-application-lifecycle&#34;&gt;Other hooks in the application lifecycle&lt;/h3&gt;
+
+&lt;p&gt;The &lt;code&gt;UIApplicationDelegate&lt;/code&gt; protocol provides many other hooks into the
+application&amp;rsquo;s lifecycle giving you opportunities to things like respond
+differently depending on how your application was launched, set up and
+tear down temporary state depending whether your app is in the
+foreground, and persist data before exiting. A detailed discussion of
+the application lifecycle can be found &lt;a href=&#34;https://developer.apple.com/library/ios/documentation/iPhone/Conceptual/iPhoneOSProgrammingGuide/TheAppLifeCycle/TheAppLifeCycle.html#//apple_ref/doc/uid/TP40007072-CH2-SW3&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;model-view-controller-in-ios&#34;&gt;Model-View-Controller in iOS&lt;/h2&gt;
+
+&lt;p&gt;Most applications you write for iOS will use a model-view-controller
+(MVC) architecture similar to the one described by Apple
+&lt;a href=&#34;https://developer.apple.com/library/ios/documentation/General/Conceptual/DevPedia-CocoaCore/MVC.html&#34;&gt;here&lt;/a&gt;.  This is a proven design that helps to break up your
+application into managable parts with clean separation of concerns.
+What follows is a description of how each part of MVC typically
+applies in iOS programming.&lt;/p&gt;
+
+&lt;!--- TODO: build sample app here --&gt;
+
+&lt;p&gt;&lt;em&gt;NB: This description of MVC is actually slightly different than the one
+originally described by &lt;a href=&#34;https://www.lri.fr/~mbl/ENS/FONDIHM/2013/papers/Krasner-JOOP88.pdf&#34;&gt;Krasner and Pope&lt;/a&gt; in the 1980s,
+and is probably closer to what some people would call a
+model-view-presenter pattern.  An interesting discussion of the
+evolution of MVC architecture over time by Martin Fowler can be found
+&lt;a href=&#34;http://martinfowler.com/eaaDev/uiArchs.html&#34;&gt;here&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;models&#34;&gt;Models&lt;/h3&gt;
+
+&lt;p&gt;Model objects encapsulate a logical unit of domain specific data in your
+application.  In a photo-sharing social network, they might include
+entities like &amp;ldquo;Users&amp;rdquo; and &amp;ldquo;Photos&amp;rdquo;.  Models may have relationships with
+other models.  For example, a &amp;ldquo;Photo&amp;rdquo; might have been &amp;ldquo;posted by&amp;rdquo; a
+&amp;ldquo;User&amp;rdquo;.  The model layer will gerenally contain any domain specific
+logic for manipulating your data and relationships.  For example if a
+User has a field keeping track of the number of Photos she has posted,
+this field will have to updated once she posts a new Photo.&lt;/p&gt;
+
+&lt;p&gt;Often in an iOS application, much of the core logic around manipulating
+models and their relationships is offloaded to a remote API (e.g. a REST
+API).  In these cases, the models in your iOS project will generally be
+some Swift (or Objective-C) representation of the resources defined by
+the API.&lt;/p&gt;
+
+&lt;p&gt;The model layer is responsible for knowing how to perform &lt;a href=&#34;http://en.wikipedia.org/wiki/Create,_read,_update_and_delete&#34;&gt;CRUD&lt;/a&gt;
+operations on models.  This can include having Swift (or Objective-C)
+bindings to right API endpoints and implementing logic to
+serialize/deserialize models from/into the different data formats.
+&lt;a href=&#34;https://github.com/Mantle/Mantle&#34;&gt;Mantle&lt;/a&gt; and
+&lt;a href=&#34;https://github.com/RestKit/RestKit&#34;&gt;RestKit&lt;/a&gt; are two popular libraries
+that help to define the model layer&amp;mdash;especially the
+serialization/deserialization logic when working with REST APIs.&lt;/p&gt;
+
+&lt;p&gt;In the model-view-controller pattern the model is responsible for
+notifying related controllers that there has been a change in its state.
+This happens for example when the model layer has finished loading
+data from a remote service and informs the view controller so that it
+can transition out of the loading state and notify the views to display
+the data.&lt;/p&gt;
+
+&lt;h3 id=&#34;views&#34;&gt;Views&lt;/h3&gt;
+
+&lt;p&gt;Views are responsible for displaying data (literally &lt;a href=&#34;https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIView_Class/index.html#//apple_ref/occ/instm/UIView/drawRect:&#34;&gt;drawing
+themselves&lt;/a&gt; on the screen) and responding to user actions.  Every
+view in an iOS application will be a subclass of
+&lt;a href=&#34;https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIView_Class/index.html&#34;&gt;&lt;code&gt;UIView&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;UIKit comes with a selection of &lt;a href=&#34;https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/UIKitUICatalog/&#34;&gt;predefined views&lt;/a&gt; that are
+fairly comprehensive and, used creatively, can implement many UI
+designs.&lt;/p&gt;
+
+&lt;p&gt;You can also create custom views by subclassing any &lt;code&gt;UIView&lt;/code&gt; class.
+Custom views are generally composed of one or more built-in views.  If
+this is the case, the layout for a custom view can be defined using
+Interface Builder in a &lt;a href=&#34;https://developer.apple.com/library/ios/documentation/General/Conceptual/Devpedia-CocoaApp/Storyboard.html&#34;&gt;storyboard&lt;/a&gt; or &lt;a href=&#34;https://developer.apple.com/library/ios/documentation/General/Conceptual/DevPedia-CocoaCore/NibFile.html&#34;&gt;nib&lt;/a&gt;, or done programatically in
+the view&amp;rsquo;s class.&lt;/p&gt;
+
+&lt;p&gt;You&amp;rsquo;ll find yourself working with two kinds of views: reusable
+components that are fairly generic (e.g. &lt;code&gt;UITableView&lt;/code&gt;) and specific
+views that meant for presenting a specific model (e.g. a &lt;a href=&#34;Table-View-Guide#creating-customized-cells&#34;&gt;custom cell
+class&lt;/a&gt; in a &lt;code&gt;UITableView&lt;/code&gt;).
+In the former case you&amp;rsquo;ll want to design a good interface so that your
+view can be reused in many situations.  In the later case, it is OK for
+your view to be tightly coupled to your model since its only purpose is
+to present a visual representation of the model.&lt;/p&gt;
+
+&lt;p&gt;A view may be responsible for managing the instantiation and layout of
+its subviews. However as you traverse up the &lt;a href=&#34;https://developer.apple.com/library/ios/documentation/WindowsViews/Conceptual/ViewPG_iPhoneOS/CreatingViews/CreatingViews.html#//apple_ref/doc/uid/TP40009503-CH5-SW47&#34;&gt;view
+hieararchy&lt;/a&gt; ultimately you&amp;rsquo;ll find some parent view that
+was instatiated by and inserted into the view hieararchy by a view
+controller.  View controllers are responsible for creating views and
+notifying views when they need to refresh themselves with the latest
+data from the model.&lt;/p&gt;
+
+&lt;p&gt;Conversely, views are responsible for responding to user actions and
+propagating events to view controllers so that they can handle them
+appropriately, for example by updating the model.&lt;/p&gt;
+
+&lt;p&gt;Often views will translate a low level event into a semantic event.  For
+example a table cell view responsible for displaying a Tweet might
+translate the low level of the event button tap on the &amp;ldquo;star button&amp;rdquo;
+into the semantic event of &amp;ldquo;user favorited Tweet&amp;rdquo;.  The view would then
+pass this high level message to the view controller who might then have
+the model layer make an API call to complete the &amp;ldquo;favoriting&amp;rdquo;.&lt;/p&gt;
+
+&lt;p&gt;The &lt;a href=&#34;https://developer.apple.com/library/ios/documentation/General/Conceptual/DevPedia-CocoaCore/Delegation.html&#34;&gt;delegate pattern&lt;/a&gt; is useful for this kind of event propagation and
+is used widely throughout iOS frameworks.&lt;/p&gt;
+
+&lt;h3 id=&#34;view-controllers&#34;&gt;View Controllers&lt;/h3&gt;
+
+&lt;p&gt;The controller sits between your model and view.  It coordinates the
+interaction between the model and the view by passing on &lt;em&gt;state&lt;/em&gt; changes
+from model to the view and propagating &lt;em&gt;events&lt;/em&gt; from the view to the
+model.  This relationship can be summarized as follows:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;                                             update view
+     -- state change --&amp;gt;                 -- with new state --&amp;gt;
+Model                     View Controller                     View
+     &amp;lt;-- handle event --                 &amp;lt;-- interpret and ---
+      by updating model                     propagate event
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Your view controllers will always subclass from &lt;code&gt;UIViewController&lt;/code&gt;.
+Each view controller usually manages one &amp;ldquo;screen&amp;rdquo; within your app.  For
+instance, an email client might have an &lt;code&gt;AccountsListViewController&lt;/code&gt;. If
+you clicked on an account, it would push in to an &lt;code&gt;InboxViewController&lt;/code&gt;,
+which displays a list of emails. If you tapped an email, it would
+display the full email within an &lt;code&gt;EmailDetailsViewController&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;There is a notion of &lt;a href=&#34;Container-View-Controllers#&#34;&gt;container view controllers&lt;/a&gt; that
+manage the multiple view controllers and their interactions.  The most
+common built-in container view controller is the [[navigation controller|Navigation Controller]].&lt;/p&gt;
+
+&lt;!---
+## Other
+### Build settings
+### Storyboards
+### Assets catalogs
+--&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

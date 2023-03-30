@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Multithreading-rsses on Xamarin iOS Guides</title>
+    <link>http://guides.peruzal.com/ios-guides/multithreading/index.xml</link>
+    <description>Recent content in Multithreading-rsses on Xamarin iOS Guides</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Peruzal</copyright>
+    <lastBuildDate>Mon, 12 Dec 2016 02:22:43 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/ios-guides/multithreading/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Multi-Threading</title>
+      <link>http://guides.peruzal.com/ios-guides/multithreading/</link>
+      <pubDate>Mon, 12 Dec 2016 02:22:43 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/ios-guides/multithreading/</guid>
+      <description>
+
+&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+
+&lt;p&gt;Production applications will often need to perform heavier operations such as downloading high-resolution images or a executing non-cached database queries. To prevent stalling the main thread (and a hit in frame rate), Apple has provided a few tools to help you out! We&amp;rsquo;ll take a look at Grand Central Dispatch, &lt;a href=&#34;https://developer.apple.com/library/mac/documentation/Cocoa/Reference/NSOperation_class/&#34;&gt;&lt;code&gt;NSOperation&lt;/code&gt;&lt;/a&gt;s, and the &lt;a href=&#34;https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSObject_Class/#//apple_ref/occ/instm/NSObject/performSelectorInBackground:withObject:&#34;&gt;&lt;code&gt;performSelectorInBackground&lt;/code&gt;&lt;/a&gt; method on &lt;code&gt;NSObject&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;available-options&#34;&gt;Available Options&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Grand Central Dispatch
+
+&lt;ul&gt;
+&lt;li&gt;Grand Central Dispatch is a technology that abstracts away the low-level details of multithreading. When using GCD, you only have to think about the tasks you want to perform. These tasks can then be added to serial or concurrent queues. Moreover, you can add tasks to groups and run code after all tasks within the group complete!&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;NSOperation&lt;/code&gt; and &lt;code&gt;NSOperationQueue&lt;/code&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;NSOperation&lt;/code&gt;s and &lt;code&gt;NSOperationQueue&lt;/code&gt;s provide you with a higher-level API, when compared to GCD. They were first introduced in iOS 4 and are actually implemented with GCD under the hood. Typically, you&amp;rsquo;ll want to use this API over GCD, unless you&amp;rsquo;re performing a simple unit of work on a specific queue. &lt;code&gt;NSOperation&lt;/code&gt;s provide you with powerful functionality such as cancellation and dependencies.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;performSelectorInBackground&lt;/code&gt;
+
+&lt;ul&gt;
+&lt;li&gt;If you need to perform a simple unit of work on a new thread, &lt;code&gt;NSObject&lt;/code&gt; provides you with
+&lt;code&gt;performSelectorInBackground(_:withObject:)&lt;/code&gt;. Using this, you can run a function (with an argument) on a background thread.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;grand-central-dispatch&#34;&gt;Grand Central Dispatch&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://imgur.com/cjRYJZq.png&#34;/&gt;&lt;/p&gt;
+
+&lt;p&gt;Let&amp;rsquo;s walk through an example where we download an image from a remote URL and then use it to populate a &lt;code&gt;UIImageView&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;// Assume we have an `imageView` property on self
+private func loadWallpaper() {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) { [weak self] in
+        guard
+            let wallpaperURL = NSURL(string: &amp;quot;http://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-157301.jpg&amp;quot;),
+            let imageData = NSData(contentsOfURL: wallpaperURL)
+        else {
+            return
+        }
+
+        dispatch_async(dispatch_get_main_queue()) {
+            self?.imageView.image = UIImage(data: imageData)
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Most uses of GCD start with a call to &lt;code&gt;dispatch_async&lt;/code&gt;, which takes in a queue to use and the block to execute&lt;/li&gt;
+&lt;li&gt;In our example, we&amp;rsquo;d like to execute the wallpaper download on a background queue, so we make use of the system-defined global queue with a background quality of service (QoS), &lt;code&gt;DISPATCH_QUEUE_PRIORITY_BACKGROUND&lt;/code&gt;.
+
+&lt;ul&gt;
+&lt;li&gt;The flag passed into &lt;code&gt;dispatch_get_global_queue&lt;/code&gt; should always be 0&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Now we have the block of work to execute
+
+&lt;ul&gt;
+&lt;li&gt;We construct a &lt;code&gt;NSURL&lt;/code&gt; via its failable &lt;code&gt;String&lt;/code&gt; initializer and then fetch the data associated with that resource via &lt;code&gt;NSData(contentsOfURL:)&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;If the above step completes successfully (else we just return from the block), we now have our data at hand!&lt;/li&gt;
+&lt;li&gt;To update &lt;code&gt;imageView&lt;/code&gt;&amp;rsquo;s &lt;code&gt;image&lt;/code&gt; property, we need to make sure we return to the main thread via &lt;code&gt;dispatch_async(dispatch_get_main_queue()) { /* ... */ }&lt;/code&gt;. &lt;em&gt;Remember in iOS, all UI updates should be performed on the main thread&lt;/em&gt;. Inside the main thread block, we set the image using the &lt;code&gt;NSData&lt;/code&gt; initializer on &lt;code&gt;UIImage&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Now that we&amp;rsquo;ve seen a one-off block example, let&amp;rsquo;s dive into how you can accomplish groups of dependent tasks. Imagine you wanted to download multiple wallpapers and present an alert to the user when all of the images finish loading. Dispatch groups will be your best friends in these scenarios!&lt;/p&gt;
+
+&lt;p&gt;First, let&amp;rsquo;s refactor the &lt;code&gt;loadWallpaper&lt;/code&gt; function from the previous example to accept a &lt;code&gt;dispatch_group_t&lt;/code&gt; and a target URL.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;private func loadWallpaper(group: dispatch_group_t, url: String) {
+    dispatch_group_async(group, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) { [weak self] in
+        defer {
+            dispatch_group_leave(group)
+        }
+
+        guard
+            let wallpaperURL = NSURL(string: url),
+            let imageData = NSData(contentsOfURL: wallpaperURL)
+        else {
+            // In production scenarios, we would want error handing here
+            return
+        }
+
+        // Use imageData in some manner, e.g. persisting to a cache, present in view hierarchy, etc.
+        print(&amp;quot;Image downloaded \(url)&amp;quot;)
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The function has been modified slightly to accept a parameter &lt;code&gt;group&lt;/code&gt; of type &lt;code&gt;dispatch_group_t&lt;/code&gt; (we&amp;rsquo;ll go into how to create these groups in the next snippet) and a target URL. Additionally, our previous call to &lt;code&gt;dispatch_async&lt;/code&gt; has been replaced with &lt;code&gt;dispatch_group_async&lt;/code&gt;, signaling that the block should be associated with &lt;code&gt;group&lt;/code&gt;. Lastly, after completing our work with the resulting &lt;code&gt;imageData&lt;/code&gt; we must notify &lt;code&gt;group&lt;/code&gt; that the block is complete via &lt;code&gt;dispatch_group_leave&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;To use &lt;code&gt;loadWallpaper(_:url:)&lt;/code&gt; a call site could look like so:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;private func fetchAllWallpapers() {
+        let urls = [
+            &amp;quot;http://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-329991.jpg&amp;quot;,
+            &amp;quot;http://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-329805.jpg&amp;quot;,
+            &amp;quot;http://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-330201.jpg&amp;quot;
+        ]
+
+        let wallpaperGroup = dispatch_group_create()
+
+        urls.forEach {
+            dispatch_group_enter(wallpaperGroup)
+            loadWallpaper(wallpaperGroup, url: $0)
+        }
+
+        dispatch_group_notify(wallpaperGroup, dispatch_get_main_queue()) { [weak self] in
+            let alertController = UIAlertController(title: &amp;quot;Done!&amp;quot;, message: &amp;quot;All images have downloaded&amp;quot;, preferredStyle: .Alert)
+            alertController.addAction(UIAlertAction(title: &amp;quot;OK&amp;quot;, style: .Default, handler: nil))
+
+            self?.presentViewController(alertController, animated: true, completion: nil)
+        }
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;We start by creating a dispatch group, &lt;code&gt;wallpaperGroup&lt;/code&gt;, using &lt;code&gt;dispatch_group_create()&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;With the group in hand, we loop over all of the wallpaper URLs, first signaling to the group that we are about to start an operation by making a call to &lt;code&gt;dispatch_group_enter(wallpaperGroup)&lt;/code&gt; (each group entry call must pair with a group leave call). We then proceed to call &lt;code&gt;loadWallpaper(_:url:)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;To run code after completion of the group, we specify a block in a &lt;code&gt;dispatch_group_notify&lt;/code&gt; call. In our case, we&amp;rsquo;ll simply present a &lt;code&gt;UIAlertController&lt;/code&gt; letting the user know that all of the downloads have finished.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;While GCD can be extremely powerful, it can be a bit cumbersome to work with in practice. To help with this, &lt;a href=&#34;https://github.com/beeth0ven&#34;&gt;Luo Jie&lt;/a&gt; came up with a &lt;a href=&#34;http://nshipster.com/new-years-2016/#swiftier-gcd&#34;&gt;Swifty GCD wrapper&lt;/a&gt; that I often use in my projects:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;protocol ExcutableQueue {
+    var queue: dispatch_queue_t { get }
+}
+
+extension ExcutableQueue {
+    func execute(closure: () -&amp;gt; Void) {
+        dispatch_async(queue, closure)
+    }
+}
+
+enum Queue: ExcutableQueue {
+    case Main
+    case UserInteractive
+    case UserInitiated
+    case Utility
+    case Background
+
+    var queue: dispatch_queue_t {
+        switch self {
+        case .Main:
+            return dispatch_get_main_queue()
+        case .UserInteractive:
+            return dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE, 0)
+        case .UserInitiated:
+            return dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)
+        case .Utility:
+            return dispatch_get_global_queue(QOS_CLASS_UTILITY, 0)
+        case .Background:
+            return dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)
+        }
+    }
+}
+
+enum SerialQueue: String, ExcutableQueue {
+    case DownLoadImage = &amp;quot;myApp.SerialQueue.DownLoadImage&amp;quot;
+    case UpLoadFile = &amp;quot;myApp.SerialQueue.UpLoadFile&amp;quot;
+
+    var queue: dispatch_queue_t {
+        return dispatch_queue_create(rawValue, DISPATCH_QUEUE_SERIAL)
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Using this wrapper, our example above could be rewritten as:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;Queue.Background.execute {
+    guard
+        let url = NSURL(string: &amp;quot;http://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-157301.jpg&amp;quot;),
+        let data = NSData(contentsOfURL: url)
+    else {
+        return
+    }
+
+    Queue.Main.execute { [weak self] in
+        self?.imageView.image = UIImage(data: data)
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;nsoperation&#34;&gt;NSOperation&lt;/h3&gt;
+
+&lt;p&gt;To start, we&amp;rsquo;ll port the wallpaper downloading example to use an &lt;code&gt;NSBlockOperation&lt;/code&gt;. &lt;code&gt;NSBlockOperation&lt;/code&gt; is a simple wrapper on a block of work that can be added to a queue.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;private func loadWallpaper(queue: NSOperationQueue, url: String) {
+    guard let wallpaperURL = NSURL(string: url) else { return }
+
+    let downloadOperation = NSBlockOperation {
+        guard let imageData = NSData(contentsOfURL: wallpaperURL) else { return }
+
+        NSOperationQueue.mainQueue().addOperationWithBlock { [weak self] in
+            self?.imageView.image = UIImage(data: imageData)
+        }
+    }
+
+    queue.addOperation(downloadOperation)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The initializer for &lt;code&gt;NSBlockOperation&lt;/code&gt; simply takes a block to run. In our case, we&amp;rsquo;ll download the data from &lt;code&gt;wallpaperURL&lt;/code&gt; and return to the main queue to set the &lt;code&gt;image&lt;/code&gt; property on &lt;code&gt;imageView&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;After initializing &lt;code&gt;downloadOperation&lt;/code&gt;, we add it to &lt;code&gt;queue&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;When creating an &lt;code&gt;NSOperationQueue&lt;/code&gt;, you have a few points of customization&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let queue = NSOperationQueue()
+queue.maxConcurrentOperationCount = 1
+
+// If you want to hold the queue, use the `suspended` property
+queue.suspended = true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The &lt;code&gt;maxConcurrentOperationCount&lt;/code&gt; property allows you to set a limit on how many operations may run concurrently in a given queue. Setting this to 1, implies your queue will be serial (queing order may not be preserved, as operations only run when their &lt;code&gt;ready&lt;/code&gt; flag is set to true). If this property isn&amp;rsquo;t set, it defaults to &lt;code&gt;NSOperationQueueDefaultMaxConcurrentOperationCount&lt;/code&gt;, which is dictated by system conditions.&lt;/li&gt;
+&lt;li&gt;By default, all operations that are ready (&lt;code&gt;ready&lt;/code&gt; property is true) are run when added to a queue. You can halt all execution on a queue by setting the &lt;code&gt;suspended&lt;/code&gt; property to true.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code&gt;NSOperation&lt;/code&gt;s become really powerful when you separate them out into operation subclasses. To demonstrate this, let&amp;rsquo;s make a wallpaper resizing operation. We&amp;rsquo;ll need to subclass a &lt;a href=&#34;https://gist.github.com/Jasdev/ba9f03747086d4939e55&#34;&gt;custom wrapper&lt;/a&gt; of &lt;code&gt;NSOperation&lt;/code&gt; that has the proper KVO notifications in place (see &amp;lsquo;Subclassing Notes&amp;rsquo; in the &lt;a href=&#34;https://developer.apple.com/library/mac/documentation/Cocoa/Reference/NSOperation_class/&#34;&gt;docs&lt;/a&gt;).&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;class ResizeImageOperation: Operation {
+
+    enum Error {
+        case FileReadError
+        case ResizeError
+        case WriteError
+    }
+
+    let targetSize: CGSize
+    let path: NSURL
+    var error: Error?
+
+    init(size: CGSize, path: NSURL) {
+        self.targetSize = size
+        self.path = path
+    }
+
+    override func execute() {
+        // Need to signal KVO notifications for operation completion
+        defer {
+            finish()
+        }
+
+        guard let sourceImage = UIImage(contentsOfFile: path.absoluteString) else {
+            error = Error.FileReadError
+            return
+        }
+
+        let finalWidth: CGFloat, finalHeight: CGFloat
+        let ratio = sourceImage.size.width / sourceImage.size.height
+
+        // Scale aspect fit the image
+        if sourceImage.size.width &amp;gt;= sourceImage.size.height {
+            finalWidth = targetSize.width
+            finalHeight = finalWidth / ratio
+        } else {
+            finalHeight = targetSize.height
+            finalWidth = finalHeight * ratio
+        }
+
+        let imageSize = CGSize(width: finalWidth, height: finalHeight)
+        UIGraphicsBeginImageContextWithOptions(imageSize, true, 0.0)
+        defer { UIGraphicsEndImageContext() }
+
+        let rect = CGRect(origin: .zero, size: imageSize)
+        sourceImage.drawInRect(rect)
+
+        guard
+            let resizedImage = UIGraphicsGetImageFromCurrentImageContext(),
+            let imageData = UIImageJPEGRepresentation(resizedImage, 1.0)
+        else {
+            error = Error.ResizeError
+            return
+        }
+
+        guard imageData.writeToFile(path.absoluteString, atomically: true) else {
+            error = Error.WriteError
+            return
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;To help with error handling, we add a nested &lt;code&gt;Error&lt;/code&gt; enum with a few cases.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ResizeImageOperation&lt;/code&gt; can be initialized with a target size and path to write,&lt;/li&gt;
+&lt;li&gt;The meat of the operation is placed in the &lt;code&gt;execute&lt;/code&gt; method (overridden from &lt;code&gt;Operation&lt;/code&gt;). We need to make sure to &lt;code&gt;defer&lt;/code&gt; a call to &lt;code&gt;finish()&lt;/code&gt;, so that the &lt;code&gt;Operation&lt;/code&gt; superclass can signal the proper KVO notifications.&lt;/li&gt;
+&lt;li&gt;We then proceed with the resizing the image (scale aspect fit) and saving it to disk.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Now that we have a resizing operation in hand, let&amp;rsquo;s refactor our download operation a bit to work with it:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;private func downloadWallpaper(url: NSURL, path: NSURL) -&amp;gt; NSOperation {
+    return NSBlockOperation {
+        guard
+            let imageData = NSData(contentsOfURL: url),
+            let image = UIImage(data: imageData)
+        else { return }
+
+        UIImageJPEGRepresentation(image, 1.0)?.writeToFile(path.absoluteString, atomically: true)
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;We now return an &lt;code&gt;NSOperation&lt;/code&gt; and have the operation write the image data to disk.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Lastly, to make the download and resize operations dependent, we can use them like so:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;// Assume self has `imageView` and `wallpaperQueue` properties
+
+if
+    let cacheDirectory = NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true).first,
+    let cacheDirectoryURL = NSURL(string: cacheDirectory)
+{
+
+    let targetURL = cacheDirectoryURL.URLByAppendingPathComponent(&amp;quot;wallpaper.jpg&amp;quot;)
+    let downloadOperation = downloadWallpaper(NSURL(string: &amp;quot;http://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-329991.jpg&amp;quot;)!, path: targetURL)
+
+    let resizeOperation = ResizeImageOperation(size: CGSize(width: imageView.bounds.size.width * 2, height: imageView.bounds.size.height * 2), path: targetURL)
+    resizeOperation.addDependency(downloadOperation)
+
+    resizeOperation.completionBlock = { [weak self, weak resizeOperation] in
+        if let error = resizeOperation?.error {
+            print(error)
+            return
+        }
+
+        guard
+            let path = resizeOperation?.path,
+            let imageData = NSData(contentsOfFile: path.absoluteString)
+        else {
+            return
+        }
+
+        NSOperationQueue.mainQueue().addOperationWithBlock {
+            self?.imageView.image = UIImage(data: imageData)
+        }
+    }
+
+    wallpaperQueue.suspended = true
+    wallpaperQueue.addOperation(downloadOperation)
+    wallpaperQueue.addOperation(resizeOperation)
+    wallpaperQueue.suspended = false
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The key line to notice is &lt;code&gt;resizeOperation.addDependency(downloadOperation)&lt;/code&gt;. That&amp;rsquo;s how we express the resizing operation&amp;rsquo;s dependency on &lt;code&gt;downloadOperation&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Moreover, in the completion block of &lt;code&gt;resizeOperation&lt;/code&gt;, we check for errors and proceed with displaying the resized image.&lt;/li&gt;
+&lt;li&gt;Note: we make sure to suspend the queue first, then add the operations. This prevents the operations from beginning immediately upon addition.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;performselectorinbackground&#34;&gt;PerformSelectorInBackground&lt;/h3&gt;
+
+&lt;p&gt;To wrap up, let&amp;rsquo;s show a simple example of &lt;code&gt;performSelectorInBackground&lt;/code&gt;. Assuming &lt;code&gt;self&lt;/code&gt; has a method &lt;code&gt;sleepAndPrint(_:)&lt;/code&gt;, we can make the following call:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;performSelectorInBackground(&amp;quot;sleepAndPrint:&amp;quot;, withObject: &amp;quot;supsup&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If our target selector had no argument, the selector would simply be &lt;code&gt;&amp;quot;sleepAndPrint&amp;quot;&lt;/code&gt;).&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;func sleepAndPrint(message: String) {
+    NSThread.sleepForTimeInterval(1)
+    print(message)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;key-takeaways&#34;&gt;Key Takeaways&lt;/h2&gt;
+
+&lt;p&gt;We&amp;rsquo;ve used GCD, &lt;code&gt;NSoperation&lt;/code&gt;s, and &lt;code&gt;NSObject&lt;/code&gt;&amp;rsquo;s &lt;code&gt;performSelectorInBackground&lt;/code&gt; method as means of performing work in a multithreaded fashion. If you have small units of work to perform, you&amp;rsquo;ll want to reach for GCD or &lt;code&gt;performSelectorInBackground&lt;/code&gt;. On the other hand, if you have larger operations that may have dependencies, &lt;code&gt;NSOperation&lt;/code&gt; should be your tool of choice. For more info on these topics check out Apple&amp;rsquo;s &lt;a href=&#34;https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/Multithreading/Introduction/Introduction.html&#34;&gt;Thread Programming Guide&lt;/a&gt; and the WWDC 2015 session on &lt;a href=&#34;https://developer.apple.com/videos/play/wwdc2015-226/&#34;&gt;Advanced NSOperations&lt;/a&gt;!&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://twitter.com/jasdev&#34;&gt;@jasdev&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

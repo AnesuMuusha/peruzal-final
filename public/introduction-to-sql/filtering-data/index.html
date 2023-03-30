@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+  
+  
+  
+  
+   <html class="no-js"> 
+
+  <head lang="en-us">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=10" />
+    <title>Filtering Data - Introduction to SQL</title>
+    <meta name="generator" content="Hugo 0.19" />
+
+    
+    <meta name="description" content="Introduction to SQL Guide">
+    
+    <link rel="canonical" href="http://guides.peruzal.com/introduction-to-sql/filtering-data/">
+    
+    <meta name="author" content="Peruzal">
+    
+
+    <meta property="og:url" content="http://guides.peruzal.com/introduction-to-sql/filtering-data/">
+    <meta property="og:title" content="Introduction to SQL">
+    <meta property="og:image" content="http://guides.peruzal.com/images/logo.png">
+    <meta name="apple-mobile-web-app-title" content="Introduction to SQL">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="shortcut icon" type="image/x-icon" href="http://guides.peruzal.com/introduction-to-sql/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="http://guides.peruzal.com/introduction-to-sql/images/favicon.ico">
+
+    <style>
+      @font-face {
+        font-family: 'Icon';
+        src: url('http://guides.peruzal.com/introduction-to-sql/fonts/icon.eot');
+        src: url('http://guides.peruzal.com/introduction-to-sql/fonts/icon.eot')
+               format('embedded-opentype'),
+             url('http://guides.peruzal.com/introduction-to-sql/fonts/icon.woff')
+               format('woff'),
+             url('http://guides.peruzal.com/introduction-to-sql/fonts/icon.ttf')
+               format('truetype'),
+             url('http://guides.peruzal.com/introduction-to-sql/fonts/icon.svg')
+               format('svg');
+        font-weight: normal;
+        font-style: normal;
+      }
+    </style>
+
+    <link rel="stylesheet" href="http://guides.peruzal.com/introduction-to-sql/stylesheets/application.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/introduction-to-sql/stylesheets/temporary.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/introduction-to-sql/stylesheets/palettes.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/introduction-to-sql/stylesheets/highlight/highlight.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/github-gist.min.css">
+
+    
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ubuntu:400,700|Ubuntu&#43;Mono">
+    <style>
+      body, input {
+        font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+      }
+      pre, code {
+        font-family: 'Ubuntu Mono', 'Courier New', 'Courier', monospace;
+      }
+    </style>
+
+    
+    <script src="http://guides.peruzal.com/introduction-to-sql/javascripts/modernizr.js"></script>
+
+    
+
+  </head>
+  <body class="palette-primary-deep-orange palette-accent-light-blue">
+
+
+
+
+<div class="backdrop">
+	<div class="backdrop-paper"></div>
+</div>
+
+<input class="toggle" type="checkbox" id="toggle-drawer">
+<input class="toggle" type="checkbox" id="toggle-search">
+<label class="toggle-button overlay" for="toggle-drawer"></label>
+
+<header class="header">
+	<nav aria-label="Header">
+  <div class="bar default">
+    <div class="button button-menu" role="button" aria-label="Menu">
+      <label class="toggle-button icon icon-menu" for="toggle-drawer">
+        <span></span>
+      </label>
+    </div>
+    <div class="stretch">
+      <div class="title">
+        Filtering Data
+      </div>
+    </div>
+
+    
+    <div class="button button-twitter" role="button" aria-label="Twitter">
+       <a href="https://twitter.com/peruzal" title="@peruzal on Twitter" target="_blank" class="toggle-button icon icon-twitter"></a>
+    </div>
+    
+
+    
+    <div class="button button-github" role="button" aria-label="GitHub">
+      <a href="https://github.com/peruzal" title="@peruzal on GitHub" target="_blank" class="toggle-button icon icon-github"></a>
+    </div>
+    
+    
+        
+  </div>
+  <div class="bar search">
+    <div class="button button-close" role="button" aria-label="Close">
+      <label class="toggle-button icon icon-back" for="toggle-search"></label>
+    </div>
+    <div class="stretch">
+      <div class="field">
+        <input class="query" type="text" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck>
+      </div>
+    </div>
+    <div class="button button-reset" role="button" aria-label="Search">
+      <button class="toggle-button icon icon-close" id="reset-search"></button>
+    </div>
+  </div>
+</nav>
+</header>
+
+<main class="main">
+	<div class="drawer">
+		<nav aria-label="Navigation">
+  <a href="http://guides.peruzal.com/introduction-to-sql" class="project">
+    <div class="banner">
+      
+        <div class="logo">
+          <img src="http://guides.peruzal.com/introduction-to-sql/images/logo.png">
+        </div>
+      
+      <div class="name">
+        <strong>Introduction to SQL <span class="version">1.0.0</span></strong>
+        
+      </div>
+    </div>
+  </a>
+
+  <div class="scrollable">
+    <div class="wrapper">
+      
+
+      <div class="toc">
+        
+        <ul>
+          
+
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Understanding SQL" href="http://guides.peruzal.com/introduction-to-sql/understanding-sql/">
+	
+	Understanding SQL
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Retrieving Data" href="http://guides.peruzal.com/introduction-to-sql/retrieving-data/">
+	
+	Retrieving Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Sorting Data" href="http://guides.peruzal.com/introduction-to-sql/sorting-data/">
+	
+	Sorting Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a class="current" title="Filtering Data" href="http://guides.peruzal.com/introduction-to-sql/filtering-data/">
+	
+	Filtering Data
+</a>
+
+
+<ul id="scrollspy">
+</ul>
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Functions Data" href="http://guides.peruzal.com/introduction-to-sql/functions/">
+	
+	Functions Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Grouping Data" href="http://guides.peruzal.com/introduction-to-sql/grouping-data/">
+	
+	Grouping Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Sub Queries" href="http://guides.peruzal.com/introduction-to-sql/subqueries/">
+	
+	Sub Queries
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Joining Tables" href="http://guides.peruzal.com/introduction-to-sql/joining-tables/">
+	
+	Joining Tables
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Inserting Data" href="http://guides.peruzal.com/introduction-to-sql/inserting-data/">
+	
+	Inserting Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Updating Data" href="http://guides.peruzal.com/introduction-to-sql/updating-data/">
+	
+	Updating Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Deleting Data" href="http://guides.peruzal.com/introduction-to-sql/deleting-data/">
+	
+	Deleting Data
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Working with Tables" href="http://guides.peruzal.com/introduction-to-sql/working-with-tables/">
+	
+	Working with Tables
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Views" href="http://guides.peruzal.com/introduction-to-sql/views/">
+	
+	Views
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Stored Procedures" href="http://guides.peruzal.com/introduction-to-sql/stored-procedures/">
+	
+	Stored Procedures
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Transaction" href="http://guides.peruzal.com/introduction-to-sql/transactions/">
+	
+	Transaction
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Advanced SQL Features" href="http://guides.peruzal.com/introduction-to-sql/advanced-sql-features/">
+	
+	Advanced SQL Features
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Calculated Fields" href="http://guides.peruzal.com/introduction-to-sql/calculated-fields/">
+	
+	Calculated Fields
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Installing SQL Server" href="http://guides.peruzal.com/introduction-to-sql/installing-sql-server/">
+	
+	Installing SQL Server
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="SQL Server Architecture" href="http://guides.peruzal.com/introduction-to-sql/sql-server-architecture/">
+	
+	SQL Server Architecture
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Database Recovery" href="http://guides.peruzal.com/introduction-to-sql/database-recovery/">
+	
+	Database Recovery
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Security" href="http://guides.peruzal.com/introduction-to-sql/database-security/">
+	
+	Security
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="AlwaysOn Availability Groups" href="http://guides.peruzal.com/introduction-to-sql/sql-server-alwayson/">
+	
+	AlwaysOn Availability Groups
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Intro to SQL" href="http://guides.peruzal.com/introduction-to-sql/">
+	
+	Intro to SQL
+</a>
+
+
+
+  
+</li>
+
+
+        </ul>
+        
+
+        
+        <hr>
+        <span class="section">The author</span>
+        
+        <ul>
+          
+          <li>
+            <a href="https://twitter.com/peruzal" target="_blank" title="@peruzal on Twitter">
+              @peruzal on Twitter
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="https://github.com/peruzal" target="_blank" title="@peruzal on GitHub">
+              @peruzal on GitHub
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="mailto:hello@peruzal.com" title="Email of hello@peruzal.com">
+              Contact via email
+            </a>
+          </li>
+          
+        </ul>
+        
+      </div>
+    </div>
+  </div>
+</nav>
+
+	</div>
+
+	<article class="article">
+		<div class="wrapper">
+			<h1>Filtering Data </h1>
+
+			
+
+<h2 id="limiting-data-retrieved-using-the-where-clause">Limiting data retrieved using the WHERE Clause</h2>
+
+<p>The WHERE clause is used to filter the data returned from the database. You specify the columns and conditions to limit the data that will be returned.</p>
+
+<p>The basic syntax for the WHERE  clause is as follows :</p>
+
+<pre><code class="language-sql">SELECT &lt;columnN&gt;, &lt;columnN2&gt;, &lt;columnN*&gt;
+FROM &lt;table&gt;
+WHERE &lt;column&gt; = &lt;condition&gt; [AND|OR &lt;column&gt; = &lt;condition&gt;]
+</code></pre>
+
+<h3 id="return-all-rows-with-a-specific-product-price">Return all rows with a specific product price</h3>
+
+<p>We can return all rows with product price equal to 3.49 using the following statement with a WHERE clause.</p>
+
+<pre><code class="language-sql">SELECT prod_name, prod_price
+FROM products
+WHERE prod_price = 3.49
+</code></pre>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When using both ORDER BY and the WHERE clause the ORDER BY clause should come after the WHERE clause.</p>
+</div>
+
+<h2 id="the-where-clause-operators">The WHERE Clause Operators</h2>
+
+<p>The WHERE clause supports a lot of different types of operators other than the simple equality operator we have used thus far.</p>
+
+<table>
+<thead>
+<tr>
+<th>Operator</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>=</td>
+<td>Equality</td>
+</tr>
+
+<tr>
+<td>&lt;&gt;</td>
+<td>Not equal</td>
+</tr>
+
+<tr>
+<td>!=</td>
+<td>Not equal</td>
+</tr>
+
+<tr>
+<td>&lt;</td>
+<td>Less than</td>
+</tr>
+
+<tr>
+<td>&gt;</td>
+<td>Greater than</td>
+</tr>
+
+<tr>
+<td>!&lt;</td>
+<td>Not less than</td>
+</tr>
+
+<tr>
+<td>!&gt;</td>
+<td>Not greater than</td>
+</tr>
+
+<tr>
+<td>&gt;=</td>
+<td>Greater than or equal to</td>
+</tr>
+
+<tr>
+<td>&lt;=</td>
+<td>Less then or equal to</td>
+</tr>
+
+<tr>
+<td>BETWEEN</td>
+<td>Between two specified values</td>
+</tr>
+
+<tr>
+<td>IS NULL</td>
+<td>Is a <strong>NULL</strong> value</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="retrieve-all-product-less-than-10">Retrieve all product less than 10</h3>
+
+<pre><code class="language-sql">SELECT prod_name, prod_price
+FROM products
+WHERE prod_price &lt; 10
+</code></pre>
+
+<h3 id="retrieve-all-products-less-than-or-equal-to-10">Retrieve all products less than or equal to 10</h3>
+
+<pre><code class="language-sql">SELECT prod_name, prod_price
+FROM products
+WHERE prod_price &lt;= 10
+</code></pre>
+
+<h3 id="retrieve-all-products-that-does-not-match">Retrieve all products that does not match</h3>
+
+<p>We want to retrieve all product not made by a specific vendor</p>
+
+<pre><code class="language-sql">SELECT vend_id, prod_name
+FROM products
+WHERE vend_id &lt;&gt; 'DLL01'
+</code></pre>
+
+<div class="admonition note">
+<p class="admonition-title">Using Quote</p>
+<p>When comparing against string value data type columns quotes are required to surround the values being compared against. For number values quotes are not required.</p>
+</div>
+
+<h2 id="retrieving-values-within-a-range">Retrieving values within a range</h2>
+
+<p>The BETWEEN keyword is used to retrieve values between two values, and the AND keyword is used to separate the two values. The values will be matched inclusive of the start and end values.</p>
+
+<pre><code class="language-sql">SELECT prod_name, prod_price
+FROM products
+WHERE prod_price BETWEEN 5 AND 10
+</code></pre>
+
+<h3 id="checking-for-no-value">Checking for no value</h3>
+
+<p>When creating a table, you can specify that a specific column might not contain a value. You use the NULL keyword to specify that condition. We can use the equal sign operator to check for a NULL value, we use the keywords <code>IS NULL</code>.</p>
+
+<h3 id="lets-find-all-products-without-prices">Lets find all products without prices</h3>
+
+<pre><code class="language-sql">SELECT prod_name
+FROM products
+WHERE prod_price IS NULL
+</code></pre>
+
+<h3 id="find-all-customers-without-an-email-address">Find all customers without an email address</h3>
+
+<pre><code class="language-sql">SELECT cust_name
+FROM customers
+WHERE cust_email IS NULL
+</code></pre>
+
+<h2 id="combining-where-clauses">Combining WHERE Clauses</h2>
+
+<p>We can combine multiple criteria in the WHERE clause by using <code>AND</code> and <code>OR</code> keywords to create more powerful filters.</p>
+
+<h3 id="retrieve-data-that-matches-two-columns">Retrieve data that matches two columns</h3>
+
+<p>The statement below will retrieve all products made by vendor with vendor id DLL01 and also having price less than or equal to 4.</p>
+
+<pre><code class="language-sql">SELECT prod_id, prod_price, prod_name
+FROM products
+WHERE vend_id = 'DLL01' AND prod_price &lt;= 4;
+</code></pre>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When using the AND keyword,note that both conditions need to be true for the data to be returned, otherwise the data is not returned since it does not satisfy all the conditions.</p>
+</div>
+
+<h3 id="selecting-either-using-or-keword">Selecting either using OR keword</h3>
+
+<p>The OR keyword is the opposite of the AND keyword. It returns when either one of the conditions is true.</p>
+
+<p>The statement below will return all products by name and price made by either vendor with id DLL01 or BRS01 but not both.</p>
+
+<pre><code class="language-sql">SELECT prod_name, prod_price
+FROM products
+WHERE vend_id = 'DLL01' OR vend_id = 'BRS01'
+</code></pre>
+
+<h3 id="order-of-evaluation">Order of evaluation</h3>
+
+<p>When specifying multiple conditions use the parentheses to group the conditions together otherwise you will get unexpected results.</p>
+
+<p>The following sql statements will not return the expected results :</p>
+
+<pre><code class="language-sql">SELECT prod_name, prod_price
+FROM producs
+WHERE vend_id = 'DLL01' OR vend_id = '  BRS01' AND prod_price &gt;= 10;
+</code></pre>
+
+<p>You will notice the query will also return products with prices less than 10. This is because the AND operator is being evaluated first.</p>
+
+<p>To return the correct results we will need to use the brackets to wrap around the conditions.</p>
+
+<pre><code class="language-sql">SELECT prod_name, prod_price
+FROM producs
+WHERE (vend_id = 'DLL01' OR vend_id = '  BRS01') AND prod_price &gt;= 10;
+</code></pre>
+
+<h2 id="using-the-in-operator">Using the IN Operator</h2>
+
+<p>The IN operator is used to specify a range of operators, any of which can be matched. The IN takes a comma separated list of valid values, all enclosed in parentheses.</p>
+
+<pre><code class="language-sql">SELECT prod_name, prod_price
+FROM products
+WHERE vend_id in ('DLL01', 'BSR01')
+</code></pre>
+
+<p>The IN operator works the same as using multiple OR statements. We could have returned the same results using the OR operator as follows :</p>
+
+<pre><code class="language-sql">SELECT prod_name, prod_price
+FROM products
+WHERE vend_id = 'DLL01' OR vend_id =  'BSR01'
+</code></pre>
+
+<p>The IN operator enables you to embed another sql statement instead of just specifying the values.</p>
+
+<h2 id="using-the-not-operator">Using the NOT Operator</h2>
+
+<p>The NOT operator negates the conditions. The NOT operator is always used with another operator.</p>
+
+<p>Lets list all products but exclude products made by a specific vendor :</p>
+
+<pre><code class="language-sql">SELECT prod_name
+FROM products
+WHERE NOT vend_id = 'DLL01'
+</code></pre>
+
+<p>Instead of using the NOT operator we could have returned the same results but using a slighlt different statement</p>
+
+<pre><code class="language-sql">SELECT prod_name
+FROM products
+WHERE NOT vend_id &lt;&gt; 'DLL01'
+</code></pre>
+
+<p>NOT becomes powerful in complicated sql statements, where multiple conditions are specified, e.g. if we did want to match a specific list of conditions, we could precede the IN keyword with the NOT operator.</p>
+
+<h2 id="using-the-like-predicate">Using the LIKE predicate</h2>
+
+<p>The LIKE predicate is used to search for unknown data, unlike the equality operator that is used to search for known values. The LIKE predicate is used together with characters that have special meaning.</p>
+
+<h3 id="percent-sign-wildcard">Percent Sign (%) Wildcard</h3>
+
+<p>The most frequently used wildcard is the percent sign (%). Within a string, the % means, match any number of number of occurrences of any character.</p>
+
+<p>The following sql statement finds all products with name that begins with Fish following by any character</p>
+
+<pre><code class="language-sql">SELECT prod_id, prod_name
+FROM products
+WHERE prod_name LIKE 'Fish%'
+</code></pre>
+
+<blockquote>
+<p>The wildcard character can be used anywhere within the search pattern. We can also use multiple wildcard characters.</p>
+</blockquote>
+
+<p>The following sql statement matches all products that have the name bean bag within them regardless of any character after of before the text.</p>
+
+<pre><code class="language-sql">SELECT prod_id, prod_name
+FROM products
+WHERE prod_name LIKE '%bean bag%'
+</code></pre>
+
+<blockquote>
+<p>The % does not match a NULL value. Be careful when using it with columns that have a NULL value as it will not match it.</p>
+</blockquote>
+
+<h3 id="the-underscore-wildcard">The underscore(_) wildcard</h3>
+
+<p>The underscore(_) will match only a single character instead of many.</p>
+
+<h3 id="the-brackets-wildcard">The brackets([]) wildcard</h3>
+
+<p>The brackets will match either of the characters inside the brackets. The following statement will match any customer contacts that have a name that either starts with with J or M followed by any character.</p>
+
+<pre><code class="language-sql">SELECT cust_contact
+FROM customers
+WHERE cust_contact LIKE '[JM]%'
+</code></pre>
+
+<p>The wildcard can also be negated to not match the characters in the brackets using the ^ character, e.g</p>
+
+<pre><code class="language-sql">SELECT cust_contact
+FROM customers
+WHERE cust_contact LIKE '[^JM]%'
+</code></pre>
+
+
+			<aside class="copyright" role="note">
+				
+				&copy; 2017 Copyright 2017 Peruzal &ndash;
+				
+				Documentation built with
+				<a href="https://www.gohugo.io" target="_blank">Hugo</a>
+				using the
+				<a href="http://github.com/digitalcraftsman/hugo-material-docs" target="_blank">Material</a> theme.
+			</aside>
+
+			<footer class="footer">
+				
+
+<nav class="pagination" aria-label="Footer">
+  <div class="previous">
+  
+      <a href="http://guides.peruzal.com/introduction-to-sql/functions/" title="Functions">
+        <span class="direction">
+          Previous
+        </span>
+        <div class="page">
+          <div class="button button-previous" role="button" aria-label="Previous">
+            <i class="icon icon-back"></i>
+          </div>
+          <div class="stretch">
+            <div class="title">
+              Functions
+            </div>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+
+  <div class="next">
+  
+      <a href="http://guides.peruzal.com/introduction-to-sql/sorting-data/" title="Sorting Data">
+        <span class="direction">
+          Next
+        </span>
+        <div class="page">
+          <div class="stretch">
+            <div class="title">
+              Sorting Data
+            </div>
+          </div>
+          <div class="button button-next" role="button" aria-label="Next">
+            <i class="icon icon-forward"></i>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+</nav>
+
+
+
+
+
+			</footer>
+		</div>
+	</article>
+
+	<div class="results" role="status" aria-live="polite">
+		<div class="scrollable">
+			<div class="wrapper">
+				<div class="meta"></div>
+				<div class="list"></div>
+			</div>
+		</div>
+	</div>
+</main>
+
+    <script>
+    
+      var base_url = '';
+      var repo_id  = '';
+    
+    </script>
+
+    <script src="http://guides.peruzal.com/introduction-to-sql/javascripts/application.js"></script>
+    
+
+    <script>
+      /* Add headers to scrollspy */
+      var headers   = document.getElementsByTagName("h2");
+      var scrollspy = document.getElementById('scrollspy');
+
+      if(scrollspy) {
+        if(headers.length > 0) {
+          for(var i = 0; i < headers.length; i++) {
+            var li = document.createElement("li");
+            li.setAttribute("class", "anchor");
+
+            var a  = document.createElement("a");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", headers[i].innerHTML);
+            a.innerHTML = headers[i].innerHTML;
+
+            li.appendChild(a)
+            scrollspy.appendChild(li);
+          }
+        } else {
+          scrollspy.parentElement.removeChild(scrollspy)
+        }
+
+
+        /* Add permanent link next to the headers */
+        var headers = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+
+        for(var i = 0; i < headers.length; i++) {
+            var a = document.createElement("a");
+            a.setAttribute("class", "headerlink");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", "Permanent link")
+            a.innerHTML = "#";
+            headers[i].appendChild(a);
+        }
+      }
+    </script>
+
+    
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>
+

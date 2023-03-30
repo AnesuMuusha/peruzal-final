@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+  
+  
+  
+  
+   <html class="no-js"> 
+
+  <head lang="en-us">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=10" />
+    <title>Multi-Threading - Xamarin iOS Guides</title>
+    <meta name="generator" content="Hugo 0.17" />
+
+    
+    <meta name="description" content="Xamrin iOS guides for the Peruzal Cross Platform Mobile App Development course">
+    
+    <link rel="canonical" href="http://guides.peruzal.com/ios-guides/multithreading/">
+    
+    <meta name="author" content="Peruzal">
+    
+
+    <meta property="og:url" content="http://guides.peruzal.com/ios-guides/multithreading/">
+    <meta property="og:title" content="Xamarin iOS Guides">
+    <meta property="og:image" content="http://guides.peruzal.com/ios-guides/images/logo.png">
+    <meta name="apple-mobile-web-app-title" content="Xamarin iOS Guides">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="shortcut icon" type="image/x-icon" href="http://guides.peruzal.com/ios-guides/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="http://guides.peruzal.com/ios-guides/images/favicon.ico">
+
+    <style>
+      @font-face {
+        font-family: 'Icon';
+        src: url('http://guides.peruzal.com/ios-guides/fonts/icon.eot?52m981');
+        src: url('http://guides.peruzal.com/ios-guides/fonts/icon.eot?#iefix52m981')
+               format('embedded-opentype'),
+             url('http://guides.peruzal.com/ios-guides/fonts/icon.woff?52m981')
+               format('woff'),
+             url('http://guides.peruzal.com/ios-guides/fonts/icon.ttf?52m981')
+               format('truetype'),
+             url('http://guides.peruzal.com/ios-guides/fonts/icon.svg?52m981#icon')
+               format('svg');
+        font-weight: normal;
+        font-style: normal;
+      }
+    </style>
+
+    <link rel="stylesheet" href="http://guides.peruzal.com/ios-guides/stylesheets/application.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/ios-guides/stylesheets/temporary.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/ios-guides/stylesheets/palettes.css">
+    <link rel="stylesheet" href="http://guides.peruzal.com/ios-guides/stylesheets/highlight/highlight.css">
+
+    
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ubuntu:400,700|Ubuntu&#43;Mono">
+    <style>
+      body, input {
+        font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+      }
+      pre, code {
+        font-family: 'Ubuntu Mono', 'Courier New', 'Courier', monospace;
+      }
+    </style>
+
+    
+    <script src="http://guides.peruzal.com/ios-guides/javascripts/modernizr.js"></script>
+
+    
+
+  </head>
+  <body class="palette-primary-red palette-accent-teal">
+
+
+
+
+<div class="backdrop">
+	<div class="backdrop-paper"></div>
+</div>
+
+<input class="toggle" type="checkbox" id="toggle-drawer">
+<input class="toggle" type="checkbox" id="toggle-search">
+<label class="toggle-button overlay" for="toggle-drawer"></label>
+
+<header class="header">
+	<nav aria-label="Header">
+  <div class="bar default">
+    <div class="button button-menu" role="button" aria-label="Menu">
+      <label class="toggle-button icon icon-menu" for="toggle-drawer">
+        <span></span>
+      </label>
+    </div>
+    <div class="stretch">
+      <div class="title">
+        Multi-Threading
+      </div>
+    </div>
+
+    
+
+    
+    <div class="button button-github" role="button" aria-label="GitHub">
+      <a href="https://github.com/peruzal" title="@peruzal on GitHub" target="_blank" class="toggle-button icon icon-github"></a>
+    </div>
+    
+    
+        
+  </div>
+  <div class="bar search">
+    <div class="button button-close" role="button" aria-label="Close">
+      <label class="toggle-button icon icon-back" for="toggle-search"></label>
+    </div>
+    <div class="stretch">
+      <div class="field">
+        <input class="query" type="text" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck>
+      </div>
+    </div>
+    <div class="button button-reset" role="button" aria-label="Search">
+      <button class="toggle-button icon icon-close" id="reset-search"></button>
+    </div>
+  </div>
+</nav>
+</header>
+
+<main class="main">
+	<div class="drawer">
+		<nav aria-label="Navigation">
+  <a href="http://guides.peruzal.com/ios-guides/" class="project">
+    <div class="banner">
+      
+        <div class="logo">
+          <img src="http://guides.peruzal.com/ios-guides/images/logo.png">
+        </div>
+      
+      <div class="name">
+        <strong>Xamarin iOS Guides <span class="version">1.0.0</span></strong>
+        
+      </div>
+    </div>
+  </a>
+
+  <div class="scrollable">
+    <div class="wrapper">
+      
+
+      <div class="toc">
+        
+        <ul>
+          
+
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="iOS with Swift and Objective-C" href="http://guides.peruzal.com/ios-guides/">
+	
+	iOS with Swift and Objective-C
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Getting Started" href="http://guides.peruzal.com/ios-guides/getting-started/">
+	
+	Getting Started
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Setting up a Project" href="http://guides.peruzal.com/ios-guides/setup/">
+	
+	Setting up a Project
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Swift Fundamentals" href="http://guides.peruzal.com/ios-guides/swift/">
+	
+	Swift Fundamentals
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Swift Objective-C Interoperability" href="http://guides.peruzal.com/ios-guides/swift-objective-c-interoperability/">
+	
+	Swift Objective-C Interoperability
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Objective-C Fundamentals" href="http://guides.peruzal.com/ios-guides/objective-c/">
+	
+	Objective-C Fundamentals
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Common Views" href="http://guides.peruzal.com/ios-guides/common-views/">
+	
+	Common Views
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Form Input" href="http://guides.peruzal.com/ios-guides/form-input/">
+	
+	Form Input
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Model View Controller(MVC)" href="http://guides.peruzal.com/ios-guides/mvc/">
+	
+	Model View Controller(MVC)
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Auto Layout and Size Classes" href="http://guides.peruzal.com/ios-guides/auto-layout-and-size-classes/">
+	
+	Auto Layout and Size Classes
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Table View" href="http://guides.peruzal.com/ios-guides/tableview/">
+	
+	Table View
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Collection View" href="http://guides.peruzal.com/ios-guides/collection-view/">
+	
+	Collection View
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Tab Bar" href="http://guides.peruzal.com/ios-guides/tabbar-controller/">
+	
+	Tab Bar
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Scroll View" href="http://guides.peruzal.com/ios-guides/scrollview/">
+	
+	Scroll View
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Search Bar" href="http://guides.peruzal.com/ios-guides/searchbar/">
+	
+	Search Bar
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Navigation Patterns" href="http://guides.peruzal.com/ios-guides/navigation/">
+	
+	Navigation Patterns
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Passing Data between View Controllers" href="http://guides.peruzal.com/ios-guides/passing-data/">
+	
+	Passing Data between View Controllers
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Navigation Controller" href="http://guides.peruzal.com/ios-guides/navigation-controller/">
+	
+	Navigation Controller
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Location" href="http://guides.peruzal.com/ios-guides/location/">
+	
+	Location
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Maps and Location" href="http://guides.peruzal.com/ios-guides/maps-and-location/">
+	
+	Maps and Location
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="iOS Frameworks and Device Sensors" href="http://guides.peruzal.com/ios-guides/ios-frameworks-and-device-sensors/">
+	
+	iOS Frameworks and Device Sensors
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Networking and Threading" href="http://guides.peruzal.com/ios-guides/networking-and-threading/">
+	
+	Networking and Threading
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Animations and Gestures" href="http://guides.peruzal.com/ios-guides/animations-and-gestures/">
+	
+	Animations and Gestures
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Persistence" href="http://guides.peruzal.com/ios-guides/persistence/">
+	
+	Persistence
+</a>
+
+
+
+  
+</li>
+
+
+        </ul>
+        
+
+        
+        <hr>
+        <span class="section">The author</span>
+        
+        <ul>
+          
+
+          
+          <li>
+            <a href="https://github.com/peruzal" target="_blank" title="@peruzal on GitHub">
+              @peruzal on GitHub
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="mailto:info@peruzal.com" title="Email of info@peruzal.com">
+              Contact via email
+            </a>
+          </li>
+          
+        </ul>
+        
+      </div>
+    </div>
+  </div>
+</nav>
+
+	</div>
+
+	<article class="article">
+		<div class="wrapper">
+			<h1>Multi-Threading </h1>
+
+			
+
+<h2 id="overview">Overview</h2>
+
+<p>Production applications will often need to perform heavier operations such as downloading high-resolution images or a executing non-cached database queries. To prevent stalling the main thread (and a hit in frame rate), Apple has provided a few tools to help you out! We&rsquo;ll take a look at Grand Central Dispatch, <a href="https://developer.apple.com/library/mac/documentation/Cocoa/Reference/NSOperation_class/"><code>NSOperation</code></a>s, and the <a href="https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSObject_Class/#//apple_ref/occ/instm/NSObject/performSelectorInBackground:withObject:"><code>performSelectorInBackground</code></a> method on <code>NSObject</code>.</p>
+
+<h2 id="available-options">Available Options</h2>
+
+<ol>
+<li>Grand Central Dispatch
+
+<ul>
+<li>Grand Central Dispatch is a technology that abstracts away the low-level details of multithreading. When using GCD, you only have to think about the tasks you want to perform. These tasks can then be added to serial or concurrent queues. Moreover, you can add tasks to groups and run code after all tasks within the group complete!</li>
+</ul></li>
+<li><code>NSOperation</code> and <code>NSOperationQueue</code>
+
+<ul>
+<li><code>NSOperation</code>s and <code>NSOperationQueue</code>s provide you with a higher-level API, when compared to GCD. They were first introduced in iOS 4 and are actually implemented with GCD under the hood. Typically, you&rsquo;ll want to use this API over GCD, unless you&rsquo;re performing a simple unit of work on a specific queue. <code>NSOperation</code>s provide you with powerful functionality such as cancellation and dependencies.</li>
+</ul></li>
+<li><code>performSelectorInBackground</code>
+
+<ul>
+<li>If you need to perform a simple unit of work on a new thread, <code>NSObject</code> provides you with
+<code>performSelectorInBackground(_:withObject:)</code>. Using this, you can run a function (with an argument) on a background thread.</li>
+</ul></li>
+</ol>
+
+<h3 id="grand-central-dispatch">Grand Central Dispatch</h3>
+
+<p><img src="http://imgur.com/cjRYJZq.png"/></p>
+
+<p>Let&rsquo;s walk through an example where we download an image from a remote URL and then use it to populate a <code>UIImageView</code>.</p>
+
+<pre><code class="language-swift">// Assume we have an `imageView` property on self
+private func loadWallpaper() {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) { [weak self] in
+        guard
+            let wallpaperURL = NSURL(string: &quot;http://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-157301.jpg&quot;),
+            let imageData = NSData(contentsOfURL: wallpaperURL)
+        else {
+            return
+        }
+
+        dispatch_async(dispatch_get_main_queue()) {
+            self?.imageView.image = UIImage(data: imageData)
+        }
+    }
+}
+</code></pre>
+
+<ul>
+<li>Most uses of GCD start with a call to <code>dispatch_async</code>, which takes in a queue to use and the block to execute</li>
+<li>In our example, we&rsquo;d like to execute the wallpaper download on a background queue, so we make use of the system-defined global queue with a background quality of service (QoS), <code>DISPATCH_QUEUE_PRIORITY_BACKGROUND</code>.
+
+<ul>
+<li>The flag passed into <code>dispatch_get_global_queue</code> should always be 0</li>
+</ul></li>
+<li>Now we have the block of work to execute
+
+<ul>
+<li>We construct a <code>NSURL</code> via its failable <code>String</code> initializer and then fetch the data associated with that resource via <code>NSData(contentsOfURL:)</code>.</li>
+</ul></li>
+<li>If the above step completes successfully (else we just return from the block), we now have our data at hand!</li>
+<li>To update <code>imageView</code>&rsquo;s <code>image</code> property, we need to make sure we return to the main thread via <code>dispatch_async(dispatch_get_main_queue()) { /* ... */ }</code>. <em>Remember in iOS, all UI updates should be performed on the main thread</em>. Inside the main thread block, we set the image using the <code>NSData</code> initializer on <code>UIImage</code>.</li>
+</ul>
+
+<p>Now that we&rsquo;ve seen a one-off block example, let&rsquo;s dive into how you can accomplish groups of dependent tasks. Imagine you wanted to download multiple wallpapers and present an alert to the user when all of the images finish loading. Dispatch groups will be your best friends in these scenarios!</p>
+
+<p>First, let&rsquo;s refactor the <code>loadWallpaper</code> function from the previous example to accept a <code>dispatch_group_t</code> and a target URL.</p>
+
+<pre><code class="language-swift">private func loadWallpaper(group: dispatch_group_t, url: String) {
+    dispatch_group_async(group, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) { [weak self] in
+        defer {
+            dispatch_group_leave(group)
+        }
+
+        guard
+            let wallpaperURL = NSURL(string: url),
+            let imageData = NSData(contentsOfURL: wallpaperURL)
+        else {
+            // In production scenarios, we would want error handing here
+            return
+        }
+
+        // Use imageData in some manner, e.g. persisting to a cache, present in view hierarchy, etc.
+        print(&quot;Image downloaded \(url)&quot;)
+    }
+}
+</code></pre>
+
+<ul>
+<li>The function has been modified slightly to accept a parameter <code>group</code> of type <code>dispatch_group_t</code> (we&rsquo;ll go into how to create these groups in the next snippet) and a target URL. Additionally, our previous call to <code>dispatch_async</code> has been replaced with <code>dispatch_group_async</code>, signaling that the block should be associated with <code>group</code>. Lastly, after completing our work with the resulting <code>imageData</code> we must notify <code>group</code> that the block is complete via <code>dispatch_group_leave</code>.</li>
+</ul>
+
+<p>To use <code>loadWallpaper(_:url:)</code> a call site could look like so:</p>
+
+<pre><code class="language-swift">private func fetchAllWallpapers() {
+        let urls = [
+            &quot;http://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-329991.jpg&quot;,
+            &quot;http://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-329805.jpg&quot;,
+            &quot;http://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-330201.jpg&quot;
+        ]
+
+        let wallpaperGroup = dispatch_group_create()
+
+        urls.forEach {
+            dispatch_group_enter(wallpaperGroup)
+            loadWallpaper(wallpaperGroup, url: $0)
+        }
+
+        dispatch_group_notify(wallpaperGroup, dispatch_get_main_queue()) { [weak self] in
+            let alertController = UIAlertController(title: &quot;Done!&quot;, message: &quot;All images have downloaded&quot;, preferredStyle: .Alert)
+            alertController.addAction(UIAlertAction(title: &quot;OK&quot;, style: .Default, handler: nil))
+
+            self?.presentViewController(alertController, animated: true, completion: nil)
+        }
+    }
+</code></pre>
+
+<ul>
+<li>We start by creating a dispatch group, <code>wallpaperGroup</code>, using <code>dispatch_group_create()</code></li>
+<li>With the group in hand, we loop over all of the wallpaper URLs, first signaling to the group that we are about to start an operation by making a call to <code>dispatch_group_enter(wallpaperGroup)</code> (each group entry call must pair with a group leave call). We then proceed to call <code>loadWallpaper(_:url:)</code></li>
+<li>To run code after completion of the group, we specify a block in a <code>dispatch_group_notify</code> call. In our case, we&rsquo;ll simply present a <code>UIAlertController</code> letting the user know that all of the downloads have finished.</li>
+</ul>
+
+<p>While GCD can be extremely powerful, it can be a bit cumbersome to work with in practice. To help with this, <a href="https://github.com/beeth0ven">Luo Jie</a> came up with a <a href="http://nshipster.com/new-years-2016/#swiftier-gcd">Swifty GCD wrapper</a> that I often use in my projects:</p>
+
+<pre><code class="language-swift">protocol ExcutableQueue {
+    var queue: dispatch_queue_t { get }
+}
+
+extension ExcutableQueue {
+    func execute(closure: () -&gt; Void) {
+        dispatch_async(queue, closure)
+    }
+}
+
+enum Queue: ExcutableQueue {
+    case Main
+    case UserInteractive
+    case UserInitiated
+    case Utility
+    case Background
+
+    var queue: dispatch_queue_t {
+        switch self {
+        case .Main:
+            return dispatch_get_main_queue()
+        case .UserInteractive:
+            return dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE, 0)
+        case .UserInitiated:
+            return dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)
+        case .Utility:
+            return dispatch_get_global_queue(QOS_CLASS_UTILITY, 0)
+        case .Background:
+            return dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)
+        }
+    }
+}
+
+enum SerialQueue: String, ExcutableQueue {
+    case DownLoadImage = &quot;myApp.SerialQueue.DownLoadImage&quot;
+    case UpLoadFile = &quot;myApp.SerialQueue.UpLoadFile&quot;
+
+    var queue: dispatch_queue_t {
+        return dispatch_queue_create(rawValue, DISPATCH_QUEUE_SERIAL)
+    }
+}
+</code></pre>
+
+<p>Using this wrapper, our example above could be rewritten as:</p>
+
+<pre><code class="language-swift">Queue.Background.execute {
+    guard
+        let url = NSURL(string: &quot;http://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-157301.jpg&quot;),
+        let data = NSData(contentsOfURL: url)
+    else {
+        return
+    }
+
+    Queue.Main.execute { [weak self] in
+        self?.imageView.image = UIImage(data: data)
+    }
+}
+</code></pre>
+
+<h3 id="nsoperation">NSOperation</h3>
+
+<p>To start, we&rsquo;ll port the wallpaper downloading example to use an <code>NSBlockOperation</code>. <code>NSBlockOperation</code> is a simple wrapper on a block of work that can be added to a queue.</p>
+
+<pre><code class="language-swift">private func loadWallpaper(queue: NSOperationQueue, url: String) {
+    guard let wallpaperURL = NSURL(string: url) else { return }
+
+    let downloadOperation = NSBlockOperation {
+        guard let imageData = NSData(contentsOfURL: wallpaperURL) else { return }
+
+        NSOperationQueue.mainQueue().addOperationWithBlock { [weak self] in
+            self?.imageView.image = UIImage(data: imageData)
+        }
+    }
+
+    queue.addOperation(downloadOperation)
+}
+</code></pre>
+
+<ul>
+<li>The initializer for <code>NSBlockOperation</code> simply takes a block to run. In our case, we&rsquo;ll download the data from <code>wallpaperURL</code> and return to the main queue to set the <code>image</code> property on <code>imageView</code></li>
+<li>After initializing <code>downloadOperation</code>, we add it to <code>queue</code></li>
+</ul>
+
+<p>When creating an <code>NSOperationQueue</code>, you have a few points of customization</p>
+
+<pre><code class="language-swift">let queue = NSOperationQueue()
+queue.maxConcurrentOperationCount = 1
+
+// If you want to hold the queue, use the `suspended` property
+queue.suspended = true
+</code></pre>
+
+<ul>
+<li>The <code>maxConcurrentOperationCount</code> property allows you to set a limit on how many operations may run concurrently in a given queue. Setting this to 1, implies your queue will be serial (queing order may not be preserved, as operations only run when their <code>ready</code> flag is set to true). If this property isn&rsquo;t set, it defaults to <code>NSOperationQueueDefaultMaxConcurrentOperationCount</code>, which is dictated by system conditions.</li>
+<li>By default, all operations that are ready (<code>ready</code> property is true) are run when added to a queue. You can halt all execution on a queue by setting the <code>suspended</code> property to true.</li>
+</ul>
+
+<p><code>NSOperation</code>s become really powerful when you separate them out into operation subclasses. To demonstrate this, let&rsquo;s make a wallpaper resizing operation. We&rsquo;ll need to subclass a <a href="https://gist.github.com/Jasdev/ba9f03747086d4939e55">custom wrapper</a> of <code>NSOperation</code> that has the proper KVO notifications in place (see &lsquo;Subclassing Notes&rsquo; in the <a href="https://developer.apple.com/library/mac/documentation/Cocoa/Reference/NSOperation_class/">docs</a>).</p>
+
+<pre><code class="language-swift">class ResizeImageOperation: Operation {
+
+    enum Error {
+        case FileReadError
+        case ResizeError
+        case WriteError
+    }
+
+    let targetSize: CGSize
+    let path: NSURL
+    var error: Error?
+
+    init(size: CGSize, path: NSURL) {
+        self.targetSize = size
+        self.path = path
+    }
+
+    override func execute() {
+        // Need to signal KVO notifications for operation completion
+        defer {
+            finish()
+        }
+
+        guard let sourceImage = UIImage(contentsOfFile: path.absoluteString) else {
+            error = Error.FileReadError
+            return
+        }
+
+        let finalWidth: CGFloat, finalHeight: CGFloat
+        let ratio = sourceImage.size.width / sourceImage.size.height
+
+        // Scale aspect fit the image
+        if sourceImage.size.width &gt;= sourceImage.size.height {
+            finalWidth = targetSize.width
+            finalHeight = finalWidth / ratio
+        } else {
+            finalHeight = targetSize.height
+            finalWidth = finalHeight * ratio
+        }
+
+        let imageSize = CGSize(width: finalWidth, height: finalHeight)
+        UIGraphicsBeginImageContextWithOptions(imageSize, true, 0.0)
+        defer { UIGraphicsEndImageContext() }
+
+        let rect = CGRect(origin: .zero, size: imageSize)
+        sourceImage.drawInRect(rect)
+
+        guard
+            let resizedImage = UIGraphicsGetImageFromCurrentImageContext(),
+            let imageData = UIImageJPEGRepresentation(resizedImage, 1.0)
+        else {
+            error = Error.ResizeError
+            return
+        }
+
+        guard imageData.writeToFile(path.absoluteString, atomically: true) else {
+            error = Error.WriteError
+            return
+        }
+    }
+}
+</code></pre>
+
+<ul>
+<li>To help with error handling, we add a nested <code>Error</code> enum with a few cases.</li>
+<li><code>ResizeImageOperation</code> can be initialized with a target size and path to write,</li>
+<li>The meat of the operation is placed in the <code>execute</code> method (overridden from <code>Operation</code>). We need to make sure to <code>defer</code> a call to <code>finish()</code>, so that the <code>Operation</code> superclass can signal the proper KVO notifications.</li>
+<li>We then proceed with the resizing the image (scale aspect fit) and saving it to disk.</li>
+</ul>
+
+<p>Now that we have a resizing operation in hand, let&rsquo;s refactor our download operation a bit to work with it:</p>
+
+<pre><code class="language-swift">private func downloadWallpaper(url: NSURL, path: NSURL) -&gt; NSOperation {
+    return NSBlockOperation {
+        guard
+            let imageData = NSData(contentsOfURL: url),
+            let image = UIImage(data: imageData)
+        else { return }
+
+        UIImageJPEGRepresentation(image, 1.0)?.writeToFile(path.absoluteString, atomically: true)
+    }
+}
+</code></pre>
+
+<ul>
+<li>We now return an <code>NSOperation</code> and have the operation write the image data to disk.</li>
+</ul>
+
+<p>Lastly, to make the download and resize operations dependent, we can use them like so:</p>
+
+<pre><code class="language-swift">// Assume self has `imageView` and `wallpaperQueue` properties
+
+if
+    let cacheDirectory = NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true).first,
+    let cacheDirectoryURL = NSURL(string: cacheDirectory)
+{
+
+    let targetURL = cacheDirectoryURL.URLByAppendingPathComponent(&quot;wallpaper.jpg&quot;)
+    let downloadOperation = downloadWallpaper(NSURL(string: &quot;http://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-329991.jpg&quot;)!, path: targetURL)
+
+    let resizeOperation = ResizeImageOperation(size: CGSize(width: imageView.bounds.size.width * 2, height: imageView.bounds.size.height * 2), path: targetURL)
+    resizeOperation.addDependency(downloadOperation)
+
+    resizeOperation.completionBlock = { [weak self, weak resizeOperation] in
+        if let error = resizeOperation?.error {
+            print(error)
+            return
+        }
+
+        guard
+            let path = resizeOperation?.path,
+            let imageData = NSData(contentsOfFile: path.absoluteString)
+        else {
+            return
+        }
+
+        NSOperationQueue.mainQueue().addOperationWithBlock {
+            self?.imageView.image = UIImage(data: imageData)
+        }
+    }
+
+    wallpaperQueue.suspended = true
+    wallpaperQueue.addOperation(downloadOperation)
+    wallpaperQueue.addOperation(resizeOperation)
+    wallpaperQueue.suspended = false
+}
+</code></pre>
+
+<ul>
+<li>The key line to notice is <code>resizeOperation.addDependency(downloadOperation)</code>. That&rsquo;s how we express the resizing operation&rsquo;s dependency on <code>downloadOperation</code>.</li>
+<li>Moreover, in the completion block of <code>resizeOperation</code>, we check for errors and proceed with displaying the resized image.</li>
+<li>Note: we make sure to suspend the queue first, then add the operations. This prevents the operations from beginning immediately upon addition.</li>
+</ul>
+
+<h3 id="performselectorinbackground">PerformSelectorInBackground</h3>
+
+<p>To wrap up, let&rsquo;s show a simple example of <code>performSelectorInBackground</code>. Assuming <code>self</code> has a method <code>sleepAndPrint(_:)</code>, we can make the following call:</p>
+
+<pre><code class="language-swift">performSelectorInBackground(&quot;sleepAndPrint:&quot;, withObject: &quot;supsup&quot;)
+</code></pre>
+
+<p>If our target selector had no argument, the selector would simply be <code>&quot;sleepAndPrint&quot;</code>).</p>
+
+<pre><code class="language-swift">func sleepAndPrint(message: String) {
+    NSThread.sleepForTimeInterval(1)
+    print(message)
+}
+</code></pre>
+
+<h2 id="key-takeaways">Key Takeaways</h2>
+
+<p>We&rsquo;ve used GCD, <code>NSoperation</code>s, and <code>NSObject</code>&rsquo;s <code>performSelectorInBackground</code> method as means of performing work in a multithreaded fashion. If you have small units of work to perform, you&rsquo;ll want to reach for GCD or <code>performSelectorInBackground</code>. On the other hand, if you have larger operations that may have dependencies, <code>NSOperation</code> should be your tool of choice. For more info on these topics check out Apple&rsquo;s <a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/Multithreading/Introduction/Introduction.html">Thread Programming Guide</a> and the WWDC 2015 session on <a href="https://developer.apple.com/videos/play/wwdc2015-226/">Advanced NSOperations</a>!</p>
+
+<ul>
+<li><a href="https://twitter.com/jasdev">@jasdev</a></li>
+</ul>
+
+
+			<aside class="copyright" role="note">
+				
+				&copy; 2016 Peruzal &ndash;
+				
+				Xamarin iOS Guides by 
+				<a href="https://www.peruzal.com" target="_blank">Peruzal</a>
+			</aside>
+
+			<footer class="footer">
+				
+
+<nav class="pagination" aria-label="Footer">
+  <div class="previous">
+  
+  </div>
+
+  <div class="next">
+  
+      <a href="http://guides.peruzal.com/ios-guides/mvc/" title="Model View Controller in Frameworks">
+        <span class="direction">
+          Next
+        </span>
+        <div class="page">
+          <div class="stretch">
+            <div class="title">
+              Model View Controller in Frameworks
+            </div>
+          </div>
+          <div class="button button-next" role="button" aria-label="Next">
+            <i class="icon icon-forward"></i>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+</nav>
+
+
+
+
+
+			</footer>
+		</div>
+	</article>
+
+	<div class="results" role="status" aria-live="polite">
+		<div class="scrollable">
+			<div class="wrapper">
+				<div class="meta"></div>
+				<div class="list"></div>
+			</div>
+		</div>
+	</div>
+</main>
+
+    <script>
+    
+      var base_url = '';
+      var repo_id  = '';
+    
+    </script>
+
+    <script src="http://guides.peruzal.com/ios-guides/javascripts/application.js"></script>
+    
+
+    <script>
+      /* Add headers to scrollspy */
+      var headers   = document.getElementsByTagName("h2");
+      var scrollspy = document.getElementById('scrollspy');
+
+      if(scrollspy) {
+        if(headers.length > 0) {
+          for(var i = 0; i < headers.length; i++) {
+            var li = document.createElement("li");
+            li.setAttribute("class", "anchor");
+
+            var a  = document.createElement("a");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", headers[i].innerHTML);
+            a.innerHTML = headers[i].innerHTML;
+            
+            li.appendChild(a)
+            scrollspy.appendChild(li);
+          }
+        } else {
+          scrollspy.parentElement.removeChild(scrollspy)
+        }
+        
+
+        /* Add permanent link next to the headers */
+        var headers = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+
+        for(var i = 0; i < headers.length; i++) {
+            var a = document.createElement("a");
+            a.setAttribute("class", "headerlink");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", "Permanent link")
+            a.innerHTML = "#";
+            headers[i].appendChild(a);
+        }
+      }
+    </script>
+
+    
+
+    <script src="//gohugo.io/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/cs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/json.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/swift.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/xml.min.js"></script>    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/objectivec.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Mobile Device Security on Mobile Device Security and Penetration Testing Guide</title>
+    <link>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/</link>
+    <description>Recent content in Mobile Device Security on Mobile Device Security and Penetration Testing Guide</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Peruzal Mobile Device Security and Penetration Testing Guide</copyright>
+    <lastBuildDate>Tue, 08 Mar 2016 21:07:13 +0100</lastBuildDate>
+    
+	<atom:link href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Getting started</title>
+      <link>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/getting-started/</link>
+      <pubDate>Wed, 09 Mar 2016 00:11:02 +0100</pubDate>
+      
+      <guid>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/getting-started/</guid>
+      <description>Platforms To follow along the guide you will require the following :
+ Linux or Mac OS X machine Android SDK XCode Jailbroken iPhone Rooted Android device  The specific tools required for each platform are found in the guide as you continue.</description>
+    </item>
+    
+    <item>
+      <title>Mobile App Ecosystem</title>
+      <link>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/mobile-app-ecosystem/</link>
+      <pubDate>Sun, 01 Jan 2017 11:56:05 +0200</pubDate>
+      
+      <guid>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/mobile-app-ecosystem/</guid>
+      <description>The most popular mobile operating systems at the moment are
+ Android iOS Windows Mobile  Android has the largest market share by far, followed by iOS. Windows has only around 1-2% of the mobile ecosystem.
+Types of mobile apps They different ways available today to develop mobile apps.
+ Native mobile apps Hybrid mobile apps Web apps  Native mobile apps Native mobile apps are designed to be installed and run natively on the platform.</description>
+    </item>
+    
+    <item>
+      <title>License</title>
+      <link>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/license/</link>
+      <pubDate>Wed, 09 Mar 2016 20:10:46 +0100</pubDate>
+      
+      <guid>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/license/</guid>
+      <description>Copyright &amp;copy; 2016 Digitalcraftsman digitalcraftsman@protonmail.com
+Copyright &amp;copy; 2016 Martin Donath martin.donath@squidfunk.com
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the &amp;ldquo;Software&amp;rdquo;), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</description>
+    </item>
+    
+    <item>
+      <title>Resetting Android Lock Screen</title>
+      <link>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-reset-lock-pattern/</link>
+      <pubDate>Thu, 12 Jan 2017 05:16:31 +0200</pubDate>
+      
+      <guid>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-reset-lock-pattern/</guid>
+      <description>The Android lock pattern can be easily reset. Here are the steps to remove the lock screen :
+adb shell  Change to the /data/system folder
+cd /data/system  </description>
+    </item>
+    
+    <item>
+      <title>Android Insecure Data Storage</title>
+      <link>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-insecure-data-storage/</link>
+      <pubDate>Sun, 08 Jan 2017 17:16:38 +0200</pubDate>
+      
+      <guid>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-insecure-data-storage/</guid>
+      <description>Android apps usually store data locally on these places:
+ Shared preferences SQLite databases Internal storage External storage  Shared preferences The shared preferences are stored in an XML file. They are stored in the app&amp;rsquo;s data folder under the shared_prefs folder.
+SQLite databases SQLite databases are relational files that use a single file for storing data. The SQLite are suited for storing structured data on mobile. The database is only accessible to the app and not outside.</description>
+    </item>
+    
+    <item>
+      <title>Rooting Android Devices</title>
+      <link>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/rooting-android-devices/</link>
+      <pubDate>Sat, 07 Jan 2017 12:28:30 +0200</pubDate>
+      
+      <guid>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/rooting-android-devices/</guid>
+      <description>Android is built on Linux. In Linux they are different users but the super user is called root. This usr can perform any operation on the Android device. The process is enabling the root on the device is called rooting. Once a device is rooted you will have full root access to the device.
+Check for root access To check for root access, first open a shell on the device and change to the root user by running the su command.</description>
+    </item>
+    
+    <item>
+      <title>iOS Data Analysis and Recovery</title>
+      <link>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-data-analysis-and-recovery/</link>
+      <pubDate>Sun, 01 Jan 2017 12:11:05 +0200</pubDate>
+      
+      <guid>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-data-analysis-and-recovery/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Mobile Device Attack Vectors</title>
+      <link>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/mobile-device-attack-vectors/</link>
+      <pubDate>Sun, 01 Jan 2017 11:55:46 +0200</pubDate>
+      
+      <guid>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/mobile-device-attack-vectors/</guid>
+      <description>Mobile apps usually involves a three tier architecture. The mobile app, the API backend, and its associated database. We will be mainly concerned with attacks on the client side.
+Mobile device threats  Application data at rest Application data in transit Vulnerabilities in code Data leaks in the app Platform specific issues  Threats at the backend  Authentication/Authorization Session management Input validation Improper error handling Weak cryptography Attacks on the database  OWASP provides guidelines for testing and securing mobile apps.</description>
+    </item>
+    
+    <item>
+      <title>Mobile Malware</title>
+      <link>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/mobile-malware/</link>
+      <pubDate>Sun, 01 Jan 2017 11:53:30 +0200</pubDate>
+      
+      <guid>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/mobile-malware/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>iOS Network Attacks</title>
+      <link>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-network-attacks/</link>
+      <pubDate>Sun, 01 Jan 2017 11:53:18 +0200</pubDate>
+      
+      <guid>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-network-attacks/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>iOS Runtime Analysis</title>
+      <link>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-runtime-analysis/</link>
+      <pubDate>Sun, 01 Jan 2017 11:52:59 +0200</pubDate>
+      
+      <guid>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-runtime-analysis/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>iOS Traffic Analysis</title>
+      <link>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-traffic-analysis/</link>
+      <pubDate>Sun, 01 Jan 2017 11:52:43 +0200</pubDate>
+      
+      <guid>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-traffic-analysis/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>iOS Unintended Data Leakage</title>
+      <link>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-unintended-data-leakage/</link>
+      <pubDate>Sun, 01 Jan 2017 11:52:28 +0200</pubDate>
+      
+      <guid>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-unintended-data-leakage/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>iOS Insecure Local Data Storage</title>
+      <link>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-insecure-local-data-storage/</link>
+      <pubDate>Sun, 01 Jan 2017 11:52:12 +0200</pubDate>
+      
+      <guid>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-insecure-local-data-storage/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>iOS Data Analysis</title>
+      <link>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-data-analysis/</link>
+      <pubDate>Sun, 01 Jan 2017 11:51:37 +0200</pubDate>
+      
+      <guid>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-data-analysis/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>iOS Data Acqusition</title>
+      <link>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-data-acqusition/</link>
+      <pubDate>Sun, 01 Jan 2017 11:51:26 +0200</pubDate>
+      
+      <guid>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-data-acqusition/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Setting up and iOS Pentesting Lab</title>
+      <link>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/setting-up-ios-pentesting-lab/</link>
+      <pubDate>Sun, 01 Jan 2017 11:50:56 +0200</pubDate>
+      
+      <guid>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/setting-up-ios-pentesting-lab/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Jailbreaking iOS Devices</title>
+      <link>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/jailbreaking-ios-devices/</link>
+      <pubDate>Sun, 01 Jan 2017 11:50:32 +0200</pubDate>
+      
+      <guid>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/jailbreaking-ios-devices/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>iOS Internals</title>
+      <link>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-internals/</link>
+      <pubDate>Sun, 01 Jan 2017 11:50:20 +0200</pubDate>
+      
+      <guid>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/ios-internals/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Setting Up iOS Development Environment</title>
+      <link>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/setting-up-ios-development-environment/</link>
+      <pubDate>Sun, 01 Jan 2017 11:49:54 +0200</pubDate>
+      
+      <guid>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/setting-up-ios-development-environment/</guid>
+      <description>Hardware and OS requirements  A workstation/laptop running Windows 7 (64-bit) A MacBook running Yosemite OS X 10.10 or higher  Mobile Devices and OS requirements: iPhone or iPad running iOS 8.4 or above (jailbroken)
+Note
+Why do you need a rooted or jailbroken phone for your test environment?
+It is as simple as the ability to customize and install any tools and also to run unsigned apps from nontraditional app stores on the device.</description>
+    </item>
+    
+    <item>
+      <title>OWASP Top 10 Mobile Risks</title>
+      <link>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/owasp-mobile-top-10-risks/</link>
+      <pubDate>Sun, 01 Jan 2017 11:49:18 +0200</pubDate>
+      
+      <guid>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/owasp-mobile-top-10-risks/</guid>
+      <description>OWASP have come up with 10 risks that are affecting the security mobile apps.
+ M1: Weak Server-Side Controls M2: Insecure Data Storage M3: Insufficient Transport Layer Protection M4: Unintended Data Leakage M5: Poor Authorization and Authentication M6: Broken Cryptography M7: Client-Side Injection M8: Security Decisions via Untrusted Inputs M9: Improper Session Handling M10: Lack of Binary Protections  M1: Weak Server-Side Controls This deals with the attacks targeting the backend of the mobile app.</description>
+    </item>
+    
+    <item>
+      <title>Android Data Extraction</title>
+      <link>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-data-extraction/</link>
+      <pubDate>Sun, 01 Jan 2017 11:48:54 +0200</pubDate>
+      
+      <guid>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-data-extraction/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Android Forensic Tools</title>
+      <link>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-forensic-tools/</link>
+      <pubDate>Sun, 01 Jan 2017 11:48:39 +0200</pubDate>
+      
+      <guid>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-forensic-tools/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Android Security Model</title>
+      <link>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-security-model/</link>
+      <pubDate>Sun, 01 Jan 2017 11:48:14 +0200</pubDate>
+      
+      <guid>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-security-model/</guid>
+      <description>App Sandboxing On Android each app does only have access to its own data. Each app belongs to a single user. Each application has an entry in /data/data/&amp;lt;package-name&amp;gt;. The folder are not readable and writable by an other user other than the owner of the app.
+Only the root user have access to any part of the system. Once the device is rooted, an app with root permissions can access any data on the system.</description>
+    </item>
+    
+    <item>
+      <title>Android Fundamentals</title>
+      <link>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-fundamentals/</link>
+      <pubDate>Sun, 01 Jan 2017 11:47:51 +0200</pubDate>
+      
+      <guid>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-fundamentals/</guid>
+      <description>Basics of Android An Android app is made up several components :
+ Activity Service Content Provider Broadcast Receivers  Activity An activity is equivalent to one screen of an app. Common activities are login, sign up, stream, settings and on-boarding screens. Most the apps functionality is performing with activities. Most the security testing is done here. An activity has an entry in the AndroidManifest.xml file.
+&amp;lt;activity android:label=&amp;quot;@string/login_activity&amp;quot; android:name=&amp;quot;com.peruzal.praat.LoginActivity&amp;quot; /&amp;gt;  A common security vulnerability is exported activities.</description>
+    </item>
+    
+    <item>
+      <title>Setting up Android Lab Environment</title>
+      <link>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/setting-up-android-lab-environment/</link>
+      <pubDate>Sun, 01 Jan 2017 11:47:24 +0200</pubDate>
+      
+      <guid>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/setting-up-android-lab-environment/</guid>
+      <description>Tools To setup the environment for pen testing Android devices, the full Android Development Environment together with several tools are required.
+ Android Studio Android SDK APKTool JD-Gui SUPER Android Analyzer MobSF (Mobile Security Framework) Drozer AndroBugs Burp Suite QARK(Quick Android Review Kit) Postman SQLite Browser Vulnerable Android apps  Android Studio Android Studio is the official IDE for developing Android apps. Android Studio is available for both Windows, Linux and Mac.</description>
+    </item>
+    
+  </channel>
+</rss>

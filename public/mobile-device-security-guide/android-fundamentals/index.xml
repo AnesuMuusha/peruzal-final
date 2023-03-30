@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Android-fundamentals on Mobile Device Security and Penetration Testing Guide</title>
+    <link>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-fundamentals/</link>
+    <description>Recent content in Android-fundamentals on Mobile Device Security and Penetration Testing Guide</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Peruzal Mobile Device Security and Penetration Testing Guide</copyright>
+    <lastBuildDate>Sun, 01 Jan 2017 11:47:51 +0200</lastBuildDate>
+    
+	<atom:link href="https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-fundamentals/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Android Fundamentals</title>
+      <link>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-fundamentals/</link>
+      <pubDate>Sun, 01 Jan 2017 11:47:51 +0200</pubDate>
+      
+      <guid>https://guides.peruzal.com/mobile-device-security-and-penetration-testing-guide/android-fundamentals/</guid>
+      <description>Basics of Android An Android app is made up several components :
+ Activity Service Content Provider Broadcast Receivers  Activity An activity is equivalent to one screen of an app. Common activities are login, sign up, stream, settings and on-boarding screens. Most the apps functionality is performing with activities. Most the security testing is done here. An activity has an entry in the AndroidManifest.xml file.
+&amp;lt;activity android:label=&amp;quot;@string/login_activity&amp;quot; android:name=&amp;quot;com.peruzal.praat.LoginActivity&amp;quot; /&amp;gt;  A common security vulnerability is exported activities.</description>
+    </item>
+    
+  </channel>
+</rss>

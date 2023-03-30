@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Calculated-fields on Introduction to SQL</title>
+    <link>http://guides.peruzal.com/introduction-to-sql/calculated-fields/index.xml</link>
+    <description>Recent content in Calculated-fields on Introduction to SQL</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Copyright 2017 Peruzal</copyright>
+    <lastBuildDate>Tue, 28 Feb 2017 22:33:35 +0200</lastBuildDate>
+    <atom:link href="http://guides.peruzal.com/introduction-to-sql/calculated-fields/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Calculated Fields</title>
+      <link>http://guides.peruzal.com/introduction-to-sql/calculated-fields/</link>
+      <pubDate>Tue, 28 Feb 2017 22:33:35 +0200</pubDate>
+      
+      <guid>http://guides.peruzal.com/introduction-to-sql/calculated-fields/</guid>
+      <description>
+
+&lt;h2 id=&#34;understanding-calculated-fields&#34;&gt;Understanding Calculated Fields&lt;/h2&gt;
+
+&lt;p&gt;Calculated field are created on the fly and do not exist in the database. We might want to retrieve the first name and last name columns together but in the database they are stored separately, so we can use a calculated field to join them together and return them as a single column.&lt;/p&gt;
+
+&lt;h2 id=&#34;concatenating-fields&#34;&gt;Concatenating Fields&lt;/h2&gt;
+
+&lt;p&gt;We use the + operator to concatenate two columns together. In the following sql statement we have added parantheses to the county retrieved&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT vend_name + &#39; (&#39; + vend_country + &#39;)&#39;
+FROM Vendors
+ORDER BY vend_name;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We can also use the || operator for concatenation.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT vend_name || &#39; (&#39; || vend_country || &#39;)&#39;
+FROM Vendors
+ORDER BY vend_name;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;using-aliases&#34;&gt;Using aliases&lt;/h3&gt;
+
+&lt;p&gt;When using a calculated field you will notice the new column does not have a meaningful name. We can create an alias for the column. We use the AS keyword immediately after the calculated field.&lt;/p&gt;
+
+&lt;p&gt;In the following statement we will give the calculated field a name called vendor_title :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT vend_name || &#39; (&#39; || vend_country || &#39;)&#39; AS vend_title
+FROM Vendors
+ORDER BY vend_name;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can also skip the AS and just put the column name after the calculated and it will work fine, but its recommend that you use the AS keyword.&lt;/p&gt;
+
+&lt;h2 id=&#34;performing-mathematical-calculations&#34;&gt;Performing Mathematical Calculations&lt;/h2&gt;
+
+&lt;p&gt;We can also use calculated fields in performing mathematical calculations. In the following statement we use the calculated field to calculate the expanded price :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT prod_id,
+       quantity,
+       item_price,
+       quantity*item_price AS expanded_price
+FROM OrderItems
+WHERE order_num = 20008;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
